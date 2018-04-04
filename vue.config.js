@@ -12,7 +12,7 @@ module.exports = {
   },
   configureWebpack: {
     output: {
-      publicPath: '/',
+      publicPath: '/h5',
       chunkFilename: "js/[name].js"
     }
   },
