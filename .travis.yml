@@ -1,12 +1,15 @@
 language: node_js
 env:
    - BASE_URL=$BASE_URL
+   - VUE_APP_API_HOST=$VUE_APP_API_HOST
+   - VUE_APP_ROUTER_MODE=$VUE_APP_ROUTER_MODE
 node_js:
     - 8
 cache:
   directories:
     - "node_modules"
 before_install:
+    - echo $VUE_APP_ROUTER_MODE
     - copy ./.env.example ./.env
 install:
     yarn install
