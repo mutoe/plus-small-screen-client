@@ -9,8 +9,7 @@ cache:
   directories:
     - "node_modules"
 before_install:
-    - echo $VUE_APP_ROUTER_MODE
-    - copy ./.env.example ./.env
+    - cp ./.env.example ./.env
 install:
     yarn install
 script:
