@@ -1,3 +1,4 @@
+import bus from "@/bus.js";
 export default {
   computed: {
     // 文本内容
@@ -35,7 +36,7 @@ export default {
      * @author jsonleex <jsonlseex@163.com>
      */
     viewFeed() {
-      this.$router.push(`/feed-detail/${this.feed.id}`);
+      this.$router.push(`/feed/${this.feed.id}`);
     },
     formatData() {
       console.log("format data");
@@ -63,6 +64,27 @@ export default {
         });
     },
     moreAction() {
+      const actions = [
+        {
+          text: "分享",
+          method: () => {
+            console.log("分享");
+          }
+        },
+        {
+          text: "收藏",
+          method: () => {
+            console.log("收藏");
+          }
+        },
+        {
+          text: "举报",
+          method: () => {
+            console.log("举报");
+          }
+        }
+      ];
+      bus.$emit("actionSheet", actions, "取消");
       console.log("更多操作");
     },
     /**
