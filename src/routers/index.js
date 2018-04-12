@@ -8,9 +8,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes,
-  base: process.env.BASE_URL,
-  strict: process.env.NODE_ENV !== "production",
-  mode: process.env.VUE_APP_ROUTER_MODE || "hash",
+  mode: "hash",
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return {
