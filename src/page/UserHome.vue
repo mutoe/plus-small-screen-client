@@ -13,15 +13,15 @@
       class="m-box m-lim-width m-pos-f m-head-top bg-transp"
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class='m-style-svg m-svg-def' @click='goback'>
+        <svg class='m-style-svg m-svg-def' @click='goBack'>
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"></use>
         </svg>
-        <svg v-show="updating" class="m-style-svg m-svg-def rotate">
+        <svg v-show="updating" class="m-style-svg m-svg-def">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading"></use>
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center m-trans-y">
-        {{ user.name }}
+        <span>{{ user.name }}</span>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
         <svg class="m-style-svg m-svg-def">
@@ -33,15 +33,15 @@
       <div></div>
       <div></div>
     </div>
-    <main>    
+    <main :style="{'padding-bottom': isMine ? '0' : '0.9rem'}">    
       <div ref="banner" class="m-urh-banner" 
       :style="[userBackGround,paddingTop, {transitionDuration: dragging ? '0s' : '300ms'}]">
         <div class="m-box-model m-aln-center m-justify-end m-pos-f">
           <avatar :user="user" size="big" />
           <h3>{{ user.name }}</h3>
           <p>
-            <span>粉丝<i>{{ followersCount | formatNum }}</i></span>
-            <span>关注<i>{{ followingsCount | formatNum }}</i></span>
+            <router-link append to="fans??type=followers" tag="span">粉丝<i>{{ followersCount | formatNum }}</i></router-link>
+            <router-link append to="fans?type=followings" tag="span">关注<i>{{ followingsCount | formatNum }}</i></router-link>
           </p>
         </div>
       </div>
@@ -103,11 +103,39 @@
         </span>
       </div>
     </main>
+    <footer v-if="!isMine" ref='foot' class="m-box m-pos-f m-main m-bt1 m-user-home-foot">
+      <div class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center" @click="rewardUser">
+        <svg class="m-style-svg m-svg-def">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#profile-integral"></use>
+        </svg>
+        <span>打赏</span>
+      </div>
+      <div 
+      class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center"
+      :class="{ c_59b6d7: relation.status !== 'unFollow' }"
+      @click="followUserByStatus(relation.status)">
+        <svg class="m-style-svg m-svg-def">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="relation.icon"></use>
+        </svg>
+        <span>{{ relation.text }}</span>
+      </div>
+      <router-link tag="div" :to="`/chats/${user.id}`" class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center">
+        <svg class="m-style-svg m-svg-def">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#message-comments"></use>
+        </svg>
+        <span>聊天</span>
+      </router-link>
+    </footer>
   </div>
 </template>
 <script>
 import _ from "lodash";
+import bus from "@/bus.js";
+import Wx from "weixin-js-sdk";
+import wx from "@/util/share.js";
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
+import HeadRoom from "headroom.js";
+
 export default {
   name: "user-home",
   directives: {
@@ -157,10 +185,28 @@ export default {
       noMoreData: false,
       fetchFeeding: false,
 
-      tags: []
+      tags: [],
+      appList: [
+        "onMenuShareQZone",
+        "onMenuShareQQ",
+        "onMenuShareAppMessage",
+        "onMenuShareTimeline"
+      ],
+      config: {
+        appid: "",
+        signature: "",
+        timestamp: "",
+        noncestr: ""
+      },
+      footroom: null,
+
+      fetchFollow: false
     };
   },
   computed: {
+    isWechat() {
+      return this.$store.state.BROWSER.isWechat;
+    },
     currentUser() {
       return this.$store.state.CURRENTUSER;
     },
@@ -172,7 +218,7 @@ export default {
         return this.$store.getters.getUserById(this.userID) || {};
       },
       set(val) {
-        this.$store.commit("SAVE_USER", Object.assign({}, this.user, val));
+        this.$store.commit("SAVE_USER", Object.assign(this.user, val));
       }
     },
     extra() {
@@ -215,6 +261,29 @@ export default {
     after() {
       const len = this.feeds.length;
       return len > 0 ? this.feeds[len - 1].id : "";
+    },
+    relation() {
+      const relations = {
+        unFollow: {
+          text: "关注",
+          status: "unFollow",
+          icon: `#base-unFollow`
+        },
+        follow: {
+          text: "已关注",
+          status: "follow",
+          icon: `#base-follow`
+        },
+        eachFollow: {
+          text: "互相关注",
+          status: "eachFollow",
+          icon: `#base-eachFollow`
+        }
+      };
+      const { follower, following } = this.user;
+      return relations[
+        follower && following ? "eachFollow" : follower ? "follow" : "unFollow"
+      ];
     }
   },
   watch: {
@@ -231,8 +300,29 @@ export default {
     }
   },
   methods: {
-    goback() {
-      this.$router.back();
+    rewardUser() {
+      // POST /user/:user/rewards
+      bus.$emit("reward:user", this.user.id);
+    },
+    followUserByStatus(status) {
+      if (!status) return;
+      if (this.fetchFollow) return false;
+      this.fetchFollow = true;
+      this.$store
+        .dispatch("FOLLOW_USER", {
+          id: this.user.id,
+          status
+        })
+        .then(({ follower }) => {
+          this.fetchFollow = false;
+          this.user.follower = follower;
+        })
+        .catch(err => {
+          const { response: { data = { message: "操作失败" } } = {} } = err;
+
+          this.fetchFollow = false;
+          this.$Message.error(data);
+        });
     },
     hidenFilter() {
       this.showFilter = false;
@@ -241,7 +331,7 @@ export default {
       this.$http
         .get(`/users/${this.userID}`)
         .then(({ data = {} }) => {
-          this.user = Object.assign({}, this.user, data);
+          this.user = Object.assign(this.user, data);
           this.preID = this.userID;
           this.loading = false;
         })
@@ -312,11 +402,142 @@ export default {
     stopDrag() {
       this.dragging = false;
       this.dY > 300 && this.scrollTop <= 0 ? this.updateData() : (this.dY = 0);
+    },
+    shareSuccess() {
+      this.$Message.success("分享成功");
+    },
+    shareCancel() {
+      this.$Message.success("取消分享");
+    },
+    // 微信内分享
+    getWeChatConfig() {
+      const url =
+        window.location.origin +
+        process.env.BASE_URL.substr(0, process.env.BASE_URL.length - 1) +
+        this.$route.fullPath;
+      if (this.config.appid === "") {
+        wx.getOauth(url).then(res => {
+          this.config.timestamp = res.timestamp || "";
+          this.config.signature = res.signature || "";
+          this.config.appid = res.appid || "";
+          this.config.noncestr = res.noncestr || "";
+          Wx.config({
+            debug: false,
+            appId: this.config.appid,
+            timestamp: this.config.timestamp,
+            signature: this.config.signature,
+            nonceStr: this.config.noncestr,
+            jsApiList: this.appList
+          });
+          Wx.ready(() => {});
+          Wx.error(() => {
+            // console.log(res);
+          });
+          Wx.onMenuShareTimeline({
+            title: this.user.name,
+            desc: "我发现了一个好玩的家伙,来看看吧",
+            link: url,
+            imgUrl: this.user.avatar,
+            success: () => {
+              this.shareSuccess();
+            },
+            cancel: () => {
+              this.shareCancel();
+            }
+          });
+          Wx.onMenuShareAppMessage({
+            title: this.user.name,
+            desc: "我发现了一个好玩的家伙,来看看吧",
+            link: url,
+            imgUrl: this.user.avatar,
+            success: () => {
+              this.shareSuccess();
+            },
+            cancel: () => {
+              this.shareCancel();
+            }
+          });
+          Wx.onMenuShareQQ({
+            title: this.user.name,
+            desc: "我发现了一个好玩的家伙,来看看吧",
+            link: url,
+            imgUrl: this.user.avatar,
+            success: () => {
+              this.shareSuccess();
+            },
+            cancel: () => {
+              this.shareCancel();
+            }
+          });
+        });
+      } else {
+        Wx.config({
+          debug: false,
+          appId: this.config.appid,
+          timestamp: this.config.timestamp,
+          signature: this.config.signature,
+          nonceStr: this.config.noncestr,
+          jsApiList: this.appList
+        });
+
+        Wx.ready(() => {}),
+          Wx.error(() => {
+            // console.log(res);
+          });
+        Wx.onMenuShareTimeline({
+          title: this.user.name,
+          desc: "我发现了一个好玩的家伙,来看看吧",
+          link: url,
+          imgUrl: this.user.avatar,
+          success: () => {
+            this.shareSuccess();
+          },
+          cancel: () => {
+            this.shareCancel();
+          }
+        });
+        Wx.onMenuShareAppMessage({
+          title: this.user.name,
+          desc: "我发现了一个好玩的家伙,来看看吧",
+          link: url,
+          imgUrl: this.user.avatar,
+          success: () => {
+            this.shareSuccess();
+          },
+          cancel: () => {
+            this.shareCancel();
+          }
+        });
+        Wx.onMenuShareQQ({
+          title: this.user.name,
+          desc: "我发现了一个好玩的家伙,来看看吧",
+          link: url,
+          imgUrl: this.user.avatar,
+          success: () => {
+            this.shareSuccess();
+          },
+          cancel: () => {
+            this.shareCancel();
+          }
+        });
+      }
     }
   },
   mounted() {
     this.typeFilter = this.$refs.typeFilter;
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
+
+    this.isMine ||
+      ((this.footroom = new HeadRoom(this.$refs.foot, {
+        tolerance: 5,
+        offset: 50,
+        classes: {
+          initial: "headroom-foot",
+          pinned: "headroom--footShow",
+          unpinned: "headroom--footHide"
+        }
+      })),
+      this.footroom.init());
   },
   activated() {
     this.preID !== this.userID
@@ -325,6 +546,9 @@ export default {
           this.loading = false;
         }, 600);
     window.addEventListener("scroll", this.onScroll);
+    if (this.isWechat) {
+      this.getWeChatConfig();
+    }
   },
   deactivated() {
     this.loading = true;
@@ -338,6 +562,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.m-user-home-foot {
+  height: 90px;
+  top: initial;
+  bottom: 0;
+  font-size: 30px;
+  > div {
+    width: 1/3 * 100%;
+    + div {
+      border-left: 1px solid @border-color; /*no*/
+    }
+  }
+  .m-svg-def {
+    width: 32px;
+    height: 32px;
+    margin: 0 10px;
+  }
+}
 .m-urh-banner {
   padding-top: 320/640 * 100%;
   width: 100%;

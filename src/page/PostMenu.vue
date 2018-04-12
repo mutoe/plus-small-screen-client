@@ -43,7 +43,11 @@
             <img src="../images/ico_attendance@3x.png">
             <span>签到</span>
           </div>
-          <div v-if="open" key="ico_question" class="m-box-model m-aln-center m-post-menu-item">
+          <div
+          v-if="open"
+          key="ico_question"
+          @click="to('/post/question')"
+          class="m-box-model m-aln-center m-post-menu-item">
             <img src="../images/ico_question@3x.png">
             <span>提问</span>
           </div>
@@ -76,16 +80,13 @@ export default {
   data() {
     return {
       show: false,
-      open: false,
-      scrollTop: 0
+      open: false
     };
   },
   created() {
     bus.$on("post-menu", () => {
       this.show = true;
-      this.scrollTop = document.scrollingElement.scrollTop;
-      document.body.classList.add("m-pop-open");
-      document.body.style.top = -this.scrollTop + "px";
+      this.scrollable = false;
     });
   },
   computed: {
@@ -116,10 +117,8 @@ export default {
     },
     cancel() {
       this.show = false;
+      this.scrollable = true;
       this.open = false;
-      document.body.style.top = "";
-      document.body.classList.remove("m-pop-open");
-      document.scrollingElement.scrollTop = this.scrollTop;
     },
     transitionComplete() {
       this.$nextTick(() => {
