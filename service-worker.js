@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.3.1/workbox-sw.js");
 
 importScripts(
-  "/plus-small-screen-client/precache-manifest.d917797d57dbffe066d91ecad72dbbbb.js"
+  "/plus-small-screen-client/precache-manifest.03a7bd59e0292823bf3196c32a5963f5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@slimkit/plus-small-screen-client"});
