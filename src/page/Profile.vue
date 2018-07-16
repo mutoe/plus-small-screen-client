@@ -93,17 +93,21 @@
           </router-link> -->
         </ul>
         <ul class="m-box-model m-entry-group">
-          <!-- to="/wallet" tag="li" -->
-          <li class="m-entry">
-            <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-wallet"/>
-            </svg>
+          <router-link
+            to="/wallet"
+            class="m-entry"
+            tag="li">
+            <v-icon
+              type="profile-wallet"
+              class="m-entry-prepend"/>
             <span class="m-text-box m-flex-grow1">钱包</span>
             <span class="m-entry-extra">{{ new_balance }}</span>
-            <!--             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r"></use>
-            </svg> -->
-          </li>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xlink:href="#base-arrow-r"/>
+            </svg>
+          </router-link>
           <!-- to="/upgrade" tag="li" -->
           <li class="m-entry">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
