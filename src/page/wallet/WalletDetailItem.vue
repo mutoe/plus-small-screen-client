@@ -5,9 +5,9 @@
     <div
       class="m-wallet-detail-time"
       v-html="created_at"/>
-    <div class="m-wallet-detail-title" >{{ detail.subject }}</div>
+    <div class="m-wallet-detail-title" >{{ detail.body }}</div>
     <div class="m-wallet-detail-amount">
-      {{ detail.action ? '+' : '-' }}{{ detail.amount.toFixed(2) }}
+      {{ detail.type > 0 ? '+' : '-' }}{{ (detail.amount / 100).toFixed(2) }}
     </div>
   </div>
 </template>

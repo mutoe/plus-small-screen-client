@@ -9,6 +9,8 @@ const WalletWithdraw = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletWithdraw.vue");
 const WalletDetail = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletDetail.vue");
+const WalletInfo = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletInfo.vue");
 
 export default [
   {
@@ -38,6 +40,13 @@ export default [
     component: WalletDetail,
     meta: {
       title: "明细"
+    }
+  },
+  {
+    path: "/wallet/detail/:id",
+    component: WalletInfo,
+    meta: {
+      title: "明细详情"
     }
   }
 ];

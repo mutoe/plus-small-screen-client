@@ -1,6 +1,20 @@
 <template>
   <div class="wallet-info--detail">
-    <div class="wallet-info--detail--head">账单详情</div>
+    <header class="m-box m-head-top m-pos-f m-main m-bb1">
+      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
+        <svg
+          class="m-style-svg m-svg-def"
+          @click="goBack">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#base-back"/>
+        </svg>
+      </div>
+      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center">
+        账单详情
+      </div>
+      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-end"/>
+    </header>
     <div class="wallet-info--detail--body">
       <p>交易{{ detail.status ? '成功' : '失败' }}</p>
       <h2>{{ detail.action ? '+' : '-' }}{{ detail.amount.toFixed(2) }}</h2>
@@ -27,13 +41,22 @@
 <script>
 export default {
   name: "WalletInfoDetail",
-  props: {
-    detail: { type: Object, default: () => {} }
+  // props: {
+  //   detail: { type: Object, default: () => {} }
+  // },
+  data() {
+    return {
+      detail: {}
+    };
   },
   computed: {
     user() {
       return this.$store.state.CURRENTUSER;
     }
+  },
+  mounted() {
+    console.log(this.$route.meta);
+    this.detail = this.$route.meta.data;
   }
 };
 </script>
@@ -43,17 +66,10 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-  margin: auto;
+  top: 0;
+  bottom: 0;
   z-index: 111;
-
-  width: 650px;
-  min-height: 650px;
-  max-height: 85%;
-
   background-color: #fff;
-  border-radius: 20px;
   overflow: hidden;
 
   &--head {

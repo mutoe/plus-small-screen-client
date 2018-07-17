@@ -22,8 +22,7 @@
       ref="loadmore"
       :on-refresh="onRefresh"
       :on-load-more="onLoadMore"
-      class="m-wallet-list"
-    >
+      class="m-wallet-list">
       <wallet-detail-item
         v-for="item in list"
         v-if="item.id"
@@ -31,21 +30,6 @@
         :detail="item"
         @click="showDetail(item)" />
     </load-more>
-    <div @touchmove.prevent>
-      <transition name="toast">
-        <div
-          v-if="show"
-          class="m-pop-box"
-          @click="show = false"/>
-      </transition>
-      <transition
-        v-if="show"
-        name="fade">
-        <walletInfo
-          v-if="currInfo && currInfo.id"
-          :detail="currInfo"/>
-      </transition>
-    </div>
   </div>
 </template>
 
@@ -68,8 +52,7 @@ export default {
       ],
       currAction: "",
       list: [],
-      currInfo: null,
-      show: false
+      currInfo: null
     };
   },
   computed: {
@@ -82,33 +65,19 @@ export default {
     currAction() {
       this.list = [];
       this.$refs.loadmore.beforeRefresh();
-    },
-    show(val) {
-      if (val) {
-        this.scrollTop = document.scrollingElement.scrollTop;
-        document.body.classList.add("m-pop-open");
-        document.body.style.top = -this.scrollTop + "px";
-      } else {
-        document.body.style.top = "";
-        document.body.classList.remove("m-pop-open");
-        document.scrollingElement.scrollTop = this.scrollTop;
-      }
     }
   },
   methods: {
     showDetail(val) {
-      this.currInfo = val;
-      this.show = true;
+      this.$router.push({
+        path: `/wallet/detail/${val.id}`,
+        meta: { data: val }
+      });
     },
     onRefresh() {
-      this.$http
-        .get("/wallet/charges", {
-          params: {
-            action: this.currAction,
-            limit: 15
-          }
-        })
-        .then(({ data = [] }) => {
+      this.$store
+        .dispatch("wallet/getWalletOrders", { action: this.currAction })
+        .then(data => {
           if (data.length > 0) {
             this.list = this.uniqById(data, this.list);
           }
@@ -116,19 +85,16 @@ export default {
         });
     },
     onLoadMore() {
-      this.$http
-        .get("/wallet/charges", {
-          params: {
-            action: this.currAction,
-            limit: 15,
-            after: this.after
-          }
+      this.$store
+        .dispatch("wallet/getWalletOrders", {
+          action: this.currAction,
+          after: this.after
         })
-        .then(({ data = [] }) => {
+        .then(data => {
           if (data.length > 0) {
             this.list = [...this.list, ...data];
           }
-          this.$refs.loadmore.bottomEnd(data.length < 15);
+          this.$refs.loadmore.bottomEnd(!(data.length < 15));
         });
     }
   }
