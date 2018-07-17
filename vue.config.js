@@ -12,6 +12,7 @@ module.exports = {
   },
   configureWebpack: {
     output: {
+      publicPath: '/h5/',
       chunkFilename: "js/[name]-[chunkhash].js"
     }
   },
