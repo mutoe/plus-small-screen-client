@@ -2,11 +2,11 @@
   <div class="p-wallet wallet">
     <header class="m-box m-head-top">
       <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center">
-        <svg 
-          class="m-style-svg m-svg-def" 
+        <svg
+          class="m-style-svg m-svg-def"
           @click="goBack">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             xlink:href="#base-back"/>
         </svg>
       </div>
@@ -14,9 +14,9 @@
         <h2>钱包</h2>
       </div>
       <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center m-justify-end">
-        <router-link 
-          slot="append" 
-          :to="{ path: 'detail' }" 
+        <router-link
+          slot="append"
+          :to="{ path: 'detail' }"
           append>明细</router-link>
       </div>
     </header>
@@ -25,33 +25,33 @@
       <p>{{ balance }}</p>
     </section>
     <ul class="m-box-model m-entry-group padding">
-      <router-link 
-        :to="{path: &quot;recharge&quot;}" 
-        append 
-        tag="li" 
+      <router-link
+        :to="{path: &quot;recharge&quot;}"
+        append
+        tag="li"
         class="m-entry">
         <svg class="m-style-svg m-svg-def m-entry-prepend">
           <use xlink:href="#wallet-recharge"/>
         </svg>
         <span class="m-text-box m-flex-grow1">充值</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             xlink:href="#base-arrow-r"/>
         </svg>
       </router-link>
-      <router-link 
-        :to="{path: &quot;withdraw&quot;}" 
-        append 
-        tag="li" 
+      <router-link
+        :to="{path: &quot;withdraw&quot;}"
+        append
+        tag="li"
         class="m-entry">
         <svg class="m-style-svg m-svg-def m-entry-prepend">
           <use xlink:href="#wallet-withdraw"/>
         </svg>
         <span class="m-text-box m-flex-grow1">提现</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             xlink:href="#base-arrow-r"/>
         </svg>
       </router-link>

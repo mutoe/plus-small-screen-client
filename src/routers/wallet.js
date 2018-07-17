@@ -1,19 +1,19 @@
 /**
  * 钱包模块
  */
-const wallet = () =>
-  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/wallet");
+const Wallet = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/Wallet.vue");
 const WalletRecharge = () =>
-  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletRecharge");
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletRecharge.vue");
 const WalletWithdraw = () =>
-  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletWithdraw");
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletWithdraw.vue");
 const WalletDetail = () =>
-  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletDetail");
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletDetail.vue");
 
 export default [
   {
     path: "/wallet",
-    component: wallet,
+    component: Wallet,
     meta: {
       title: "钱包",
       requiresAuth: true
