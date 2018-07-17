@@ -2,7 +2,7 @@
 	<a href="http://www.thinksns.com" rel="noopener" target="_blank"><img src="https://github.com/slimkit/plus-small-screen-client/raw/master/public/plus.png" alt="Plus (ThinkSNS+) Logo"></a>
 </p>
 
-<h1 align="center">The Small Screen Client for [Plus(ThinkSNS+)](https://github.com/slimkit/plus)</h1>
+<h1 align="center">The Small Screen Client for <a href="https://github.com/slimkit/plus">Plus(ThinkSNS+)</a></h1>
 
 <div align="center">
 
