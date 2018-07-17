@@ -58,7 +58,7 @@ VUE_APP_LBS_GAODE_KEY=                                 # 高德地图 GAODE KEY
 - `hash` 模式：无需后端支持，利用浏览器的「锚」功能进行路由定位。
 - `history` 模式：需要后端的路由转发支持，正确设置的情况是所有请求都转发到 `index.html` 文件上
 
-更加详细的描述请参考 👉 [`vue-route mode`](https://router.vuejs.org/zh-cn/api/options.html#mode)
+更加详细的描述请看 👉 [API 参考#mode](https://router.vuejs.org/zh/api/#mode)
 
 ### 跨域问题
 
