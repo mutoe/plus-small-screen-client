@@ -52,6 +52,32 @@
 
 全局钩子挂载于 `./src/bus.js` 下的事件总线上。
 
+### ActionSheet
+
+呼出底部按钮弹框
+
+#### 调用方法
+``` js
+import bus from "@/bus";
+/**
+ * @typedef {Object} ActionButton
+ * @property {string} text - 按钮的文字
+ * @property {Function} method - 按钮的回调方法
+ * @property {Object} [style] - 按钮的样式
+ */
+const actions = [
+  { text: '确定', method: () => { console.log('button clicked!') }, style: { color: 'green' } }
+]
+/**
+ * Call actionSheet
+ * @author jsonleex <jsonlseex@163.com>
+ * @param {ActionButton[]} btnLists - [{ text: "确定", method: () => {} }, ...]
+ * @param {string} [cancelTxt] - "取消"
+ * @param {string} [tips] - 提示文字
+ */
+bus.$emit('actionSheet', actions, '取消', '你确定要这么做吗？');
+```
+
 ### 打赏 (reward)
 
 呼出打赏窗口

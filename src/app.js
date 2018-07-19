@@ -5,7 +5,7 @@ import { mapActions, mapState } from "vuex";
 import PSWP from "./components/pswp";
 import PostMenu from "./page/PostMenu";
 import Payable from "./components/payfor";
-import ActionSheet from "./components/actionsheet";
+import ActionSheet from "./components/ActionSheet.vue";
 import CommentInput from "./components/commentInput";
 import SvgIcon from "./components/common/svgIcon";
 import CheckIn from "./page/checkin/CheckIn";

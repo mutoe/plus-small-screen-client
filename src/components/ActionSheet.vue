@@ -20,8 +20,9 @@
             :key="btn.text"
             :style="btn.style"
             class="m-acbtn"
-            @click="btn.methods(btn, index)"
-          ><a href="javascript:;">{{ btn.text }}</a></li>
+            @click="btn.methods(btn, index)">
+            <a href="javascript:;">{{ btn.text }}</a>
+          </li>
         </ul>
         <ul class="m-acbtn-list">
           <li
@@ -32,14 +33,22 @@
     </transition>
   </div>
 </template>
+
 <script>
+/**
+ * @typedef {Object} ActionButton
+ * @property {string} text - 按钮的文字
+ * @property {Function} method - 按钮的回调方法
+ * @property {Object} style - 按钮的样式
+ */
+
 import bus from "@/bus.js";
 export default {
-  name: "Actionsheet",
+  name: "ActionSheet",
   data() {
     return {
       lists: [],
-      tips: null,
+      tips: "",
       show: false,
       scrollTop: 0,
       cancelBtn: "取消"
@@ -49,8 +58,9 @@ export default {
     /**
      * Call actionSheet
      * @author jsonleex <jsonlseex@163.com>
-     * @param  {Array}   btnLists   [{ text: "确定", method: () => {} }, ...]
-     * @param  {String}  cancelTxt  "取消"
+     * @param {ActionButton[]} btnLists [{ text: "确定", method: () => {} }, ...]
+     * @param {string} cancelTxt "取消"
+     * @param {string} tips 提示文字
      */
     bus.$on("actionSheet", (btnLists, cancelTxt, tips = null) => {
       this.tips = tips;
@@ -83,3 +93,36 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.m-acbtn-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: @gray-bg;
+  .m-acbtn-tips {
+    padding: 20px 30px;
+    text-align: center;
+    font-size: 28px;
+  }
+}
+
+.m-acbtn-list {
+  background-color: #fff;
+  display: block;
+  & + & {
+    margin-top: 15px;
+  }
+  .m-acbtn {
+    color: @text-color1;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    border-bottom: 1px solid @border-color;
+  }
+  a {
+    color: inherit;
+  }
+}
+</style>
