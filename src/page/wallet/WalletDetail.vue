@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import walletInfo from "./WalletInfo";
 import walletDetailItem from "./WalletDetailItem.vue";
 
@@ -78,9 +79,9 @@ export default {
       this.$store
         .dispatch("wallet/getWalletOrders", { action: this.currAction })
         .then(data => {
-          if (data.length > 0) {
-            this.list = this.uniqById(data, this.list);
-          }
+          if (data.length > 0)
+            this.list = _.unionBy([...data, ...this.list], "id");
+
           this.$refs.loadmore.topEnd(!(data.length < 15));
         });
     },

@@ -22,9 +22,6 @@ export default {
     }
   },
   methods: {
-    uniqById(target = [], source = []) {
-      return _.unionBy([...target, ...source], "id");
-    },
     goBack(num = -1) {
       window.history.length <= 1
         ? this.$router.push("/")
