@@ -1,13 +1,13 @@
-import forgot from "@/page/sign/forgot";
-import changePassword from "@/page/sign/changePassword";
-import signup from "@/page/sign/signup.vue";
-import signin from "@/page/sign/signin.vue";
-import registerProtocol from "@/page/sign/registerProtocol";
+import Forgot from "@/page/sign/Forgot.vue";
+import ChangePassword from "@/page/sign/ChangePassword.vue";
+import Signup from "@/page/sign/Signup.vue";
+import Signin from "@/page/sign/Signin.vue";
+import RegisterProtocol from "@/page/sign/RegisterProtocol.vue";
 
 export default [
   {
     path: "/signin",
-    component: signin,
+    component: Signin,
     meta: {
       title: "登录",
       forGuest: true
@@ -15,7 +15,7 @@ export default [
   },
   {
     path: "/signup",
-    component: signup,
+    component: Signup,
     meta: {
       title: "注册",
       forGuest: true
@@ -23,23 +23,24 @@ export default [
   },
   {
     path: "/signup/protocol",
-    component: registerProtocol,
+    component: RegisterProtocol,
     meta: {
       title: "用户注册协议"
     }
   },
   {
     path: "/forgot",
-    component: forgot,
+    component: Forgot,
     meta: {
       title: "忘记密码"
     }
   },
   {
     path: "/changePassword",
-    component: changePassword,
+    component: ChangePassword,
     meta: {
-      title: "修改密码"
+      title: "修改密码",
+      requiresAuth: true
     }
   }
 ];
