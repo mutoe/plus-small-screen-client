@@ -159,7 +159,10 @@
     </div>
   </transition>
 </template>
+
 <script>
+import { mapState } from "vuex";
+
 function strLength(str) {
   let totalLength = 0;
   let i = 0;
@@ -208,8 +211,10 @@ export default {
     };
   },
   computed: {
+    ...mapState(["CONFIG"]),
     showProtocol() {
-      return this.$store.state.CONFIG.registerSettings.showTerms;
+      const { registerSettings = {} } = this.CONFIG;
+      return registerSettings.showTerms || false;
     },
     codeText() {
       return this.countdown > 0 ? `${this.countdown}s后重发` : "获取验证码";
