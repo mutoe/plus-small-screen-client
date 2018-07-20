@@ -56,11 +56,9 @@
               <use xlink:href="#profile-home"/>
             </svg>
             <span class="m-text-box m-flex-grow1">个人主页</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </router-link>
           <router-link
             to="/profile/news/released"
@@ -70,11 +68,9 @@
               <use xlink:href="#profile-plane"/>
             </svg>
             <span class="m-text-box m-flex-grow1">我的投稿</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </router-link>
           <!--           <router-link to="/upgrade" tag="li" class="m-entry">
             <svg class='m-style-svg m-svg-def m-entry-prepend'>
@@ -105,22 +101,20 @@
               class="m-entry-prepend"/>
             <span class="m-text-box m-flex-grow1">钱包</span>
             <span class="m-entry-extra">{{ new_balance }}</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </router-link>
           <!-- to="/upgrade" tag="li" -->
           <li class="m-entry">
-            <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-integral"/>
-            </svg>
+            <v-icon
+              type="profile-integral"
+              class="m-entry-prepend"/>
             <span class="m-text-box m-flex-grow1">{{ currency_name }}</span>
             <span class="m-entry-extra">{{ sum }}</span>
-            <!--             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r"></use>
-            </svg> -->
+            <v-icon
+              class="m-entry-append"
+              type="base-arrow-r"/>
           </li>
           <router-link
             to="/profile/collection/feeds"
@@ -130,15 +124,12 @@
               <use xlink:href="#profile-collect"/>
             </svg>
             <span class="m-text-box m-flex-grow1">收藏</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </router-link>
         </ul>
         <ul class="m-box-model m-entry-group">
-          <!-- to="/upgrade" tag="li" -->
           <li
             class="m-entry"
             @click="selectCertType">
@@ -147,11 +138,9 @@
             </svg>
             <span class="m-text-box m-flex-grow1">认证</span>
             <span class="m-entry-extra">{{ verifiedText }}</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </li>
           <router-link
             to="/setting"
@@ -161,11 +150,9 @@
               <use xlink:href="#profile-setting"/>
             </svg>
             <span class="m-text-box m-flex-grow1">设置</span>
-            <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
-            </svg>
+            <v-icon
+              type="base-arrow-r"
+              class="m-entry-append"/>
           </router-link>
         </ul>
       </div>
@@ -318,7 +305,16 @@ export default {
   }
 }
 
-.m-entry-prepend {
-  color: #59b6d7;
+.p-profile {
+  .m-entry-prepend {
+    color: #59b6d7;
+    width: 36px;
+    height: 36px;
+  }
+  .m-entry-append {
+    color: #bfbfbf;
+    width: 24px;
+    height: 24px;
+  }
 }
 </style>

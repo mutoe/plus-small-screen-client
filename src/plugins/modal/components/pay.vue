@@ -20,8 +20,6 @@
           确定
           <v-icon
             v-if="loading"
-            width="0.32"
-            height="0.32"
             type="base-loading"/>
         </button>
         <button @click="cancel">取消</button>

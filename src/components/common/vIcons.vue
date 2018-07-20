@@ -1,7 +1,7 @@
 <template>
   <i
     ref="icon"
-    :style="wrapStyles"
+    :style="{fill: wrapColor}"
     class="v-icon"
     @click="onClick">
     <svg
@@ -20,23 +20,12 @@ export default {
   name: "VIcon",
   props: {
     type: { type: [String], required: true },
-    height: { type: [String, Number], default: 0.32 },
-    width: { type: [String, Number], default: 0.32 },
     color: { type: String, default: "" }
   },
   data() {
     return {
       wrapColor: this.color
     };
-  },
-  computed: {
-    wrapStyles() {
-      return {
-        width: `${this.width}rem`,
-        height: `${this.height}rem`,
-        fill: this.wrapColor
-      };
-    }
   },
   mounted() {
     if (!this.color) {
@@ -55,8 +44,8 @@ export default {
 <style lang="less" scoped>
 .v-icon {
   display: inline-flex;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   justify-content: center;
   align-items: center;
   vertical-align: middle;

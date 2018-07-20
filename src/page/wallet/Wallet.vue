@@ -48,7 +48,6 @@
         to="/wallet/rule"
         tag="p">
         <v-icon
-          :width="0.3"
           style="vertical-align: bottom;"
           type="wallet-alert-circle"/>
         充值提现规则
