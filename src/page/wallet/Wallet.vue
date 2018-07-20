@@ -43,6 +43,17 @@
           type="base-arrow-r"/>
       </router-link>
     </ul>
+    <footer>
+      <router-link
+        to="/wallet/rule"
+        tag="p">
+        <v-icon
+          :width="0.3"
+          style="vertical-align: bottom;"
+          type="wallet-alert-circle"/>
+        充值提现规则
+      </router-link>
+    </footer>
   </div>
 </template>
 
@@ -93,7 +104,7 @@ export default {
   }
 }
 .m-wallet-panel {
-  padding: 90px 30px 60px;
+  padding: 60px 30px;
   color: #fff;
   font-size: 28px;
   background-color: @panel-color;
@@ -104,6 +115,21 @@ export default {
     margin-top: 80px;
     font-size: 100px;
     letter-spacing: 2px;
+  }
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+
+  p {
+    font-size: 26px;
+    color: #999;
   }
 }
 </style>

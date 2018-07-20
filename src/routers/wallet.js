@@ -11,6 +11,8 @@ const WalletDetail = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletDetail.vue");
 const WalletInfo = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletInfo.vue");
+const WalletRule = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletRule.vue");
 
 export default [
   {
@@ -47,6 +49,13 @@ export default [
     component: WalletInfo,
     meta: {
       title: "明细详情"
+    }
+  },
+  {
+    path: "/wallet/rule",
+    component: WalletRule,
+    meta: {
+      title: "充值提现规则"
     }
   }
 ];
