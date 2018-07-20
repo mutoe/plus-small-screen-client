@@ -10,6 +10,7 @@ import messageRoutes from "./message.js";
 import questionRoutes from "./question.js";
 import profileRoutes from "./profile.js";
 import walletRoutes from "./wallet.js";
+import currencyRoutes from "./currency.js";
 
 const router = [
   /* 基础入口 */
@@ -26,6 +27,7 @@ const router = [
   ...questionRoutes,
   ...profileRoutes,
   ...walletRoutes,
+  ...currencyRoutes,
 
   // {
   //   path: "/post/fatie",

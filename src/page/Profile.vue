@@ -105,8 +105,10 @@
               type="base-arrow-r"
               class="m-entry-append"/>
           </router-link>
-          <!-- to="/upgrade" tag="li" -->
-          <li class="m-entry">
+          <router-link
+            tag="li"
+            to="/currency"
+            class="m-entry">
             <v-icon
               type="profile-integral"
               class="m-entry-prepend"/>
@@ -115,7 +117,7 @@
             <v-icon
               class="m-entry-append"
               type="base-arrow-r"/>
-          </li>
+          </router-link>
           <router-link
             to="/profile/collection/feeds"
             tag="li"
