@@ -317,4 +317,8 @@ export default {
     }
   }
 }
+
+.m-entry-prepend {
+  color: #59b6d7;
+}
 </style>

@@ -21,30 +21,26 @@
         append
         tag="li"
         class="m-entry">
-        <svg class="m-style-svg m-svg-def m-entry-prepend">
-          <use xlink:href="#wallet-recharge"/>
-        </svg>
+        <v-icon
+          class="m-entry-prepend"
+          type="wallet-recharge"/>
         <span class="m-text-box m-flex-grow1">充值</span>
-        <svg class="m-style-svg m-svg-def m-entry-append">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
-        </svg>
+        <v-icon
+          class="m-entry-append"
+          type="base-arrow-r"/>
       </router-link>
       <router-link
         :to="{path: &quot;withdraw&quot;}"
         append
         tag="li"
         class="m-entry">
-        <svg class="m-style-svg m-svg-def m-entry-prepend">
-          <use xlink:href="#wallet-withdraw"/>
-        </svg>
+        <v-icon
+          class="m-entry-prepend"
+          type="wallet-withdraw"/>
         <span class="m-text-box m-flex-grow1">提现</span>
-        <svg class="m-style-svg m-svg-def m-entry-append">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
-        </svg>
+        <v-icon
+          class="m-entry-append"
+          type="base-arrow-r"/>
       </router-link>
     </ul>
   </div>
