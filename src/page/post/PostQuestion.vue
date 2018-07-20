@@ -39,7 +39,7 @@
         v-show="step === 1"
         key="step1"
         class="m-pos-f m-box-model m-flex-grow1 m-flex-shrink1 m-main">
-        <div class="m-box m-flex-none m-bb1 m-lim-width question-title">
+        <div class="m-box m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title">
           <content-text
             ref="contentText"
             :rows="1"
@@ -50,7 +50,7 @@
             @input="serachQuestionByKey"
           />
         </div>
-        <ul class="m-box-model m-flex-auto m-lim-width question-list">
+        <ul class="m-box-model m-flex-grow1 m-flex-shrink1 m-lim-width question-list">
           <router-link
             v-for="q in questions"
             v-if="q.id"
@@ -97,7 +97,7 @@
             </svg>
           </li>
         </ul>
-        <div class="m-box m-aln-center m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title">
+        <div class="m-box m-aln-center m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title step3">
           <svg
             class="m-style-svg m-svg-def"
             style="fill: #ccc; margin-right: 0.3rem">
@@ -361,18 +361,17 @@ export default {
     top: 90px;
   }
   .question-title {
-    flex: none;
-    padding: 35px 40px;
-
+    padding: 0 40px;
     input {
       font-size: 30px;
       line-height: 1.5;
       width: 100%;
     }
+    &.step3 {
+      padding: 40px;
+    }
   }
   .question-list {
-    overflow: auto;
-
     li {
       border-bottom: 1px solid @border-color; /*no*/
       color: @text-color2;
@@ -383,12 +382,12 @@ export default {
   .m-reles-body {
     height: auto;
     margin-bottom: 0;
-    padding-bottom: 0;
 
     textarea {
       font-size: 0.32rem;
       line-height: 1.5;
       overflow: auto;
+      margin-top: 0.35rem;
       padding: 0 0.3rem;
       background-color: transparent;
       outline: 0;
