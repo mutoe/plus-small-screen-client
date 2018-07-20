@@ -78,8 +78,7 @@ export default {
 <style lang="less" scoped>
 .diy-select {
   display: inline-block;
-  width: 140px;
-  background: #fff;
+  width: 180px;
   height: calc(~"100% - 2px");
   position: relative;
 

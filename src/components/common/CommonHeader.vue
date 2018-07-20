@@ -8,7 +8,7 @@
       </slot>
     </div>
     <div class="title">
-      <slot/>
+      <div class="title-wrap"><slot/></div>
     </div>
     <div class="right">
       <slot name="right"/>
@@ -51,11 +51,27 @@ export default {
   .left,
   .right {
     flex: none;
-    width: @header-height;
+    width: fit-content;
+    min-width: @header-height;
+    padding: 0 0.5em;
   }
   .title {
-    flex: auto;
-    max-width: 5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 12em;
+    margin: 0 auto;
+    text-align: center;
+
+    > .title-wrap {
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
   }
 }
 </style>
