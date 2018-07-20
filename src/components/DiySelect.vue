@@ -75,13 +75,14 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .diy-select {
   display: inline-block;
-  width: 280px;
+  width: 140px;
   background: #fff;
-  height: 90px;
+  height: calc(~"100% - 2px");
   position: relative;
+
   &--label {
     padding: 20px;
     height: 100%;
@@ -99,7 +100,7 @@ export default {
 
   &--options {
     background-color: #fff;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     box-shadow: -1px 0 3px #ededed;
@@ -110,6 +111,7 @@ export default {
     height: 90px;
     border-top: 1px solid #ededed; /*no*/
     line-height: 90px;
+    text-align: center;
   }
 
   .open &--label {

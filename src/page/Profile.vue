@@ -1,9 +1,12 @@
 <template>
   <div class="p-profile">
-    <header class="m-box m-aln-center m-justify-center m-main m-pos-f m-bb1 m-head-top">我</header>
-    <main
-      class="m-box-model"
-      style="padding-top: .9rem">
+
+    <common-header>
+      我
+      <template slot="left"/>
+    </common-header>
+
+    <main class="m-box-model">
       <div class="m-box-model m-main m-pr-info">
         <router-link
           tag="section"

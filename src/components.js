@@ -2,6 +2,7 @@
 import vIcon from "./components/common/vIcons"; /* Icons */
 import btnSwitch from "./components/common/btnSwitch"; /* btnSwitch 按钮 */
 import badge from "./components/common/badge"; /* Badge 徽标 */
+import CommonHeader from "./components/common/CommonHeader.vue"; /* 通用头部 */
 import fullSpin from "./components/FullSpin"; /* 全屏加载动画 */
 // import userAvatar from "./components/VAvatar"; /* Avatar 用户头像组件 */
 import loadMore from "./components/loadMore";
@@ -26,5 +27,6 @@ export default [
   DiySelect,
   NavTabs,
   AsyncFile,
-  JoLoadMore
+  JoLoadMore,
+  CommonHeader
 ];

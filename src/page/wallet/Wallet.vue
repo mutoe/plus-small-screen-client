@@ -1,25 +1,16 @@
 <template lang="html">
   <div class="p-wallet wallet">
-    <header class="m-box m-head-top">
-      <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center m-justify-center">
-        <h2>钱包</h2>
-      </div>
-      <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center m-justify-end">
-        <router-link
-          slot="append"
-          :to="{ path: 'detail' }"
-          append>明细</router-link>
-      </div>
-    </header>
+
+    <common-header class="header">
+      钱包
+      <router-link
+        slot="right"
+        :to="{ path: 'detail' }"
+        append>
+        明细
+      </router-link>
+    </common-header>
+
     <section class="m-wallet-panel">
       <h3>账户余额(元)</h3>
       <p>{{ balance }}</p>
@@ -85,24 +76,31 @@ export default {
 };
 </script>
 
-<style lang="less">
-.p-wallet {
-  .m-head-top {
-    background-color: #31a0e6;
-    color: #fff;
-    a {
-      color: inherit;
-    }
+<style lang="less" scoped>
+@panel-color: #59b6d7;
+
+.header {
+  background-color: @panel-color;
+  color: #fff;
+  border-bottom: none;
+  a {
+    color: inherit;
   }
+  .v-icon {
+    color: #fff;
+  }
+}
+
+.p-wallet {
   .entry__group:first-of-type {
     margin-top: 0;
   }
 }
 .m-wallet-panel {
-  padding: 60px 30px;
+  padding: 90px 30px 60px;
   color: #fff;
   font-size: 28px;
-  background-color: #31a0e6;
+  background-color: @panel-color;
   h3 {
     opacity: 0.7;
   }

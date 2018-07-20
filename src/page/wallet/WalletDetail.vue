@@ -1,23 +1,13 @@
 <template lang="html">
   <div class="wallet-detail p-wallet-detail">
-    <header class="m-box m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center">
-        <diy-select
-          v-model="currAction"
-          :options="options"
-          placeholder="明细"/>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-end"/>
-    </header>
+
+    <common-header class="header">
+      <diy-select
+        v-model="currAction"
+        :options="options"
+        placeholder="明细"/>
+    </common-header>
+
     <load-more
       ref="loadmore"
       :on-refresh="onRefresh"
@@ -102,13 +92,10 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-wallet-detail {
-  .m-head-top {
+  .header {
     overflow: initial;
-  }
-  .m-wallet-list {
-    padding-top: 90px;
   }
 }
 </style>

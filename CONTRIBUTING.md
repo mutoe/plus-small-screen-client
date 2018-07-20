@@ -135,6 +135,76 @@ bus.$emit("applyTop", {
 
 ## 组件
 
+### 通用头部 CommonHeader
+
+`@/components/common/CommonHeader.vue`
+
+用于各页面顶部导航栏. 通用组件默认注入到全局，你可以不用在页面内单独注册通用组件。
+
+``` vue
+<template>
+  <div>
+    <common-header class="header">
+      钱包
+      <template slot="right">
+        <router-link :to="{ path: 'detail' }"> 明细 </router-link>
+      </template>
+    </common-header>
+    <main>...<main>
+  </div>
+</template>
+<script>
+export default {}
+</script>
+```
+
+#### `Slot`
+
+含有一个匿名slot和两个具名slot。
+
+##### anonymous
+显示为标题，最大宽度支持 8em。
+
+##### left **该插槽含有默认值**
+显示在导航栏左边，配合 VIcon 通用组件使用效果更加，最大宽度支持 2em
+
+如果导航栏的左边没有其他特殊需要，可以不声明该插槽，默认生成一个含有 goBack 事件的返回按钮。
+
+如果左边不想要任何东西，可以声明一个空模版。像这样
+``` html
+<common-header>
+  左边没有按钮
+  <template slot="left" />
+</common-header>
+```
+
+##### right
+显示在导航栏右边，配合 VIcon 通用组件使用效果更加，最大宽度支持 2em
+
+#### 为什么要使用它
+
+你在新建页面时可以不必去其他页面复制过来这么一大坨代码，也可以让其他人维护这个页面的时候很清除的知道这个页面有哪些东西而不是如何实现的。  
+只要你知道这个组件的名字就可以很方便的添加头部了。
+
+``` html
+<!-- before -->
+<header class="m-box m-justify-bet m-aln-center m-bb1 m-head-top m-main m-lim-width">
+  <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
+    <svg class="m-style-svg m-svg-def" @click="goBack">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"/>
+    </svg>
+  </div>
+  <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
+    <span>提现</span>
+  </div>
+  <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
+</header>
+
+<!-- after -->
+<common-header>提现</common-header>
+
+```
+
 ### 图片上传组件 ImagePoster
 
 `@/components/ImagePoster.vue`
