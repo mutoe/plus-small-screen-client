@@ -213,7 +213,7 @@ export default {
   computed: {
     ...mapState(["CONFIG"]),
     showProtocol() {
-      const { registerSettings = {} } = this.CONFIG;
+      const registerSettings = this.CONFIG.registerSettings || {};
       return registerSettings.showTerms || false;
     },
     codeText() {
