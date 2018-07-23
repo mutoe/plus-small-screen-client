@@ -3,6 +3,8 @@
  */
 const Currency = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/currency/Currency.vue");
+const CurrencyRecharge = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/currency/CurrencyRecharge.vue");
 
 export default [
   {
@@ -11,6 +13,13 @@ export default [
     meta: {
       title: "钱包",
       requiresAuth: true
+    }
+  },
+  {
+    path: "/currency/recharge",
+    component: CurrencyRecharge,
+    meta: {
+      title: "充值"
     }
   }
 ];
