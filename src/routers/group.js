@@ -59,13 +59,9 @@ export default [
   },
   /**
    * 点赞列表 && 打赏列表 路由格式固定
-   *
    * 帖子/资讯/问答 相关路由 统一使用 article 代替 id
-   *
    * 通过传递 不同的 meta[type] 实现组件复用
-   *
    * copy by @/routers/feed.js
-   *
    */
   {
     path: "/groups/:groupID(\\d+)/posts/:article(\\d+)/likers",

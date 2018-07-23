@@ -93,6 +93,7 @@
     </main>
   </div>
 </template>
+
 <script>
 import GroupItem from "./GroupItem.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
@@ -133,7 +134,6 @@ export default {
     this.fetchMyGroups();
     this.fetchRecGroups();
   },
-  activated() {},
   methods: {
     formateGroups(groups) {
       groups.forEach(group => {
@@ -159,7 +159,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-group {
   .group-label {
     font-size: 24px;

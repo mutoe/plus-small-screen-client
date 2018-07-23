@@ -1,4 +1,5 @@
 <template>
+  <!-- 投稿圈子帖子时有用，目前尚未有该功能 -->
   <transition name="fade">
     <div
       v-if="show"
@@ -34,7 +35,7 @@
 <script>
 import bus from "@/bus.js";
 import { mapState } from "vuex";
-import { getGroupCates } from "@/api/group.js";
+
 export default {
   name: "ChooseGroupCate",
   data() {
@@ -46,11 +47,8 @@ export default {
   computed: {
     ...mapState(["GROUP_CATES"])
   },
-  created() {
-    getGroupCates().then(data => {
-      this.$store.commit("SAVE_GROUP_CATES", data);
-      this.cates = data;
-    });
+  mounted() {
+    this.$store.dispatch("GET_GROUP_TYPES");
     bus.$on("choose-group-cate", onSelected => {
       typeof onSelected === "function" && (this.onSelected = onSelected);
       this.show = true;
@@ -74,7 +72,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-choose-category {
   .m-cates {
     padding: 30px;

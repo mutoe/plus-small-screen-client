@@ -26,7 +26,6 @@
       <nav class="m-box m-aln-center m-pos-f m-main m-bb1 p-groups-nav">
         <router-link
           :to="{name: 'groups', query: { type: 'recommend' }}"
-
           class="m-text-box p-groups-nav-item"
           exact
           replace
@@ -36,13 +35,11 @@
         </router-link>
         <router-link
           v-for="cate in GROUP_CATES"
-
           :to="{ name: 'groups', query: { category: cate.id } }"
           :key="cate.id"
           class="m-text-box p-groups-nav-item"
           exact
           replace
-
           tag="div"
           active-class="active">
           <span class="m-text-cut">{{ cate.name }}</span>
@@ -67,6 +64,7 @@
     </main>
   </div>
 </template>
+
 <script>
 import { mapState } from "vuex";
 import GroupItem from "./GroupItem.vue";
@@ -115,6 +113,9 @@ export default {
       val && this.$refs.loadmore.beforeRefresh();
     }
   },
+  created() {
+    this.$store.dispatch("GET_GROUP_TYPES");
+  },
   methods: {
     formateGroups(groups) {
       const map = this.GROUPS.has(this.currentType)
@@ -148,7 +149,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-groups-nav {
   padding: 0 30px;
   top: 90px;

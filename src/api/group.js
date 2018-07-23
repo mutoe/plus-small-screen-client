@@ -17,17 +17,11 @@ export function getGroupTotalNumber() {
 
 /**
  * 获取圈子全部分类
- * @author jsonleex <jsonlseex@163.com>
- * @returns {Promise<Array>}
+ * @export
+ * @returns
  */
 export function getGroupCates() {
-  return api
-    .get("/plus-group/categories")
-    .then(({ data = [] }) => data)
-    .catch(err => {
-      console.warn(err);
-      return [];
-    });
+  return api.get("/plus-group/categories", { validateStatus: s => s === 200 });
 }
 
 /**

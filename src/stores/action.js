@@ -1,6 +1,7 @@
 import Api from "@/api/api.js";
 import * as bootApi from "@/api/bootstrappers.js";
 import * as userApi from "@/api/user.js";
+import * as groupApi from "@/api/group.js";
 
 export default {
   /**
@@ -17,10 +18,10 @@ export default {
   },
 
   // 获取圈子分类数据
-  GET_GROUP_TYPES({ commit }) {
-    Api.get("/plus-group/categories").then(({ data = [] }) => {
-      commit("SAVE_GROUP_TYPES", data);
-    });
+  async GET_GROUP_TYPES({ commit }) {
+    const { data = [] } = await groupApi.getGroupCates();
+    commit("SAVE_GROUP_CATES", data);
+    return data;
   },
 
   // 获取用户验证信息
