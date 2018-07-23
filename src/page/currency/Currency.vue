@@ -6,7 +6,7 @@
       <router-link
         slot="right"
         to="/currency/detail">
-        明细
+        充值记录
       </router-link>
     </common-header>
 

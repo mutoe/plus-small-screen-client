@@ -5,7 +5,7 @@
       积分提取
       <router-link
         slot="right"
-        to="/currency/withdraw/detail">
+        :to="{path: '/currency/detail', query: { action: 'out' } }">
         提取记录
       </router-link>
     </common-header>
