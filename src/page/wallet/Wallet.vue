@@ -17,7 +17,7 @@
     </section>
     <ul class="m-box-model m-entry-group padding">
       <router-link
-        :to="{path: &quot;recharge&quot;}"
+        :to="{path: 'recharge'}"
         append
         tag="li"
         class="m-entry">
@@ -44,21 +44,29 @@
       </router-link>
     </ul>
     <footer>
-      <router-link
-        to="/wallet/rule"
-        tag="p">
+      <p @click="popupRule">
         <v-icon
           style="vertical-align: bottom;"
           type="wallet-alert-circle"/>
         充值提现规则
-      </router-link>
+      </p>
     </footer>
+
+    <popup-dialog
+      ref="dialog"
+      title="充值提现规则">
+      <p v-html="rule"/>
+    </popup-dialog>
+
   </div>
 </template>
 
 <script>
+import PopupDialog from "@/components/PopupDialog.vue";
+
 export default {
   name: "Wallet",
+  components: { PopupDialog },
   data() {
     return {};
   },
@@ -76,7 +84,20 @@ export default {
       return this.user.new_wallet || { balance: 0 };
     },
     balance() {
-      return (this.new_wallet.balance / 100).toFixed(2);
+      const raito = this.$store.state.wallet.ratio || 100;
+      return (this.new_wallet.balance / raito).toFixed(2);
+    },
+    rule() {
+      const rule = this.$store.state.wallet.rule || "";
+      return rule.replace(/\n/g, "<br>");
+    }
+  },
+  mounted() {
+    this.$store.dispatch("wallet/getWalletInfo");
+  },
+  methods: {
+    popupRule() {
+      this.$refs.dialog.show();
     }
   }
 };
