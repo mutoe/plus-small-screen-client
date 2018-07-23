@@ -41,32 +41,51 @@
           type="base-arrow-r"/>
       </router-link>
     </ul>
+
     <footer>
-      <router-link
-        to="/currency/rule"
-        tag="p">
+      <p @click="showRule">
         <v-icon
           style="vertical-align: bottom;"
           type="wallet-alert-circle"/>
-        充值提现规则
-      </router-link>
+        积分规则
+      </p>
     </footer>
+
+    <popup-dialog
+      ref="dialog"
+      title="积分规则">
+      <p v-html="rule"/>
+    </popup-dialog>
+
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import PopupDialog from "@/components/PopupDialog.vue";
 
 export default {
   name: "Currency",
+  components: { PopupDialog },
   data() {
     return {};
   },
   computed: {
     ...mapState({
       user: "CURRENTUSER",
-      currency: "CURRENTUSER.currency"
-    })
+      currency: "currency"
+    }),
+    rule() {
+      return this.currency.rule.replace(/\n/g, "<br>");
+    }
+  },
+  mounted() {
+    this.$store.dispatch("currency/getCurrencyInfo");
+  },
+  methods: {
+    showRule() {
+      this.$refs.dialog.show();
+    }
   }
 };
 </script>
