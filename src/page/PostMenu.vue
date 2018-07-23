@@ -38,7 +38,7 @@
             v-if="open"
             key="ico_contribute"
             class="m-box-model m-aln-center m-post-menu-item"
-            @click="canPostNews ? to('/post/release') : message()">
+            @click="beforePostNews">
             <img src="../images/ico_contribute@3x.png">
             <span>投稿</span>
           </div>
@@ -84,6 +84,7 @@
 <script>
 import bus from "@/bus.js";
 import { mapState } from "vuex";
+
 export default {
   name: "PostMenu",
   data() {
@@ -94,12 +95,9 @@ export default {
   },
   computed: {
     ...mapState({
-      verified: state => state.CURRENTUSER.verified,
+      verified: state => state.USER_VERIFY,
       newsVerified: state => state.CONFIG["news:contribute"].verified
     }),
-    canPostNews() {
-      return !this.newsVerified || (this.newsVerified && this.verified);
-    },
     login() {
       return !!this.$store.state.CURRENTUSER.id;
     },
@@ -129,6 +127,16 @@ export default {
       !this.login && this.$Message.error("请登录");
       this.$router.push(path);
       this.$nextTick(this.cancel);
+    },
+    beforePostNews() {
+      if (!this.newsVerified || this.verified.status === 1)
+        this.to("/post/release");
+      else if (this.verified.status === 0) {
+        this.$Message.error("您的认证正在等待审核，通过审核后可发布帖子");
+        this.$nextTick(this.cancel);
+      } else {
+        this.message();
+      }
     },
     showCheckIn() {
       this.login
