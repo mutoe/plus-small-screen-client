@@ -204,6 +204,62 @@ export default {}
 <common-header>提现</common-header>
 ```
 
+### 提示信息弹框 PopupDialog
+
+`@/components/PopupDialog.vue`
+
+用于各种临时信息展示，如规则展示，协议弹框展示，首次进入某功能弹框提示信息。
+
+``` vue
+<template>
+  <div>
+    <button @click="showDialog">show dialog</button>
+    <popup-dialog ref="dialog" title="充值提现规则" @confirm="onConfirm">
+      {{ 今晚打老虎今晚打老虎今晚打老虎今晚打老虎今晚打老虎... }}
+    </popup-dialog>
+  <div>
+</template>
+
+<script>
+export default {
+  methods: {
+    showDialog() { this.$refs.dialog.show() },
+    onConfirm() { console.log('confirm clicked!') }
+  }
+}
+</script>
+```
+
+#### Slots
+
+含有一个匿名 slot，为 dialog 主要内容
+
+#### Props
+
+##### title
+
+可选，弹框标题
+
+##### confirmText
+
+可选，弹框的确定按钮文案。默认值为“知道了”
+
+#### Events
+
+##### confirm
+
+当按下确定按钮时的回调事件
+
+#### Methods
+
+##### show
+
+显示 dialog，缓慢上移淡入的动画。
+
+#### hide
+
+隐藏 dialog，缓慢下移淡出的动画
+
 ### 图片上传组件 ImagePoster
 
 `@/components/ImagePoster.vue`
