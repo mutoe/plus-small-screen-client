@@ -9,12 +9,12 @@
           <p class="m-pinned-amount-label">选择充值金额</p>
           <div class="m-box m-aln-center ">
             <button
-              v-for="item in items"
+              v-for="item in rechargeItems"
               :key="item"
-              :style="{ width: `${1 / items.length * 100}%` }"
+              :style="{ width: `${1 / rechargeItems.length * 100}%` }"
               :class="{ active: ~~amount === ~~item && !customAmount }"
               class="m-pinned-amount-btn"
-              @click="chooseDefaultAmount(item)">{{ ~~item }}</button>
+              @click="chooseDefaultAmount(item)">{{ item.toFixed(2) }}</button>
           </div>
         </div>
         <div class="m-box m-aln-center m-justify-bet m-bb1 m-bt1 m-pinned-row plr20 m-pinned-amount-customize">
@@ -66,17 +66,29 @@
 
 <script>
 import bus from "@/bus";
+import { mapGetters, mapState } from "vuex";
+
+const supportTypes = [
+  { key: "alipay_wap", title: "支付宝支付" },
+  { key: "wx_wap", title: "微信支付" }
+];
 
 export default {
   name: "WalletRecharge",
   data() {
     return {
-      items: [10, 50, 100],
       customAmount: null,
       amount: 0,
       disabled: true,
       loading: false
     };
+  },
+  computed: {
+    ...mapState({ rechargeType: state => state.wallet.type }),
+    ...mapGetters({ rechargeItems: "wallet/rechargeItems" })
+  },
+  mounted() {
+    this.$store.dispatch("wallet/getWalletInfo");
   },
   methods: {
     chooseDefaultAmount(amount) {
@@ -85,7 +97,22 @@ export default {
     },
     selectRechargeType() {
       const actions = [];
-      bus.$emit("actionSheet", actions, "取消", "当前未支持任何充值方式");
+      supportTypes.forEach(item => {
+        if (this.rechargeType.includes(item.key)) {
+          actions.push({
+            text: item.title,
+            method: () => {
+              console.log(item.title);
+            }
+          });
+        }
+      });
+      bus.$emit(
+        "actionSheet",
+        actions,
+        "取消",
+        actions.length ? undefined : "当前未支持任何充值方式"
+      );
     },
     handleOk() {}
   }
