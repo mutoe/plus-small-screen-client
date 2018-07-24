@@ -1,109 +1,78 @@
 <template>
-  <div class="wallet-info--detail">
+  <div class="p-wallet-info">
 
     <common-header>账单详情</common-header>
 
-    <div class="wallet-info--detail--body">
-      <p>交易{{ detail.status ? '成功' : '失败' }}</p>
-      <h2>{{ detail.action ? '+' : '-' }}{{ detail.amount.toFixed(2) }}</h2>
-    </div>
-    <div class="wallet-info--detail--content">
-      <div class="wallet-info--detail--content-row">
-        <span class="wallet-info--detail--content-row--label">{{ detail.action ? '收' : '付' }}款人</span>
-        <div><avatar
-          :user="user"
-          size="small"/> {{ user.name }}</div>
+    <main>
+      <div class="wallet-info--detail--body">
+        <p>交易{{ detail.status ? '成功' : '失败' }}</p>
+        <h2>{{ detail.action ? '+' : '-' }}{{ detail.amount | postfix(2) }}</h2>
       </div>
-      <div class="wallet-info--detail--content-row">
-        <span class="wallet-info--detail--content-row--label m-flex-shrink0">交易说明</span>
-        <div>{{ detail.body }}</div>
+      <div class="wallet-info--detail--content">
+        <div class="wallet-info--detail--content-row">
+          <span class="wallet-info--detail--content-row--label">
+            {{ detail.action ? '收款人' : '付款人' }}
+          </span>
+          <div>
+            <avatar
+              :user="user"
+              size="small"/>
+            {{ user.name }}
+          </div>
+        </div>
+        <div class="wallet-info--detail--content-row">
+          <span class="wallet-info--detail--content-row--label m-flex-shrink0">交易说明</span>
+          <div>{{ detail.body }}</div>
+        </div>
+        <div class="wallet-info--detail--content-row">
+          <span class="wallet-info--detail--content-row--label">交易时间</span>
+          <div>{{ detail.created_at }}</div>
+        </div>
       </div>
-      <div class="wallet-info--detail--content-row">
-        <span class="wallet-info--detail--content-row--label">交易时间</span>
-        <div>{{ detail.created_at }}</div>
-      </div>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
   name: "WalletInfoDetail",
-  // props: {
-  //   detail: { type: Object, default: () => {} }
-  // },
+  filters: {
+    postfix(val, pos) {
+      if (!val) return "0.00";
+      val.toFix(pos);
+    }
+  },
   data() {
     return {
-      detail: {}
+      // detail: {}
     };
   },
   computed: {
+    id() {
+      return this.$route.params.id;
+    },
+    detail() {
+      const id = this.$route.params.id;
+      return this.$store.getters["wallet/getWalletById"](id);
+    },
     user() {
       return this.$store.state.CURRENTUSER;
     }
   },
   mounted() {
-    console.log(this.$route.meta);
-    this.detail = this.$route.meta.data;
-  }
+    // 如果 store 中没有数据就返回列表抓取数据
+    _.isEmpty(this.detail) && this.$router.replace({ path: "/wallet/detail" });
+  },
+  methods: {}
 };
 </script>
 
-<style lang='less'>
-.wallet-info--detail {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 111;
-  background-color: #fff;
-  overflow: hidden;
-
-  &--head {
-    height: 90px;
-    line-height: 90px;
-    font-size: 32px;
-    text-align: center;
-    border-bottom: 1px solid #ededed; /*no*/
-  }
-  &--content {
-    background-color: #fff;
-    padding: 0 20px;
-    &-row {
-      display: flex;
-      padding: 20px 0;
-      align-items: center;
-      min-height: 100px;
-      font-size: 24px;
-      line-height: 1;
-      border-bottom: 1px solid #ededed; /*no*/
-      &--label {
-        color: #ccc;
-        width: 25 * 4px;
-      }
-      > div {
-        margin-left: 15px;
-      }
-    }
-  }
-  &--body {
-    padding: 20px;
-    text-align: center;
-    background-color: #fff;
-    font-size: 28px;
-    color: #999;
-    border-bottom: 1px solid #ededed; /*no*/
-    p {
-      text-align: left;
-      margin: 0;
-    }
-    h2 {
-      margin: 0;
-      font-size: 100px;
-      line-height: 1;
-      color: #333;
-    }
+<style lang="less" scoped>
+.p-wallet-info {
+  main {
+    padding-top: 90px;
   }
 }
 </style>
