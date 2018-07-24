@@ -1,14 +1,13 @@
 <template>
   <div
-    :class="isIncome ? 'in' : 'out'"
-    class="c-currency-detail-item"
-    @click.stop="showDetail">
+    :class="isIncome"
+    class="c-currency-detail-item">
     <div class="info">
       <div class="title" >{{ detail.body }}</div>
-      <div class="time">{{ '2018-07-23 13:46:27' | formatDate('MM-dd hh:mm') }}</div>
+      <div class="time">{{ detail.updated_at | time2tips }}</div>
     </div>
     <div class="amount">
-      {{ isIncome ? '+' : '-' }}{{ detail.amount }}
+      {{ detail.type > 0 ? '+' : '-' }}{{ detail.amount }}
     </div>
 
   </div>
@@ -18,17 +17,18 @@
 export default {
   name: "CurrencyDetailItem",
   props: {
-    detail: { type: Object, required: true }
+    detail: { type: Object, required: true },
+    nostyle: { type: Boolean, default: false }
   },
   data() {
     return {};
   },
   computed: {
     isIncome() {
-      return this.detail.type > 0;
+      if (this.nostyle) return "no-style";
+      return this.detail.type > 0 ? "in" : "out";
     }
-  },
-  methods: {}
+  }
 };
 </script>
 
@@ -56,6 +56,14 @@ export default {
   }
   .amount {
     font-size: 32px;
+  }
+
+  &.no-style {
+    color: #333;
+
+    .amount {
+      color: #ff9400;
+    }
   }
 
   &.in {

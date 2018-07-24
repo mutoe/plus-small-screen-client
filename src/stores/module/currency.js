@@ -1,7 +1,6 @@
 import * as api from "@/api/currency";
 
 const state = {
-  list: [], // 充值纪录
   rule: "", // 充值提现规则
   recharge: {
     rule: "",
@@ -35,6 +34,10 @@ const mutations = {
 };
 
 const actions = {
+  /**
+   * 获取基础配置信息
+   * @author mutoe <mutoe@foxmail.com>
+   */
   async getCurrencyInfo({ commit }) {
     const { data } = await api.getCurrencyInfo();
     commit(TYPES.UPDATE_CURRENCY, {
@@ -53,6 +56,14 @@ const actions = {
         max: data["cash-max"]
       }
     });
+  },
+  /**
+   * 获取积分流水
+   * @author mutoe <mutoe@foxmail.com>
+   */
+  async getCurrencyOrders(state, payload) {
+    const { data = [] } = await api.getCurrencyOrders(payload);
+    return data;
   }
 };
 

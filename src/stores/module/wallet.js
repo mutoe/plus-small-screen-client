@@ -13,7 +13,7 @@ const getters = {
     return state.list.filter(wallet => wallet.id === id).pop() || {};
   },
   rechargeItems: state => {
-    return state.items.map(item => item / state.ratio);
+    return state.items.map(item => item / 100);
   }
 };
 

@@ -5,8 +5,8 @@
       我的积分
       <router-link
         slot="right"
-        to="/currency/detail">
-        充值记录
+        to="/currency/journal-detail">
+        明细
       </router-link>
     </common-header>
 

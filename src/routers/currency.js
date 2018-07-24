@@ -9,6 +9,8 @@ const CurrencyWithdraw = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/currency/CurrencyWithdraw.vue");
 const CurrencyDetail = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/currency/CurrencyDetail.vue");
+const CurrencyJournalDetail = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/currency/CurrencyJournalDetail.vue");
 
 export default [
   {
@@ -36,6 +38,13 @@ export default [
   {
     path: "/currency/detail",
     component: CurrencyDetail,
+    meta: {
+      title: "明细"
+    }
+  },
+  {
+    path: "/currency/journal-detail",
+    component: CurrencyJournalDetail,
     meta: {
       title: "明细"
     }

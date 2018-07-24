@@ -1,16 +1,7 @@
 <template lang="html">
   <div class="p-currency-detail">
 
-    <common-header class="header">
-      <nav class="type-switch-bar">
-        <span
-          :class="{active: currAction === 'recharge'}"
-          @click="currAction = 'recharge'">充值记录</span>
-        <span
-          :class="{active: currAction === 'cash'}"
-          @click="currAction = 'cash'">提取纪录</span>
-      </nav>
-    </common-header>
+    <common-header class="header">积分明细</common-header>
 
     <load-more
       ref="loadmore"
@@ -20,6 +11,7 @@
       <currency-detail-item
         v-for="item in list"
         v-if="item.id"
+        :nostyle="true"
         :key="item.id"
         :detail="item"/>
     </load-more>
@@ -31,15 +23,10 @@ import _ from "lodash";
 import CurrencyDetailItem from "./components/CurrencyDetailItem.vue";
 
 export default {
-  name: "CurrencyDetail",
+  name: "CurrencyJournalDetail",
   components: { CurrencyDetailItem },
   data() {
     return {
-      options: [
-        { value: "all", label: "全部" },
-        { value: "expenses", label: "支出" },
-        { value: "income", label: "收入" }
-      ],
       list: [],
       currInfo: null
     };
@@ -68,28 +55,20 @@ export default {
     }
   },
   methods: {
-    onRefresh() {
-      this.$store
-        .dispatch("currency/getCurrencyOrders", { action: this.currAction })
-        .then(data => {
-          if (data.length > 0)
-            this.list = _.unionBy([...data, ...this.list], "id");
+    async onRefresh() {
+      const data = await this.$store.dispatch("currency/getCurrencyOrders");
+      if (data.length > 0) this.list = _.unionBy([...data, ...this.list], "id");
 
-          this.$refs.loadmore.topEnd(data.length >= 15);
-        });
+      this.$refs.loadmore.topEnd(data.length >= 15);
     },
-    onLoadMore() {
-      this.$store
-        .dispatch("currency/getCurrencyOrders", {
-          action: this.currAction,
-          after: this.after
-        })
-        .then(data => {
-          if (data.length > 0) {
-            this.list = [...this.list, ...data];
-          }
-          this.$refs.loadmore.bottomEnd(data.length < 15);
-        });
+    async onLoadMore() {
+      const data = await this.$store.dispatch("currency/getCurrencyOrders", {
+        after: this.after
+      });
+      if (data.length > 0) {
+        this.list = [...this.list, ...data];
+      }
+      this.$refs.loadmore.bottomEnd(data.length < 15);
     }
   }
 };
