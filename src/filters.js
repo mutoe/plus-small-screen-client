@@ -89,9 +89,8 @@ export const time2txt = str => {
 export const timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
 
 export const time2tips = date => {
-  const time =
-    new Date(typeof date === "string" ? date.replace(/-/g, "/") : date) -
-    timeOffset;
+  typeof date === "string" && (date = date.replace(/-/g, "/"));
+  const time = new Date(date);
   const offset = (new Date().getTime() - time) / 1000;
   if (offset < 60) return "1分钟内";
   if (offset < 3600) return `${~~(offset / 60)}分钟前`;
