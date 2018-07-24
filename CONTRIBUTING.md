@@ -348,7 +348,7 @@ export default {
   </div>
 </template>
 <script>
-import DetailAd from "@/components/advertisiment/DetailAd.vue";
+import DetailAd from "@/components/advertisement/DetailAd.vue";
 export default {
   components: { DetailAd }
 }

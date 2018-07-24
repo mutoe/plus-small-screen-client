@@ -24,7 +24,8 @@ const adMap = {
   feed: "feed:single",
   news: "news:single",
   "group:home": "group:index:top",
-  "group:post": "group:single"
+  "group:post": "group:single",
+  currency: "currency"
 };
 
 export default {
