@@ -21,8 +21,8 @@
       <div class="input-wrap">
         <input
           v-model="form.amount"
+          :placeholder="`请至少提取${cash.min}积分`"
           type="number"
-          placeholder="请至少提取100积分"
           oninput="value = value.slice(0,8)">
       </div>
 
@@ -42,24 +42,31 @@
     </main>
 
     <footer>
-      <router-link
-        to="/currency/rule"
-        tag="p">
+      <p @click="popupRule">
         <v-icon
           style="vertical-align: bottom;"
           type="wallet-alert-circle"/>
         积分提取规则
-      </router-link>
+      </p>
     </footer>
+
+    <popup-dialog
+      ref="dialog"
+      title="用户充值协议">
+      <p v-html="rule"/>
+    </popup-dialog>
 
   </div>
 </template>
 
 <script>
 import bus from "@/bus";
+import { mapState } from "vuex";
+import PopupDialog from "@/components/PopupDialog.vue";
 
 export default {
   name: "CurrencyWithdraw",
+  components: { PopupDialog },
   data() {
     return {
       form: {
@@ -69,11 +76,29 @@ export default {
       loading: false
     };
   },
+  computed: {
+    ...mapState({
+      currency: "currency"
+    }),
+    cash() {
+      return this.currency.cash;
+    },
+    rule() {
+      const rule = this.currency.cash.rule || "";
+      return rule.replace(/\n/g, "<br>");
+    }
+  },
+  mounted() {
+    if (!this.cash.rule) this.$store.dispatch("currency/getCurrencyInfo");
+  },
   methods: {
     handleOk() {},
     selectWithdrawType() {
       const actions = [];
       bus.$emit("actionSheet", actions, "取消", "当前未支持任何提现方式");
+    },
+    popupRule() {
+      this.$refs.dialog.show();
     }
   }
 };
