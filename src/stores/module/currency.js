@@ -85,7 +85,8 @@ const actions = {
    * @returns {Promise<{message: string[]}>}
    */
   async requestWithdraw(state, amount) {
-    return api.postCurrencyWithdraw({ amount });
+    const { data } = await api.postCurrencyWithdraw({ amount });
+    return data;
   },
 
   /**

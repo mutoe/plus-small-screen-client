@@ -5,7 +5,7 @@
       积分提取
       <router-link
         slot="right"
-        :to="{path: '/currency/detail', query: { action: 'out' } }">
+        :to="{path: '/currency/detail', query: { action: 'cash' } }">
         提取记录
       </router-link>
     </common-header>
@@ -20,7 +20,7 @@
       <p>提取积分须提交官方审核，审核反馈请关注系统消息！</p>
       <div class="input-wrap">
         <input
-          v-model="form.amount"
+          v-model="amount"
           :placeholder="`请至少提取${cash.min}积分`"
           type="number"
           oninput="value = value.slice(0,8)">
@@ -69,10 +69,7 @@ export default {
   components: { PopupDialog },
   data() {
     return {
-      form: {
-        amount: ""
-      },
-      disabled: true,
+      amount: "",
       loading: false
     };
   },
@@ -86,13 +83,25 @@ export default {
     rule() {
       const rule = this.currency.cash.rule || "";
       return rule.replace(/\n/g, "<br>");
+    },
+    disabled() {
+      return this.amount < this.cash.min || this.amount > this.cash.max;
     }
   },
   mounted() {
     if (!this.cash.rule) this.$store.dispatch("currency/getCurrencyInfo");
   },
   methods: {
-    handleOk() {},
+    async handleOk() {
+      const { message } = await this.$store.dispatch(
+        "currency/requestWithdraw",
+        this.amount
+      );
+      if (message) {
+        this.$Message.success(message);
+        this.goBack();
+      }
+    },
     selectWithdrawType() {
       const actions = [];
       bus.$emit("actionSheet", actions, "取消", "当前未支持任何提现方式");

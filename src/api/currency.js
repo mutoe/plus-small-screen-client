@@ -43,3 +43,17 @@ export function postCurrencyRecharge(data) {
     validateStatus: s => s === 201
   });
 }
+
+/**
+ * 发起积分提现
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} data
+ * @param {number} data.amount
+ * @returns
+ */
+export function postCurrencyWithdraw(data) {
+  return api.post("/currency/cash", data, {
+    validateStatus: s => s === 201
+  });
+}
