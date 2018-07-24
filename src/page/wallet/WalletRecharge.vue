@@ -88,7 +88,8 @@ export default {
     ...mapGetters({ rechargeItems: "wallet/rechargeItems" })
   },
   mounted() {
-    this.$store.dispatch("wallet/getWalletInfo");
+    if (!this.rechargeItems.length)
+      this.$store.dispatch("wallet/getWalletInfo");
   },
   methods: {
     chooseDefaultAmount(amount) {

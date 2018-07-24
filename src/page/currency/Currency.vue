@@ -12,7 +12,7 @@
 
     <section class="m-currency-panel">
       <h3>当前积分</h3>
-      <p>0</p>
+      <p>{{ user.currency.sum || 0 }}</p>
     </section>
 
     <ul class="m-box-model m-entry-group padding">
