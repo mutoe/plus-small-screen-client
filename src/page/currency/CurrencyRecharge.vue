@@ -25,7 +25,7 @@
               :key="item"
               :class="{ active: ~~amount === ~~item && !customAmount }"
               class="m-pinned-amount-btn"
-              @click="chooseDefaultAmount(item)">{{ item.toFixed(2) }}</button>
+              @click="chooseDefaultAmount(item)">{{ ~~item.toFixed(2) }}</button>
           </div>
         </div>
         <div class="m-box m-aln-center m-justify-bet m-bb1 m-bt1 m-pinned-row plr20 m-pinned-amount-customize">
@@ -54,17 +54,6 @@
         </svg>
       </div>
 
-      <footer>
-        <router-link
-          to="/currency/rule"
-          tag="p">
-          <v-icon
-            style="vertical-align: bottom;"
-            type="wallet-alert-circle"/>
-          用户充值协议
-        </router-link>
-      </footer>
-
       <div
         class="plr20 m-lim-width"
         style="margin-top: 0.6rem">
@@ -82,23 +71,56 @@
           <span v-else>确定</span>
         </button>
       </div>
+
+      <footer>
+        <p @click="popupRule">
+          <v-icon
+            style="vertical-align: bottom;"
+            type="wallet-alert-circle"/>
+          用户充值协议
+        </p>
+      </footer>
+
+      <popup-dialog
+        ref="dialog"
+        title="用户充值协议">
+        <p v-html="rule"/>
+      </popup-dialog>
+
     </main>
   </div>
 </template>
 
 <script>
 import bus from "@/bus";
+import { mapState } from "vuex";
+import PopupDialog from "@/components/PopupDialog.vue";
 
 export default {
   name: "CurrencyRecharge",
+  components: { PopupDialog },
   data() {
     return {
-      items: [0.1, 5, 10, 20, 50, 100],
       customAmount: null,
       amount: 0,
       disabled: true,
       loading: false
     };
+  },
+  computed: {
+    ...mapState({
+      currency: "currency"
+    }),
+    items() {
+      return this.currency.recharge.items;
+    },
+    rule() {
+      const rule = this.currency.recharge.rule || "";
+      return rule.replace(/\n/g, "<br>");
+    }
+  },
+  mounted() {
+    if (!this.items.length) this.$store.dispatch("currency/getCurrencyInfo");
   },
   methods: {
     chooseDefaultAmount(amount) {
@@ -109,7 +131,10 @@ export default {
       const actions = [];
       bus.$emit("actionSheet", actions, "取消", "当前未支持任何充值方式");
     },
-    handleOk() {}
+    handleOk() {},
+    popupRule() {
+      this.$refs.dialog.show();
+    }
   }
 };
 </script>

@@ -2,15 +2,25 @@ import * as api from "@/api/currency";
 
 const state = {
   list: [], // 充值纪录
-  items: [], // 充值建议金额
-  ratio: 100, // 充值比率
-  type: [], // 充值类型
-  rule: "" // 充值提现规则
+  rule: "", // 充值提现规则
+  recharge: {
+    rule: "",
+    ratio: 1,
+    type: [], // 充值类型
+    items: [], // 充值建议金额
+    min: 100,
+    max: 10000000
+  },
+  cash: {
+    rule: "",
+    min: 100,
+    max: 10000000
+  }
 };
 
 const getters = {
   rechargeItems: state => {
-    return state.items.map(item => item / state.ratio);
+    return state.recharge.items.map(item => item / 100);
   }
 };
 
@@ -26,8 +36,23 @@ const mutations = {
 
 const actions = {
   async getCurrencyInfo({ commit }) {
-    let { data } = await api.getCurrencyInfo();
-    commit(TYPES.UPDATE_CURRENCY, data);
+    const { data } = await api.getCurrencyInfo();
+    commit(TYPES.UPDATE_CURRENCY, {
+      rule: data.rule,
+      recharge: {
+        rule: data["recharge-rule"],
+        type: data["recharge-type"],
+        ratio: data["recharge-ratio"],
+        items: data["recharge-options"].split(",").map(v => ~~v),
+        min: data["recharge-min"],
+        max: data["recharge-max"]
+      },
+      cash: {
+        rule: data["cash-rule"],
+        min: data["cash-min"],
+        max: data["cash-max"]
+      }
+    });
   }
 };
 
