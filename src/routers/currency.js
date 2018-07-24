@@ -17,7 +17,7 @@ export default [
     path: "/currency",
     component: Currency,
     meta: {
-      title: "钱包",
+      title: "积分",
       requiresAuth: true
     }
   },

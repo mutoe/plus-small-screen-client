@@ -1,4 +1,5 @@
 import * as api from "@/api/currency";
+import * as walletApi from "@/api/wallet";
 
 const state = {
   rule: "", // 充值提现规则
@@ -60,10 +61,41 @@ const actions = {
   /**
    * 获取积分流水
    * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<Object[]>}
    */
   async getCurrencyOrders(state, payload) {
     const { data = [] } = await api.getCurrencyOrders(payload);
     return data;
+  },
+
+  /**
+   * 发起充值请求
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<Object>}
+   */
+  async requestRecharge(state, payload) {
+    const { data = {} } = await api.postCurrencyRecharge(payload);
+    return data;
+  },
+
+  /**
+   * 发起提现请求
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {number} amount
+   * @returns {Promise<{message: string[]}>}
+   */
+  async requestWithdraw(state, amount) {
+    return api.postCurrencyWithdraw({ amount });
+  },
+
+  /**
+   * 积分转换为余额
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {number} amount
+   * @returns {Promise<{message: string[]}>}
+   */
+  async currency2wallet(state, amount) {
+    return walletApi.postTransform({ amount }).catch(err => err.response.data);
   }
 };
 

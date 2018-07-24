@@ -26,3 +26,17 @@ export function getWalletOrders(params) {
     validateStatus: s => s === 200
   });
 }
+
+/**
+ * 转换为积分
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} data
+ * @param {number} data.amount
+ * @returns
+ */
+export function postTransform(data) {
+  return api.post("/plus-pay/transform", data, {
+    validateStatus: s => s === 201
+  });
+}

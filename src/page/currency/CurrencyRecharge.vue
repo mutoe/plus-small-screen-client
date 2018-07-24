@@ -3,9 +3,7 @@
 
     <common-header class="header">
       充值积分
-      <router-link
-        slot="right"
-        to="/currency/detail">
+      <router-link slot="right" to="/currency/detail" >
         充值记录
       </router-link>
     </common-header>
@@ -25,7 +23,9 @@
               :key="item"
               :class="{ active: ~~amount === ~~item && !customAmount }"
               class="m-pinned-amount-btn"
-              @click="chooseDefaultAmount(item)">{{ ~~item.toFixed(2) }}</button>
+              @click="chooseDefaultAmount(item)" >
+              {{ Number(item/100).toFixed(2) }}
+            </button>
           </div>
         </div>
         <div class="m-box m-aln-center m-justify-bet m-bb1 m-bt1 m-pinned-row plr20 m-pinned-amount-customize">
@@ -37,36 +37,27 @@
               class="m-text-r"
               pattern="[0-9]*"
               placeholder="输入金额"
-              oninput="value=value.slice(0,8)">
+              oninput="value=value.slice(0,8)" >
             <span>元</span>
           </div>
         </div>
       </div>
 
-      <div
-        class="m-entry"
-        @click="selectRechargeType">
+      <div class="m-entry" @click="selectRechargeType">
         <span class="m-text-box m-flex-grow1">选择充值方式</span>
+        <div class="m-box m-aln-end paid-type">{{ rechargeTypeText }}</div>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r" />
         </svg>
       </div>
 
-      <div
-        class="plr20 m-lim-width"
-        style="margin-top: 0.6rem">
+      <div class="plr20 m-lim-width" style="margin-top: 0.6rem" >
         <button
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
-          @click="handleOk">
-          <svg
-            v-if="loading"
-            class="m-style-svg m-svg-def">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-loading"/>
+          @click="handleOk" >
+          <svg v-if="loading" class="m-style-svg m-svg-def" >
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading" />
           </svg>
           <span v-else>确定</span>
         </button>
@@ -74,17 +65,13 @@
 
       <footer>
         <p @click="popupRule">
-          <v-icon
-            style="vertical-align: bottom;"
-            type="wallet-alert-circle"/>
+          <v-icon style="vertical-align: bottom;" type="wallet-alert-circle" />
           用户充值协议
         </p>
       </footer>
 
-      <popup-dialog
-        ref="dialog"
-        title="用户充值协议">
-        <p v-html="rule"/>
+      <popup-dialog ref="dialog" title="用户充值协议" >
+        <p v-html="rule" />
       </popup-dialog>
 
     </main>
@@ -96,6 +83,12 @@ import bus from "@/bus";
 import { mapState } from "vuex";
 import PopupDialog from "@/components/PopupDialog.vue";
 
+const supportTypes = [
+  { key: "alipay_wap", title: "支付宝支付" },
+  { key: "wx_wap", title: "微信支付" },
+  { key: "balance", title: "钱包余额支付" }
+];
+
 export default {
   name: "CurrencyRecharge",
   components: { PopupDialog },
@@ -103,7 +96,7 @@ export default {
     return {
       customAmount: null,
       amount: 0,
-      disabled: true,
+      rechargeType: "",
       loading: false
     };
   },
@@ -111,12 +104,28 @@ export default {
     ...mapState({
       currency: "currency"
     }),
+    recharge() {
+      return this.currency.recharge;
+    },
     items() {
       return this.currency.recharge.items;
     },
     rule() {
       const rule = this.currency.recharge.rule || "";
       return rule.replace(/\n/g, "<br>");
+    },
+    rechargeTypeText() {
+      const type = supportTypes.filter(t => t.key === this.form.type).pop();
+      return type && type.title;
+    },
+    form() {
+      return {
+        amount: this.customAmount * 100 || this.amount,
+        type: this.rechargeType
+      };
+    },
+    disabled() {
+      return !this.form.amount || !this.rechargeType;
     }
   },
   mounted() {
@@ -129,9 +138,57 @@ export default {
     },
     selectRechargeType() {
       const actions = [];
-      bus.$emit("actionSheet", actions, "取消", "当前未支持任何充值方式");
+      actions.push({
+        text: "钱包余额支付",
+        method: () => selectType("balance")
+      });
+      supportTypes.forEach(item => {
+        if (this.recharge.type.includes(item.key)) {
+          actions.push({
+            text: item.title,
+            method: () => selectType(item.key)
+          });
+        }
+      });
+      bus.$emit(
+        "actionSheet",
+        actions,
+        "取消",
+        actions.length ? undefined : "当前未支持任何充值方式"
+      );
+
+      const selectType = type => {
+        this.rechargeType = type;
+      };
     },
-    handleOk() {},
+    async handleOk() {
+      if (this.loading) return;
+      const { amount, type } = this.form;
+      if (amount < this.recharge.min)
+        return this.$Message.error(`最低只能充值${this.recharge.min / 100}元`);
+
+      if (amount > this.recharge.max)
+        return this.$Message.error(`最多只能充值${this.recharge.max / 100}元`);
+
+      this.loading = true;
+      let result;
+      if (type === "balance") {
+        result = await this.$store.dispatch("currency/currency2wallet", amount);
+      } else {
+        result = await this.$store.dispatch("currency/requestRecharge", {
+          amount,
+          type
+        });
+      }
+      this.loading = false;
+      if (!result.errors) {
+        this.$store.dispatch("fetchUserInfo");
+        this.$Message.success("充值成功！");
+        this.goBack();
+      } else {
+        this.$Message.error(result.errors);
+      }
+    },
     popupRule() {
       this.$refs.dialog.show();
     }
@@ -158,7 +215,12 @@ export default {
       }
     }
   }
+  .paid-type {
+    font-size: 30px;
+    color: #999;
+  }
   .m-entry {
+    line-height: 1;
     width: 100%;
     padding: 0 20px;
     background-color: #fff;
