@@ -15,6 +15,7 @@
       <h3>账户余额(元)</h3>
       <p>{{ balance }}</p>
     </section>
+
     <ul class="m-box-model m-entry-group padding">
       <router-link
         :to="{path: 'recharge'}"
@@ -43,6 +44,18 @@
           type="base-arrow-r"/>
       </router-link>
     </ul>
+
+    <ul class="m-box-model m-entry-group padding">
+      <router-link
+        :to="{path: '/currency/recharge'}"
+        tag="li"
+        class="m-entry">
+        <v-icon class="m-entry-prepend" type="wallet-recharge"/>
+        <span class="m-text-box m-flex-grow1">积分充值</span>
+        <v-icon class="m-entry-append" type="base-arrow-r"/>
+      </router-link>
+    </ul>
+
     <footer>
       <p @click="popupRule">
         <v-icon
