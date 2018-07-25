@@ -51,7 +51,7 @@
         </svg>
       </div>
 
-      <div class="plr20 m-lim-width" style="margin-top: 0.6rem" >
+      <div class="plr20 m-lim-width submit-btn-wrap" style="margin-top: 0.6rem" >
         <button
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
@@ -219,6 +219,9 @@ export default {
   .paid-type {
     font-size: 30px;
     color: #999;
+  }
+  .submit-btn-wrap {
+    margin-bottom: 90px;
   }
   .m-entry {
     line-height: 1;
