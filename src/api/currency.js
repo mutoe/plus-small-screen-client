@@ -39,12 +39,9 @@ export function getCurrencyOrders(params) {
  * @returns
  */
 export function postCurrencyRecharge(data) {
-  const url = "/currencyRecharge/orders";
-  return api.post(
-    url,
-    { ...data, from: 2 },
-    { validateStatus: s => s === 201 }
-  );
+  return api.post("/currency/recharge", data, {
+    validateStatus: s => s === 201
+  });
 }
 
 /**

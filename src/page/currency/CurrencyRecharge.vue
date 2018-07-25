@@ -82,11 +82,10 @@
 import bus from "@/bus";
 import { mapState } from "vuex";
 import PopupDialog from "@/components/PopupDialog.vue";
-import * as thirdpartApi from "@/api/thirdpart";
 
 const supportTypes = [
-  { key: "alipay_wap", title: "支付宝支付", type: "AlipayOrder" },
-  { key: "wx_wap", title: "微信支付", type: "WechatOrder" },
+  { key: "alipay_wap", title: "支付宝支付" },
+  { key: "wx_wap", title: "微信支付" },
   { key: "balance", title: "钱包余额支付" }
 ];
 
@@ -116,7 +115,7 @@ export default {
       return rule.replace(/\n/g, "<br>");
     },
     rechargeTypeText() {
-      const type = supportTypes.filter(t => t.type === this.form.type).pop();
+      const type = supportTypes.filter(t => t.key === this.form.type).pop();
       return type && type.title;
     },
     form() {
@@ -147,7 +146,7 @@ export default {
         if (this.recharge.type.includes(item.key)) {
           actions.push({
             text: item.title,
-            method: () => selectType(item.type)
+            method: () => selectType(item.key)
           });
         }
       });
@@ -175,27 +174,19 @@ export default {
       let result;
       if (type === "balance") {
         result = await this.$store.dispatch("currency/currency2wallet", amount);
-        this.loading = false;
-        if (!result.errors) {
-          this.$store.dispatch("fetchUserInfo");
-          this.$Message.success("充值成功！");
-          this.goBack();
-        } else {
-          this.$Message.error(result.errors);
-        }
       } else {
-        const { data = "" } = await this.$store.dispatch(
-          "currency/requestRecharge",
-          { amount, type }
-        );
-        const ret = await this.thirdpartOrder(this.rechargeType, data);
-        console.log(ret);
+        result = await this.$store.dispatch("currency/requestRecharge", {
+          amount,
+          type
+        });
       }
-    },
-    async thirdpartOrder(thirdpart, params) {
-      if (thirdpart === "AlipayOrder") {
-        console.log(2);
-        return thirdpartApi.alipay(params);
+      this.loading = false;
+      if (!result.errors) {
+        this.$store.dispatch("fetchUserInfo");
+        this.$Message.success("充值成功！");
+        this.goBack();
+      } else {
+        this.$Message.error(result.errors);
       }
     },
     popupRule() {
