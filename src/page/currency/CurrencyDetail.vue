@@ -21,7 +21,8 @@
         v-for="item in list"
         v-if="item.id"
         :key="item.id"
-        :detail="item"/>
+        :detail="item"
+        type="body"/>
     </load-more>
   </div>
 </template>

@@ -13,7 +13,8 @@
         v-if="item.id"
         :nostyle="true"
         :key="item.id"
-        :detail="item"/>
+        :detail="item"
+        type="title"/>
     </load-more>
   </div>
 </template>

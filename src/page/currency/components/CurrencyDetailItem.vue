@@ -3,13 +3,12 @@
     :class="isIncome"
     class="c-currency-detail-item">
     <div class="info">
-      <div class="title" >{{ detail.body }}</div>
+      <div class="title" >{{ detail[type] }}</div>
       <div class="time">{{ detail.updated_at | time2tips }}</div>
     </div>
     <div class="amount">
       {{ detail.type > 0 ? '+' : '-' }}{{ detail.amount }}
     </div>
-
   </div>
 </template>
 
@@ -18,7 +17,8 @@ export default {
   name: "CurrencyDetailItem",
   props: {
     detail: { type: Object, required: true },
-    nostyle: { type: Boolean, default: false }
+    nostyle: { type: Boolean, default: false },
+    type: { type: String, default: "title" }
   },
   data() {
     return {};
