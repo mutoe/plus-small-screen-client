@@ -39,6 +39,16 @@ const actions = {
       data: { labels: items, ratio, rule, recharge_type: type }
     } = await api.getWalletInfo();
     commit(TYPES.UPDATE_WALLET, { items, type, ratio, rule });
+  },
+
+  /**
+   * 发起充值请求
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<string>} url
+   */
+  async requestRecharge(state, payload) {
+    const { data = "" } = await api.postWalletRecharge(payload);
+    return data;
   }
 };
 

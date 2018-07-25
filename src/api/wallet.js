@@ -40,3 +40,21 @@ export function postTransform(data) {
     validateStatus: s => s === 201
   });
 }
+
+/**
+ * 发起提现请求
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} data
+ * @param {string} data.type 充值方式
+ * @param {number} data.amount 充值金额(单位：RMB分)
+ * @param {number} data.from 来自哪个端 h5固定为2
+ * @returns
+ */
+export function postWalletRecharge(data) {
+  return api.post(
+    "/walletRecharge/orders",
+    { ...data, from: 2 },
+    { validateStatus: s => s === 201 }
+  );
+}

@@ -36,10 +36,9 @@
         class="m-entry"
         @click="selectRechargeType">
         <span class="m-text-box m-flex-grow1">选择充值方式</span>
+        <div class="m-box m-aln-end paid-type">{{ rechargeTypeText }}</div>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r"/>
         </svg>
       </div>
 
@@ -69,8 +68,8 @@ import bus from "@/bus";
 import { mapGetters, mapState } from "vuex";
 
 const supportTypes = [
-  { key: "alipay_wap", title: "支付宝支付" },
-  { key: "wx_wap", title: "微信支付" }
+  { key: "alipay_wap", title: "支付宝支付", type: "AlipayWapOrder" }
+  // 尚未实现 { key: "wx_wap", title: "微信支付" }
 ];
 
 export default {
@@ -79,13 +78,26 @@ export default {
     return {
       customAmount: null,
       amount: 0,
-      disabled: true,
+      rechargeType: "",
       loading: false
     };
   },
   computed: {
-    ...mapState({ rechargeType: state => state.wallet.type }),
-    ...mapGetters({ rechargeItems: "wallet/rechargeItems" })
+    ...mapState({ wallet: state => state.wallet }),
+    ...mapGetters({ rechargeItems: "wallet/rechargeItems" }),
+    rechargeTypeText() {
+      const type = supportTypes.filter(t => t.type === this.form.type).pop();
+      return type && type.title;
+    },
+    form() {
+      return {
+        amount: this.customAmount * 100 || this.amount,
+        type: this.rechargeType
+      };
+    },
+    disabled() {
+      return this.form.amount <= 0 || !this.rechargeType;
+    }
   },
   mounted() {
     if (!this.rechargeItems.length)
@@ -99,12 +111,10 @@ export default {
     selectRechargeType() {
       const actions = [];
       supportTypes.forEach(item => {
-        if (this.rechargeType.includes(item.key)) {
+        if (this.wallet.type.includes(item.key)) {
           actions.push({
             text: item.title,
-            method: () => {
-              console.log(item.title);
-            }
+            method: () => selectType(item.type)
           });
         }
       });
@@ -114,17 +124,40 @@ export default {
         "取消",
         actions.length ? undefined : "当前未支持任何充值方式"
       );
+
+      const selectType = type => {
+        this.rechargeType = type;
+      };
     },
-    handleOk() {}
+    async handleOk() {
+      if (this.loading) return;
+      const { amount, type } = this.form;
+      this.loading = true;
+      const url = await this.$store.dispatch("wallet/requestRecharge", {
+        amount,
+        type
+      });
+      console.log(url);
+      // location.href = url
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.m-entry {
-  width: 100%;
-  padding: 0 20px;
-  background-color: #fff;
-  margin-top: 20px;
+.p-wallet-recharge {
+  .paid-type {
+    font-size: 30px;
+    color: #999;
+  }
+  .submit-btn-wrap {
+    margin-bottom: 90px;
+  }
+  .m-entry {
+    width: 100%;
+    padding: 0 20px;
+    background-color: #fff;
+    margin-top: 20px;
+  }
 }
 </style>
