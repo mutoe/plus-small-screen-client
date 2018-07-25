@@ -3,45 +3,44 @@
 
     <common-header>账单详情</common-header>
 
+    <header class="wallet-header">
+      <p>交易{{ detail.state > 0 ? '成功' : '失败' }}</p>
+      <h2>{{ detail.type > 0 ? '+' : '-' }}{{ detail.amount / 100 | postfix(2) }}</h2>
+    </header>
+
     <main>
-      <div class="wallet-info--detail--body">
-        <p>交易{{ detail.status ? '成功' : '失败' }}</p>
-        <h2>{{ detail.action ? '+' : '-' }}{{ detail.amount | postfix(2) }}</h2>
+      <div v-if="detail.target_type==='s'" class="item">
+        <label>{{ detail.type > 0 ? '收款人' : '付款人' }}</label>
+        <span>
+          <avatar :user="user" size="small"/>
+          {{ user.name }}
+        </span>
       </div>
-      <div class="wallet-info--detail--content">
-        <div class="wallet-info--detail--content-row">
-          <span class="wallet-info--detail--content-row--label">
-            {{ detail.action ? '收款人' : '付款人' }}
-          </span>
-          <div>
-            <avatar
-              :user="user"
-              size="small"/>
-            {{ user.name }}
-          </div>
-        </div>
-        <div class="wallet-info--detail--content-row">
-          <span class="wallet-info--detail--content-row--label m-flex-shrink0">交易说明</span>
-          <div>{{ detail.body }}</div>
-        </div>
-        <div class="wallet-info--detail--content-row">
-          <span class="wallet-info--detail--content-row--label">交易时间</span>
-          <div>{{ detail.created_at }}</div>
-        </div>
+      <div class="item">
+        <label>交易说明</label>
+        <span> {{ detail.body }} </span>
+      </div>
+      <div v-if="detail.target_type==='s'" class="item">
+        <label>交易账户</label>
+        <span> {{ detail.title }} </span>
+      </div>
+      <div class="item">
+        <label>交易时间</label>
+        <span> {{ detail.created_at }} </span>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import _ from "lodash";
+import { mapState } from "vuex";
 
 export default {
-  name: "WalletInfoDetail",
+  name: "WalletInfo",
   filters: {
     postfix(val, pos) {
       if (!val) return "0.00";
-      val.toFix(pos);
+      return val.toFixed(pos);
     }
   },
   data() {
@@ -50,20 +49,20 @@ export default {
     };
   },
   computed: {
+    ...mapState({ wallet: "wallet" }),
     id() {
-      return this.$route.params.id;
+      return Number(this.$route.params.id);
     },
     detail() {
-      const id = this.$route.params.id;
-      return this.$store.getters["wallet/getWalletById"](id);
+      return this.$store.getters["wallet/getWalletById"](this.id);
     },
     user() {
       return this.$store.state.CURRENTUSER;
     }
   },
   mounted() {
-    // 如果 store 中没有数据就返回列表抓取数据
-    _.isEmpty(this.detail) && this.$router.replace({ path: "/wallet/detail" });
+    if (!this.wallet.list.length)
+      this.$store.dispatch("wallet/getWalletOrders");
   },
   methods: {}
 };
@@ -71,8 +70,45 @@ export default {
 
 <style lang="less" scoped>
 .p-wallet-info {
+  .wallet-header {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 40px 20px;
+
+    > p {
+      font-size: 28px;
+      color: #999;
+    }
+
+    > h2 {
+      font-size: 100px;
+    }
+  }
   main {
-    padding-top: 90px;
+    margin-top: 20px;
+    background: #fff;
+
+    > .item {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-top: 1px solid #ededed;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      label {
+        width: 6em;
+        font-size: 30px;
+        color: #999;
+        padding: 0 1em;
+      }
+    }
   }
 }
 </style>

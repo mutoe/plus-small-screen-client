@@ -30,7 +30,7 @@ const mutations = {
 const actions = {
   async getWalletOrders({ commit, state }, params) {
     let { data } = await api.getWalletOrders(params);
-    if (params.after) data = [...state.list, ...data];
+    if (params && params.after) data = [...state.list, ...data];
     commit(TYPES.UPDATE_WALLET, { list: data });
     return data || [];
   },
