@@ -41,7 +41,9 @@ export default {
       console.warn(e);
     }
   },
-  async refreshCurUserData({ state, commit }) {
+
+  // mark useless
+  /*async refreshCurUserData({ state, commit }) {
     const localUser = state.CURRENTUSER;
     if (localUser && localUser.token) {
       const {
@@ -50,5 +52,16 @@ export default {
       localUser.token = token;
     }
     commit("SAVE_CURRENTUSER", localUser);
+  }, */
+
+  /**
+   * 获取用户信息
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<userApi.UserObject>}
+   */
+  async fetchUserInfo({ commit }) {
+    const { data } = await userApi.fetchUserInfo();
+    commit("SAVE_CURRENTUSER", data);
+    return data;
   }
 };

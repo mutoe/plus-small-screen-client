@@ -7,12 +7,8 @@
       @touchmove.prevent>
       <header class="m-box m-aln-center m-head-top m-main m-bb1">
         <div class="m-flex-grow1">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="cancel">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
+          <svg class="m-style-svg m-svg-def" @click="cancel">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"/>
           </svg>
         </div>
         <div class="m-flex-grow1 m-text-c m-head-top-title">
@@ -78,12 +74,8 @@
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
             @click="handleOk">
-            <svg
-              v-if="loading"
-              class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-loading"/>
+            <svg v-if="loading" class="m-style-svg m-svg-def">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading"/>
             </svg>
             <span v-else>{{ isOwner ? '确认置顶' : '申请置顶' }}</span>
           </button>
@@ -94,7 +86,6 @@
 </template>
 <script>
 import bus from "@/bus.js";
-import { refreshCurrentUserInfo } from "@/api/user.js";
 
 const noop = () => {};
 
@@ -182,13 +173,11 @@ export default {
     resetProps() {
       this.day = this.items[0];
     },
-    open() {
+    async open() {
       this.show = true;
       this.scrollable = false;
-
-      refreshCurrentUserInfo().then(({ currency: { sum = 0 } }) => {
-        this.currencySum = sum;
-      });
+      const { currency } = await this.$store.dispatch("fetchUserInfo");
+      this.currencySum = currency.sum || 0;
       this.day = this.items[0];
     },
     cancel() {

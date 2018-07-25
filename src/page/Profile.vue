@@ -168,7 +168,6 @@ import bus from "@/bus";
 import _ from "lodash";
 import { mapState } from "vuex";
 import { resetUserCount } from "@/api/message.js";
-import { refreshCurrentUserInfo } from "@/api/user.js";
 
 export default {
   name: "Profile",
@@ -219,7 +218,7 @@ export default {
     }
   },
   mounted() {
-    refreshCurrentUserInfo();
+    this.$store.dispatch("fetchUserInfo");
     this.$store.dispatch("FETCH_USER_VERIFY");
     this.$store.dispatch("GET_NEW_UNREAD_COUNT");
   },

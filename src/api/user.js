@@ -1,4 +1,4 @@
-import vuex from "@/stores";
+import store from "@/stores";
 import api from "./api.js";
 import $Message from "@/plugins/message-box";
 import lstore from "@/plugins/lstore/lstore.js";
@@ -8,7 +8,6 @@ import lstore from "@/plugins/lstore/lstore.js";
  * @typedef {{id: number, name: string, ...more}} UserObject
  */
 
-const userState = vuex.state.USERS;
 const resArray = { data: [] };
 
 /**
@@ -44,7 +43,7 @@ export const followUserByStatus = ({ status, id }) => {
     url,
     validateStatus: s => s === 204
   }).then(() => {
-    vuex.commit("SAVE_USER", { id, follower: res.follower });
+    store.commit("SAVE_USER", { id, follower: res.follower });
     return res.follower;
   });
 };
@@ -118,15 +117,15 @@ export const findNearbyUser = ({ lng: longitude, lat: latitude }, page = 0) => {
  * @returns {Promise<UserObject>}
  */
 export const getUserInfoById = (id, force = false) => {
-  const user = userState[`user_${id}`];
+  const user = store.state.USERS[`user_${id}`];
   if (user && !force) return user;
 
   return api
     .get(`/users/${id}`, { validateStatus: s => [404, 201, 200].includes(s) })
     .then(({ data }) => {
       data = data.id ? data : {};
-      vuex.commit("SAVE_USER", data);
-      return userState[`user_${id}`];
+      store.commit("SAVE_USER", data);
+      return store.state.USERS[`user_${id}`];
     });
 };
 
@@ -175,7 +174,7 @@ export function signinByAccount(payload) {
             `Bearer ${access_token}`
             // `${token_type} ${access_token}`
           );
-          refreshCurrentUserInfo();
+          store.dispatch("fetchUserInfo");
           return true;
       }
     },
@@ -188,23 +187,12 @@ export function signinByAccount(payload) {
 
 /**
  * 刷新用户信息
- * @author jsonleex <jsonlseex@163.com>
+ * @author mutoe <mutoe@foxmail.com>
  * @export
- * @returns {Promise<UserObject>}
+ * @returns
  */
-export function refreshCurrentUserInfo() {
-  return api.get(`/user`).then(
-    ({ data }) => {
-      // 保存本地
-      lstore.setData("H5_CUR_USER", data);
-      // 保存 vuex
-      vuex.commit("SAVE_CURRENTUSER", data);
-      return data;
-    },
-    err => {
-      console.warn(err);
-    }
-  );
+export function fetchUserInfo() {
+  return api.get("/user", { validateStatus: s => s === 200 });
 }
 
 /**
