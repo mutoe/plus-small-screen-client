@@ -85,14 +85,16 @@ export const time2txt = str => {
   }
 };
 
-// 格林威治时间和本地时间之间的时差 (单位:毫秒)
+/**
+ * 祖鲁时间和本地时间之间的时差 (单位:毫秒)
+ * @returns {number} timezone offset
+ */
 export const timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
 
 export const time2tips = date => {
-  const time =
-    new Date(typeof date === "string" ? date.replace(/-/g, "/") : date) -
-    timeOffset;
-  const offset = (new Date().getTime() - time) / 1000;
+  const time = new Date(date);
+  // 服务器返回的时间是祖鲁时间，需要进行本地化
+  const offset = (new Date().getTime() - time + timeOffset) / 1000;
   if (offset < 60) return "1分钟内";
   if (offset < 3600) return `${~~(offset / 60)}分钟前`;
   if (offset < 3600 * 24) return `${~~(offset / 3600)}小时前`;

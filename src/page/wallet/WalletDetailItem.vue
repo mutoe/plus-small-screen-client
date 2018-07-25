@@ -13,9 +13,12 @@
 </template>
 
 <script>
+import { timeOffset } from "@/filters";
+
 const week = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 function splitYMD(date) {
   date = date || new Date();
+  date = new Date(date);
   const Y = date.getFullYear();
   const M = date.getMonth() + 1;
   const D = date.getDate();
@@ -43,9 +46,8 @@ export default {
   computed: {
     created_at() {
       const now = splitYMD(new Date());
-      const time = splitYMD(
-        new Date(this.detail.created_at.replace(/-/g, "/"))
-      );
+      let time = new Date(this.detail.created_at).getTime() - timeOffset;
+      time = splitYMD(time);
       let D;
       if (time.Y < now.Y) {
         D = time.d;
