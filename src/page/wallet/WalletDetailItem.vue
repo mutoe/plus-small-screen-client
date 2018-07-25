@@ -71,7 +71,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .m-wallet-detail {
   padding: 30px;
   font-size: 30px;
