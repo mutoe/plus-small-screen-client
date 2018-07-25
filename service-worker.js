@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.3.1/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/plus-small-screen-client/precache-manifest.e7b715886a68ba716ded7be734f36fa0.js"
+  "/precache-manifest.bbd5ddb4acfebc70b3b00a2e0019da66.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@slimkit/plus-small-screen-client"});
