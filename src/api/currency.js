@@ -35,13 +35,16 @@ export function getCurrencyOrders(params) {
  * @param {Object} data
  * @param {string} data.type 充值方式
  * @param {number} data.amount 充值金额(单位：RMB分)
- * @param {Object|Array} [data.extra] 拓展信息字段
+ * @param {number} data.from 来自哪个端 h5固定为2
  * @returns
  */
 export function postCurrencyRecharge(data) {
-  return api.post("/currency/recharge", data, {
-    validateStatus: s => s === 201
-  });
+  const url = "/currencyRecharge/orders";
+  return api.post(
+    url,
+    { ...data, from: 2 },
+    { validateStatus: s => s === 201 }
+  );
 }
 
 /**

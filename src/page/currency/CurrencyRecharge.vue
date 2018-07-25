@@ -84,8 +84,8 @@ import { mapState } from "vuex";
 import PopupDialog from "@/components/PopupDialog.vue";
 
 const supportTypes = [
-  { key: "alipay_wap", title: "支付宝支付" },
-  { key: "wx_wap", title: "微信支付" },
+  { key: "alipay_wap", title: "支付宝支付", type: "AlipayWapOrder" },
+  // 尚未实现 { key: "wx_wap", title: "微信支付", type: "WechatWapOrder" },
   { key: "balance", title: "钱包余额支付" }
 ];
 
@@ -115,7 +115,7 @@ export default {
       return rule.replace(/\n/g, "<br>");
     },
     rechargeTypeText() {
-      const type = supportTypes.filter(t => t.key === this.form.type).pop();
+      const type = supportTypes.filter(t => t.type === this.form.type).pop();
       return type && type.title;
     },
     form() {
@@ -146,7 +146,7 @@ export default {
         if (this.recharge.type.includes(item.key)) {
           actions.push({
             text: item.title,
-            method: () => selectType(item.key)
+            method: () => selectType(item.type)
           });
         }
       });
@@ -174,19 +174,20 @@ export default {
       let result;
       if (type === "balance") {
         result = await this.$store.dispatch("currency/currency2wallet", amount);
+        this.loading = false;
+        if (!result.errors) {
+          this.$store.dispatch("fetchUserInfo");
+          this.$Message.success("充值成功！");
+          this.goBack();
+        } else {
+          this.$Message.error(result.errors);
+        }
       } else {
-        result = await this.$store.dispatch("currency/requestRecharge", {
+        const url = await this.$store.dispatch("currency/requestRecharge", {
           amount,
           type
         });
-      }
-      this.loading = false;
-      if (!result.errors) {
-        this.$store.dispatch("fetchUserInfo");
-        this.$Message.success("充值成功！");
-        this.goBack();
-      } else {
-        this.$Message.error(result.errors);
+        location.href = url;
       }
     },
     popupRule() {

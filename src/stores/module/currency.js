@@ -71,10 +71,10 @@ const actions = {
   /**
    * 发起充值请求
    * @author mutoe <mutoe@foxmail.com>
-   * @returns {Promise<Object>}
+   * @returns {Promise<string>} url
    */
   async requestRecharge(state, payload) {
-    const { data = {} } = await api.postCurrencyRecharge(payload);
+    const { data = "" } = await api.postCurrencyRecharge(payload);
     return data;
   },
 
