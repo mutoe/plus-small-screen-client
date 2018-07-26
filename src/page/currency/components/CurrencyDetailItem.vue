@@ -43,19 +43,23 @@ export default {
   padding: 30px;
   font-size: 30px;
 
-  .time {
-    color: #b3b3b3;
-    font-size: 24px;
-  }
-  .title {
-    font-size: 30px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-bottom: 10px;
-  }
-  .amount {
-    font-size: 32px;
+  .info {
+    max-width: calc(~"100% - 4em");
+
+    .time {
+      color: #b3b3b3;
+      font-size: 24px;
+    }
+    .title {
+      font-size: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+    }
+    .amount {
+      font-size: 32px;
+    }
   }
 
   &.no-style {
