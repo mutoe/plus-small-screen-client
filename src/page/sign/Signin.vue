@@ -49,7 +49,8 @@
               v-model="password"
               maxlength="16"
               type="password"
-              placeholder="输入6位以上登录密码">
+              placeholder="输入6位以上登录密码"
+              @keyup.enter="signinByAccount">
           </div>
           <svg 
             class="m-style-svg m-svg-def" 
