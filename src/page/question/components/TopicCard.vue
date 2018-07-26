@@ -19,16 +19,17 @@
     <button
       v-if="topic.has_follow || type === 'follow'"
       class="follow active"
-      @click="handleUnfollow(topic)"><span>✓</span>已关注</button>
+      @click="handleUnfollow(topic)"><span>✓ </span>已关注</button>
     <button
       v-else
       class="follow"
-      @click="handleFollow(topic)"><span>+</span>关注</button>
+      @click="handleFollow(topic)"><span class="big">+ </span>关注</button>
   </div>
 </template>
 
 <script>
 export default {
+  name: "TopicCard",
   props: {
     topic: { type: Object, required: true },
     type: { type: String, default: "hot" }
@@ -91,22 +92,22 @@ export default {
   .follow {
     flex: none;
     height: 50px;
+    width: 6em;
+    padding: 0;
     background-color: #fff;
     border-radius: 8px;
     border: solid 2px #59b6d7;
     color: #59b6d7;
-    font-size: 26px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 5px;
-    letter-spacing: 0px;
     outline: none;
 
     > span {
       width: 20px;
       height: 20px;
-      font-size: 36px;
       margin-right: 2px;
+
+      &.big {
+        font-size: 32px;
+      }
     }
 
     &.active {
