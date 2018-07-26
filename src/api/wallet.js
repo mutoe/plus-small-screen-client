@@ -42,7 +42,7 @@ export function postTransform(data) {
 }
 
 /**
- * 发起提现请求
+ * 发起充值请求
  * @author mutoe <mutoe@foxmail.com>
  * @export
  * @param {Object} data
@@ -52,9 +52,21 @@ export function postTransform(data) {
  * @returns
  */
 export function postWalletRecharge(data) {
-  return api.post(
-    "/walletRecharge/orders",
-    { ...data, from: 2 },
-    { validateStatus: s => s === 201 }
-  );
+  const url = "/walletRecharge/orders";
+  data = Object.assing(data, { from: 2 });
+  return api.post(url, data, { validateStatus: s => s === 201 });
+}
+
+/**
+ * 发起提现请求
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} data
+ * @param {number} data.amount
+ * @param {string} data.type
+ * @param {string} data.account
+ * @returns
+ */
+export function postWalletWithdraw(data) {
+  return api.post("/plus-pay/cash", data, { validateStatus: s => s === 201 });
 }

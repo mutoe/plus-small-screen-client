@@ -28,16 +28,25 @@ const mutations = {
 };
 
 const actions = {
+  /**
+   * 获取钱包流水
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<Object[]>}
+   */
   async getWalletOrders({ commit, state }, params) {
     let { data } = await api.getWalletOrders(params);
     if (params && params.after) data = [...state.list, ...data];
     commit(TYPES.UPDATE_WALLET, { list: data });
     return data || [];
   },
+
+  /**
+   * 获取钱包配置信息
+   * @author mutoe <mutoe@foxmail.com>
+   */
   async getWalletInfo({ commit }) {
-    let {
-      data: { labels: items, ratio, rule, recharge_type: type }
-    } = await api.getWalletInfo();
+    let { data } = await api.getWalletInfo();
+    const { labels: items, ratio, rule, recharge_type: type } = data;
     commit(TYPES.UPDATE_WALLET, { items, type, ratio, rule });
   },
 
@@ -48,6 +57,16 @@ const actions = {
    */
   async requestRecharge(state, payload) {
     const { data = "" } = await api.postWalletRecharge(payload);
+    return data;
+  },
+
+  /**
+   * 发起提现请求
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async requestWithdraw(state, payload) {
+    const { data } = await api.postWalletWithdraw(payload);
     return data;
   }
 };

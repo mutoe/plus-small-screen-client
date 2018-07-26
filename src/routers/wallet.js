@@ -7,6 +7,8 @@ const WalletRecharge = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletRecharge.vue");
 const WalletWithdraw = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletWithdraw.vue");
+const WalletWithdrawDetail = () =>
+  import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletWithdrawDetail.vue");
 const WalletDetail = () =>
   import(/* webpackChunkName: 'wallet' */ "@/page/wallet/WalletDetail.vue");
 const WalletInfo = () =>
@@ -33,6 +35,13 @@ export default [
     component: WalletWithdraw,
     meta: {
       title: "提现"
+    }
+  },
+  {
+    path: "/wallet/withdraw/detail",
+    component: WalletWithdrawDetail,
+    meta: {
+      title: "提现明细"
     }
   },
   {

@@ -3,12 +3,12 @@
 
     <common-header>
       提现
-      <!-- <router-link
+      <router-link
         slot="right"
         style="width: 4em;"
         to="/wallet/withdraw/detail">
         提现明细
-      </router-link> -->
+      </router-link>
     </common-header>
 
     <main class="m-box-model m-aln-center m-justify-center">
@@ -67,6 +67,7 @@
 
 <script>
 import bus from "@/bus";
+import { mapState } from "vuex";
 
 export default {
   name: "WalletWithdraw",
@@ -74,11 +75,20 @@ export default {
     return {
       form: {
         amount: "",
-        account: ""
+        account: "",
+        type: ""
       },
-      disabled: true,
       loading: false
     };
+  },
+  computed: {
+    ...mapState({
+      wallet: "wallet"
+    }),
+    disabled() {
+      const { amount, account, type } = this.form;
+      return !amount || !account || !type;
+    }
   },
   methods: {
     handleOk() {},
