@@ -6,7 +6,7 @@
         to="/question/topics"
         replace
         exact
-        exact-active-class="active">全部话题</router-link>
+        exact-active-class="active">全部专题</router-link>
       <router-link
         :to="{ path: '/question/topics', query: { type: 'follow' } }"
         replace

@@ -29,7 +29,7 @@
         :to="{path: '/question/search', query: {type: 'topic'}}"
         replace
         exact
-        exact-active-class="active">话题</router-link>
+        exact-active-class="active">专题</router-link>
     </nav>
 
     <jo-load-more

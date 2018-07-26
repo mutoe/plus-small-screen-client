@@ -28,7 +28,7 @@
         :replace="true"
         :exact="true"
         to="/question/topics" >
-        话题
+        专题
       </router-link>
     </div>
 

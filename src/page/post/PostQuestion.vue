@@ -108,7 +108,7 @@
           <input
             v-model="topicKeyWord"
             type="search"
-            placeholder="搜索话题"
+            placeholder="搜索专题"
             @input="inputTopicKeyWord">
           <svg
             v-show="topicKeyWord.length > 0"
@@ -179,7 +179,7 @@ export default {
         case 2:
           return "问题详情";
         case 3:
-          return "至少添加一个话题";
+          return "至少添加一个专题";
         case 4:
           return "悬赏（可跳过）";
         default:
@@ -224,7 +224,7 @@ export default {
       index > -1
         ? this.selectedTops.splice(index, 1)
         : this.selectedTops.length > 4
-          ? this.$Message.error("添加话题不可以超过5个")
+          ? this.$Message.error("添加专题不可以超过5个")
           : this.selectedTops.push(topic);
     },
     serachQuestionByKey: _.debounce(function() {
@@ -302,7 +302,7 @@ export default {
       if (!title) return (this.step = 1), this.$Message.error("请输入问题标题");
 
       if (this.selectedTops.length === 0)
-        return (this.step = 3), this.$Message.error("至少选择一个话题");
+        return (this.step = 3), this.$Message.error("至少选择一个专题");
 
       this.postQuestion({
         subject: title,

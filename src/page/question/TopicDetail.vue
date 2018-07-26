@@ -11,7 +11,7 @@
         </svg>
       </div>
       <div class="m-box m-aln-center m-justify-center m-flex-auto m-head-top-title">
-        <span class="m-text-cut">{{ topic.name || "话题详情" }}</span>
+        <span class="m-text-cut">{{ topic.name || "专题详情" }}</span>
       </div>
       <div class="m-box m-aln-center m-justify-end m-flex-none">
         <svg class="m-style-svg m-svg-def">
@@ -50,7 +50,7 @@
 
       <!-- Topic desc -->
       <div class="topic-desc">
-        话题简介：{{ topic.description }}
+        专题简介：{{ topic.description }}
       </div>
 
       <!-- Experts -->
