@@ -22,7 +22,7 @@ export default {
     closable: { type: Boolean, default: false },
     transitionName: { type: String, default: "" },
     icon: { type: String, default: "msg-info" },
-    content: { type: Object, required: true },
+    content: { type: [Object, Array], required: true },
     onClose: { type: Function, default: () => {} },
     name: { type: String, required: true }
   },

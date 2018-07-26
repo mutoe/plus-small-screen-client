@@ -55,7 +55,7 @@
         <button
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
-          @click="handleOk" >
+          @click="beforeSubmit" >
           <svg v-if="loading" class="m-style-svg m-svg-def" >
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading" />
           </svg>
@@ -86,7 +86,7 @@ import PopupDialog from "@/components/PopupDialog.vue";
 const supportTypes = [
   { key: "alipay_wap", title: "支付宝支付", type: "AlipayWapOrder" },
   // 尚未实现 { key: "wx_wap", title: "微信支付", type: "WechatWapOrder" },
-  { key: "balance", title: "钱包余额支付" }
+  { key: "balance", title: "钱包余额支付", type: "balance" }
 ];
 
 export default {
@@ -161,7 +161,7 @@ export default {
         this.rechargeType = type;
       };
     },
-    async handleOk() {
+    beforeSubmit() {
       if (this.loading) return;
       const { amount, type } = this.form;
       if (amount < this.recharge.min)
@@ -170,25 +170,35 @@ export default {
       if (amount > this.recharge.max)
         return this.$Message.error(`最多只能充值${this.recharge.max / 100}元`);
 
-      this.loading = true;
-      let result;
       if (type === "balance") {
-        result = await this.$store.dispatch("currency/currency2wallet", amount);
-        this.loading = false;
-        if (!result.errors) {
-          this.$store.dispatch("fetchUserInfo");
-          this.$Message.success("充值成功！");
-          this.goBack();
-        } else {
-          this.$Message.error(result.errors);
-        }
+        this.rechargeWithBanlance(amount);
       } else {
-        const url = await this.$store.dispatch("currency/requestRecharge", {
-          amount,
-          type
-        });
-        location.href = url;
+        this.rechargeWithPay(type, amount);
       }
+    },
+    async rechargeWithBanlance(amount) {
+      this.loading = true;
+      const result = await this.$store.dispatch(
+        "currency/currency2wallet",
+        amount
+      );
+      this.loading = false;
+      if (!result.errors) {
+        this.$Message.success("充值成功！");
+        this.goBack();
+        this.$store.dispatch("fetchUserInfo");
+      } else {
+        this.$Message.error(result.errors);
+      }
+    },
+    async rechargeWithPay(type, amount) {
+      this.loading = true;
+      const url = await this.$store.dispatch("currency/requestRecharge", {
+        amount,
+        type
+      });
+      this.loading = false;
+      location.href = url;
     },
     popupRule() {
       this.$refs.dialog.show();

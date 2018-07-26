@@ -83,7 +83,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("currency/getCurrencyInfo");
+    if (!this.currency.recharge.length)
+      this.$store.dispatch("currency/getCurrencyInfo");
   },
   methods: {
     showRule() {
