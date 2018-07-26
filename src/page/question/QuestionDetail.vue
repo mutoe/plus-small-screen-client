@@ -2,12 +2,8 @@
   <div class="p-question-detail">
     <header class="m-box m-pos-f m-main m-bb1 m-head-top">
       <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
       </div>
       <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center m-head-top-title">
@@ -38,9 +34,7 @@
           <h3 class="main-title">{{ question.subject }}</h3>
 
           <!-- Body -->
-          <div
-            class="markdown-body main-body"
-            v-html="htmlBody"/>
+          <div class="markdown-body main-body" v-html="htmlBody"/>
 
           <!-- watch -->
           <div class="main-watch">
@@ -73,18 +67,14 @@
           <!-- Button -->
           <div class="main-button">
             <div class="button">
-              <svg
-                class="main-button-icon"
-                fill="#666">
+              <svg class="main-button-icon" fill="#666">
                 <use xlink:href="#base-reward" />
               </svg>
               {{ question.amount ? '已' : '未' }}设置悬赏
             </div>
             <span/>
             <div class="button">
-              <svg
-                class="main-button-icon"
-                fill="#666">
+              <svg class="main-button-icon" fill="#666">
                 <use xlink:href="#base-edit" />
               </svg>
               添加回答
@@ -97,9 +87,7 @@
           <div>{{ question.answers_count }}个回答</div>
           <button @click="handleTargetAnswersOrder">
             {{ answersTimeOrder ? '时间排序' : '默认排序' }}
-            <svg
-              fill="#999"
-              class="icon">
+            <svg fill="#999" class="icon">
               <use xlink:href="#base-filter-list" />
             </svg>
           </button>
@@ -112,23 +100,16 @@
           :answer="answer" />
       </load-more>
     </div>
-    <div class="tabbar">
-      <a
-        class="tabbar-item"
-        href="#">
-        <svg
-          class="tabbar-icon"
-          fill="#999">
+
+    <!-- <div class="tabbar">
+      <a class="tabbar-item" href="#">
+        <svg class="tabbar-icon" fill="#999">
           <use xlink:href="#message-comments" />
         </svg>
         评论
       </a>
-      <a
-        class="tabbar-item"
-        href="#">
-        <svg
-          class="tabbar-icon"
-          fill="#999">
+      <a class="tabbar-item" href="#">
+        <svg class="tabbar-icon" fill="#999">
           <use xlink:href="#base-share" />
         </svg>
         分享
@@ -137,24 +118,18 @@
         v-show="editer"
         class="tabbar-item"
         href="#">
-        <svg
-          class="tabbar-icon"
-          fill="#999">
+        <svg class="tabbar-icon" fill="#999">
           <use xlink:href="#edit" />
         </svg>
         编辑
       </a>
-      <a
-        class="tabbar-item"
-        href="#">
-        <svg
-          class="tabbar-icon"
-          fill="#999">
+      <a class="tabbar-item" href="#">
+        <svg class="tabbar-icon" fill="#999">
           <use xlink:href="#base-more" />
         </svg>
         更多
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 
