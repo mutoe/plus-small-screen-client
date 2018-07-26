@@ -1,7 +1,5 @@
 <template>
-  <avatar
-    v-bind="$props"
-    @click.native="handleClick">
+  <avatar v-bind="$props" @click.native="handleClick">
     <!-- If anonymity user. -->
     <template v-if="anonymity">匿</template>
 
@@ -11,15 +9,11 @@
       width="100%"
       height="100%"
       class="avatar_icon">
-      <use
-        :xlink:href="defaultAvatar"
-        xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      <use :xlink:href="defaultAvatar"/>
     </svg>
 
     <!-- Show user avatar image. -->
-    <img
-      v-else
-      :src="src">
+    <img v-else :src="src">
   </avatar>
 </template>
 

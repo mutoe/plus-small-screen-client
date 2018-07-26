@@ -1,10 +1,6 @@
 <template>
-  <div
-    class="question-answer-item"
-    @click="viewDetail">
-    <div
-      class="avatar"
-      @click.stop="viewUser">
+  <div class="p-question-answer-item" @click="viewDetail">
+    <div class="avatar" @click.stop="viewUser">
       <user-avatar
         :size="0.56"
         :anonymity="anonymity"
@@ -109,7 +105,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.question-answer-item {
+.p-question-answer-item {
   width: 100%;
   background-color: #fff;
   margin-bottom: 9px;

@@ -20,9 +20,6 @@ export default {
     nostyle: { type: Boolean, default: false },
     type: { type: String, default: "title" }
   },
-  data() {
-    return {};
-  },
   computed: {
     isIncome() {
       if (this.nostyle) return "no-style";

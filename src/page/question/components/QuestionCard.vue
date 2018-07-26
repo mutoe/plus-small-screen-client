@@ -4,11 +4,9 @@
     <router-link
       :to="`/questions/${question.id}`"
       tag="h3"
-      class="module-question-list-item_title">
+      class="title">
       {{ question.subject }}
-      <span
-        v-show="question.excellent"
-        class="module-question-list-item-shang-i">精</span>
+      <span v-show="question.excellent" class="shang-i">精</span>
     </router-link>
 
     <!-- The question first image. -->
@@ -17,7 +15,7 @@
       :style="firstImageStyle"
       :to="`/questions/${question.id}`"
       tag="div"
-      class="module-question-list-item_image" />
+      class="image" />
 
     <!-- Answer. -->
     <question-list-answer-card :answer="answer" />
@@ -25,29 +23,29 @@
     <!-- Bottom -->
     <router-link
       :to="`/questions/${question.id}`"
-      class="module-question-list-item_button"
+      class="button"
       tag="div">
       <span>
-        <span class="module-question-list-item_button-style1">{{ question.watchers_count }}</span>&nbsp;关注
+        <span class="button-style1">{{ question.watchers_count }}</span>&nbsp;关注
       </span>
       <span>
         <span>·</span>
-        <span class="module-question-list-item_button-style1">{{ question.answers_count }}</span>&nbsp;回答
+        <span class="button-style1">{{ question.answers_count }}</span>&nbsp;回答
       </span>
       <span v-show="question.amount">
         <span>·</span>
-        <span class="module-question-list-item-shang">
+        <span class="shang">
           <span>赏</span>
           {{ question.amount }}
         </span>
       </span>
-      <span class="module-question-list-item_button-time">{{ question.updated_at | time2tips }}</span>
+      <span class="button-time">{{ question.updated_at | time2tips }}</span>
     </router-link>
   </div>
 </template>
 
 <script>
-import QuestionListAnswerCard from "../QuestionListAnswerCard";
+import QuestionListAnswerCard from "../QuestionListAnswerCard.vue";
 import { syntaxTextAndImage } from "@/util/markdown";
 
 export default {
@@ -90,22 +88,20 @@ export default {
       const { images } = this.body;
       const image = images.pop();
 
-      if (image) {
-        return `background-image: url(${image})`;
-      }
-
+      if (image) return `background-image: url(${image})`;
       return false;
     }
   }
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .module-question-list-item {
   background: #fff;
   padding: 31px;
   margin-bottom: 10px;
-  .module-question-list-item_title {
+
+  .title {
     margin: 0;
     margin-bottom: 46px;
     font-size: 32px;
@@ -114,7 +110,8 @@ export default {
     color: #333;
     line-height: 1.4;
   }
-  .module-question-list-item_image {
+
+  .image {
     width: 100%;
     height: 300px;
     background-position: center;
@@ -122,7 +119,8 @@ export default {
     background-size: cover;
     margin-bottom: 46px;
   }
-  .module-question-list-item_button {
+
+  .button {
     width: 100%;
     font-size: 28px;
     font-weight: normal;
@@ -136,8 +134,10 @@ export default {
       color: #58b6d7;
     }
   }
-  &-shang {
+
+  .shang {
     color: #fca308;
+
     &-i,
     span {
       color: #fca308;

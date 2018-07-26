@@ -2,16 +2,12 @@
   <div class="p-post-question">
     <header class="m-pos-f m-box m-aln-center m-justify-bet m-head-top m-main m-bb1">
       <div class="m-flex-grow1 m-flex-shrink1 m-flex-base0">
-        <a
-          v-if="step === 1"
-          @click.prevent="cancel">取消</a>
+        <a v-if="step === 1" @click.prevent="cancel">取消</a>
         <svg
           v-else
           class="m-style-svg m-svg-def"
           @click="preStep">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+          <use xlink:href="#base-back"/>
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-flex-shrink0 m-flex-base0 m-justify-center m-head-top-title">
@@ -29,6 +25,7 @@
           @click="beforePost">发布</a>
       </div>
     </header>
+
     <transition-group
       :enter-active-class="animated.enterClass"
       :leave-active-class="animated.leaveClass"
@@ -47,8 +44,7 @@
             :warn-length="30"
             class="m-reles-txt-wrap"
             placeholder="请输入问题并以问号结尾"
-            @input="serachQuestionByKey"
-          />
+            @input="serachQuestionByKey" />
         </div>
         <ul class="m-box-model m-flex-grow1 m-flex-shrink1 m-lim-width question-list">
           <router-link
@@ -67,9 +63,7 @@
         class="m-pos-f m-box-model m-flex-grow1 m-flex-shrink1 m-main"
         @click="autoFoucs">
         <div class="m-rich-box">
-          <span
-            v-if="showPlaceholder"
-            class="placeholder">详细描述你的问题，有助于受到准确的回答</span>
+          <span v-if="showPlaceholder" class="placeholder">详细描述你的问题，有助于受到准确的回答</span>
           <div
             ref="editor"
             tabindex="0"
@@ -91,19 +85,13 @@
             @click="selectedTopic(topic)">
             <span>{{ topic.name }}</span>
             <svg class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-clean"/>
+              <use xlink:href="#base-clean"/>
             </svg>
           </li>
         </ul>
         <div class="m-box m-aln-center m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title step3">
-          <svg
-            class="m-style-svg m-svg-def"
-            style="fill: #ccc; margin-right: 0.3rem">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-search"/>
+          <svg class="m-style-svg m-svg-def" style="fill: #ccc; margin-right: 0.3rem">
+            <use xlink:href="#base-search"/>
           </svg>
           <input
             v-model="topicKeyWord"
@@ -115,9 +103,7 @@
             class="m-style-svg m-svg-def"
             style="fill: #ccc; margin-right: 0.3rem"
             @click="topicKeyWord = ''">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-clean"/>
+            <use xlink:href="#base-clean"/>
           </svg>
         </div>
         <div class="m-flex-grow1 m-flex-shrink1 m-topics">
@@ -126,9 +112,7 @@
             :key="topic.id"
             class="m-box m-aln-center m-topic m-bb1"
             @click="selectedTopic(topic)" >
-            <img
-              :src="topic.avatar"
-              class="m-flex-grow0 m-flex-shrink0 m-topic-avatar">
+            <img :src="topic.avatar" class="m-flex-grow0 m-flex-shrink0 m-topic-avatar">
             <section class="m-flex-grow1 m-flex-shrink1 m-box-model m-ovxh">
               <h3>{{ topic.name }}</h3>
               <p>{{ topic.description }}</p>
@@ -329,9 +313,7 @@ export default {
             "actionSheet",
             [
               {
-                style: {
-                  color: "#f4504d"
-                },
+                style: { color: "#f4504d" },
                 text: "放弃",
                 method: this.goBack
               },
@@ -352,7 +334,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-post-question-main {
   > div {
     animation-duration: 0.3s;

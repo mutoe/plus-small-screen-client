@@ -2,12 +2,8 @@
   <div class="p-topic-detail">
     <header class="m-box m-pos-f m-main m-head-top m-bb1">
       <div class="m-box m-aln-center m-flex-none">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
       </div>
       <div class="m-box m-aln-center m-justify-center m-flex-auto m-head-top-title">
@@ -15,9 +11,7 @@
       </div>
       <div class="m-box m-aln-center m-justify-end m-flex-none">
         <svg class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-share"/>
+          <use xlink:href="#base-share"/>
         </svg>
       </div>
     </header>
@@ -49,9 +43,7 @@
       </div>
 
       <!-- Topic desc -->
-      <div class="topic-desc">
-        专题简介：{{ topic.description }}
-      </div>
+      <div class="topic-desc">专题简介：{{ topic.description }}</div>
 
       <!-- Experts -->
       <div class="experts">
@@ -69,9 +61,7 @@
       </div>
 
       <!-- Types nav -->
-      <nav
-        ref="types"
-        class="types">
+      <nav ref="types" class="types">
         <router-link
           :to="{ path: `/question-topics/${id}` }"
           replace

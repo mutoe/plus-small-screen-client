@@ -7,17 +7,14 @@
     @on-share="shareAnswer"
     @on-more="moreAction"
     @on-comment="commentAnswer">
+
     <header
       slot="head"
       class="m-box m-justify-bet m-aln-center m-art-head m-main"
       style="padding: 0">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
       </div>
       <div class="m-box m-flex-grow2 m-flex-shrink2 m-aln-center m-flex-base0 m-head-top-title m-justify-center">
@@ -25,6 +22,7 @@
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
     </header>
+
     <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
       <!-- 回答者信息 -->
       <!--<div class="m-box user-info-wrap">
@@ -36,9 +34,7 @@
         <button></button>
       </div> -->
       <div class="m-art-body">
-        <p
-          class="m-text-box"
-          v-html="formatBody(content)"/>
+        <p class="m-text-box" v-html="formatBody(content)"/>
       </div>
       <div class="m-box m-aln-center m-justify-bet m-art-foot">
         <div class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list">
@@ -62,9 +58,7 @@
         </div>
       </div>
       <div class="m-box-model m-box-center m-box-center-a m-art-reward">
-        <button
-          class="m-art-rew-btn"
-          @click="rewardAnswer">打 赏</button>
+        <button class="m-art-rew-btn" @click="rewardAnswer">打 赏</button>
         <p class="m-art-rew-label">
           <a href="javascript:;">{{ reward.count | formatNum }}</a>人打赏，共
           <a href="javascript:;">{{ ~~reward.amount }}</a>积分
@@ -81,24 +75,16 @@
             class="m-flex-grow0 m-flex-shrink0 m-art-rew m-avatar-box tiny">
             <img :src="rew.user.avatar">
           </li>
-          <li
-            v-if="rewardList.length > 0"
-            class="m-box m-aln-center">
-            <svg
-              class="m-style-svg m-svg-def"
-              style="fill:#bfbfbf">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
+          <li v-if="rewardList.length > 0" class="m-box m-aln-center">
+            <svg class="m-style-svg m-svg-def" style="fill:#bfbfbf">
+              <use xlink:href="#base-arrow-r"/>
             </svg>
           </li>
         </router-link>
       </div>
     </main>
     <!-- 评论列表 -->
-    <div
-      id="comment_list"
-      class="m-box-model m-art-comments">
+    <div id="comment_list" class="m-box-model m-art-comments">
       <ul class="m-box m-aln-center m-art-comments-tabs">
         <li>{{ commentCount | formatNum }}条评论</li>
       </ul>
@@ -114,9 +100,7 @@
         :comment="comment"
         @click="replyComment" />
       <div class="m-box m-aln-center m-justify-center load-more-box">
-        <span
-          v-if="noMoreCom"
-          class="load-more-ph">---没有更多---</span>
+        <span v-if="noMoreCom" class="load-more-ph">---没有更多---</span>
         <span
           v-else
           class="load-more-btn"

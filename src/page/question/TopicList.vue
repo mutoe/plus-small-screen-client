@@ -1,7 +1,7 @@
 <template>
   <div class="module-questions-topics">
     <!-- navs. -->
-    <nav class="module-questions-topics-nav">
+    <nav class="nav">
       <router-link
         to="/question/topics"
         replace
@@ -32,7 +32,7 @@
 
 <script>
 import TopicCard from "./components/TopicCard.vue";
-import * as api from "@/api/question/topics.js";
+import * as api from "@/api/question/topics";
 
 export default {
   name: "TopicList",
@@ -173,13 +173,13 @@ export default {
 };
 </script>
 
-<style lang="less">
-@root: module-questions-topics;
-.@{root} {
+<style lang="less" scoped>
+.module-questions-topics {
   padding-top: 182px;
   padding-bottom: 100px;
   min-height: 100vh;
-  &-nav {
+
+  .nav {
     position: fixed;
     top: 90px;
     display: flex;

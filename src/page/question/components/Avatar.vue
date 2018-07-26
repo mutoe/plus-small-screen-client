@@ -1,7 +1,8 @@
 <template>
   <div
     v-bind="$props"
-    :class="rootClassName"
+    class="module-avatar"
+    :class="classes"
     :style="rootStyles"
     @click="handleClick">
     <slot/>
@@ -18,21 +19,6 @@ export default {
   },
   computed: {
     /**
-     * Root element class name.
-     *
-     * @return {Array}
-     * @author Seven Du <shiweidu@outlook.com>
-     */
-    rootClassName() {
-      let classes = this.classes || [];
-      if (typeof classes === "string" || classes instanceof String) {
-        classes = [classes];
-      }
-
-      return ["module-avatar", ...classes];
-    },
-
-    /**
      * Root element styles.
      *
      * @return {Object}
@@ -44,10 +30,7 @@ export default {
         size = size + this.sizeUnit;
       }
 
-      return {
-        width: size,
-        height: size
-      };
+      return { width: size, height: size };
     }
   },
   methods: {
@@ -65,7 +48,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .module-avatar {
   background-color: #999;
   color: #fff;

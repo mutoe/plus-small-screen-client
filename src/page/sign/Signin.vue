@@ -12,9 +12,7 @@
           <router-link to="/signup">注册</router-link>
         </div>
       </header>
-      <main 
-        class="m-box-model m-flex-grow1" 
-        style="padding-top: 0.9rem">
+      <main class="m-box-model m-flex-grow1" style="padding-top: 0.9rem">
         <div class="m-form-row m-main">
           <label for="account">账户</label>
           <div class="m-input">
@@ -28,9 +26,7 @@
             v-show="account.length > 0"
             class="m-style-svg m-svg-def"
             @click="account = ''">
-            <use 
-              xmlns:xlink="http://www.w3.org/1999/xlink" 
-              xlink:href="#base-clean"/>
+            <use xlink:href="#base-clean"/>
           </svg>
         </div>
         <div class="m-form-row m-main">
@@ -52,50 +48,36 @@
               placeholder="输入6位以上登录密码"
               @keyup.enter="signinByAccount">
           </div>
-          <svg 
-            class="m-style-svg m-svg-def" 
-            @click="eye=!eye">
-            <use :xlink:href="`#eye-${eye?&quot;open&quot;:&quot;close&quot;}`"/>
+          <svg class="m-style-svg m-svg-def" @click="eye = !eye">
+            <use :xlink:href="eye ? '#eye-open' : '#eye-close'"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-text-box m-form-err-box">
           <span>{{ err | plusMessageFirst }}</span>
         </div>
-        <div 
-          class="m-form-row" 
-          style="border: 0">
+        <div class="m-form-row" style="border: 0">
           <button
             :disabled="disabled"
             class="m-long-btn m-signin-btn"
             @click="signinByAccount">
-            <svg 
-              v-if="loading" 
-              class="m-style-svg m-svg-def">
-              <use 
-                xmlns:xlink="http://www.w3.org/1999/xlink" 
-                xlink:href="#base-loading"/>
+            <svg v-if="loading" class="m-style-svg m-svg-def">
+              <use xlink:href="#base-loading"/>
             </svg>
             <span v-else>登录</span>
           </button>
         </div>
         <div class="m-box m-aln-center m-justify-bet other-link">
-          <router-link 
-            tag="span" 
-            to="/feeds?type=hot">
+          <router-link tag="span" to="/feeds?type=hot">
             <a>不登录，先随便逛逛</a>
           </router-link>
-          <router-link 
-            tag="span" 
-            to="/forgot">
+          <router-link tag="span" to="/forgot">
             <a>忘记密码</a>
           </router-link>
         </div>
       </main>
 
       <!-- TODO: 其他三方登录方式 -->
-      <footer 
-        v-if="isWechat" 
-        class="m-box-model m-trhsignin">
+      <footer v-if="isWechat" class="m-box-model m-trhsignin">
         <div class="m-box m-aln-center m-justify-aro m-trhsignin-list">
           <!-- <div class="m-box m-fd-col m-aln-center m-tr-item">
             <div class="m-tr-item-icon">
@@ -105,14 +87,12 @@
             </div>
             <span>QQ</span>
           </div> -->
-          <div 
-            class="m-box m-fd-col m-aln-center m-tr-item" 
+          <div
+            class="m-box m-fd-col m-aln-center m-tr-item"
             @click="signinByWechat">
             <div class="m-tr-item-icon">
               <svg class="m-style-svg m-svg-def">
-                <use 
-                  xmlns:xlink="http://www.w3.org/1999/xlink" 
-                  xlink:href="#tr-wechat"/>
+                <use xlink:href="#tr-wechat"/>
               </svg>
             </div>
             <span>微信</span>
@@ -122,6 +102,7 @@
     </div>
   </transition>
 </template>
+
 <script>
 import { signinByAccount } from "@/api/user.js";
 import { signinByWechat } from "@/util/wechat.js";
@@ -178,21 +159,26 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-signin {
   background-color: #f4f5f6;
+
   .other-link {
     margin-top: 25px;
     margin-bottom: 25px;
     padding: 0 30px;
     font-size: 26px;
+
     a {
       color: @text-color3;
     }
   }
+
   .m-trhsignin {
     position: relative;
     text-align: center;
+    padding: 60px 80px;
+
     &:before {
       position: absolute;
       top: 0;
@@ -203,6 +189,7 @@ export default {
       height: 0;
       border-top: 1px solid #ccc; /*no*/
     }
+
     &:after {
       color: #ccc;
       content: "社交账号登陆";
@@ -214,11 +201,12 @@ export default {
       padding: 0 20px;
       background-color: #f4f5f6;
     }
-    padding: 60px 80px;
+
     .m-tr-item {
       font-size: 24px;
       line-height: 26px;
       color: @text-color3;
+
       &-icon {
         display: flex;
         align-items: center;
@@ -228,6 +216,7 @@ export default {
         height: 80px;
         border-radius: 40px;
         background-color: #ffffff;
+
         .m-svg-def {
           width: 38px;
           height: 38px;

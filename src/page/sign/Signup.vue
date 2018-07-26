@@ -5,12 +5,8 @@
     <div class="p-signup">
       <header class="m-box m-aln-center m-head-top m-pos-f m-main m-bb1">
         <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="goBack">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
+          <svg class="m-style-svg m-svg-def" @click="goBack">
+            <use xlink:href="#base-back"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-flex-base0 m-head-top-title">
@@ -35,13 +31,11 @@
             v-show="name.length > 0"
             class="m-style-svg m-svg-def"
             @click="name = ''">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-clean"/>
+            <use xlink:href="#base-clean"/>
           </svg>
         </div>
         <div
-          v-if="verifiable_type === &quot;sms&quot;"
+          v-if="verifiable_type === 'sms'"
           class="m-form-row m-main">
           <label for="phone">手机号</label>
           <div class="m-input">
@@ -61,9 +55,7 @@
             {{ codeText }}
           </span>
         </div>
-        <div
-          v-if="verifiable_type === &quot;mail&quot;"
-          class="m-form-row m-main">
+        <div v-if="verifiable_type === 'mail'" class="m-form-row m-main">
           <label for="email">邮箱</label>
           <div class="m-input">
             <input
@@ -94,9 +86,7 @@
             v-show="verifiable_code.length > 0"
             class="m-style-svg m-svg-def"
             @click="verifiable_code = ''">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-clean"/>
+            <use xlink:href="#base-clean"/>
           </svg>
         </div>
 
@@ -118,30 +108,20 @@
               type="password"
               placeholder="输入6位以上登录密码" >
           </div>
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="eye=!eye">
-            <use
-              :xlink:href="`#eye-${eye?&quot;open&quot;:&quot;close&quot;}`"
-              xmlns:xlink="http://www.w3.org/1999/xlink"/>
+          <svg class="m-style-svg m-svg-def" @click="eye = !eye">
+            <use :xlink:href="eye ? '#eye-open' : '#eye-close'"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-text-box m-form-err-box">
           <span>{{ error | plusMessageFirst }}</span>
         </div>
-        <div
-          class="m-form-row"
-          style="border: 0">
+        <div class="m-form-row" style="border: 0">
           <button
             :disabled="loading||disabled"
             class="m-long-btn m-signin-btn"
             @click="signIn">
-            <svg
-              v-if="loading"
-              class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-loading"/>
+            <svg v-if="loading" class="m-style-svg m-svg-def">
+              <use xlink:href="#base-loading"/>
             </svg>
             <span v-else>注册</span>
           </button>
@@ -149,9 +129,7 @@
       </main>
       <footer>
         <template v-if="showProtocol">
-          <router-link
-            to="/signup/protocol"
-            class="register-protocol">
+          <router-link to="/signup/protocol" class="register-protocol">
             点击注册即代表同意《ThinkSNS+用户使用协议》
           </router-link>
         </template>

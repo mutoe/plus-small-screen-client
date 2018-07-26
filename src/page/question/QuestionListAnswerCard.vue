@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="answer"
-    class="module-question-list-answer-card">
+  <div v-if="answer" class="module-question-list-answer-card">
     <!-- User avatar. -->
     <user-avatar
       :anonymity="anonymity"
@@ -10,9 +8,7 @@
     <!-- Body -->
     {{ showUsername }}：{{ body }}
   </div>
-  <div
-    v-else
-    class="module-question-list-answer-card-empty" />
+  <div v-else class="empty" />
 </template>
 
 <script>
@@ -75,10 +71,8 @@ export default {
 };
 </script>
 
-<style lang="less">
-@root: module-question-list-answer-card;
-
-.@{root} {
+<style lang="less" scoped>
+.module-question-list-answer-card {
   font-size: 30px;
   font-weight: normal;
   font-stretch: normal;
@@ -94,7 +88,7 @@ export default {
   line-height: 1.4;
 }
 
-.@{root}-empty {
+.empty {
   display: none;
 }
 </style>

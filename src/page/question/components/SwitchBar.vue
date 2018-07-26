@@ -2,12 +2,8 @@
   <header class="module-question-app-bar">
     <!-- Left Buttoms -->
     <div class="module-question-app-bar_buttom">
-      <svg
-        class="m-style-svg m-svg-def"
-        @click="goBack">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#base-back"/>
+      <svg class="m-style-svg m-svg-def" @click="goBack">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"/>
       </svg>
     </div>
 
@@ -36,9 +32,7 @@
     <div class="module-question-app-bar_buttom module-question-app-bar_buttom-right">
       <router-link to="/question/search" >
         <svg class="module-question-app-bar_buttom-icon">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-search" />
+          <use xlink:href="#base-search" />
         </svg>
       </router-link>
     </div>

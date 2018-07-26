@@ -3,9 +3,7 @@
     <header class="m-box m-aln-center m-pos-f m-main m-bb1 m-head-top">
       <div class="m-box m-flex-grow2 m-flex-shrink2 m-aln-center m-head-top-title">
         <div class="m-search-box">
-          <form
-            action="#"
-            onsubmit="return false">
+          <form action="#" onsubmit="return false">
             <input
               v-model="keyword"
               type="search"
