@@ -133,12 +133,12 @@ export default {
       if (this.loading) return;
       const { amount, type } = this.form;
       this.loading = true;
+      // 获取第三方支付地址,跳转过去
       const url = await this.$store.dispatch("wallet/requestRecharge", {
         amount,
         type
       });
-      console.log(url);
-      // location.href = url
+      location.href = url;
     }
   }
 };

@@ -53,7 +53,7 @@ export function postTransform(data) {
  */
 export function postWalletRecharge(data) {
   const url = "/walletRecharge/orders";
-  data = Object.assing(data, { from: 2 });
+  data = Object.assign(data, { from: 2 });
   return api.post(url, data, { validateStatus: s => s === 201 });
 }
 
