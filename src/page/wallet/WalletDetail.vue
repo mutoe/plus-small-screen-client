@@ -26,7 +26,7 @@
 <script>
 import _ from "lodash";
 import walletInfo from "./WalletInfo";
-import walletDetailItem from "./WalletDetailItem.vue";
+import walletDetailItem from "./components/WalletDetailItem.vue";
 
 export default {
   name: "WalletDetail",
