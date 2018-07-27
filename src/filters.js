@@ -90,6 +90,10 @@ export const time2txt = str => {
  * @returns {number} timezone offset
  */
 export const timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
+export const addTimeOffset = date => {
+  date = new Date(date).getTime() - timeOffset;
+  return new Date(date).toLocaleString("chinese", { hour12: false });
+};
 
 export const time2tips = date => {
   const time = new Date(date);

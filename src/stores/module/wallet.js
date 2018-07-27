@@ -2,6 +2,7 @@ import * as api from "@/api/wallet";
 
 const state = {
   list: [], // 充值纪录
+  cashes: [], // 提现记录
   items: [], // 充值建议金额
   ratio: 100, // 充值比率
   type: [], // 充值类型
@@ -11,6 +12,9 @@ const state = {
 const getters = {
   getWalletById: state => id => {
     return state.list.filter(wallet => wallet.id === id).pop() || {};
+  },
+  getCashesById: state => id => {
+    return state.cashes.filter(wallet => wallet.id === id).pop() || {};
   },
   rechargeItems: state => {
     return state.items.map(item => item / 100);
@@ -75,8 +79,9 @@ const actions = {
    * @author mutoe <mutoe@foxmail.com>
    * @returns {Promise<Object[]>}
    */
-  async fetchWithdrawList(state, payload) {
+  async fetchWithdrawList({ commit }, payload) {
     const { data } = await api.getWithdrawList(payload);
+    commit(TYPES.UPDATE_WALLET, { cashes: data });
     return data;
   }
 };

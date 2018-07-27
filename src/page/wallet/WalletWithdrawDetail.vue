@@ -8,7 +8,7 @@
       :on-refresh="onRefresh"
       :on-load-more="onLoadMore"
       class="m-wallet-list">
-      <wallet-detail-item
+      <wallet-withdraw-detail-item
         v-for="item in list"
         v-if="item.id"
         :key="item.id"
@@ -20,11 +20,11 @@
 
 <script>
 import _ from "lodash";
-import walletDetailItem from "./WalletDetailItem.vue";
+import walletWithdrawDetailItem from "./components/WalletWithdrawDetailItem.vue";
 
 export default {
   name: "WalletWithdrawDetail",
-  components: { walletDetailItem },
+  components: { walletWithdrawDetailItem },
   data() {
     return {
       currAction: "out",
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     showDetail(id) {
-      this.$router.push({ path: "/wallet/detail", params: { id } });
+      this.$router.push({ path: `/wallet/withdraw/detail/${id}` });
     },
     async onRefresh() {
       const data = await this.$store.dispatch("wallet/fetchWithdrawList");
