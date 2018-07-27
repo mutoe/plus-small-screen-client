@@ -48,8 +48,8 @@ export default {
   },
   computed: {
     after() {
-      const len = this.list.length;
-      return len ? this.list[len - 1].id : 0;
+      const last = _.last(this.list);
+      return last.id || 0;
     }
   },
   watch: {
@@ -65,28 +65,22 @@ export default {
         meta: { data: val }
       });
     },
-    onRefresh() {
-      this.$store
-        .dispatch("wallet/getWalletOrders", { action: this.currAction })
-        .then(data => {
-          if (data.length > 0)
-            this.list = _.unionBy([...data, ...this.list], "id");
+    async onRefresh() {
+      const data = await this.$store.dispatch("wallet/getWalletOrders", {
+        action: this.currAction
+      });
 
-          this.$refs.loadmore.topEnd(!(data.length < 15));
-        });
+      if (data.length > 0) this.list = data;
+
+      this.$refs.loadmore.topEnd(data.length < 15);
     },
-    onLoadMore() {
-      this.$store
-        .dispatch("wallet/getWalletOrders", {
-          action: this.currAction,
-          after: this.after
-        })
-        .then(data => {
-          if (data.length > 0) {
-            this.list = [...this.list, ...data];
-          }
-          this.$refs.loadmore.bottomEnd(!(data.length < 15));
-        });
+    async onLoadMore() {
+      const data = await this.$store.dispatch("wallet/getWalletOrders", {
+        action: this.currAction,
+        after: this.after
+      });
+      if (data.length > 0) this.list = [...this.list, ...data];
+      this.$refs.loadmore.bottomEnd(data.length < 15);
     }
   }
 };

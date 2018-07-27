@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="m-box m-bb1 m-aln-center m-justify-bet m-main m-wallet-detail"
-    @click.stop="showDetail">
-    <div
-      class="m-wallet-detail-time"
-      v-html="created_at"/>
-    <div class="m-wallet-detail-title" >{{ detail.body }}</div>
-    <div class="m-wallet-detail-amount">
-      {{ detail.type > 0 ? '+' : '-' }}{{ (detail.amount / 100).toFixed(2) }}
+  <div class="c-wallet-detail-item" @click.stop="showDetail">
+    <div class="time" v-html="created_at"/>
+    <div class="title" >{{ detail.body || detail.title }}</div>
+    <div class="amount">
+      <span v-if="detail.state === 0" class="gray">审核中</span>
+      <span v-if="detail.state === 1">{{ detail.type > 0 ? '+' : '-' }}{{ (detail.amount / 100).toFixed(2) }}</span>
     </div>
   </div>
 </template>
@@ -25,7 +22,7 @@ function splitYMD(date) {
   const w = week[date.getDay()];
   const h = (date.getHours() + "").padStart(2, 0);
   const m = (date.getMinutes() + "").padStart(2, 0);
-  const d = (M + "").padStart(2, 0) + "/" + (D + "").padStart(2, 0);
+  const d = (M + "").padStart(2, 0) + "." + (D + "").padStart(2, 0);
   const t = h + ":" + m;
   return { Y, M, D, w, d, t };
 }
@@ -55,7 +52,7 @@ export default {
       } else if (now.D - time.D === 0) {
         D = "今天";
       }
-      return `<p>${D}</p><p>${time.t}</p>`;
+      return `<p>${D}</p><p>${time.d}</p>`;
     }
   },
   methods: {
@@ -67,25 +64,41 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.m-wallet-detail {
+.c-wallet-detail-item {
   padding: 30px;
   font-size: 30px;
   line-height: 36px;
-  &-time {
+  border-bottom: 1px solid #ededed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+
+  .time {
     color: #b3b3b3;
     font-size: 24px;
     text-align: center;
     line-height: 1;
   }
-  &-title {
+
+  .title {
     margin: 0 30px;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  &-amount {
-    color: #ff9400;
+
+  .amount {
+    width: 5em;
+    text-align: right;
+
+    span {
+      color: #ff9400;
+      &.gray {
+        color: #b3b3b3;
+      }
+    }
   }
 }
 </style>

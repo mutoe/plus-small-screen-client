@@ -28,7 +28,7 @@ function splitYMD(date) {
   const w = week[date.getDay()];
   const h = (date.getHours() + "").padStart(2, 0);
   const m = (date.getMinutes() + "").padStart(2, 0);
-  const d = (M + "").padStart(2, 0) + "/" + (D + "").padStart(2, 0);
+  const d = (M + "").padStart(2, 0) + "." + (D + "").padStart(2, 0);
   const t = h + ":" + m;
   return { Y, M, D, w, d, t };
 }
@@ -58,7 +58,7 @@ export default {
       } else if (now.D - time.D === 0) {
         D = "今天";
       }
-      return `<p>${D}</p><p>${time.t}</p>`;
+      return `<p>${D}</p><p>${time.d}</p>`;
     },
     typeText() {
       return typeMap[this.detail.type] || "";

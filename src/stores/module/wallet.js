@@ -1,4 +1,5 @@
 import * as api from "@/api/wallet";
+import _ from "lodash";
 
 const state = {
   list: [], // 充值纪录
@@ -39,8 +40,8 @@ const actions = {
    */
   async getWalletOrders({ commit, state }, params) {
     let { data } = await api.getWalletOrders(params);
-    if (params && params.after) data = [...state.list, ...data];
-    commit(TYPES.UPDATE_WALLET, { list: data });
+    const unionList = _.unionBy([...state.list, ...data], "id");
+    commit(TYPES.UPDATE_WALLET, { list: unionList });
     return data || [];
   },
 

@@ -4,21 +4,22 @@
     <common-header>账单详情</common-header>
 
     <header class="wallet-header">
-      <p>交易{{ detail.state > 0 ? '成功' : '失败' }}</p>
+      <p v-if="detail.state === 0">审核中</p>
+      <p v-else>交易{{ detail.state === 1 ? '成功' : '失败' }}</p>
       <h2>{{ detail.type > 0 ? '+' : '-' }}{{ detail.amount / 100 | postfix(2) }}</h2>
     </header>
 
     <main>
-      <div v-if="detail.target_type==='s'" class="item">
+      <!-- <div v-if="detail.owner_id" class="item">
         <label>{{ detail.type > 0 ? '收款人' : '付款人' }}</label>
-        <span>
-          <avatar :user="user" size="small"/>
+        <span class="user-avatar">
+          <avatar :user="user"/>
           {{ user.name }}
         </span>
-      </div>
+      </div> -->
       <div class="item">
         <label>交易说明</label>
-        <span> {{ detail.body }} </span>
+        <span> {{ detail.body || detail.title }} </span>
       </div>
       <div v-if="detail.target_type==='s'" class="item">
         <label>交易账户</label>
@@ -107,6 +108,12 @@ export default {
         font-size: 30px;
         color: #999;
         padding: 0 1em;
+      }
+
+      .user-avatar {
+        display: flex;
+        align-items: center;
+        height: 80%;
       }
     }
   }
