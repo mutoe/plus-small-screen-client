@@ -68,6 +68,16 @@ const actions = {
   async requestWithdraw(state, payload) {
     const { data } = await api.postWalletWithdraw(payload);
     return data;
+  },
+
+  /**
+   * 获取提现列表
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<Object[]>}
+   */
+  async fetchWithdrawList(state, payload) {
+    const { data } = await api.getWithdrawList(payload);
+    return data;
   }
 };
 

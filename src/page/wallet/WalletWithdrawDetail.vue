@@ -48,17 +48,14 @@ export default {
       this.$router.push({ path: "/wallet/detail", params: { id } });
     },
     async onRefresh() {
-      const data = await this.$store.dispatch("wallet/getWalletOrders", {
-        action: this.currAction
-      });
+      const data = await this.$store.dispatch("wallet/fetchWithdrawList");
 
       if (data.length > 0) this.list = _.unionBy([...data, ...this.list], "id");
 
       this.$refs.loadmore.topEnd(!(data.length < 15));
     },
     async onLoadMore() {
-      const data = await this.$store.dispatch("wallet/getWalletOrders", {
-        action: this.currAction,
+      const data = await this.$store.dispatch("wallet/fetchWithdrawList", {
         after: this.after
       });
 

@@ -70,3 +70,19 @@ export function postWalletRecharge(data) {
 export function postWalletWithdraw(data) {
   return api.post("/plus-pay/cash", data, { validateStatus: s => s === 201 });
 }
+
+/**
+ * 获取提现列表
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {number} params.limit
+ * @param {number} params.after
+ * @returns
+ */
+export function getWithdrawList(params) {
+  return api.get("/plus-pay/cashes", {
+    params,
+    validateStatus: s => s === 200
+  });
+}
