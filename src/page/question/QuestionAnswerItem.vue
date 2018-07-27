@@ -1,32 +1,34 @@
 <template>
   <div class="p-question-answer-item" @click="viewDetail">
-    <div class="avatar" @click.stop="viewUser">
-      <user-avatar
-        :size="0.56"
-        :anonymity="anonymity"
-        :src="user.avatar"
-        :sex="user.sex" />
-    </div>
     <div class="main">
-      <h3 class="main-header">
-        <template @click.stop="viewUser">{{ anonymity ? '匿名用户' : user.name }}</template>
-        <span>{{ answer.created_at | time2tips }}</span>
-      </h3>
-      <div class="main-body">{{ answer.body | markdownText }}</div>
-      <div class="main-button">
-        <button @click.stop="handleLikeTarget">
-          <svg class="icon">
-            <use :xlink:href="answer.liked ? '#feed-like' : '#feed-unlike'" />
-          </svg>
-          {{ answer.likes_count | formatNum }}
-        </button>
-        <span>
-          <svg class="icon">
-            <use xlink:href="#message-comments" />
-          </svg>
-          {{ answer.comments_count | formatNum }}
-        </span>
+      <div class="avatar" @click.stop="viewUser">
+        <user-avatar
+          :size="0.56"
+          :anonymity="anonymity"
+          :src="user.avatar"
+          :sex="user.sex" />
       </div>
+      <div class="info">
+        <h3 class="main-header">
+          <span @click.stop="viewUser">{{ anonymity ? '匿名用户' : user.name }}</span>
+          <span class="time">{{ answer.created_at | time2tips }}</span>
+        </h3>
+        <div class="main-body">{{ answer.body | markdownText }}</div>
+      </div>
+    </div>
+    <div class="main-button">
+      <span @click.stop="handleLikeTarget">
+        <svg class="icon">
+          <use :xlink:href="answer.liked ? '#feed-like' : '#feed-unlike'" />
+        </svg>
+        {{ answer.likes_count | formatNum }}
+      </span>
+      <span>
+        <svg class="icon">
+          <use xlink:href="#message-comments" />
+        </svg>
+        {{ answer.comments_count | formatNum }}
+      </span>
     </div>
   </div>
 </template>
@@ -105,92 +107,98 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@avatar-size: 112px;
+
 .p-question-answer-item {
-  width: 100%;
-  background-color: #fff;
-  margin-bottom: 9px;
-  padding-top: 30px;
-  padding-right: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-direction: row;
-
-  .avatar {
-    width: 112px;
-    min-width: 112px;
-    max-width: 112px;
-    flex-grow: 1;
-    text-align: center;
-  }
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 9px;
 
   .main {
-    flex-grow: 1;
+    display: flex;
     width: 100%;
+    padding: 30px 30px 20px 0;
 
-    .main-header {
-      width: 100%;
-      font-size: 26px;
-      font-weight: normal;
-      font-stretch: normal;
-      color: #333;
-      margin-top: 0;
-      margin-bottom: 29px;
-
-      > span {
-        float: right;
-        font-size: 24px;
-        font-weight: normal;
-        font-stretch: normal;
-        color: #ccc;
-      }
+    .avatar {
+      width: @avatar-size;
+      min-width: @avatar-size;
+      max-width: @avatar-size;
+      flex: none;
+      text-align: center;
     }
 
-    .main-body {
-      text-align: initial;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-all;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      font-size: 28px;
-      font-weight: normal;
-      font-stretch: normal;
-      color: #666;
-      margin-bottom: 28px;
-      line-height: 1.4;
-    }
-
-    .main-button {
+    .info {
       display: flex;
-      flex-direction: row;
-      border-top: solid 1px #d7d8d8;
-      padding: 22px 0;
+      flex-direction: column;
+      width: 100%;
 
-      > * {
-        margin-right: 90px;
-        font-size: 24px;
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 26px;
         font-weight: normal;
         font-stretch: normal;
-        color: #b3b3b3;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 29px;
 
-        .icon {
-          margin-right: 4px;
-          width: 30px;
-          height: 30px;
-          margin-bottom: -6px;
-          fill: #999;
-
-          &.active {
-            fill: red;
-          }
+        .time {
+          font-size: 24px;
+          font-weight: normal;
+          font-stretch: normal;
+          color: #ccc;
         }
       }
 
-      button {
-        background-color: transparent;
-        outline: none;
+      .main-body {
+        text-align: initial;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        font-size: 28px;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #666;
+        margin-bottom: 28px;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .main-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border-top: solid 1px #ededed;
+    padding: 30px;
+    padding-left: @avatar-size + 30px;
+
+    > * {
+      margin-right: 60px;
+      font-size: 24px;
+      font-weight: normal;
+      font-stretch: normal;
+      color: #b3b3b3;
+
+      .icon {
+        margin-right: 4px;
+        width: 30px;
+        height: 30px;
+        margin-bottom: -6px;
+        fill: #999;
+
+        &.active {
+          fill: red;
+        }
       }
     }
   }

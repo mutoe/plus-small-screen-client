@@ -1,23 +1,10 @@
 <template>
   <div class="p-topic-detail">
-    <header class="m-box m-pos-f m-main m-head-top m-bb1">
-      <div class="m-box m-aln-center m-flex-none">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-justify-center m-flex-auto m-head-top-title">
-        <span class="m-text-cut">{{ topic.name || "专题详情" }}</span>
-      </div>
-      <div class="m-box m-aln-center m-justify-end m-flex-none">
-        <svg class="m-style-svg m-svg-def">
-          <use xlink:href="#base-share"/>
-        </svg>
-      </div>
-    </header>
+
+    <common-header>{{ topic.name || "专题详情" }}</common-header>
 
     <!-- Topic base -->
-    <main style="padding-top: 0.9rem">
+    <main>
       <div class="topic">
         <img src="https://images.zhibocloud.cn/question/topics/000/000/000/02.png">
         <div class="title">
@@ -272,7 +259,7 @@ export default {
     height: 175px;
     padding: 28px 43px;
     background-color: #fff;
-    border-bottom: solid 1px #d7d8d8;
+    border-bottom: solid 1px #ededed;
 
     > img {
       flex: none;
@@ -347,7 +334,7 @@ export default {
     padding: 30px;
     display: flex;
     background-color: #fff;
-    border-top: solid 1px #d7d8d8;
+    border-top: solid 1px #ededed;
     justify-content: space-between;
     align-items: center;
 
@@ -369,7 +356,7 @@ export default {
 
   .types {
     margin-top: -100px;
-    top: 116px;
+    top: 110px;
     display: flex;
     width: 100%;
     height: 90px;
@@ -382,7 +369,7 @@ export default {
     font-stretch: normal;
     line-height: 0;
     letter-spacing: 0;
-    border-bottom: solid 0.01rem #d7d8d8;
+    border-bottom: solid 0.01rem #ededed;
     z-index: 100;
     position: relative;
 
@@ -396,7 +383,7 @@ export default {
   }
 
   .questions {
-    padding-top: 116px;
+    padding-top: 110px;
   }
 }
 </style>

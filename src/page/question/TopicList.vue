@@ -194,7 +194,7 @@ export default {
     font-stretch: normal;
     line-height: 0;
     letter-spacing: 0;
-    border-bottom: solid 1px #d7d8d8;
+    border-bottom: solid 1px #ededed;
     z-index: 100;
     > a {
       color: #d7d8d8;

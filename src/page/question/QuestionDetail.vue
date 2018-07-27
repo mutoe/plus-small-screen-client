@@ -1,16 +1,8 @@
 <template>
   <div class="p-question-detail">
-    <header class="m-box m-pos-f m-main m-bb1 m-head-top">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center m-head-top-title">
-        <span>问题详情</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0"/>
-    </header>
+
+    <common-header>问题详情</common-header>
+
     <div class="container">
       <load-more
         ref="questionLoadContainer"
@@ -63,22 +55,21 @@
               <span>+</span>关注
             </button>
           </div>
+        </div>
 
-          <!-- Button -->
-          <div class="main-button">
-            <div class="button">
-              <svg class="main-button-icon" fill="#666">
-                <use xlink:href="#base-reward" />
-              </svg>
-              {{ question.amount ? '已' : '未' }}设置悬赏
-            </div>
-            <span/>
-            <div class="button">
-              <svg class="main-button-icon" fill="#666">
-                <use xlink:href="#base-edit" />
-              </svg>
-              添加回答
-            </div>
+        <!-- Button -->
+        <div class="main-button">
+          <div class="button">
+            <svg class="main-button-icon" fill="#666">
+              <use xlink:href="#base-reward" />
+            </svg>
+            {{ question.amount ? '已' : '未' }}设置悬赏
+          </div>
+          <div class="button">
+            <svg class="main-button-icon" fill="#666">
+              <use xlink:href="#base-edit" />
+            </svg>
+            添加回答
           </div>
         </div>
 
@@ -286,10 +277,6 @@ export default {
 
 <style lang="less" scoped>
 .p-question-detail {
-  .container {
-    padding-top: 90px;
-  }
-
   .tabbar {
     position: fixed;
     z-index: 1;
@@ -325,7 +312,7 @@ export default {
 
   .main {
     background-color: #fff;
-    padding: 30px 30px 0;
+    padding: 30px;
     width: 100%;
     max-width: 100%;
     height: auto;
@@ -333,42 +320,38 @@ export default {
     .main-topics {
       width: 100%;
       height: auto;
-      padding: 0 0 17px 0;
-      border-bottom: solid 1px #d7d8d8;
 
       > .label {
         display: inline-block;
-        height: 41px;
-        background-color: #def0f7;
+        background-color: #efefef;
         border-radius: 20px;
-        font-size: 23px;
-        font-weight: normal;
-        font-stretch: normal;
+        font-size: 24px;
         color: #666;
-        padding: 8px 20px;
-        margin-right: 10px;
-        margin-bottom: 10px;
+        padding: 6px 30px;
+        margin-right: 14px;
+        margin-bottom: 14px;
       }
     }
 
     .main-title {
-      font-size: 35px;
-      color: #333333;
+      font-size: 36px;
+      color: #333;
       font-weight: normal;
       line-height: 1.4;
-      margin-top: 24px;
+      margin: 22px 0 26px;
     }
 
     .main-body {
       font-size: 28px;
       margin-top: 20px;
+      color: #666;
     }
 
     .main-watch {
       width: 100%;
       font-size: 26px;
       color: #999;
-      margin: 44px auto;
+      margin-top: 44px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -392,6 +375,7 @@ export default {
           height: 20px;
           font-size: 36px;
           margin-right: 2px;
+          vertical-align: middle;
         }
 
         &.active {
@@ -419,46 +403,43 @@ export default {
             line-height: 0px;
             letter-spacing: 0px;
             border: solid 1px #fca308;
-            padding: 4px;
+            padding: 0 4px;
+            border-radius: 6px;
           }
         }
       }
     }
+  }
 
-    .main-button {
-      display: flex;
-      justify-content: space-around;
+  .main-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-top: solid 1px #ededed;
+    font-size: 28px;
+    background-color: #fff;
+    padding: 30px 0;
+
+    > .button {
+      flex: auto;
+      text-align: center;
+      display: inline-flex;
+      justify-content: center;
       align-items: center;
-      flex-direction: row;
-      width: 100%;
-      height: 90px;
-      border-top: solid 1px #d7d8d8;
-      font-size: 28px;
+      color: #666;
+      border-right: 1px solid #ededed;
 
-      > .button {
-        flex-grow: 1;
-        width: 100%;
-        height: 90px;
-        line-height: 90px;
-        text-align: center;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        color: #666;
+      &:last-child {
+        border-right: none;
       }
+    }
 
-      > span {
-        height: 40px;
-        width: 2px;
-        background-color: #d7d8d8;
-      }
-
-      .main-button-icon {
-        width: 30px;
-        height: 30px;
-        margin-top: -2px;
-        margin-right: 20px;
-      }
+    .main-button-icon {
+      width: 30px;
+      height: 30px;
+      margin-top: -2px;
+      margin-right: 20px;
     }
   }
 

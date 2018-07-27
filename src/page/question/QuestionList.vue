@@ -1,8 +1,8 @@
 <template>
-  <div class="module-questions">
+  <div class="p-question-list">
 
     <!-- Question navs. -->
-    <nav class="module-questions-nav">
+    <nav class="nav">
       <router-link
         to="/question"
         replace
@@ -31,28 +31,18 @@
     </nav>
 
     <!-- Question main. -->
-    <main class="module-questions-main">
-      <div
-        v-if="loading"
-        class="main-loading">
+    <main class="main">
+      <div v-if="loading" class="main-loading">
         <icon-loading class="main-loading_icon" />
       </div>
       <question-card
         v-for="question in questions"
         :key="question.id"
         :question="question" />
-      <div
-        v-if="questions.length && !loadmore"
-        class="main-loadmore">
-        <button
-          class="main-loadmore_button"
-          @click="fetchQuestionsMore">
-          加载更多
-        </button>
+      <div v-if="questions.length && !loadmore" class="main-loadmore">
+        <button class="main-loadmore_button" @click="fetchQuestionsMore">加载更多</button>
       </div>
-      <div
-        v-else-if="loadmore"
-        class="main-loadmore">
+      <div v-else-if="loadmore" class="main-loadmore">
         <button class="main-loadmore_button active">
           <icon-loading class="main-loading_icon" />
         </button>
@@ -174,12 +164,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.module-questions {
-  padding-top: 182px;
+.p-question-list {
+  padding-top: 180px;
   padding-bottom: 100px;
   min-height: 100vh;
 
-  .module-questions-nav {
+  .nav {
     position: fixed;
     top: 90px;
     display: flex;
@@ -190,18 +180,14 @@ export default {
     background: #fff;
     color: #999;
     font-size: 30px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 0;
-    letter-spacing: 0;
-    border-bottom: solid 0.01rem #d7d8d8;
+    border-bottom: solid 1px #dedede;
 
     @media screen and (min-width: 769px) {
       width: 768px;
     }
 
     > a {
-      color: #d7d8d8;
+      color: #999;
     }
 
     .active {
@@ -209,7 +195,7 @@ export default {
     }
   }
 
-  .module-questions-main {
+  .main {
     .main-loading {
       display: flex;
       justify-content: center;

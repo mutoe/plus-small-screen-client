@@ -1,5 +1,5 @@
 <template>
-  <div class="module-question-list-item">
+  <div class="c-question-card">
     <!-- The question title. -->
     <router-link
       :to="`/questions/${question.id}`"
@@ -25,19 +25,14 @@
       :to="`/questions/${question.id}`"
       class="button"
       tag="div">
-      <span>
-        <span class="button-style1">{{ question.watchers_count }}</span>&nbsp;关注
-      </span>
-      <span>
-        <span>·</span>
-        <span class="button-style1">{{ question.answers_count }}</span>&nbsp;回答
-      </span>
-      <span v-show="question.amount">
-        <span>·</span>
-        <span class="shang">
-          <span>赏</span>
-          {{ question.amount }}
-        </span>
+      <span class="button-style1">{{ question.watchers_count }}</span>
+      关注
+      <span class="dot">·</span>
+      <span class="button-style1">{{ question.answers_count }}</span>
+      回答
+      <span class="dot">·</span>
+      <span v-show="question.amount" class="shang">
+        <span>赏</span> {{ question.amount }}
       </span>
       <span class="button-time">{{ question.updated_at | time2tips }}</span>
     </router-link>
@@ -96,14 +91,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.module-question-list-item {
+.c-question-card {
   background: #fff;
-  padding: 31px;
+  padding: 30px;
   margin-bottom: 10px;
 
   .title {
     margin: 0;
-    margin-bottom: 46px;
+    margin-bottom: 30px;
     font-size: 32px;
     font-weight: normal;
     font-stretch: normal;
@@ -112,12 +107,13 @@ export default {
   }
 
   .image {
-    width: 100%;
+    width: calc(~"100% + 60px");
     height: 300px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-bottom: 46px;
+    margin-bottom: 30px;
+    margin-left: -30px;
   }
 
   .button {
@@ -133,23 +129,29 @@ export default {
     &-style1 {
       color: #58b6d7;
     }
-  }
 
-  .shang {
-    color: #fca308;
+    .dot {
+      margin: 0 10px 0 0;
+    }
 
-    &-i,
-    span {
+    .shang {
+      // margin-left: 10px;
       color: #fca308;
-      width: 20px;
-      height: 21px;
-      font-size: 22px;
-      font-weight: normal;
-      font-stretch: normal;
-      line-height: 0px;
-      letter-spacing: 0px;
-      border: solid 1px #fca308;
-      padding: 4px;
+
+      &-i,
+      span {
+        color: #fca308;
+        width: 20px;
+        height: 21px;
+        font-size: 22px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 0px;
+        letter-spacing: 0px;
+        border: solid 1px #fca308;
+        padding: 0 4px;
+        border-radius: 6px;
+      }
     }
   }
 }

@@ -83,17 +83,14 @@ export default {
 <style lang="less" scoped>
 .module-question-list-answer-card {
   font-size: 30px;
-  font-weight: normal;
-  font-stretch: normal;
   color: #666;
-  text-align: initial;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  margin-bottom: 46px;
+  margin-bottom: 30px;
   line-height: 1.4;
 }
 
