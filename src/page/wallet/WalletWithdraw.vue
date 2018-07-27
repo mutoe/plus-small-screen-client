@@ -71,8 +71,8 @@ import bus from "@/bus";
 import { mapState } from "vuex";
 
 const supportType = {
-  alipay_wap: { title: "支付宝提现", type: "AlipayWapOrder" }
-  // 未实现 wx_wap: { title: "微信提现", type: "WechatWapOrder" }
+  alipay_wap: { title: "支付宝提现", type: "alipay" }
+  // 未实现 wx_wap: { title: "微信提现", type: "wx" }
 };
 
 export default {
@@ -90,13 +90,13 @@ export default {
       wallet: "wallet"
     }),
     disabled() {
-      const { amount, account, type } = this.form;
-      return !amount || !account || !type;
+      const { value, account, type } = this.form;
+      return !value || !account || !type;
     },
     form() {
       const selectedType = supportType[this.selectedType] || {};
       return {
-        amount: this.amount,
+        value: this.amount * 100,
         type: selectedType.type,
         account: this.account
       };
@@ -113,10 +113,13 @@ export default {
     async handleOk() {
       if (this.loading) return;
       this.loading = true;
-      const data = await this.$store.dispatch(
-        "wallet/requestWithdraw",
-        this.form
-      );
+      const { message } = await this.$store
+        .dispatch("wallet/requestWithdraw", this.form)
+        .catch(() => {
+          this.loading = false;
+        });
+      this.$Message.success(message);
+      this.$router.replace("/wallet/withdraw/detail");
     },
     selectWithdrawType() {
       const actions = [];

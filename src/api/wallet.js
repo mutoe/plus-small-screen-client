@@ -68,7 +68,7 @@ export function postWalletRecharge(data) {
  * @returns
  */
 export function postWalletWithdraw(data) {
-  return api.post("/plus-pay/cash", data, { validateStatus: s => s === 201 });
+  return api.post("/plus-pay/cashes", data, { validateStatus: s => s === 201 });
 }
 
 /**
