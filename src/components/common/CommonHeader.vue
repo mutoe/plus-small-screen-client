@@ -27,6 +27,7 @@ export default {
 
 .c-common-header {
   display: flex;
+  flex: none;
   position: relative;
   bottom: initial;
   width: 100%;
