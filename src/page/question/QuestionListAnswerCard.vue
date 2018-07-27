@@ -1,5 +1,8 @@
 <template>
-  <div v-if="answer" class="module-question-list-answer-card">
+  <div
+    v-if="answer"
+    class="module-question-list-answer-card"
+    @click="gotoAnswerDetail">
     <!-- User avatar. -->
     <user-avatar
       :anonymity="anonymity"
@@ -66,6 +69,12 @@ export default {
     body() {
       const { body } = this.answer;
       return syntaxTextAndImage(body || "").text;
+    }
+  },
+  methods: {
+    gotoAnswerDetail() {
+      const { question_id: qid, id } = this.answer;
+      this.$router.push(`/questions/${qid}/answers/${id}`);
     }
   }
 };
