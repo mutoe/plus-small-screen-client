@@ -17,7 +17,7 @@
           <span>提现金额</span>
           <div class="m-box m-aln-center">
             <input
-              v-model.number="form.amount"
+              v-model.number="amount"
               type="number"
               class="m-text-r"
               pattern="[0-9]*"
@@ -32,6 +32,7 @@
         class="m-entry"
         @click="selectWithdrawType">
         <span class="m-text-box m-flex-grow1">选择提现方式</span>
+        <div class="m-box m-aln-end paid-type">{{ withdrawTypeText }}</div>
         <v-icon type="base-arrow-r"/>
       </div>
 
@@ -40,7 +41,7 @@
           <span>提现账户</span>
           <div class="m-box m-aln-center">
             <input
-              v-model="form.account"
+              v-model="account"
               type="text"
               class="m-text-r"
               placeholder="输入提现账户">
@@ -69,15 +70,18 @@
 import bus from "@/bus";
 import { mapState } from "vuex";
 
+const supportType = {
+  alipay_wap: { title: "支付宝提现", type: "AlipayWapOrder" }
+  // 未实现 wx_wap: { title: "微信提现", type: "WechatWapOrder" }
+};
+
 export default {
   name: "WalletWithdraw",
   data() {
     return {
-      form: {
-        amount: "",
-        account: "",
-        type: ""
-      },
+      amount: "",
+      account: "",
+      selectedType: "",
       loading: false
     };
   },
@@ -88,13 +92,52 @@ export default {
     disabled() {
       const { amount, account, type } = this.form;
       return !amount || !account || !type;
+    },
+    form() {
+      const selectedType = supportType[this.selectedType] || {};
+      return {
+        amount: this.amount,
+        type: selectedType.type,
+        account: this.account
+      };
+    },
+    withdrawTypeText() {
+      const selectedType = supportType[this.selectedType] || {};
+      return selectedType.title;
     }
   },
+  mounted() {
+    if (!this.wallet.type.length) this.$store.dispatch("wallet/getWalletInfo");
+  },
   methods: {
-    handleOk() {},
+    async handleOk() {
+      if (this.loading) return;
+      this.loading = true;
+      const data = await this.$store.dispatch(
+        "wallet/requestWithdraw",
+        this.form
+      );
+    },
     selectWithdrawType() {
       const actions = [];
-      bus.$emit("actionSheet", actions, "取消", "当前未支持任何提现方式");
+      for (let key in supportType) {
+        const type = supportType[key];
+        console.log(key, type);
+        if (this.wallet.type.includes(key))
+          actions.push({
+            text: type.title,
+            method: () => {
+              this.selectedType = key;
+            }
+          });
+      }
+
+      bus.$emit(
+        "actionSheet",
+        actions,
+        "取消",
+        actions.length ? undefined : "当前未支持任何提现方式"
+      );
     }
   }
 };
@@ -105,5 +148,10 @@ export default {
   width: 100%;
   padding: 0 20px;
   background-color: #fff;
+}
+
+.paid-type {
+  font-size: 30px;
+  color: #999;
 }
 </style>
