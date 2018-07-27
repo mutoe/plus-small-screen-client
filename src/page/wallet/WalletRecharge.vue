@@ -91,7 +91,7 @@ export default {
     },
     form() {
       return {
-        amount: this.customAmount * 100 || this.amount,
+        amount: this.customAmount * 100 || this.amount * 100,
         type: this.rechargeType
       };
     },
