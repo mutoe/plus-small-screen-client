@@ -2,7 +2,11 @@
   <div class="p-answer-add">
     <common-header class="header">
       添加回答
-      <span slot="right" @click="onPublish">发布</span>
+      <span
+        slot="right"
+        :class="{disabled}"
+        class="post-btn"
+        @click="onPost">发布</span>
     </common-header>
 
     <main>
@@ -22,10 +26,21 @@ export default {
   computed: {
     questionId() {
       return this.$route.params.questionId || 0;
+    },
+    disabled() {
+      return !this.content;
     }
   },
   methods: {
-    onPublish() {}
+    async onPost() {
+      if (this.disabled) return;
+      const payload = {
+        questionId: this.questionId,
+        content: this.content.replace(/\n/g, "\n\n")
+      };
+      await this.$store.dispatch("question/postAnswer", payload);
+      this.goBack();
+    }
   }
 };
 </script>
@@ -36,6 +51,15 @@ export default {
   flex-direction: column;
   height: 100%;
 
+  .header {
+    .post-btn {
+      color: @primary;
+      &.disabled {
+        color: @border-color;
+      }
+    }
+  }
+
   > main {
     flex: auto;
     background-color: #fff;
@@ -43,6 +67,8 @@ export default {
     textarea {
       padding: 20px;
       font-size: 30px;
+      width: 100%;
+      height: 100%;
     }
   }
 }

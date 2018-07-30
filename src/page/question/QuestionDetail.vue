@@ -65,7 +65,7 @@
             </svg>
             {{ question.amount ? '已' : '未' }}设置悬赏
           </div>
-          <div class="button">
+          <div class="button" @click="addAnswer">
             <svg class="main-button-icon" fill="#666">
               <use xlink:href="#base-edit" />
             </svg>
@@ -126,9 +126,11 @@
 
 <script>
 import { render } from "@/util/markdown";
-import { show, watch, unwatch } from "@/api/question/questions";
+import * as api from "@/api/question/questions";
 import { listByDefault, listByTime } from "@/api/question/answer";
 import QuestionAnswerItem from "./QuestionAnswerItem";
+
+const noop = () => {};
 
 export default {
   name: "QuestionDetail",
@@ -204,13 +206,12 @@ export default {
     this.loadContainer.beforeRefresh();
   },
   methods: {
-    fetch(cb = null) {
-      show(this.$route.params.id)
+    fetch(cb = noop) {
+      api
+        .show(this.$route.params.id)
         .then(({ data }) => {
           this.question = data;
-          if (cb instanceof Function) {
-            cb();
-          }
+          cb();
         })
         .catch(({ response: { data } = {} }) => {
           this.loadContainer.topEnd(false);
@@ -238,7 +239,8 @@ export default {
       this.answersTimeOrder = !this.answersTimeOrder;
     },
     handleWatch() {
-      watch(this.$route.params.id)
+      api
+        .watch(this.$route.params.id)
         .then(() => {
           this.question.watched = true;
           this.question.watchers_count += 1;
@@ -248,7 +250,8 @@ export default {
         });
     },
     handleUnwatch() {
-      unwatch(this.$route.params.id)
+      api
+        .unwatch(this.$route.params.id)
         .then(() => {
           this.question.watched = false;
           this.question.watchers_count -= 1;
@@ -258,9 +261,7 @@ export default {
         });
     },
     handleLoadMoreAnswers() {
-      if (!this.answers.length) {
-        return;
-      }
+      if (!this.answers.length) return;
       this.answerRequestMethod(this.$route.params.id, this.answers.length)
         .then(({ data }) => {
           this.loadContainer.bottomEnd(data.length < 15);
@@ -270,6 +271,9 @@ export default {
           this.loadContainer.bottomEnd(true);
           this.$Message.error(data);
         });
+    },
+    addAnswer() {
+      this.$router.push({ path: `/question/${this.question.id}/answers/add` });
     }
   }
 };

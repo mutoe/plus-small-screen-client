@@ -83,6 +83,24 @@ export function getAnswer(answerId) {
 }
 
 /**
+ * 添加回答
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} questionId
+ * @param {Object} data
+ * @param {string} data.body
+ * @param {string} [data.text_body]
+ * @param {number} [data.anonymity] 1: 匿名 0: 不匿名
+ * @returns
+ */
+export function postAnswer(questionId, data) {
+  const url = `/questions/${questionId}/answers`;
+  return api.post(url, data, {
+    validateStatus: s => s === 201
+  });
+}
+
+/**
  * 打赏回答
  * @author mutoe <mutoe@foxmail.com>
  * @export
