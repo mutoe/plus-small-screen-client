@@ -65,12 +65,26 @@
             </svg>
             {{ question.amount ? '已' : '未' }}设置悬赏
           </div>
-          <div class="button" @click="addAnswer">
+
+          <div
+            v-if="question.my_answer"
+            class="button"
+            @click="gotoMyAnswer">
+            <svg class="main-button-icon" fill="#666">
+              <use xlink:href="#base-edit" />
+            </svg>
+            查看回答
+          </div>
+          <div
+            v-else
+            class="button"
+            @click="addAnswer">
             <svg class="main-button-icon" fill="#666">
               <use xlink:href="#base-edit" />
             </svg>
             添加回答
           </div>
+
         </div>
 
         <!-- Amswers -->
@@ -274,6 +288,14 @@ export default {
     },
     addAnswer() {
       this.$router.push({ path: `/question/${this.question.id}/answers/add` });
+    },
+    gotoMyAnswer() {
+      const {
+        my_answer: { id = "" }
+      } = this.question;
+      this.$router.push({
+        path: `/questions/${this.question.id}/answers/${id}`
+      });
     }
   }
 };
