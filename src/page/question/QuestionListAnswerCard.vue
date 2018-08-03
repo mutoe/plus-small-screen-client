@@ -68,7 +68,7 @@ export default {
     },
     body() {
       const { body } = this.answer;
-      return syntaxTextAndImage(body || "").text;
+      return body || "";
     }
   },
   methods: {
