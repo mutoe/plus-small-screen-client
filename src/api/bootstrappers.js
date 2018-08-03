@@ -24,12 +24,13 @@ export async function getHotCities() {
  */
 export async function getCurrentPosition() {
   let data = await location.getCurrentPosition();
-  let { city, district, street } = data.addressComponent || {};
+  let { city } = data.addressComponent || {};
+  if (process.env.NODE_ENV !== "production") console.log(data.addressComponent);
 
   return {
     lng: data.position.getLng(),
     lat: data.position.getLat(),
-    label: street || district || city || "定位成功"
+    label: city || "定位成功"
   };
 }
 
