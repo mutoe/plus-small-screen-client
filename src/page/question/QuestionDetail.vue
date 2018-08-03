@@ -70,9 +70,6 @@
             v-if="question.my_answer"
             class="button"
             @click="gotoMyAnswer">
-            <svg class="main-button-icon" fill="#666">
-              <use xlink:href="#base-edit" />
-            </svg>
             查看回答
           </div>
           <div
