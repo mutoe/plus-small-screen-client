@@ -1,3 +1,56 @@
+<a name="4.0.0-rc.9"></a>
+# [4.0.0-rc.9](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0-rc.8...v4.0.0-rc.9) (2018-08-03)
+
+
+### Bug Fixes
+
+* **certificate:** 发布帖子时如果用户处于正在审核的状态时不再跳转到认证页面了 ([c3a1193](https://github.com/slimkit/plus-small-screen-client/commit/c3a1193))
+* **currency:** 充值成功后刷新当前积分 ([da32637](https://github.com/slimkit/plus-small-screen-client/commit/da32637))
+* **currency:** 积分明细和充值提现详情显示的列表项目内容不同 ([711a231](https://github.com/slimkit/plus-small-screen-client/commit/711a231))
+* **currency:** 积分明细详情超出范围后显示横向滚动条的问题 ([5a740fd](https://github.com/slimkit/plus-small-screen-client/commit/5a740fd))
+* **filters:** 时间差过滤时无需再次计算时区 ([0469da3](https://github.com/slimkit/plus-small-screen-client/commit/0469da3))
+* **filters:** 服务器返回的值为祖鲁时间，需要进行时间差转化 ([5df49ce](https://github.com/slimkit/plus-small-screen-client/commit/5df49ce))
+* **group:** 获取圈子分类数据时机调整 ([902b6f5](https://github.com/slimkit/plus-small-screen-client/commit/902b6f5)), closes [#459](https://github.com/slimkit/plus-small-screen-client/issues/459)
+* **question:** (close [#260](https://github.com/slimkit/plus-small-screen-client/issues/260)) 修复点击列表下的回答未进入回答详情 ([e0d205d](https://github.com/slimkit/plus-small-screen-client/commit/e0d205d))
+* **question:** 修复问题详情页回答列表的答案空格被移除的问题 ([f71845c](https://github.com/slimkit/plus-small-screen-client/commit/f71845c), [8959c99](https://github.com/slimkit/plus-small-screen-client/commit/8959c99))
+* **question:** 暂时移除问题详情页下方的工具栏 ([7feee93](https://github.com/slimkit/plus-small-screen-client/commit/7feee93))
+* **register:** 修复注册页面在后台没有配置注册设置时打不开的问题 ([89b52e2](https://github.com/slimkit/plus-small-screen-client/commit/89b52e2), [016e00c](https://github.com/slimkit/plus-small-screen-client/commit/016e00c)), closes [#458](https://github.com/slimkit/plus-small-screen-client/issues/458)
+* **signin:** 用户可以在登录页面使用回车键登录了 ([4336dc2](https://github.com/slimkit/plus-small-screen-client/commit/4336dc2))
+* **topic:** (close [#154](https://github.com/slimkit/plus-small-screen-client/issues/154)) 专题列表未关注和已关注按钮宽度不一致的问题 ([e5e983f](https://github.com/slimkit/plus-small-screen-client/commit/e5e983f))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 充值金额单位换算的问题 ([10b9f61](https://github.com/slimkit/plus-small-screen-client/commit/10b9f61))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 发起提现请求api修正 ([2d5fee6](https://github.com/slimkit/plus-small-screen-client/commit/2d5fee6))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 提现明细内容修正 ([3edb55b](https://github.com/slimkit/plus-small-screen-client/commit/3edb55b))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 钱包流水页面不能正常显示提现的问题 ([3092cee](https://github.com/slimkit/plus-small-screen-client/commit/3092cee))
+
+
+### Features
+
+* **components:** 新增提示信息弹框组件 PopupDialog ([a20bc4a](https://github.com/slimkit/plus-small-screen-client/commit/a20bc4a))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 用户充值协议 ([c8b3485](https://github.com/slimkit/plus-small-screen-client/commit/c8b3485))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分充值功能 ([f6e8ad8](https://github.com/slimkit/plus-small-screen-client/commit/f6e8ad8))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分入口页 ([9ddbb5f](https://github.com/slimkit/plus-small-screen-client/commit/9ddbb5f))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分入口页广告位 ([35e59fc](https://github.com/slimkit/plus-small-screen-client/commit/35e59fc))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分发起充值请求 ([d82e924](https://github.com/slimkit/plus-small-screen-client/commit/d82e924))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分发起提现请求 ([b430695](https://github.com/slimkit/plus-small-screen-client/commit/b430695))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分提取规则 ([dbb1fca](https://github.com/slimkit/plus-small-screen-client/commit/dbb1fca))
+* **currency:** [#457](https://github.com/slimkit/plus-small-screen-client/issues/457) 积分流水明细和积分充值提现记录 ([5b638bd](https://github.com/slimkit/plus-small-screen-client/commit/5b638bd))
+* **question:** ([#461](https://github.com/slimkit/plus-small-screen-client/issues/461)) 添加回答功能 ([9b3f5cb](https://github.com/slimkit/plus-small-screen-client/commit/9b3f5cb))
+* **question:** 问题详情页加入跳转到我的回答页面入口 ([39f4a33](https://github.com/slimkit/plus-small-screen-client/commit/39f4a33))
+* **topic:** 话题 -> 专题 ([0efb730](https://github.com/slimkit/plus-small-screen-client/commit/0efb730))
+* **wallet:** ([#456](https://github.com/slimkit/plus-small-screen-client/issues/456)) 增加账单详情和流水页面 ([dff2b5a](https://github.com/slimkit/plus-small-screen-client/commit/dff2b5a))
+* **wallet:** ([#456](https://github.com/slimkit/plus-small-screen-client/issues/456)) 钱包页面入口 ([01525aa](https://github.com/slimkit/plus-small-screen-client/commit/01525aa))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 提现明细 ([4459180](https://github.com/slimkit/plus-small-screen-client/commit/4459180))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 跳转到第三方支付支付地址 ([b984e4c](https://github.com/slimkit/plus-small-screen-client/commit/b984e4c))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 钱包增加积分充值入口 ([d0c6c89](https://github.com/slimkit/plus-small-screen-client/commit/d0c6c89))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 钱包提现接口对接 ([c4962c9](https://github.com/slimkit/plus-small-screen-client/commit/c4962c9))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 钱包明细详情 ([4871d54](https://github.com/slimkit/plus-small-screen-client/commit/4871d54))
+* **wallet:** [#456](https://github.com/slimkit/plus-small-screen-client/issues/456) 钱包账单详情 ([3816faf](https://github.com/slimkit/plus-small-screen-client/commit/3816faf))
+* **wallet:** 充值页面 ([24ee3ea](https://github.com/slimkit/plus-small-screen-client/commit/24ee3ea))
+* **wallet:** 钱包充值功能 ([efe7f28](https://github.com/slimkit/plus-small-screen-client/commit/efe7f28))
+* **wallet:** 钱包明细页面 ([78d9bef](https://github.com/slimkit/plus-small-screen-client/commit/78d9bef))
+
+
+
 <a name="4.0.0-rc.8"></a>
 # [4.0.0-rc.8](https://github.com/zhiyicx/plus-component-h5/compare/v4.0.0-rc.7...v4.0.0-rc.8) (2018-07-16)
 
