@@ -13,7 +13,7 @@
           <span @click.stop="viewUser">{{ anonymity ? '匿名用户' : user.name }}</span>
           <span class="time">{{ answer.created_at | time2tips }}</span>
         </h3>
-        <div class="main-body">{{ answer.body | markdownText }}</div>
+        <div class="main-body">{{ answer.body }}</div>
       </div>
     </div>
     <div class="main-button">
