@@ -1,9 +1,9 @@
 <template>
   <div
     v-bind="$props"
-    class="module-avatar"
     :class="classes"
     :style="rootStyles"
+    class="module-avatar"
     @click="handleClick">
     <slot/>
   </div>

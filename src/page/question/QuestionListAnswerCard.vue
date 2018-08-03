@@ -16,7 +16,6 @@
 
 <script>
 import UserAvatar from "./components/UserAvatar.vue";
-import { syntaxTextAndImage } from "@/util/markdown";
 
 export default {
   name: "QuestionListAnswerCard",
