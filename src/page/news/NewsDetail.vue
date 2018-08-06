@@ -402,7 +402,10 @@ export default {
         }
       });
     },
-    shareNews() {},
+    shareNews() {
+      if (this.isWechat) this.$Message.success("请点击右上角微信分享😳");
+      else this.$Message.success("请使用浏览器的分享功能😳");
+    },
     moreAction() {
       const defaultActions = [
         {

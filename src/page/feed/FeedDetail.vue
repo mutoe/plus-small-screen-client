@@ -505,12 +505,8 @@ export default {
       });
     },
     shareFeed() {
-      if (this.isWechat) {
-        this.$Message.success("请使用微信自带分享😳");
-        return;
-      }
-
-      this.$Message.success("加紧开发中...😳");
+      if (this.isWechat) this.$Message.success("请点击右上角微信分享😳");
+      else this.$Message.success("请使用浏览器的分享功能😳");
     },
     moreAction() {
       const defaultActions = [

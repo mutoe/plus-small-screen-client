@@ -237,7 +237,13 @@ export default {
           this.fetching = false;
         });
     },
-    shareAnswer() {},
+    isWechat() {
+      return this.$store.state.BROWSER.isWechat;
+    },
+    shareAnswer() {
+      if (this.isWechat) this.$Message.success("请点击右上角微信分享😳");
+      else this.$Message.success("请使用浏览器的分享功能😳");
+    },
     commentAnswer() {
       bus.$emit("commentInput", {
         onOk: text => {
