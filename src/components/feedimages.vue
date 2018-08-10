@@ -1,39 +1,30 @@
 <template>
-  <div
-    :id="`m-pics${id}`"
-    :class="['m-pics',`m-pics-${pics.length}`]">
+  <div :id="`m-pics${id}`" :class="['m-pics',`m-pics-${pics.length}`]">
     <ul class="m-pics-list">
-      <li 
-        v-for="(img, index) in pics" 
-        :key="`pics-${id}-${index}`">
+      <li v-for="(img, index) in pics" :key="`pics-${id}-${index}`">
         <div
           :class="['m-pics-box',{ 'long': isLongImg(img) }]"
           :style="pics.length === 1 ? longStyle(img.w, img.h) : &quot;&quot;">
           <async-file :file="img.file" >
             <div
-              slot-scope="props" 
+              slot-scope="props"
               :style="{ backgroundImage: `url(${props.src})` }"
               class="m-pic"
-              @click.stop="handleClick($event, index)"
-            />
+              @click.stop="handleClick($event, index)" />
           </async-file>
         </div>
       </li>
     </ul>
   </div>
 </template>
+
 <script>
 import bus from "@/bus.js";
 export default {
   name: "MPics",
   props: {
-    id: {
-      type: Number,
-      required: true
-    },
-    pics: {
-      type: Array
-    }
+    id: { type: Number, required: true },
+    pics: { type: Array, default: () => [] }
   },
   created() {
     bus.$on("updateFile", ({ fid, index }) => {
@@ -78,6 +69,7 @@ export default {
   }
 };
 </script>
+
 <style lang='less'>
 .m-pic {
   cursor: pointer;

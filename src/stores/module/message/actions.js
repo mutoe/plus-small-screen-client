@@ -39,8 +39,7 @@ export default {
           unread_comments_count: unReadCommentsCount = 0,
           unread_likes_count: unReadLikesCount = 0,
           unread_group_join_count: unReadGroupJoinCount = 0
-        } =
-          data.counts || {};
+        } = data.counts || {};
 
         // 审核信息未处理数
         let {
@@ -48,8 +47,7 @@ export default {
           feeds: { count: feedsCount = 0 } = {},
           "group-comments": { count: groupComments = 0 } = {},
           "group-posts": { count: groupPosts = 0 } = {}
-        } =
-          data.pinneds || {};
+        } = data.pinneds || {};
 
         if ((data.comments || []).length > 0) {
           let plsh = getMessageUnameTxt(data.comments);
