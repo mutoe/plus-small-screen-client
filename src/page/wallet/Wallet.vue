@@ -3,6 +3,9 @@
 
     <common-header class="header">
       钱包
+      <router-link slot="left" to="/profile">
+        <v-icon type="base-back"/>
+      </router-link>
       <router-link
         slot="right"
         :to="{ path: 'detail' }"
@@ -107,6 +110,12 @@ export default {
   },
   mounted() {
     this.$store.dispatch("wallet/getWalletInfo");
+
+    const amount = this.$route.query.total_amount;
+    if (amount) {
+      this.$store.dispatch("fetchUserInfo");
+      this.$Message.success(`共消耗${amount}元, 获得 ${amount * 100} 积分!`);
+    }
   },
   methods: {
     popupRule() {

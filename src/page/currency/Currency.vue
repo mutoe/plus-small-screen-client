@@ -3,6 +3,9 @@
 
     <common-header class="header">
       我的积分
+      <router-link slot="left" to="/profile">
+        <v-icon type="base-back"/>
+      </router-link>
       <router-link
         slot="right"
         to="/currency/journal-detail">
@@ -85,6 +88,12 @@ export default {
   mounted() {
     if (!this.currency.recharge.length)
       this.$store.dispatch("currency/getCurrencyInfo");
+
+    const amount = this.$route.query.total_amount;
+    if (amount) {
+      this.$store.dispatch("fetchUserInfo");
+      this.$Message.success(`共消耗${amount}元, 获得 ${amount * 100} 积分!`);
+    }
   },
   methods: {
     showRule() {
