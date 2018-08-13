@@ -13,7 +13,7 @@
           <span @click.stop="viewUser">{{ anonymity ? '匿名用户' : user.name }}</span>
           <span class="time">{{ answer.created_at | time2tips }}</span>
         </h3>
-        <div class="main-body">{{ answer.body }}</div>
+        <div class="main-body">{{ body }}</div>
       </div>
     </div>
     <div class="main-button">
@@ -56,6 +56,10 @@ export default {
     user() {
       const { user = {} } = this.answer;
       return user;
+    },
+    body() {
+      const body = this.answer.body || "";
+      return body.replace(/@!\[image]\(\d+\)/g, "[图片]");
     }
   },
   methods: {

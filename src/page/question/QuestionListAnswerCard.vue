@@ -66,8 +66,8 @@ export default {
       return this.user.name;
     },
     body() {
-      const { body } = this.answer;
-      return body || "";
+      const body = this.answer.body || "";
+      return body.replace(/@!\[image]\(\d+\)/g, "[图片]");
     }
   },
   methods: {
