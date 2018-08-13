@@ -41,6 +41,7 @@
 
 <script>
 import QuestionListAnswerCard from "../QuestionListAnswerCard.vue";
+import { baseURL } from "@/api/api";
 import { syntaxTextAndImage } from "@/util/markdown";
 
 export default {
@@ -80,11 +81,11 @@ export default {
      * @author Seven Du <shiweidu@outlook.com>
      */
     firstImageStyle() {
-      const { images } = this.body;
-      const image = images.pop();
+      const body = this.answer.body || "";
+      const image = body.match(/@!\[image]\((\d+)\)/);
 
-      if (image) return `background-image: url(${image})`;
-      return false;
+      if (!image) return false;
+      return `background-image: url(${baseURL}/files/${image[1]})`;
     }
   }
 };

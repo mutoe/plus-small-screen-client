@@ -6,11 +6,13 @@ import lstore from "@/plugins/lstore/lstore.js";
 let cancel;
 let pending = {};
 const CancelToken = axios.CancelToken;
+
 export const limit = ~~(lstore.getData("BOOTSTRAPPERS") || {}).limit || 15;
-const baseURL =
+export const baseURL =
   process.env.NODE_ENV === "production"
     ? `${process.env.VUE_APP_API_HOST}/api/${process.env.VUE_APP_API_VERSION}`
     : "/api/v2";
+
 const instance = axios.create({
   baseURL,
   headers: {
