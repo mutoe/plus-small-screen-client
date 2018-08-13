@@ -18,7 +18,7 @@
       class="image" />
 
     <!-- Answer. -->
-    <question-list-answer-card :answer="answer" />
+    <question-list-answer-card v-if="Object.keys(answer).length" :answer="answer" />
 
     <!-- Bottom -->
     <router-link
@@ -61,7 +61,7 @@ export default {
      */
     answer() {
       const { answer } = this.question;
-      return answer;
+      return answer || {};
     },
 
     /**

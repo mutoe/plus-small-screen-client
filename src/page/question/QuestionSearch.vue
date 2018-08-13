@@ -50,6 +50,8 @@
           :topic="topic" />
       </template>
     </jo-load-more>
+
+    <div v-show="noData" class="m-no-find"/>
   </div>
 </template>
 
@@ -72,7 +74,8 @@ export default {
       keyword: "", // search keyword
       offset: 0, // search offset
       limit: 15,
-      list: [] // search result
+      list: [], // search result
+      noData: false
     };
   },
   computed: {
@@ -86,6 +89,7 @@ export default {
       this.type = to.query.type || "question";
       this.list = [];
       this.offset = 0;
+      this.noData = false;
       this.keyword = "";
     }
   },
@@ -96,18 +100,19 @@ export default {
     /**
      * 使用 lodash.debounce 节流，每输入 600ms 后执行
      * 不要使用箭头函数，会导致 this 作用域丢失
-     * @function
+     *
      * @author mutoe <mutoe@foxmail.com>
      * @param {InputEvent} input event
      * @param {requestCallback} callback
-     * @returns
      */
     searchQuestions: _.debounce(function(event, callback) {
       if (!this.keyword) return;
+      this.offset = 0;
       this.type === "question"
         ? this.queryQuestions(callback)
         : this.queryTopics(callback);
     }, 600),
+
     queryQuestions(callback = noop) {
       const params = {
         offset: this.offset,
@@ -120,6 +125,7 @@ export default {
         } else {
           this.list = [...this.list, ...data];
         }
+        this.noData = !this.list.length;
         callback(data.length < limit);
       });
     },
@@ -135,6 +141,7 @@ export default {
         } else {
           this.list = [...this.list, ...data];
         }
+        this.noData = !this.list.length;
         callback(data.length < limit);
       });
     },
@@ -152,6 +159,8 @@ export default {
 
 <style lang="less" scoped>
 .p-question-search {
+  height: calc(~"100% - 180px");
+
   .m-head-top-title {
     padding: 0 20px 0 0;
     .m-search-box {
@@ -186,6 +195,9 @@ export default {
     .active {
       color: #333;
     }
+  }
+  .m-no-find {
+    height: 100%;
   }
 }
 </style>
