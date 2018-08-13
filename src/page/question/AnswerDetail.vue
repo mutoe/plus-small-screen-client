@@ -3,6 +3,7 @@
     v-if="answer.id"
     :liked="liked"
     :loading="loading"
+    class="p-answer-detail"
     @on-like="likeAnswer"
     @on-share="shareAnswer"
     @on-more="moreAction"
@@ -25,14 +26,20 @@
 
     <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
       <!-- 回答者信息 -->
-      <!--<div class="m-box user-info-wrap">
+      <div class="user-info-wrap">
         <avatar :user="user" />
-        <div class="m-box-model m-aln-st m-flex-grow1 m-flex-shrink1 user-info">
+        <div class="user-info">
           <h2 class="m-text-cut">{{ user.name }}</h2>
           <p class="m-text-cut">{{ user.bio || "这家伙很懒,什么也没留下" }}</p>
         </div>
-        <button></button>
-      </div> -->
+        <template v-if="!isMine" :class="{ c_59b6d7: user.follower }" >
+          <span
+            v-if="!user.follower"
+            class="actived"
+            @click="followUser(true)">+ 关注</span>
+          <span v-else @click="followUser(false)">✓ 已关注</span>
+        </template>
+      </div>
       <div class="m-art-body">
         <p class="m-text-box" v-html="formatBody(content)"/>
       </div>
@@ -120,6 +127,7 @@ import plusImagePlugin from "markdown-it-plus-image";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
 import * as api from "@/api/question/answer";
+import * as userApi from "@/api/user";
 
 export default {
   name: "AnswerDetail",
@@ -143,6 +151,7 @@ export default {
       },
 
       fetchComing: false,
+      fetchFollow: false,
       noMoreCom: false,
       maxComId: 0
     };
@@ -194,6 +203,9 @@ export default {
     content() {
       const { body = "" } = this.answer;
       return body;
+    },
+    isMine() {
+      return this.user.id === this.CURRENTUSER.id;
     }
   },
   created() {
@@ -358,7 +370,55 @@ export default {
       } else {
         this.$Message.error("评论内容不能为空");
       }
+    },
+    followUser(status) {
+      if (this.fetchFollow) return;
+      this.fetchFollow = true;
+      status = status ? "unFollow" : "follow";
+
+      userApi.followUserByStatus({ id: this.user.id, status }).then(() => {
+        this.fetchFollow = false;
+        this.user.follower = !this.user.follower;
+      });
     }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.p-answer-detail {
+  .user-info-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ededed;
+
+    .user-info {
+      flex: auto;
+      margin-left: 15px;
+      font-size: 26px;
+
+      > p {
+        color: #999;
+      }
+
+      + span {
+        border: 1px solid #ccc;
+        color: #ccc;
+        border-radius: 10px;
+        font-size: 28px;
+        padding: 4px 10px;
+        display: inline-block;
+        width: 5em;
+        text-align: center;
+
+        &.actived {
+          color: #59b6d7;
+          border-color: #59b6d7;
+        }
+      }
+    }
+  }
+}
+</style>
