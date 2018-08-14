@@ -87,7 +87,7 @@
         <!-- Amswers -->
         <div class="answers-tool">
           <div>{{ question.answers_count }}个回答</div>
-          <button @click="handleTargetAnswersOrder">
+          <button @click="showOrderPopup">
             {{ answersTimeOrder ? '时间排序' : '默认排序' }}
             <svg fill="#999" class="icon">
               <use xlink:href="#base-filter-list" />
@@ -136,6 +136,7 @@
 </template>
 
 <script>
+import bus from "@/bus";
 import { render } from "@/util/markdown";
 import * as api from "@/api/question/questions";
 import { listByDefault, listByTime } from "@/api/question/answer";
@@ -246,9 +247,6 @@ export default {
     handleRefreshAnswers() {
       this.fetch(this.refreshAnswer);
     },
-    handleTargetAnswersOrder() {
-      this.answersTimeOrder = !this.answersTimeOrder;
-    },
     handleWatch() {
       api
         .watch(this.$route.params.id)
@@ -293,6 +291,23 @@ export default {
       this.$router.push({
         path: `/questions/${this.question.id}/answers/${id}`
       });
+    },
+    showOrderPopup() {
+      const actions = [
+        {
+          text: "默认排序",
+          method: () => {
+            this.answersTimeOrder = false;
+          }
+        },
+        {
+          text: "按时间排序",
+          method: () => {
+            this.answersTimeOrder = true;
+          }
+        }
+      ];
+      bus.$emit("actionSheet", actions, "取消");
     }
   }
 };
