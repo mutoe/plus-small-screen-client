@@ -184,7 +184,7 @@ export default {
     width: 100%;
     border-top: solid 1px #ededed;
     padding: 30px;
-    padding-left: @avatar-size + 30px;
+    padding-left: @avatar-size;
 
     > * {
       margin-right: 60px;
