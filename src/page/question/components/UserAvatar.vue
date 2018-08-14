@@ -28,7 +28,7 @@ export default {
   props: {
     src: { type: String, default: "" },
     sex: { type: Number, default: 0 },
-    anonymity: { type: Boolean, default: false },
+    anonymity: { type: [Boolean, Number], default: false },
     classes: { type: [Array, String], default: "" },
     size: { type: [String, Number], default: 0.4 },
     sizeUnit: { type: String, default: "rem" }

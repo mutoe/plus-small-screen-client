@@ -12,6 +12,15 @@
     <main>
       <textarea v-model="content" placeholder="请输入你的回答"/>
     </main>
+
+    <footer>
+      <v-switch
+        v-model="anonymity"
+        type="checkbox"
+        class="m-box m-bt1 m-bb1 m-lim-width m-pinned-row">
+        <slot>匿名回答</slot>
+      </v-switch>
+    </footer>
   </div>
 </template>
 
@@ -20,7 +29,8 @@ export default {
   name: "AnswerAdd",
   data() {
     return {
-      content: ""
+      content: "",
+      anonymity: false
     };
   },
   computed: {
@@ -36,7 +46,8 @@ export default {
       if (this.disabled) return;
       const payload = {
         questionId: this.questionId,
-        content: this.content.replace(/\n/g, "\n\n")
+        content: this.content.replace(/\n/g, "\n\n"),
+        anonymity: this.anonymity ? 1 : 0
       };
       await this.$store.dispatch("question/postAnswer", payload);
       this.goBack();

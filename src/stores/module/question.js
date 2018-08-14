@@ -1,18 +1,14 @@
 import * as answerApi from "@/api/question/answer";
-import Message from "@/plugins/message";
 
 const actions = {
   async postAnswer(state, payload) {
-    const { questionId, content } = payload;
-    const { data } = await answerApi
-      .postAnswer(questionId, {
-        body: content,
-        text_body: content
-      })
-      .catch(({ response }) => {
-        const { errors } = response.data;
-        Message.error(errors);
-      });
+    const { questionId, content, anonymity = 0 } = payload;
+    const { data } = await answerApi.postAnswer(questionId, {
+      body: content,
+      text_body: content,
+      anonymity
+    });
+
     return data;
   }
 };

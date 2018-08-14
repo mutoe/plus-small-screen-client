@@ -27,12 +27,17 @@
     <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
       <!-- 回答者信息 -->
       <div class="user-info-wrap">
-        <avatar :user="user" />
+        <user-avatar
+          :anonymity="answer.anonymity"
+          :src="user.avatar"
+          :sex="user.sex"
+          :size="0.5" />
         <div class="user-info">
-          <h2 class="m-text-cut">{{ user.name }}</h2>
-          <p class="m-text-cut">{{ user.bio || "这家伙很懒,什么也没留下" }}</p>
+          <h2 v-if="isMine || !answer.anonymity" class="m-text-cut">{{ user.name }} <span v-if="answer.anonymity" class="gray">(匿名)</span></h2>
+          <h2 v-else class="m-text-cut">匿名用户</h2>
+          <p v-if="isMine || !answer.anonymity" class="m-text-cut">{{ user.bio || "这家伙很懒,什么也没留下" }}</p>
         </div>
-        <template v-if="!isMine" :class="{ c_59b6d7: user.follower }" >
+        <template v-if="!isMine && !answer.anonymity" :class="{ c_59b6d7: user.follower }" >
           <span
             v-if="!user.follower"
             class="actived"
@@ -127,6 +132,7 @@ import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
+import UserAvatar from "./components/UserAvatar.vue";
 import * as api from "@/api/question/answer";
 import * as userApi from "@/api/user";
 
@@ -134,7 +140,8 @@ export default {
   name: "AnswerDetail",
   components: {
     ArticleCard,
-    CommentItem
+    CommentItem,
+    UserAvatar
   },
   data() {
     return {
@@ -166,7 +173,7 @@ export default {
       return this.$route.params.answerId;
     },
     user() {
-      return this.answer.user;
+      return this.answer.user || {};
     },
     time() {
       return this.answer.created_at || "";
@@ -400,14 +407,16 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 15px;
+    padding: 0 20px;
+    height: 120px;
     border-bottom: 1px solid #ededed;
 
     .user-info {
       flex: auto;
-      margin-left: 15px;
+      margin-left: 20px;
       font-size: 26px;
 
+      .gray,
       > p {
         color: #999;
       }

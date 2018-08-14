@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style lang='less'>
+<style lang="less" scoped>
 @switch-prefix: v-switch;
 @switch-prefix-radio: v-switch-radio;
 @switch-prefix-checkbox: v-switch-checkbox;

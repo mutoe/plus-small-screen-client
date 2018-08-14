@@ -9,12 +9,13 @@
       :src="user.avatar"
       :sex="user.sex" />
     <!-- Body -->
-    {{ showUsername }}：{{ body }}
+    {{ showUsername }} <span v-if="isMine && anonymity" class="gray">(匿名)</span>：{{ body }}
   </div>
   <div v-else class="empty" />
 </template>
 
 <script>
+import { mapState } from "vuex";
 import UserAvatar from "./components/UserAvatar.vue";
 
 export default {
@@ -33,6 +34,8 @@ export default {
     }
   },
   computed: {
+    ...mapState({ CURRENTUSER: "CURRENTUSER" }),
+
     /**
      * The answer anonymity.
      *
@@ -42,6 +45,10 @@ export default {
     anonymity() {
       const { anonymity } = this.answer;
       return !!anonymity;
+    },
+
+    isMine() {
+      return this.user.id === this.CURRENTUSER.id;
     },
 
     /**
@@ -62,9 +69,10 @@ export default {
      * @author Seven Du <shiweidu@outlook.com>
      */
     showUsername() {
-      if (this.anonymity) return "匿名用户";
+      if (!this.isMine && this.anonymity) return "匿名用户";
       return this.user.name;
     },
+
     body() {
       const body = this.answer.body || "";
       return body.replace(/@!\[image]\(\d+\)/g, "[图片]");
@@ -95,5 +103,9 @@ export default {
 
 .empty {
   display: none;
+}
+
+.gray {
+  color: #999;
 }
 </style>
