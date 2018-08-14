@@ -5,6 +5,7 @@ import easemob from "./easemob";
 import wallet from "./wallet";
 import currency from "./currency";
 import question from "./question";
+import news from "./news";
 
 export default {
   rank,
@@ -13,5 +14,6 @@ export default {
   easemob,
   wallet,
   currency,
-  question
+  question,
+  news
 };

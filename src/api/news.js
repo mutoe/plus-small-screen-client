@@ -1,12 +1,39 @@
 import api, { limit } from "./api.js";
 
 /**
+ * 定义资讯对象
+ * @typedef {Object} NewsObject
+ * @property {number} id
+ * @property {string} title
+ * @property {string} subject
+ * @property {string} author
+ * @property {number} user_id
+ * @property {*} more
+ */
+
+/**
+ * 获取资讯列表
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {number} params.limit
+ * @param {number} params.after
+ * @param {string} params.key
+ * @param {number} params.cate_id
+ * @param {number} params.recomended
+ * @returns {Promise<NewsObject[]>}
+ */
+export function getNewsList(params) {
+  return api.get("/news", { params, validateStatus: s => s === 200 });
+}
+
+/**
  * 获取当前用户投稿列表
  * @Author   Wayne
  * @DateTime 2018-04-28
  * @Email    qiaobin@zhiyicx.com
- * @param    {number}   type [类型: 0: 已发布, 1: 待审核, 2: 已驳回]
- * @returns
+ * @param {number}   type [类型: 0: 已发布, 1: 待审核, 2: 已驳回]
+ * @returns {Promise<NewsObject[]>}
  */
 export function getMyNews({ type = 0, limit = 15, after = 0 }) {
   const params = { type, limit, after };
@@ -21,7 +48,7 @@ export function getMyNews({ type = 0, limit = 15, after = 0 }) {
  * @author mutoe <mutoe@foxmail.com>
  * @export
  * @param {number} newsId
- * @returns
+ * @returns {Promise<NewsObject>}
  */
 export function getNewsById(newsId) {
   return api.get(`/news/${newsId}`, { validateStatus: s => s === 200 });

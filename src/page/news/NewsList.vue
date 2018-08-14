@@ -1,43 +1,23 @@
 <template>
   <div class="p-news">
-    <header class="m-box m-pos-f m-main m-bb1 m-head-top">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+
+    <common-header class="common-header">
+      资讯
+      <template slot="right">
+        <svg class="m-style-svg m-svg-def" @click="$router.push({path: '/news/search'})">
+          <use xlink:href="#base-search"/>
         </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center m-head-top-title">
-        <span>资讯</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-end">
-        <router-link
-          append
-          tag="svg"
-          to="search"
-          class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-search"/>
-        </router-link>
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="beforeCreatePost">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#post-news"/>
+        <svg class="m-style-svg m-svg-def" @click="beforeCreatePost">
+          <use xlink:href="#post-news"/>
         </svg>
-      </div>
-    </header>
+      </template>
+    </common-header>
 
     <news-filter @change="onCateChange"/>
 
     <jo-load-more
       ref="loadmore"
-      class="p-news--body"
+      class="body"
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
 
@@ -62,11 +42,11 @@
 <script>
 import bus from "@/bus";
 import _ from "lodash";
+import { mapState } from "vuex";
 import NewsCard from "./components/NewsCard.vue";
 import AdCard from "./components/AdCard.vue";
 import NewsFilter from "./components/NewsFilter.vue";
 import BannerAd from "@/components/advertisement/BannerAd.vue";
-import * as bootApi from "@/api/bootstrappers.js";
 
 const noop = () => {};
 
@@ -80,25 +60,23 @@ export default {
   },
   data() {
     return {
-      list: [],
+      list: [], // 混合列表
       currentCate: 0,
-      newsList: [], // 资讯列表
-      advertiseList: [], // 原始广告列表
-      advertiseLeft: [] // 尚未加载的广告列表
+      newsList: [] // 资讯列表
     };
   },
   computed: {
+    ...mapState({
+      advertiseList: state => state.news.advertise.list,
+      advertiseIndex: state => state.news.advertise.index
+    }),
     after() {
-      const len = this.list.length;
-      return len > 0 ? this.list[len - 1].id : 0;
-    },
-    advertiseTypeId() {
-      const adType = this.$store.getters.getAdTypeBySpace("news:list:analog");
-      return adType.id;
+      const len = this.newsList.length;
+      return len > 0 ? this.newsList[len - 1].id : 0;
     }
   },
   mounted() {
-    this.getAdvertiseList();
+    this.$store.dispatch("news/getAdvertise");
   },
   methods: {
     onCateChange({ id = 0 } = {}) {
@@ -106,41 +84,45 @@ export default {
       this.currentCate = id;
       this.onRefresh(noop);
     },
-    onRefresh(callback) {
+    async onRefresh(callback) {
+      this.$store.commit("news/RESET_ADVERTISE");
       // GET /news
       const params =
         this.currentCate === 0
-          ? { limit: 10, recommend: 1 }
-          : { limit: 10, cate_id: this.currentCate };
+          ? { recommend: 1 }
+          : { cate_id: this.currentCate };
+      const data = await this.$store.dispatch("news/getNewsList", params);
+      this.newsList = data;
+      callback(data.length < 10);
 
-      this.$http.get("/news", { params }).then(({ data = [] }) => {
-        this.newsList = data;
-        callback(data.length >= 10);
-
-        // 从广告栈顶取出一条随机插入列表
+      // 如果有广告,并且还没插入完,从广告栈顶取出一条随机插入列表
+      if (this.advertiseIndex < this.advertiseList.length) {
         let rand = ~~(Math.random() * 9) + 1;
         rand > data.length && (rand = data.length);
-        this.advertiseLeft = _.cloneDeep(this.advertiseList);
-        this.advertiseLeft.length &&
-          data.splice(rand, 0, this.advertiseLeft.shift());
-        this.list = data;
-      });
+        data.splice(rand, 0, this.advertiseList[this.advertiseIndex]);
+        this.$store.commit("news/POPUP_ADVERTISE");
+      }
+
+      this.list = data;
     },
-    onLoadMore(callback) {
+    async onLoadMore(callback) {
       const params =
         this.currentCate === 0
-          ? { limit: 10, recommend: 1, after: this.after }
-          : { limit: 10, cate_id: this.currentCate, after: this.after };
-      this.$http.get("/news", { params }).then(({ data = [] } = {}) => {
-        callback(data.length < 10);
+          ? { recommend: 1 }
+          : { cate_id: this.currentCate };
+      Object.assign(params, { after: this.after });
+      const data = await this.$store.dispatch("news/getNewsList", params);
+      callback(data.length < 10);
 
-        // 从广告栈顶取出一条随机插入列表
+      // 如果有广告,并且还没插入完,从广告栈顶取出一条随机插入列表
+      if (this.advertiseIndex < this.advertiseList.length) {
         let rand = ~~(Math.random() * 9) + 1;
         rand > data.length && (rand = data.length);
-        this.advertiseLeft.length &&
-          data.splice(rand, 0, this.advertiseLeft.shift());
-        this.list = [...this.list, ...data];
-      });
+        data.splice(rand, 0, this.advertiseList[this.advertiseIndex]);
+        this.$store.commit("news/POPUP_ADVERTISE");
+      }
+
+      this.list = [...this.list, ...data];
     },
     /**
      * 投稿前进行认证确认
@@ -177,12 +159,6 @@ export default {
           "认证用户才能创建投稿，去认证？"
         );
       }
-    },
-    getAdvertiseList() {
-      bootApi.getAdsById(this.advertiseTypeId).then(({ data }) => {
-        this.advertiseList = data;
-        this.advertiseLeft = _.cloneDeep(data);
-      });
     }
   }
 };
@@ -190,18 +166,11 @@ export default {
 
 <style lang="less" scoped>
 .p-news {
-  &--nav {
-    display: flex;
+  .common-header {
     position: fixed;
-    top: 90px;
-    padding-top: 0 !important;
-    width: 100%;
-    height: 85px;
-    border-bottom: 1px solid #ededed; /*no*/
-    background-color: #fff;
   }
 
-  &--body {
+  .body {
     padding-top: 90+80px;
   }
 }
