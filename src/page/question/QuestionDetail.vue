@@ -61,7 +61,7 @@
         <div class="main-button">
           <div class="button">
             <svg class="main-button-icon" fill="#666">
-              <use xlink:href="#base-reward" />
+              <use :xlink:href="`#base-${question.amount ? 'reward' : 'unreward'}`" />
             </svg>
             {{ question.amount ? '已' : '未' }}设置悬赏
           </div>
