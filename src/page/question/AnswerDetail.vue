@@ -120,6 +120,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import bus from "@/bus.js";
 import { mapState } from "vuex";
 import markdownIt from "markdown-it";
@@ -325,7 +326,7 @@ export default {
           this.fetchComing = false;
         });
     },
-    replyComment(uid, uname) {
+    replyComment(uid, uname, commentId) {
       uid === this.CURRENTUSER.id
         ? bus.$emit(
             "actionSheet",
@@ -333,7 +334,7 @@ export default {
               {
                 text: "删除评论",
                 method: () => {
-                  this.$Message.info("评论删除功能开发中，敬请期待");
+                  this.deleteAnswerComment(commentId);
                 }
               }
             ],
@@ -370,6 +371,14 @@ export default {
       } else {
         this.$Message.error("评论内容不能为空");
       }
+    },
+    deleteAnswerComment(commentId) {
+      api.deleteAnswerComment(this.answerId, commentId).then(() => {
+        this.$Message.success("删除评论成功");
+        _.remove(this.comments, c => c.id === commentId);
+        this.commentCount -= 1;
+        bus.$emit("commentInput:close", true);
+      });
     },
     followUser(status) {
       if (this.fetchFollow) return;

@@ -129,3 +129,16 @@ export function getRewards(answerId, params) {
   const url = `/question-answers/${answerId}/rewarders`;
   return api.get(url, { params, validateStatus: s => s === 200 });
 }
+
+/**
+ * 删除评论
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} answerId
+ * @param {number} commentId
+ * @returns
+ */
+export function deleteAnswerComment(answerId, commentId) {
+  const url = `/question-answers/${answerId}/comments/${commentId}`;
+  return api.delete(url, { validateStatus: s => s === 204 });
+}
