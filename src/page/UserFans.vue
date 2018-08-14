@@ -2,26 +2,24 @@
   <div class="p-user-fans">
     <nav class="m-box m-head-top m-lim-width m-pos-f m-main m-bb1">
       <div class="m-box m-aln-center m-flex-shrink0 ">
-        <svg 
-          class="m-style-svg m-svg-def" 
-          @click="goBack">
+        <svg class="m-style-svg m-svg-def" @click="goBack">
           <use xlink:href="#base-back"/>
         </svg>
       </div>
       <ul class="m-box m-flex-grow1 m-aln-center m-justify-center m-flex-base0 m-head-nav">
-        <router-link 
-          :to="`/users/${userID}/followers`" 
-          tag="li" 
-          active-class="active" 
-          exact 
+        <router-link
+          :to="`/users/${userID}/followers`"
+          tag="li"
+          active-class="active"
+          exact
           replace>
           <a>粉丝</a>
         </router-link>
-        <router-link 
-          :to="`/users/${userID}/followings`" 
-          tag="li" 
-          active-class="active" 
-          exact 
+        <router-link
+          :to="`/users/${userID}/followings`"
+          tag="li"
+          active-class="active"
+          exact
           replace>
           <a>关注</a>
         </router-link>
