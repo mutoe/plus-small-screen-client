@@ -40,6 +40,7 @@ export default {
 .c-switch-bar {
   position: fixed;
   border-color: #dedede;
+  z-index: 10;
 
   .search-btn {
     color: #333;

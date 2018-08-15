@@ -181,6 +181,7 @@ export default {
     color: #999;
     font-size: 30px;
     border-bottom: solid 1px #dedede;
+    z-index: 10;
 
     @media screen and (min-width: 769px) {
       width: 768px;

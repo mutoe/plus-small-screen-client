@@ -195,7 +195,8 @@ export default {
     line-height: 0;
     letter-spacing: 0;
     border-bottom: solid 1px #ededed;
-    z-index: 100;
+    z-index: 10;
+
     > a {
       color: #d7d8d8;
     }
