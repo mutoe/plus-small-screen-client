@@ -2,7 +2,7 @@
   <div
     v-if="answer"
     class="module-question-list-answer-card"
-    @click="gotoAnswerDetail">
+    @click="gotoQuestionDetail">
     <!-- User avatar. -->
     <user-avatar
       :anonymity="anonymity"
@@ -79,9 +79,9 @@ export default {
     }
   },
   methods: {
-    gotoAnswerDetail() {
-      const { question_id: qid, id } = this.answer;
-      this.$router.push(`/questions/${qid}/answers/${id}`);
+    gotoQuestionDetail() {
+      const { question_id: qid } = this.answer;
+      this.$router.push(`/questions/${qid}`);
     }
   }
 };
