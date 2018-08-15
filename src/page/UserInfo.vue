@@ -130,11 +130,11 @@
           class="m-flex-grow0 m-flex-shrink0">简介</label>
         <div class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input">
           <span
-            v-if="bio.length === 0 && !bioIsFoucs"
+            v-if="bio.length === 0 && !bioIsFocus"
             class="placeholder m-flex-grow1"
             @click="editBio">编辑简介</span>
           <div
-            v-show="bio.length > 0 || bioIsFoucs"
+            v-show="bio.length > 0 || bioIsFocus"
             class="m-box-model m-fd-row m-flex-grow1 m-flex-shrink1 m-aln-end m-justify-end m-wz-def">
             <div
               ref="bioEditor"
@@ -202,7 +202,7 @@ export default {
       location: "",
       avatar: null,
       change: false,
-      bioIsFoucs: false,
+      bioIsFocus: false,
 
       showPosition: false
     };
@@ -230,7 +230,7 @@ export default {
     }
   },
   watch: {
-    bioIsFoucs(val) {
+    bioIsFocus(val) {
       val && this.$refs.bioEditor.click() && this.$refs.bioEditor.focus();
     }
   },
@@ -262,12 +262,12 @@ export default {
   },
   methods: {
     editBio() {
-      this.bioIsFoucs = true;
+      this.bioIsFocus = true;
     },
     bioFoucs() {},
     bioBlur() {
       this.$refs.bioEditor.textContent = this.bio;
-      this.bioIsFoucs = false;
+      this.bioIsFocus = false;
     },
     bioInput(e) {
       const $el = e.target;
