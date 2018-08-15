@@ -482,8 +482,6 @@ export default {
   }
 
   .answers-tool {
-    position: sticky;
-    top: 90+25px;
     background: @gray-bg;
     display: flex;
     justify-content: space-between;
