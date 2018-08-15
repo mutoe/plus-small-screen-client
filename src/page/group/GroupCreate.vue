@@ -37,18 +37,11 @@
           @change="selectPhoto">
       </section>
 
-      <section class="m-box m-aln-stre m-justify-bet p-info-row m-bb1">
-        <label for="ipt-name">圈名</label>
-        <div class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input">
-          <input
-            id="ipt-name"
-            v-model="form.name"
-            type="text"
-            placeholder="输入圈名, 20字以内"
-            class="m-flex-grow1 m-flex-shrink1"
-            maxlength="20">
-        </div>
-      </section>
+      <form-input-item
+        v-model="form.name"
+        label="圈名"
+        maxlength="20"
+        placeholder="输入圈名, 20字以内"/>
 
       <section class="m-box m-aln-stre m-justify-bet p-info-row m-bb1">
         <label>类别</label>

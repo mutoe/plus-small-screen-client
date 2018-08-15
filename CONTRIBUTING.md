@@ -369,17 +369,19 @@ export default {
 
 ### 表单组件 FormItem
 
-表单组件用于快速构建样式和交互方式统一的表单
+表单组件用于快速构建样式和交互方式统一的表单项
 
-#### 位置选择框 FormLocationItem
+表单组件包含以下组件
 
-`@/components/form/FormLocationItem.vue`
+- `FormInputItem` 文本输入框
+- `FormLocationItem` 位置选择框
 
-使用方法
+#### 使用方法
 
 ``` vue
 <template>
   <form>
+    <form-input-item v-model="name" placeholder="请输入圈子名称, 20字以内" maxlength="20" />
     <form-location-item v-model="location"/>
   </form>
 </template>
@@ -387,7 +389,8 @@ export default {
 <script>
 export default {
   data: () => {
-    location: ''
+    name: '',
+    location: '',
   }
 }
 </script>
