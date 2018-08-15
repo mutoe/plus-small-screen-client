@@ -2,11 +2,9 @@
   <div class="p-question-answer-item" @click="viewDetail">
     <div class="main">
       <div class="avatar" @click.stop="viewUser">
-        <user-avatar
-          :size="0.56"
+        <avatar
           :anonymity="anonymity"
-          :src="user.avatar"
-          :sex="user.sex" />
+          :user="user" />
       </div>
       <div class="info">
         <h3 class="main-header">
@@ -34,14 +32,10 @@
 </template>
 
 <script>
-import UserAvatar from "./components/UserAvatar.vue";
 import { like, unlike } from "@/api/question/answer";
 
 export default {
   name: "QuestionAnswerItem",
-  components: {
-    UserAvatar
-  },
   props: {
     answer: { type: Object, required: true }
   },

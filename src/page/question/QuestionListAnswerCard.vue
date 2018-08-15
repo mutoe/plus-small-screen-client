@@ -4,10 +4,10 @@
     class="module-question-list-answer-card"
     @click="gotoQuestionDetail">
     <!-- User avatar. -->
-    <user-avatar
+    <avatar
       :anonymity="anonymity"
-      :src="user.avatar"
-      :sex="user.sex" />
+      :user="user"
+      size="small" />
     <!-- Body -->
     {{ showUsername }} <span v-if="isMine && anonymity" class="gray">(匿名)</span>：{{ body }}
   </div>
@@ -16,13 +16,9 @@
 
 <script>
 import { mapState } from "vuex";
-import UserAvatar from "./components/UserAvatar.vue";
 
 export default {
   name: "QuestionListAnswerCard",
-  components: {
-    UserAvatar
-  },
   props: {
     answer: {
       type: [Object],

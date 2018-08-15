@@ -2,7 +2,7 @@
   <router-link
     :to="path"
     :class="styles"
-    class="m-flex-shrink0 m-flex-grow0 m-avatar-box"
+    class="m-avatar-box"
     @click.native.stop>
     <img
       v-if="avatar"
@@ -55,7 +55,7 @@ export default {
     },
     styles() {
       const sex = ["secret", "man", "woman"];
-      return this.avatar
+      return this.avatar || this.anonymity
         ? [`m-avatar-box-${this.size}`]
         : [`m-avatar-box-${this.size}`, `m-avatar-box-${sex[this.sex]}`];
     },

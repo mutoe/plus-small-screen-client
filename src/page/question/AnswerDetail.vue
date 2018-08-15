@@ -132,7 +132,6 @@ import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
-import UserAvatar from "./components/UserAvatar.vue";
 import * as api from "@/api/question/answer";
 import * as userApi from "@/api/user";
 
@@ -140,8 +139,7 @@ export default {
   name: "AnswerDetail",
   components: {
     ArticleCard,
-    CommentItem,
-    UserAvatar
+    CommentItem
   },
   data() {
     return {

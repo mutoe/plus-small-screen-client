@@ -36,13 +36,12 @@
       <div class="experts">
         <span>{{ topic.experts_count }}位相关专家</span>
         <div>
-          <user-avatar
+          <avatar
             v-for="(user, index) in topic.experts"
-            :size="0.5"
-            :src="user.avatar"
-            :sex="user.sex"
+            :user="user"
             :style="[{ zIndex: topic.experts.length - index }]"
             :key="user.id"
+            size="tiny"
             class="experts-user" />
         </div>
       </div>
@@ -93,14 +92,12 @@
 </template>
 
 <script>
-import UserAvatar from "./components/UserAvatar.vue";
 import QuestionCard from "./components/QuestionCard.vue";
 import * as api from "@/api/question/topics";
 
 export default {
   name: "TopicDetail",
   components: {
-    UserAvatar,
     QuestionCard
   },
   data: () => ({
