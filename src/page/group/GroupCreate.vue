@@ -42,21 +42,7 @@
         </div>
       </section>
 
-      <section class="m-box m-aln-stre m-justify-bet p-info-row m-bb1" @click="switchTags">
-        <label>标签</label>
-        <div class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input">
-          <span v-if="form.tags.length === 0" class="placeholder">选择标签</span>
-          <div v-else class="m-tag-list m-tags">
-            <span
-              v-for="tag in form.tags"
-              :key="tag.id"
-              class="m-tag">{{ tag.name }}</span>
-          </div>
-          <svg class="m-style-svg m-svg-def m-entry-append">
-            <use xlink:href="#base-arrow-r"/>
-          </svg>
-        </div>
-      </section>
+      <form-tags-item v-model="form.tags" />
 
       <!-- 位置选择组件 -->
       <form-location-item v-model="form.location"/>
@@ -140,21 +126,7 @@ export default {
       const value = $el.textContent;
       this.form.bio = value;
     },
-    switchTags() {
-      const chooseTags = this.form.tags.map(t => t.id);
-      const nextStep = tags => {
-        this.change =
-          tags.map(n => n.id).join(",") !== this.CURRENTUSER.tags.join(",");
-        this.form.tags = tags;
-      };
-      const onSelect = tagId => {
-        console.log("selected", tagId);
-      };
-      const onRemove = tagId => {
-        console.log("deleted", tagId);
-      };
-      bus.$emit("choose-tags", { chooseTags, nextStep, onSelect, onRemove });
-    },
+
     switchMode() {
       const actions = [];
       for (const [key, value] of modeMap) {
