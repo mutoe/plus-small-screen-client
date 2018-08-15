@@ -8,6 +8,7 @@ import GroupDetail from "@/page/group/GroupDetail.vue";
 import GroupsPostDetail from "@/page/group/GroupPostDetail.vue";
 import likes from "@/page/article/ArticleLikes.vue";
 import rewards from "@/page/article/ArticleRewards.vue";
+import GroupCreate from "@/page/group/GroupCreate.vue";
 
 export default [
   {
@@ -15,7 +16,7 @@ export default [
     component: GroupHome,
     meta: {
       title: "圈子首页",
-      // keepAlive: true,
+      keepAlive: true,
       requiresAuth: true
     }
   },
@@ -25,7 +26,15 @@ export default [
     component: GroupList,
     meta: {
       title: "全部圈子",
-      // keepAlive: true,
+      requiresAuth: true
+    }
+  },
+  {
+    name: "groupCreate",
+    path: "/group/create",
+    component: GroupCreate,
+    meta: {
+      title: "创建圈子",
       requiresAuth: true
     }
   },

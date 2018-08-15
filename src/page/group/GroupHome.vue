@@ -7,7 +7,7 @@
         <svg class="m-style-svg m-svg-def">
           <use xlink:href="#base-search"/>
         </svg>
-        <svg class="m-style-svg m-svg-def">
+        <svg class="m-style-svg m-svg-def" @click="beforeCreateGroup">
           <use xlink:href="#group-add"/>
         </svg>
       </template>
@@ -27,7 +27,7 @@
       <!-- 我加入的 -->
       <div class="m-box-model">
         <router-link
-          :to="`/users/${currentUserID}/group`"
+          :to="`/users/${user.id}/group`"
           tag="div"
           class="group-label">
           <span>我加入的</span>
@@ -78,6 +78,8 @@
 </template>
 
 <script>
+import bus from "@/bus";
+import { mapState } from "vuex";
 import GroupItem from "./GroupItem.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
 import * as api from "@/api/group.js";
@@ -89,9 +91,8 @@ export default {
     DetailAd
   },
   data() {
-    const myGroups = new Map();
     return {
-      myGroups,
+      myGroups: new Map(),
       recGroups: [],
       clickCount: 0,
       groupTotalNumber: 0,
@@ -101,9 +102,10 @@ export default {
     };
   },
   computed: {
-    currentUserID() {
-      return this.$store.state.CURRENTUSER.id;
-    },
+    ...mapState({
+      CONFIG: "CONFIG",
+      user: "CURRENTUSER"
+    }),
     groups() {
       return this.myGroupChangeTracker && [...this.myGroups.values()];
     }
@@ -135,6 +137,30 @@ export default {
         this.clickCount += 1;
         this.fetchRecing = false;
       });
+    },
+    /**
+     * 创建圈子前检查
+     */
+    beforeCreateGroup() {
+      const { need_verified: needVerified } = this.CONFIG["group:create"];
+      const { verified } = this.user;
+
+      // 如果不需要认证或已经认证
+      if (!needVerified || verified)
+        return this.$router.push({ name: "groupCreate" });
+
+      const actions = [
+        {
+          text: "去认证",
+          method: () => this.$router.push({ name: "ProfileCertificate" })
+        }
+      ];
+      bus.$emit(
+        "actionSheet",
+        actions,
+        "取消",
+        "认证用户才能创建圈子, 去认证?"
+      );
     }
   }
 };

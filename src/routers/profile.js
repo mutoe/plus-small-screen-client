@@ -42,6 +42,7 @@ export default [
     ]
   },
   {
+    name: "ProfileCertificate",
     path: "/profile/certificate",
     component: ProfileCertificate,
     meta: { title: "申请认证" }
