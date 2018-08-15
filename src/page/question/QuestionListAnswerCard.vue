@@ -7,7 +7,7 @@
     <avatar
       :anonymity="anonymity"
       :user="user"
-      size="small" />
+      size="nano" />
     <!-- Body -->
     {{ showUsername }} <span v-if="isMine && anonymity" class="gray">(匿名)</span>：{{ body }}
   </div>

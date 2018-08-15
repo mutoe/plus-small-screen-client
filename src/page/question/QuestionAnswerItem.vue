@@ -8,7 +8,9 @@
       </div>
       <div class="info">
         <h3 class="main-header">
-          <span @click.stop="viewUser">{{ anonymity ? '匿名用户' : user.name }}</span>
+          <span v-if="!anonymity" @click.stop="viewUser">{{ user.name }}</span>
+          <span v-else-if="!isMine">匿名用户</span>
+          <span v-else>{{ user.name }} <span class="gray">(匿名)</span></span>
           <span class="time">{{ answer.created_at | time2tips }}</span>
         </h3>
         <div class="main-body">{{ body }}</div>
@@ -54,6 +56,9 @@ export default {
     body() {
       const body = this.answer.body || "";
       return body.replace(/@!\[image]\(\d+\)/g, "[图片]");
+    },
+    isMine() {
+      return this.user.id === this.$store.state.CURRENTUSER.id;
     }
   },
   methods: {
@@ -200,5 +205,9 @@ export default {
       }
     }
   }
+}
+
+.gray {
+  color: #ccc;
 }
 </style>

@@ -4,8 +4,9 @@
     :class="styles"
     class="m-avatar-box"
     @click.native.stop>
+    <template v-if="anonymity">匿</template>
     <img
-      v-if="avatar"
+      v-else-if="avatar"
       :src="avatar"
       class="m-avatar-img"
       @error="handelError">
@@ -23,7 +24,8 @@ export default {
   name: "Avatar",
   props: {
     size: { type: String, default: "def" },
-    user: { type: Object, required: true }
+    user: { type: Object, required: true },
+    anonymity: { type: Boolean, default: false }
   },
   computed: {
     uid() {
@@ -33,8 +35,13 @@ export default {
       return ~~this.user.sex;
     },
     icon() {
+      // 如果是匿名用户 不显示
+      if (this.anonymity) return false;
+
+      // 如果没有认证 不显示
       const { verified = {} } = this.user;
       if (_.isEmpty(verified)) return false;
+
       // 如果有设置图标 使用设置的图标
       if (verified.icon)
         return { "background-image": `url("${verified.icon}")` };
