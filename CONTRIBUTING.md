@@ -375,12 +375,14 @@ export default {
 
 - `FormInputItem` 文本输入框
 - `FormLocationItem` 位置选择框
+- `FormAvatarItem` 头像选择栏
 
 #### 使用方法
 
 ``` vue
 <template>
   <form>
+    <form-avatar-item v-model="avatar" label="请上传圈子头像" />
     <form-input-item v-model="name" placeholder="请输入圈子名称, 20字以内" maxlength="20" />
     <form-location-item v-model="location"/>
   </form>
@@ -391,6 +393,7 @@ export default {
   data: () => {
     name: '',
     location: '',
+    avatar: '', // base64 string
   }
 }
 </script>

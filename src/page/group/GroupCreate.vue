@@ -18,24 +18,11 @@
     </common-header>
 
     <main style="background-color: #fff">
-      <section
-        style="margin-left: 0; padding-left: .3rem"
-        class="m-box m-aln-center m-justify-bet m-main m-bb1 p-info-row"
-        @click="beforeSelectFile">
-        <div class="m-flex-shrink0 m-flex-grow0 m-avatar-box">
-          <img :src="avatar" class="m-avatar-img">
-        </div>
-        <span class="m-flex-grow1 m-flex-shrink1">上传圈子头像</span>
-        <svg class="m-style-svg m-svg-def m-entry-append">
-          <use xlink:href="#base-arrow-r"/>
-        </svg>
-        <input
-          ref="imagefile"
-          type="file"
-          class="m-rfile"
-          accept="image/jpeg,image/webp,image/jpg,image/png,image/bmp"
-          @change="selectPhoto">
-      </section>
+
+      <form-avatar-item
+        v-model="form.avatar"
+        label="上传圈子头像"
+        shape="circle"/>
 
       <form-input-item
         v-model="form.name"
@@ -104,26 +91,6 @@
 
 <script>
 import bus from "@/bus";
-import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
-
-/**
- * Canvas toBlob
- */
-if (!HTMLCanvasElement.prototype.toBlob) {
-  Object.defineProperty(HTMLCanvasElement.prototype, "toBlob", {
-    value: function(callback, type, quality) {
-      var binStr = atob(this.toDataURL(type, quality).split(",")[1]),
-        len = binStr.length,
-        arr = new Uint8Array(len);
-
-      for (var i = 0; i < len; i++) {
-        arr[i] = binStr.charCodeAt(i);
-      }
-
-      callback(new Blob([arr], { type: type || "image/png" }));
-    }
-  });
-}
 
 const modeMap = {
   public: "公开圈子",
@@ -140,7 +107,6 @@ export default {
     return {
       loading: false,
       disabled: true,
-      avatar: null,
       bioIsFocus: false,
       showPosition: false,
 
@@ -151,7 +117,8 @@ export default {
         tags: [],
         mode: "",
         bio: "",
-        location: ""
+        location: "",
+        avatar: null
       }
     };
   },
@@ -187,43 +154,6 @@ export default {
         console.log("deleted", tagId);
       };
       bus.$emit("choose-tags", { chooseTags, nextStep, onSelect, onRemove });
-    },
-    beforeSelectFile() {
-      this.$refs.imagefile.click();
-    },
-    async selectPhoto(e) {
-      let files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      const cropperURL = await getFirstFrameOfGif(files[0]);
-      this.$ImgCropper.show({
-        url: cropperURL,
-        round: false,
-        onCancel: () => {
-          this.$refs.imagefile.value = null;
-        },
-        onOk: screenCanvas => {
-          screenCanvas.toBlob(blob => {
-            const formData = new FormData();
-            formData.append("avatar", blob);
-            this.$http
-              .post("/user/avatar", formData, {
-                validateStatus: s => s === 204
-              })
-              .then(() => {
-                this.$Message.success("头像更新成功");
-                this.avatar = screenCanvas.toDataURL();
-              })
-              .catch((err = {}) => {
-                console.warn(err);
-                const {
-                  response: { data = { message: "更新头像失败" } }
-                } = err;
-                this.$Message.error(data);
-              });
-            this.$refs.imagefile.value = null;
-          }, "image/png");
-        }
-      });
     },
     switchMode() {
       const actions = [];
