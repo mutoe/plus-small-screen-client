@@ -27,11 +27,9 @@
     <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
       <!-- 回答者信息 -->
       <div class="user-info-wrap">
-        <user-avatar
+        <avatar
           :anonymity="answer.anonymity"
-          :src="user.avatar"
-          :sex="user.sex"
-          :size="0.5" />
+          :user="user" />
         <div class="user-info">
           <h2 v-if="isMine || !answer.anonymity" class="m-text-cut">{{ user.name }} <span v-if="answer.anonymity" class="gray">(匿名)</span></h2>
           <h2 v-else class="m-text-cut">匿名用户</h2>

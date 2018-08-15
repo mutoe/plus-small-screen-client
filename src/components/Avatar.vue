@@ -25,7 +25,7 @@ export default {
   props: {
     size: { type: String, default: "def" },
     user: { type: Object, required: true },
-    anonymity: { type: Boolean, default: false }
+    anonymity: { type: [Boolean, Number], default: false }
   },
   computed: {
     uid() {
