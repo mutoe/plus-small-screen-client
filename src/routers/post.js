@@ -12,7 +12,7 @@ export default [
     path: "/post/release",
     component: postNews,
     meta: {
-      title: "登录",
+      title: "编辑文章",
       requiresAuth: true
     }
   },
