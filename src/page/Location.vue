@@ -8,13 +8,9 @@
         <div class="m-flex-grow1 m-flex-shrink1 m-flex-base0">
           <div class="m-search-box">
             <svg class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-search"/>
+              <use xlink:href="#base-search"/>
             </svg>
-            <form
-              action="#"
-              onsubmit="return false">
+            <form action="#" onsubmit="return false">
               <input
                 v-model="keyword"
                 type="search"
@@ -37,12 +33,8 @@
               :class="{placeholder: currentTxt.length === 0}"
               class="m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-cut"
               @click="goBack">{{ currentTxt || placeholder }}</p>
-            <svg
-              class="m-style-svg m-svg-def"
-              @click="getCurrentPosition">
-              <use
-                :xlink:href="iconType"
-                xmlns:xlink="http://www.w3.org/1999/xlink"/>
+            <svg class="m-style-svg m-svg-def" @click="getCurrentPosition">
+              <use :xlink:href="iconType" />
             </svg>
           </div>
           <div class="m-box-model">
@@ -58,9 +50,7 @@
             </ul>
           </div>
         </div>
-        <div
-          v-else
-          class="m-box-model">
+        <div v-else class="m-box-model">
           <div
             v-for="city in cities"
             :key="city"

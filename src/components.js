@@ -13,6 +13,8 @@ import JoLoadMore from "@/components/JoLoadMore.vue";
 import Avatar from "@/components/Avatar.vue";
 import NavTabs from "@/components/tabs/NavTabs.vue";
 
+import FormItems from "@/components/form/formItem.js";
+
 export default [
   Avatar,
   vIcon,
@@ -26,5 +28,7 @@ export default [
   NavTabs,
   AsyncFile,
   JoLoadMore,
-  CommonHeader
+  CommonHeader,
+
+  ...FormItems
 ];

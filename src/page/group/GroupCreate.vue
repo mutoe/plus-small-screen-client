@@ -78,15 +78,8 @@
         </div>
       </section>
 
-      <section class="m-box m-aln-stre m-justify-bet p-info-row m-bb1">
-        <label>位置</label>
-        <div class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input" @click="switchPosition">
-          <span :class="{placeholder: !location}">{{ location || "设置圈子的地理位置" }}</span>
-          <svg class="m-style-svg m-svg-def m-entry-append">
-            <use xlink:href="#base-arrow-r"/>
-          </svg>
-        </div>
-      </section>
+      <!-- 位置选择组件 -->
+      <form-location-item v-model="form.location"/>
 
       <section class="m-box m-aln-stre m-justify-bet p-info-row">
         <label for="bio" class="m-flex-grow0 m-flex-shrink0">简介</label>
@@ -112,17 +105,13 @@
       </section>
     </main>
 
-    <location
-      :show="showPosition"
-      :is-component="true"
-      @close="switchPosition" />
+
   </div>
 </template>
 
 <script>
 import bus from "@/bus";
 import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
-import Location from "@/page/Location.vue";
 
 /**
  * Canvas toBlob
@@ -159,7 +148,6 @@ export default {
       loading: false,
       disabled: true,
       avatar: null,
-      location: "",
       bioIsFocus: false,
       showPosition: false,
 
@@ -169,7 +157,8 @@ export default {
         name: "",
         tags: [],
         mode: "",
-        bio: ""
+        bio: "",
+        location: ""
       }
     };
   },
@@ -254,10 +243,6 @@ export default {
         });
       }
       bus.$emit("actionSheet", actions, "取消");
-    },
-    switchPosition(val) {
-      this.showPosition = !this.showPosition;
-      val && (this.location = val.label);
     }
   }
 };

@@ -366,3 +366,29 @@ export default {
 - `group:post` 圈子帖子详情页
 
 用于获取对应页面广告具体数据
+
+### 表单组件 FormItem
+
+表单组件用于快速构建样式和交互方式统一的表单
+
+#### 位置选择框 FormLocationItem
+
+`@/components/form/FormLocationItem.vue`
+
+使用方法
+
+``` vue
+<template>
+  <form>
+    <form-location-item v-model="location"/>
+  </form>
+</template>
+
+<script>
+export default {
+  data: () => {
+    location: ''
+  }
+}
+</script>
+```
