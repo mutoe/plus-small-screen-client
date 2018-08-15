@@ -6,13 +6,13 @@
         class="m-pop-box"
         @click="cancel"/>
     </transition>
+
     <transition name="pop">
-      <div
-        v-if="show"
-        class="m-acbtn-box">
-        <h2
-          v-if="tips"
-          class="m-box m-text-box m-aln-center m-justify-center m-main m-acbtn-tips m-bb1">{{ tips }}</h2>
+      <div v-if="show" class="m-acbtn-box">
+        <header v-if="tips">
+          <h2 class="m-acbtn-title">{{ title }}</h2>
+          <p class="m-acbtn-tips">{{ tips }}</p>
+        </header>
         <ul class="m-acbtn-list">
           <li
             v-for="(btn, index) in lists"
@@ -25,9 +25,9 @@
           </li>
         </ul>
         <ul class="m-acbtn-list">
-          <li
-            class="m-acbtn"
-            @click="cancel"><a href="javascript:;">{{ cancelBtn }}</a></li>
+          <li class="m-acbtn" @click="cancel">
+            <a href="javascript:;">{{ cancelBtn }}</a>
+          </li>
         </ul>
       </div>
     </transition>
@@ -49,6 +49,7 @@ export default {
     return {
       lists: [],
       tips: "",
+      title: "提示",
       show: false,
       scrollTop: 0,
       cancelBtn: "取消"
@@ -60,10 +61,12 @@ export default {
      * @author jsonleex <jsonlseex@163.com>
      * @param {ActionButton[]} btnLists [{ text: "确定", method: () => {} }, ...]
      * @param {string} cancelTxt "取消"
-     * @param {string} tips 提示文字
+     * @param {string} [tips] 提示文字
+     * @param {string} [title] 提示标题 默认为"提示"
      */
-    bus.$on("actionSheet", (btnLists, cancelTxt, tips = null) => {
+    bus.$on("actionSheet", (btnLists, cancelTxt, tips = null, title = "") => {
       this.tips = tips;
+      title && (this.title = title);
       this.call(btnLists, cancelTxt);
     });
   },
@@ -101,19 +104,26 @@ export default {
   left: 0;
   right: 0;
   background-color: @gray-bg;
-  .m-acbtn-tips {
-    padding: 20px 30px;
+
+  > header {
+    background-color: #fff;
     text-align: center;
-    font-size: 28px;
+    margin-bottom: 10px;
+    padding: 30px;
+    font-size: 30px;
+
+    .m-acbtn-tips {
+      padding: 20px 30px;
+      text-align: center;
+      color: #999;
+    }
   }
 }
 
 .m-acbtn-list {
   background-color: #fff;
   display: block;
-  & + & {
-    margin-top: 15px;
-  }
+
   .m-acbtn {
     color: @text-color1;
     height: 90px;
@@ -121,6 +131,7 @@ export default {
     text-align: center;
     border-bottom: 1px solid @border-color;
   }
+
   a {
     color: inherit;
   }
