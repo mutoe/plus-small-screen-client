@@ -491,7 +491,6 @@ export default {
     }
   }
   .m-post-news-content {
-    padding: 30px 20px;
     overflow-y: auto;
     overflow-x: hidden;
     textarea {
@@ -499,6 +498,12 @@ export default {
       line-height: 36px;
       font-size: 30px;
       resize: none;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      padding: 30px 20px;
     }
   }
   .m-post-news-row {
