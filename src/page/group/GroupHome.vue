@@ -1,59 +1,44 @@
 <template>
-  <div class="p-group">
-    <header class="m-box m-aln-center m-justify-bet m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-justify-center m-head-top">
-        <span>圈子</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1">
-        <!-- <router-link to="group/search" tag='svg' class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-search"></use>
-        </router-link>
-        <router-link to="group/new" tag='svg' class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#group-add"></use>
-        </router-link> -->
-      </div>
-    </header>
+  <div class="p-group-home">
 
-    <main style="padding-top: 0.9rem">
+    <common-header>
+      圈子
+      <template slot="right">
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#base-search"/>
+        </svg>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#group-add"/>
+        </svg>
+      </template>
+    </common-header>
+
+    <main>
 
       <!-- 圈子首页顶部广告位 -->
       <detail-ad type="group:home"/>
 
-      <router-link
-        :to="{ name: 'groups', query: { type: 'recommend' } }"
-        class="m-box m-aln-center m-justify-bet m-main mt10 group-label m-bb1">
+      <div class="group-label" @click="$router.push({ name: 'groups', query: { type: 'recommend' } })">
         <h2><strong>{{ groupTotalNumber }}</strong>个兴趣小组，等待你的加入！</h2>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
+          <use xlink:href="#base-arrow-r"/>
         </svg>
-      </router-link>
+      </div>
       <!-- 我加入的 -->
       <div class="m-box-model">
         <router-link
           :to="`/users/${currentUserID}/group`"
           tag="div"
-          class="m-box m-aln-center m-justify-bet m-main mt10 group-label m-bb1 m-bt1 m-pos-stick">
+          class="group-label">
           <span>我加入的</span>
           <div class="m-box m-aln-center m-justify-end">
             <span>查看全部</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
+              <use xlink:href="#base-arrow-r"/>
             </svg>
           </div>
         </router-link>
+
         <ul class="group-list">
           <li
             v-for="group in groups"
@@ -67,7 +52,7 @@
       <div
         v-if="recGroups.length > 0"
         class="m-box-model">
-        <div class="m-box m-aln-center m-justify-bet m-main mt10 group-label m-bb1 m-bt1 m-pos-stick">
+        <div class="group-label">
           <span>热门推荐</span>
           <div
             class="m-box m-aln-center m-justify-end"
@@ -83,9 +68,7 @@
           </div>
         </div>
         <ul class="group-list">
-          <li
-            v-for="group in recGroups"
-            :key="`recgroup-${group.id}`">
+          <li v-for="group in recGroups" :key="`recgroup-${group.id}`">
             <group-item :group="group" />
           </li>
         </ul>
@@ -100,7 +83,7 @@ import DetailAd from "@/components/advertisement/DetailAd.vue";
 import * as api from "@/api/group.js";
 
 export default {
-  name: "Group",
+  name: "GroupHome",
   components: {
     GroupItem,
     DetailAd
@@ -111,7 +94,7 @@ export default {
       myGroups,
       recGroups: [],
       clickCount: 0,
-      groupTotalNumber: 1,
+      groupTotalNumber: 0,
 
       fetchRecing: false,
       myGroupChangeTracker: 0
@@ -125,14 +108,12 @@ export default {
       return this.myGroupChangeTracker && [...this.myGroups.values()];
     }
   },
-  mounted() {
-    api.getGroupTotalNumber().then(count => {
-      this.groupTotalNumber = count;
-    });
-  },
   created() {
     this.fetchMyGroups();
     this.fetchRecGroups();
+    api.getGroupTotalNumber().then(count => {
+      this.groupTotalNumber = count;
+    });
   },
   methods: {
     formateGroups(groups) {
@@ -160,11 +141,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.p-group {
+.p-group-home {
   .group-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    background-color: #fff;
     font-size: 24px;
     color: @text-color3;
     padding: 20px;
+
     strong {
       font-size: 40px;
       color: #f4504d;
@@ -172,12 +159,6 @@ export default {
 
     .m-svg-small {
       transition: transform 0.5s ease;
-    }
-
-    &.m-pos-stick {
-      position: sticky;
-      top: 90px;
-      z-index: 9;
     }
   }
 

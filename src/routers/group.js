@@ -1,7 +1,7 @@
 /**
  * 圈子路由模块
  */
-import Group from "@/page/group/Group.vue";
+import GroupHome from "@/page/group/GroupHome.vue";
 import GroupList from "@/page/group/GroupList.vue";
 import GroupsForUser from "@/page/group/GroupsForUser.vue";
 import GroupDetail from "@/page/group/GroupDetail.vue";
@@ -12,7 +12,7 @@ import rewards from "@/page/article/ArticleRewards.vue";
 export default [
   {
     path: "/group",
-    component: Group,
+    component: GroupHome,
     meta: {
       title: "圈子首页",
       // keepAlive: true,
