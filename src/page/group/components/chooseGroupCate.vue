@@ -1,24 +1,9 @@
 <template>
-  <!-- 投稿圈子帖子时有用，目前尚未有该功能 -->
   <transition name="fade">
-    <div
-      v-if="show"
-      class="m-box-model m-pos-f p-choose-category m-main">
-      <header class="m-box m-aln-center m-justify-bet m-flex-grow0 m-flex-shrink0 m-head-top m-main m-bb1">
-        <div class="m-flex-grow1 m-flex-shrink1">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="cancel">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-flex-grow1 m-shrink1 m-head-top-title m-text-c">
-          <span>{{ title || "圈子分类" }}</span>
-        </div>
-        <div class="m-flex-grow1 m-flex-shrink1 m-text-r"/>
-      </header>
+    <div v-if="show" class="m-box-model m-pos-f p-choose-category m-main">
+
+      <common-header :back="cancel"> {{ title || "圈子分类" }} </common-header>
+
       <main>
         <ul class="m-cates">
           <li
@@ -29,6 +14,7 @@
             @click="selected(cate)"><span>{{ cate.name }}</span></li>
         </ul>
       </main>
+
     </div>
   </transition>
 </template>
@@ -49,19 +35,14 @@ export default {
   },
   mounted() {
     this.$store.dispatch("GET_GROUP_TYPES");
-    bus.$on("choose-group-cate", onSelected => {
-      typeof onSelected === "function" && (this.onSelected = onSelected);
+    bus.$on("choose-group-cate", () => {
       this.show = true;
       this.scrollable = false;
     });
   },
-  beforeDestroy() {
-    bus.$off("choose-group-cate");
-  },
   methods: {
-    onSelected() {},
     selected(cate) {
-      typeof this.onSelected === "function" && this.onSelected(cate);
+      this.$emit("change", cate);
       this.cancel();
     },
     cancel() {

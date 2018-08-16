@@ -31,7 +31,7 @@
         placeholder="输入圈名, 20字以内"/>
 
       <form-select-item
-        v-model="modeMap[form.mode]"
+        v-model="form.category"
         label="分类"
         placeholder="选择圈子类别"
         @click="switchMode"/>
@@ -58,17 +58,13 @@
 
 <script>
 import bus from "@/bus";
-
-const modeMap = {
-  public: "公开圈子",
-  private: "私有圈子",
-  paid: "付费圈子"
-};
+import ChooseGroupCate from "./components/chooseGroupCate.vue";
 
 export default {
   name: "GroupCreate",
   components: {
-    Location
+    Location,
+    ChooseGroupCate
   },
   data() {
     return {
@@ -77,10 +73,9 @@ export default {
       bioIsFocus: false,
       showPosition: false,
 
-      modeMap,
-
       form: {
         name: "",
+        category: "",
         tags: [],
         mode: "",
         summary: "",
@@ -101,17 +96,11 @@ export default {
     }
   },
   methods: {
-    switchMode() {
-      const actions = [];
-      for (const [key, value] of modeMap) {
-        actions.push({
-          text: value,
-          method: () => {
-            this.form.mode = key;
-          }
-        });
-      }
-      bus.$emit("actionSheet", actions, "取消");
+    switchCate() {
+      bus.$emit("choose-group-cate");
+    },
+    onGroupCateChange(cate) {
+      this.form.category = cate.id;
     }
   }
 };
