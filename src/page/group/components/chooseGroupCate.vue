@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div v-if="show" class="m-box-model m-pos-f p-choose-category m-main">
+    <div v-if="showPage" class="m-box-model m-pos-f p-choose-category m-main">
 
       <common-header :back="cancel"> {{ title || "圈子分类" }} </common-header>
 
@@ -19,14 +19,13 @@
   </transition>
 </template>
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 
 export default {
   name: "ChooseGroupCate",
   data() {
     return {
-      show: false,
+      showPage: false,
       title: ""
     };
   },
@@ -35,18 +34,18 @@ export default {
   },
   mounted() {
     this.$store.dispatch("GET_GROUP_TYPES");
-    bus.$on("choose-group-cate", () => {
-      this.show = true;
-      this.scrollable = false;
-    });
   },
   methods: {
+    show() {
+      this.showPage = true;
+      this.scrollable = false;
+    },
     selected(cate) {
       this.$emit("change", cate);
       this.cancel();
     },
     cancel() {
-      this.show = false;
+      this.showPage = false;
       this.scrollable = true;
     }
   }

@@ -16,6 +16,19 @@ export function getGroupTotalNumber() {
 }
 
 /**
+ * 创建圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} categoryId
+ * @param {Object} data
+ * @returns
+ */
+export function postGroup(categoryId, data) {
+  const url = `/plus-group/categories/${categoryId}/groups`;
+  return api.post(url, data, { validateStatus: s => s === 201 });
+}
+
+/**
  * 获取圈子全部分类
  * @export
  * @returns

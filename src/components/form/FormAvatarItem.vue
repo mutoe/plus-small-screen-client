@@ -1,7 +1,7 @@
 <template>
   <section class="c-form-item c-form-avatar-item" @click="beforeSelectFile">
     <div :class="shape" class="avatar-wrap">
-      <img :src="value" class="m-avatar-img">
+      <img :src="avatar" class="m-avatar-img">
     </div>
     <span class="avatar-label">{{ label }}</span>
     <svg class="m-style-svg m-svg-def m-entry-append">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { baseURL } from "@/api/api";
 import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
 
 /**
@@ -41,13 +42,19 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 export default {
   name: "FormAvatarItem",
   props: {
-    value: { type: String, default: "" },
+    value: { type: [String, Number], default: "" },
     label: { type: String, default: "上传头像" },
 
     /**
      * 头像形状 square: 方形 circle: 圆形
      */
     shape: { type: String, default: "circle" }
+  },
+  computed: {
+    avatar() {
+      if (!this.value) return null;
+      return `${baseURL}/files/${this.value}`;
+    }
   },
   methods: {
     beforeSelectFile() {
@@ -64,24 +71,12 @@ export default {
           this.$refs.imagefile.value = null;
         },
         onOk: screenCanvas => {
-          screenCanvas.toBlob(blob => {
+          screenCanvas.toBlob(async blob => {
             const formData = new FormData();
-            formData.append("avatar", blob);
-            this.$http
-              .post("/user/avatar", formData, {
-                validateStatus: s => s === 204
-              })
-              .then(() => {
-                this.$Message.success("头像更新成功");
-                this.$emit("input", screenCanvas.toDataURL());
-              })
-              .catch((err = {}) => {
-                console.warn(err);
-                const {
-                  response: { data = { message: "更新头像失败" } }
-                } = err;
-                this.$Message.error(data);
-              });
+            formData.append("file", blob);
+            const id = await this.$store.dispatch("uploadFile", formData);
+            this.$Message.success("头像上传成功");
+            this.$emit("input", id);
             this.$refs.imagefile.value = null;
           }, "image/png");
         }

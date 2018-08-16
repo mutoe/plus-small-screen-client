@@ -62,6 +62,7 @@ export default {
       font-size: 30px;
       padding: 0;
       width: 100%;
+      background-color: transparent;
     }
   }
 }
@@ -81,7 +82,7 @@ export default {
     padding-right: 20px;
 
     .textarea-shadow {
-      opacity: 0.3;
+      opacity: 0;
       min-height: 100px;
       padding: 28px 0;
       word-wrap: break-word;

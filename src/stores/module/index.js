@@ -6,6 +6,7 @@ import wallet from "./wallet";
 import currency from "./currency";
 import question from "./question";
 import news from "./news";
+import group from "./group";
 
 export default {
   rank,
@@ -15,5 +16,6 @@ export default {
   wallet,
   currency,
   question,
-  news
+  news,
+  group
 };

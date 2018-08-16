@@ -1,4 +1,5 @@
 import Api from "@/api/api.js";
+import * as api from "@/api";
 import * as bootApi from "@/api/bootstrappers.js";
 import * as userApi from "@/api/user.js";
 import * as groupApi from "@/api/group.js";
@@ -63,5 +64,17 @@ export default {
     const { data } = await userApi.fetchUserInfo();
     commit("SAVE_CURRENTUSER", data);
     return data;
+  },
+
+  /**
+   * 上传文件
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {File} file
+   * @returns
+   */
+  async uploadFile(state, file) {
+    const { data } = await api.postFile(file);
+    console.log(data);
+    return data.id;
   }
 };
