@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import walletInfo from "./WalletInfo";
 import walletDetailItem from "./components/WalletDetailItem.vue";
 
@@ -48,8 +47,8 @@ export default {
   },
   computed: {
     after() {
-      const last = _.last(this.list);
-      return last.id || 0;
+      const last = this.list.slice(-1)[0];
+      return last ? last.id : 0;
     }
   },
   watch: {

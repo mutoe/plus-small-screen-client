@@ -60,7 +60,6 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
 import { getMyNews } from "@/api/news.js";
 import NewsCard from "@/page/news/components/NewsCard.vue";
 
@@ -91,7 +90,7 @@ export default {
       return this.$route.params.type;
     },
     after() {
-      const last = _.last(this.newsList);
+      const last = this.newsList.slice(-1)[0];
       return last ? last.id : 0;
     },
     typeParam() {

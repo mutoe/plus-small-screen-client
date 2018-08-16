@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapState } from "vuex";
 import { limit } from "@/api/api.js";
 import { getNewsCommentPinneds } from "@/api/news.js";
@@ -88,7 +87,7 @@ export default {
         });
     },
     onLoadMore() {
-      const { id = 0 } = _.last(this.audits);
+      const { id = 0 } = this.audits.slice(-1)[0] || {};
       if (id === 0) {
         this.$refs.loadmore.bottomEnd(true);
         return false;

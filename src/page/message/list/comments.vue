@@ -49,7 +49,6 @@ import productItem from "../children/comments/productItem";
 import questionItem from "../children/comments/questionItem";
 import groupPostItem from "../children/comments/groupPostItem";
 import questionAnswerItem from "../children/comments/questionAnswerItem";
-import _ from "lodash";
 
 const prefixCls = "msgList";
 const items = {
@@ -124,7 +123,7 @@ export default {
 
     // loadmore
     onLoadMore() {
-      const { id = 0 } = _.last(this.comments) || {};
+      const { id = 0 } = this.comments.slice(-1)[0] || {};
       this.$http
         .get(
           "/user/comments",

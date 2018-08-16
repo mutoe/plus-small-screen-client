@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapState } from "vuex";
 import { resetUserCount } from "@/api/message.js";
 import feedItem from "../children/likes/feedItem";
@@ -100,7 +99,7 @@ export default {
 
     // loadmore
     onLoadMore() {
-      const { id = 0 } = _.last(this.likes) || {};
+      const { id = 0 } = this.likes.slice(-1)[0] || {};
       this.$http
         .get(
           "/user/likes",
