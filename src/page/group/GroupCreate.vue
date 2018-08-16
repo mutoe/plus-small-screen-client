@@ -30,21 +30,14 @@
         maxlength="20"
         placeholder="输入圈名, 20字以内"/>
 
-      <section class="m-box m-aln-stre m-justify-bet p-info-row m-bb1">
-        <label>类别</label>
-        <div
-          class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input"
-          @click="switchMode">
-          <span>{{ modeMap[form.mode] }}</span>
-          <svg class="m-style-svg m-svg-def m-entry-append">
-            <use xlink:href="#base-arrow-r"/>
-          </svg>
-        </div>
-      </section>
+      <form-select-item
+        v-model="modeMap[form.mode]"
+        label="分类"
+        placeholder="选择圈子类别"
+        @click="switchMode"/>
 
       <form-tags-item v-model="form.tags" />
 
-      <!-- 位置选择组件 -->
       <form-location-item v-model="form.location"/>
 
       <form-input-item

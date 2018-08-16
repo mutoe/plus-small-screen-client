@@ -377,6 +377,7 @@ export default {
 - `FormLocationItem` 位置选择框
 - `FormAvatarItem` 头像选择栏
 - `FormTagsItem` 标签选择栏
+- `FormSelectItem` 通用选择框
 
 ### 使用方法
 
@@ -385,10 +386,11 @@ export default {
   <form>
     <form-avatar-item v-model="avatar" label="请上传圈子头像" />
     <form-input-item v-model="name" placeholder="请输入圈子名称, 20字以内" maxlength="20" />
-    <form-input-item v-model="summary" type="textarea" placeholder="请输入简介, 255字以内" maxlength="255" warnlength="200">
-    <form-tags-item v-model="tags"/>
-    <form-location-item v-model="location"/>
-  </form-input-item>
+    <form-input-item v-model="summary" type="textarea" placeholder="请输入圈子简介, 255字以内" maxlength="255" warnlength="200" />>
+    <form-tags-item v-model="tags" placeholder="请选择圈子标签"/>
+    <form-select-item v-model="modeMap[mode] || ''" placeholder="请选择圈子类别" @click="mode = 'private'" />
+    <form-location-item v-model="location" placeholder="设置圈子的地理位置" />
+  </form>
 </template>
 
 <script>
@@ -398,6 +400,12 @@ export default {
     location: '',
     avatar: '', // base64 string
     tags: [], // tag array
+    mode: 'public',
+    modeMap: {
+      public: "公开圈子",
+      private: "私有圈子",
+      paid: "付费圈子"
+    }
   }
 }
 </script>
