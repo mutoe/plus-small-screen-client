@@ -4,7 +4,7 @@
       <slot name="left">
         <v-icon
           type="base-back"
-          @click="goBack"/>
+          @click="onBackClick"/>
       </slot>
     </div>
     <div class="title">
@@ -18,7 +18,16 @@
 
 <script>
 export default {
-  name: "CommonHeader"
+  name: "CommonHeader",
+  props: {
+    back: { type: Function, default: null }
+  },
+  methods: {
+    onBackClick() {
+      if (this.back && typeof this.back === "function") this.back();
+      else this.goBack();
+    }
+  }
 };
 </script>
 
