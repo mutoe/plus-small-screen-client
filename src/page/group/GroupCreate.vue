@@ -47,28 +47,14 @@
       <!-- 位置选择组件 -->
       <form-location-item v-model="form.location"/>
 
-      <section class="m-box m-aln-stre m-justify-bet p-info-row">
-        <label for="bio" class="m-flex-grow0 m-flex-shrink0">简介</label>
-        <div class="m-box m-aln-center m-justify-bet m-flex-grow1 m-flex-shrink1 input">
-          <span
-            v-if="form.bio.length === 0 && !bioIsFocus"
-            class="placeholder m-flex-grow1"
-            @click="editBio">编辑简介</span>
-          <div
-            v-show="form.bio.length > 0 || bioIsFocus"
-            class="m-box-model m-fd-row m-flex-grow1 m-flex-shrink1 m-aln-end m-justify-end m-wz-def">
-            <div
-              ref="bioEditor"
-              contenteditable="true"
-              class="m-flex-grow1 m-shrink-1 m-flex-base0 m-textarea"
-              @input="bioInput"
-              @blur="bioBlur"/>
-            <i style="font-size: 10px; margin-right: 0.2rem">
-              <b :style="{color: form.bio.length > 50 ? `#f4504d`: `inherit`}">{{ form.bio.length }}</b>/50
-            </i>
-          </div>
-        </div>
-      </section>
+      <form-input-item
+        v-model="form.summary"
+        type="textarea"
+        label="简介"
+        maxlength="255"
+        warnlength="200"
+        placeholder="编辑简介"/>
+
     </main>
 
 
@@ -102,31 +88,13 @@ export default {
         name: "",
         tags: [],
         mode: "",
-        bio: "",
+        summary: "",
         location: "",
         avatar: null
       }
     };
   },
-  watch: {
-    bioIsFocus(val) {
-      val && this.$refs.bioEditor.click() && this.$refs.bioEditor.focus();
-    }
-  },
   methods: {
-    editBio() {
-      this.bioIsFocus = true;
-    },
-    bioBlur() {
-      this.$refs.bioEditor.textContent = this.form.bio;
-      this.bioIsFocus = false;
-    },
-    bioInput(e) {
-      const $el = e.target;
-      const value = $el.textContent;
-      this.form.bio = value;
-    },
-
     switchMode() {
       const actions = [];
       for (const [key, value] of modeMap) {
@@ -144,60 +112,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.p-group-create input[type="text"] {
-  height: 100%;
-  font-size: 28px;
-  line-height: normal;
-  vertical-align: middle;
-}
-.p-group-create textarea {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  background-color: transparent;
-  outline: 0;
-  border: 0;
-  resize: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-}
-.p-group-create-row {
-  position: relative;
-  padding: 35px 0 35px 0;
-  margin-left: 140px;
-  min-height: 100px;
-}
-.p-group-create-row .input {
-  font-size: 30px;
-  line-height: 1;
-}
-.p-group-create-row label {
-  display: flex;
-  align-items: center;
-  margin-left: -110px;
-  width: 110px;
-  font-size: 30px;
-  line-height: inherit;
-  color: @text-color3;
-}
-.p-group-create-row .m-wz-def {
-  font-size: 30px;
-  line-height: inherit;
-}
-.p-group-create-row .placeholder {
-  color: #ccc;
-}
-.p-group-create .m-avatar-box {
-  margin-right: 35px;
-}
-.p-group-create .m-send-btn {
-  color: @success;
-}
-.p-group-create .m-entry-append {
-  margin-right: 20px;
-}
 </style>

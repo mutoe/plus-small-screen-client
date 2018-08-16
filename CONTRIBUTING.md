@@ -367,7 +367,7 @@ export default {
 
 用于获取对应页面广告具体数据
 
-### 表单组件 FormItem
+## 表单组件 FormItem
 
 表单组件用于快速构建样式和交互方式统一的表单项
 
@@ -378,16 +378,17 @@ export default {
 - `FormAvatarItem` 头像选择栏
 - `FormTagsItem` 标签选择栏
 
-#### 使用方法
+### 使用方法
 
 ``` vue
 <template>
   <form>
     <form-avatar-item v-model="avatar" label="请上传圈子头像" />
     <form-input-item v-model="name" placeholder="请输入圈子名称, 20字以内" maxlength="20" />
+    <form-input-item v-model="summary" type="textarea" placeholder="请输入简介, 255字以内" maxlength="255" warnlength="200">
     <form-tags-item v-model="tags"/>
     <form-location-item v-model="location"/>
-  </form>
+  </form-input-item>
 </template>
 
 <script>
@@ -401,3 +402,36 @@ export default {
 }
 </script>
 ```
+
+### 通用部分
+
+通用适用于所有 FormItem 子组件
+
+#### `Props`
+
+##### label {string}
+
+输入框标签 label
+
+##### `placeholder` {string}
+
+占位符
+
+### `FormInputItem` 文本输入框
+
+该组件支持普通单行文本和多行文本
+
+#### `Props`
+
+##### `type` {string}
+
+输入框的类型, 支持 input(单行文本框) 和 textarea(多行文本框), 默认值为 'input'  
+
+
+##### `maxlength` {number|string}
+
+支持的最大字符数
+
+##### `warnlength` {number|string}
+
+**仅当 type="textarea" 时有效** 当字符数超过多少时显示字数提示
