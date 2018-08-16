@@ -34,8 +34,6 @@
   </div>
 </template>
 <script>
-import { oneOf } from "../../util/";
-
 const prefixCls = "v-switch";
 
 export default {
@@ -46,7 +44,7 @@ export default {
       default: "checkbox",
       requried: true,
       validator(val) {
-        return oneOf(val, ["checkbox", "radio"]);
+        return ["checkbox", "radio"].includes(val);
       }
     },
     value: { type: Boolean, default: false },

@@ -9,14 +9,6 @@ export const str2Hump = str => {
 };
 
 /**
- * 验证数据是否有效
- *     @author jsonleex <jsonlseex@163.com>
- */
-export const oneOf = (value, validList) => {
-  return validList.indexOf(value) > -1;
-};
-
-/**
  * 获取样式
  *     @author jsonleex <jsonlseex@163.com>
  */
