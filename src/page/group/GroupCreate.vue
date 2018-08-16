@@ -48,6 +48,8 @@
         warnlength="200"
         placeholder="编辑简介"/>
 
+      <form-switch-item v-model="allowFeed" label="帖子同步至动态"/>
+
     </main>
 
 
@@ -83,9 +85,20 @@ export default {
         mode: "",
         summary: "",
         location: "",
-        avatar: null
+        avatar: null,
+        allow_feed: 0
       }
     };
+  },
+  computed: {
+    allowFeed: {
+      get() {
+        return !!this.form.allow_feed;
+      },
+      set(val) {
+        this.form.allow_feed = val ? 1 : 0;
+      }
+    }
   },
   methods: {
     switchMode() {

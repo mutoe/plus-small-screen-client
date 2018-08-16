@@ -378,6 +378,7 @@ export default {
 - `FormAvatarItem` 头像选择栏
 - `FormTagsItem` 标签选择栏
 - `FormSelectItem` 通用选择框
+- `FormSwitchItem` 切换开关栏
 
 ### 使用方法
 
@@ -390,6 +391,7 @@ export default {
     <form-tags-item v-model="tags" placeholder="请选择圈子标签"/>
     <form-select-item v-model="modeMap[mode] || ''" placeholder="请选择圈子类别" @click="mode = 'private'" />
     <form-location-item v-model="location" placeholder="设置圈子的地理位置" />
+    <form-switch-item v-model="allowFeed" label="是否将帖子同步至动态" />
   </form>
 </template>
 
@@ -401,6 +403,7 @@ export default {
     avatar: '', // base64 string
     tags: [], // tag array
     mode: 'public',
+    allowFeed: false,
     modeMap: {
       public: "公开圈子",
       private: "私有圈子",
