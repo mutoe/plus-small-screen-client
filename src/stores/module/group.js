@@ -16,9 +16,9 @@ const actions = {
    * @returns
    */
   async createGroup(store, payload) {
-    const { category, ...params } = payload;
-    await api.postGroup(category, params);
-    return true;
+    const { category, formData } = payload;
+    const { data } = await api.postGroup(category, formData);
+    return data;
   }
 };
 

@@ -22,7 +22,8 @@
       <form-avatar-item
         v-model="form.avatar"
         label="上传圈子头像"
-        shape="square" />
+        shape="square"
+        type="blob" />
 
       <form-input-item
         v-model="form.name"
@@ -184,11 +185,27 @@ export default {
     async handleOk() {
       if (this.loading) return;
       this.loading = true;
-      const result = await this.$store.dispatch("group/createGroup", this.form);
-      this.loading = false;
-      if (result) {
-        this.$Message.success("创建圈子成功, 请等待审核");
+
+      // 构造 FormData 对象 (因为头像上传需要)
+      const formData = new FormData();
+      for (const key in this.form) {
+        let value = this.form[key];
+        if (!value) continue;
+        if (key === "category") continue;
+        else if (key === "tags") {
+          for (var tag in value) {
+            formData.append("tags[][id]", value[tag].id);
+          }
+          continue;
+        } else if (key === "avatar") {
+          value = new File([value], "avatar");
+        }
+        formData.append(key, value);
       }
+      const payload = { category: this.form.category, formData };
+      const result = await this.$store.dispatch("group/createGroup", payload);
+      this.loading = false;
+      this.$Message.success(result);
     }
   }
 };

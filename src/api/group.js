@@ -25,7 +25,7 @@ export function getGroupTotalNumber() {
  */
 export function postGroup(categoryId, data) {
   const url = `/plus-group/categories/${categoryId}/groups`;
-  return api.post(url, data, { validateStatus: s => s === 201 });
+  return api.post(url, data, { validateStatus: s => s === 200 });
 }
 
 /**

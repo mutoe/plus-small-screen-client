@@ -18,6 +18,7 @@
 
 <script>
 import { baseURL } from "@/api/api";
+import { getFileUrl } from "@/util";
 import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
 
 /**
@@ -42,8 +43,20 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 export default {
   name: "FormAvatarItem",
   props: {
-    value: { type: [String, Number], default: "" },
+    value: { type: null, default: null },
     label: { type: String, default: "上传头像" },
+
+    /**
+     * 文件类型
+     * @param {string} type enum{id: FileID, blob: Blob}
+     */
+    type: {
+      type: String,
+      default: "id",
+      validator(type) {
+        return ["blob", "id"].includes(type);
+      }
+    },
 
     /**
      * 头像形状 square: 方形 circle: 圆形
@@ -53,9 +66,19 @@ export default {
   computed: {
     avatar() {
       if (!this.value) return null;
-      return `${baseURL}/files/${this.value}`;
+      switch (this.type) {
+        case "id":
+          return `${baseURL}/files/${this.value}`;
+
+        case "blob":
+          return getFileUrl(this.value);
+
+        default:
+          return null;
+      }
     }
   },
+
   methods: {
     beforeSelectFile() {
       this.$refs.imagefile.click();
@@ -72,11 +95,19 @@ export default {
         },
         onOk: screenCanvas => {
           screenCanvas.toBlob(async blob => {
-            const formData = new FormData();
-            formData.append("file", blob);
-            const id = await this.$store.dispatch("uploadFile", formData);
-            this.$Message.success("头像上传成功");
-            this.$emit("input", id);
+            // 如果需要得到服务器文件接口返回的 ID
+            if (this.type === "id") {
+              const formData = new FormData();
+              formData.append("file", blob);
+              const id = await this.$store.dispatch("uploadFile", formData);
+              this.$Message.success("头像上传成功");
+              this.$emit("input", id);
+            }
+            // 如果需要 Blob 对象
+            else if (this.type === "blob") {
+              this.$emit("input", blob);
+            }
+
             this.$refs.imagefile.value = null;
           }, "image/png");
         }
