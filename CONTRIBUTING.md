@@ -210,6 +210,47 @@ export default {}
 <common-header>提现</common-header>
 ```
 
+### 通用搜索栏 SearchBar
+
+`@/components/common/SearchBar.vue`
+
+``` vue
+<template>
+  <div class="p-search-post">
+    <search-bar v-model="keyword" />
+
+    <!-- ... -->
+
+  </div>
+</template>
+
+<script>
+import SearchBar from '@/components/common/SearchBar.vue';
+export default {
+  components: { SearchBar },
+  data: () => {keyword: ''},
+}
+</script>
+```
+
+#### `Props`
+
+##### `back` {Function}
+
+点击后退按钮的行为, 如果要执行除后退以外的其他操作, 给这个 prop 传入一个方法即可. 默认值为全局注入的 `goBack` 方法.
+
+##### `value` {string}
+
+输入搜索内容, 双向绑定特性(使用 `v-model` 进行绑定)
+
+##### `placeholder` {string}
+
+提示内容, 默认值为 "搜索"
+
+##### `position` {string}
+
+浮动位置, 枚举 {relative: 页面顶部, fixed: 屏幕顶部}
+
 ### 提示信息弹框 PopupDialog
 
 `@/components/PopupDialog.vue`
