@@ -1,14 +1,19 @@
 <template>
   <div class="p-search-post">
 
-    <search-bar v-model="keywordOrigin"/>
+    <search-bar v-model="keywordOrigin" position="fixed"/>
 
     <jo-load-more
       ref="loadmore"
       :auto-load="false"
       :show-bottom="list.length > 0"
+      class="lodemore"
+      @onRefresh="onSearchInput"
       @onLoadMore="onLoadMore">
-      <!-- <group-feed-card/> -->
+      <group-feed-card
+        v-for="post in list"
+        :key="post.id"
+        :feed="post"/>
     </jo-load-more>
 
     <p v-show="loading" class="load-more-ph m-text-c mt10">正在搜索...</p>
@@ -64,7 +69,7 @@ export default {
       });
       this.loading = false;
       this.list = data;
-      console.log(data);
+      this.$refs.loadmore.afterRefresh(data.length < 15);
     }, 600),
 
     async onLoadMore() {
@@ -77,8 +82,14 @@ export default {
       });
       this.loading = false;
       this.list = [...this.list, ...data];
-      console.log(data);
+      this.$refs.loadmore.afterLoadMore(data.length < 15);
     }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.lodemore {
+  padding-top: 90px;
+}
+</style>

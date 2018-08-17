@@ -6,9 +6,10 @@ import GroupList from "@/page/group/GroupList.vue";
 import GroupsForUser from "@/page/group/GroupsForUser.vue";
 import GroupDetail from "@/page/group/GroupDetail.vue";
 import GroupsPostDetail from "@/page/group/GroupPostDetail.vue";
+import GroupCreate from "@/page/group/GroupCreate.vue";
+import SearchPost from "@/page/group/SearchPost.vue";
 import likes from "@/page/article/ArticleLikes.vue";
 import rewards from "@/page/article/ArticleRewards.vue";
-import GroupCreate from "@/page/group/GroupCreate.vue";
 
 export default [
   {
@@ -44,7 +45,7 @@ export default [
     component: GroupDetail,
     meta: {
       title: "圈子详情",
-      // keepAlive: true,
+      keepAlive: true,
       requiresAuth: true
     }
   },
@@ -66,6 +67,16 @@ export default [
       requiresAuth: true
     }
   },
+  {
+    name: "groupSearchPost",
+    path: "/groups/:groupId(\\d+)/search",
+    component: SearchPost,
+    meta: {
+      title: "搜索帖子",
+      requiresAuth: true
+    }
+  },
+
   /**
    * 点赞列表 && 打赏列表 路由格式固定
    * 帖子/资讯/问答 相关路由 统一使用 article 代替 id

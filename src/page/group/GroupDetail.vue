@@ -29,7 +29,11 @@
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center"/>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
+      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
+        <svg class="m-style-svg m-svg-def" @click="onSearchClick">
+          <use xlink:href="#base-search"/>
+        </svg>
+      </div>
     </header>
     <div
       v-if="loading"
@@ -365,6 +369,12 @@ export default {
     stopDrag() {
       this.dragging = false;
       this.dY > 300 && this.scrollTop <= 0 ? this.updateData() : (this.dY = 0);
+    },
+    onSearchClick() {
+      this.$router.push({
+        name: "groupSearchPost",
+        params: { groupId: this.groupID }
+      });
     }
   }
 };

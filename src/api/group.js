@@ -1,6 +1,16 @@
 import api, { limit } from "./api.js";
 
 /**
+ * @typedef {Object} GroupPostObject
+ * @property {number} group_id
+ * @property {number} user_id
+ * @property {string} title
+ * @property {string} summary
+ * @property {number[]} images
+ * @property {*} ...others
+ */
+
+/**
  * 获取圈子总数
  * @author jsonleex <jsonlseex@163.com>
  * @returns {Promise<number>}
@@ -314,4 +324,22 @@ export function applyTopPostComment({ postId, commentId }, payload) {
 export function deletePostComment(postId, commentId) {
   const url = `/plus-group/group-posts/${postId}/comments/${commentId}`;
   return api.delete(url, { validateStatus: s => s === 204 });
+}
+
+/**
+ * 搜索帖子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {string} params.keyword
+ * @param {number} params.group_id
+ * @param {number} params.limit
+ * @param {number} params.offset
+ * @returns {Promise<GroupPostObject[]>}
+ */
+export function searchPosts(params) {
+  return api.get("/plus-group/group-posts", {
+    params,
+    validateStatus: s => s === 200
+  });
 }

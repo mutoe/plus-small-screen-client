@@ -19,6 +19,17 @@ const actions = {
     const { category, formData } = payload;
     const { data } = await api.postGroup(category, formData);
     return data;
+  },
+
+  /**
+   * 根据关键字搜索帖子
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {Object} payload
+   * @returns {api.GroupPostObject[]}
+   */
+  async searchPosts(store, payload) {
+    const { data } = await api.searchPosts(payload);
+    return data;
   }
 };
 
