@@ -8,24 +8,17 @@
     @mouseup="stopDrag"
     @touchend="stopDrag"
     @mouseleave="stopDrag">
+
     <header
       ref="head"
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }"
       class="m-box m-lim-width m-pos-f m-head-top bg-transp">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
-        <svg
-          v-show="updating"
-          class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-loading"/>
+        <svg v-show="updating" class="m-style-svg m-svg-def">
+          <use xlink:href="#base-loading"/>
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center"/>
@@ -35,9 +28,8 @@
         </svg>
       </div>
     </header>
-    <div
-      v-if="loading"
-      class="m-pos-f m-spinner">
+
+    <div v-if="loading" class="m-pos-f m-spinner">
       <div/>
       <div/>
     </div>
@@ -71,12 +63,8 @@
               :disabled="loading"
               class="m-text-cut"
               @click="beforeJoined">
-              <svg
-                :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}"
-                class="m-style-svg m-svg-def">
-                <use
-                  :xlink:href="`#${loading?'base-loading':'foot-plus'}`"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"/>
+              <svg :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}" class="m-style-svg m-svg-def">
+                <use :xlink:href="`#${loading?'base-loading':'foot-plus'}`" />
               </svg>
               <span>加入</span>
             </button>
@@ -95,9 +83,7 @@
         <div class="m-box m-aln-center p-group-detail-filter">
           <span>{{ feedTypes[screen] }}</span>
           <svg class="m-style-svg m-svg-def">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-filter-list"/>
+            <use xlink:href="#base-filter-list"/>
           </svg>
           <transition v-if="showFilter">
             <ul class="p-group-detail-filter-options">
@@ -107,12 +93,8 @@
                 class="m-box m-aln-center m-justify-bet"
                 @click="screen = key">
                 <span>{{ val }}</span>
-                <svg
-                  v-if="screen === key"
-                  class="m-style-svg m-svg-def">
-                  <use
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    xlink:href="#base-checked"/>
+                <svg v-if="screen === key" class="m-style-svg m-svg-def">
+                  <use xlink:href="#base-checked"/>
                 </svg>
               </li>
             </ul>
@@ -120,23 +102,15 @@
         </div>
       </div>
       <ul class="p-group-detail-feeds">
-        <li
-          v-for="feed in pinneds"
-          :key="`gdf-${groupID}-pinned-feed-${feed.id}`">
-          <group-feed-card
-            :pinned="true"
-            :feed="feed" />
+        <li v-for="feed in pinneds" :key="`gdf-${groupID}-pinned-feed-${feed.id}`">
+          <group-feed-card :pinned="true" :feed="feed" />
         </li>
-        <li
-          v-for="feed in posts"
-          :key="`gdf-${groupID}-feed-${feed.id}`">
+        <li v-for="feed in posts" :key="`gdf-${groupID}-feed-${feed.id}`">
           <group-feed-card :feed="feed" />
         </li>
       </ul>
       <div class="m-box m-aln-center m-justify-center load-more-box">
-        <span
-          v-if="noMoreData"
-          class="load-more-ph">---没有更多---</span>
+        <span v-if="noMoreData" class="load-more-ph">---没有更多---</span>
         <span
           v-else
           class="load-more-btn"
@@ -147,6 +121,7 @@
     </main>
   </div>
 </template>
+
 <script>
 import _ from "lodash";
 import bus from "@/bus.js";
@@ -154,6 +129,7 @@ import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
 
 import { joinGroup } from "@/api/group.js";
 import { getGroupInfoById, getGroudFeedsByType } from "@/api/group.js";
+
 export default {
   name: "GroupDetail",
   directives: {
