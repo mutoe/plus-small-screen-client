@@ -20,7 +20,7 @@
     <main>
 
       <form-avatar-item
-        v-model="form.avatar"
+        v-model="avatar"
         label="上传圈子头像"
         shape="square"
         type="blob" />
@@ -32,14 +32,16 @@
         placeholder="输入圈名, 20字以内"/>
 
       <form-select-item
-        v-model="currentCate.name"
+        v-model="category.name"
         label="分类"
         placeholder="选择圈子类别"
         @click="switchCate"/>
 
-      <form-tags-item v-model="form.tags" />
+      <!-- 标签选择 -->
+      <form-tags-item v-model="tags" />
 
-      <form-location-item v-model="form.location"/>
+      <!-- 位置选择 -->
+      <form-location-item v-model="location"/>
 
       <form-input-item
         v-model="form.summary"
@@ -85,8 +87,8 @@
 
       <form-input-item
         v-model="form.notice"
-        label="公告"
         type="textarea"
+        label="公告"
         placeholder="选填"
         maxlength="2000"
         warnlength="200" />
@@ -102,6 +104,7 @@
 
 <script>
 import ChooseGroupCate from "./components/chooseGroupCate.vue";
+import { encodeGeoHash } from "@/util/geohash";
 
 export default {
   name: "GroupCreate",
@@ -112,24 +115,21 @@ export default {
   data() {
     return {
       loading: false,
-      bioIsFocus: false,
-      showPosition: false,
       needPaid: false,
-      currentCate: {},
+      category: {}, // 分类
+      tags: [], // 标签
+      location: "",
+      avatar: null, // 头像, Blob 或 File 对象
 
       privateMode: false, // 是否私有圈子
 
       form: {
-        name: "",
-        category: "",
-        tags: [],
-        summary: "",
-        location: "",
-        avatar: null,
+        name: "", // 圈名
+        summary: "", // 简介
         allow_feed: 0,
         mode: "public",
-        money: undefined,
-        notice: ""
+        money: null,
+        notice: "" // 公告
       }
     };
   },
@@ -137,9 +137,9 @@ export default {
     disabled() {
       // 必填字段
       if (
-        !this.form.avatar ||
+        !this.avatar ||
         !this.form.name ||
-        !this.form.tags.length ||
+        !this.tags.length ||
         !this.form.mode
       )
         return true;
@@ -179,8 +179,7 @@ export default {
       this.$refs.chooseGroupCate.show();
     },
     onGroupCateChange(cate) {
-      this.currentCate = cate;
-      this.form.category = cate.id;
+      this.category = cate;
     },
     async handleOk() {
       if (this.loading) return;
@@ -188,24 +187,37 @@ export default {
 
       // 构造 FormData 对象 (因为头像上传需要)
       const formData = new FormData();
+
+      // 挂载表单数据
       for (const key in this.form) {
-        let value = this.form[key];
-        if (!value) continue;
-        if (key === "category") continue;
-        else if (key === "tags") {
-          for (var tag in value) {
-            formData.append("tags[][id]", value[tag].id);
-          }
-          continue;
-        } else if (key === "avatar") {
-          value = new File([value], "avatar");
-        }
-        formData.append(key, value);
+        if (!this.form[key]) continue;
+        formData.append(key, this.form[key]);
       }
-      const payload = { category: this.form.category, formData };
+
+      // 挂载标签
+      for (const tag of this.tags) {
+        formData.append("tags[][id]", tag.id);
+      }
+
+      // 挂载位置信息
+      if (this.location.label) {
+        console.log("location");
+        const geoHash = encodeGeoHash(this.location.lat, this.location.lng);
+        formData.append("location", this.location.label);
+        formData.append("latitude", this.location.lat);
+        formData.append("longitude", this.location.lng);
+        formData.append("geo_hash", geoHash);
+      }
+
+      // 挂载头像
+      formData.append("avatar", this.avatar);
+
+      // 提交后端
+      const payload = { category: this.category.id, formData };
       const result = await this.$store.dispatch("group/createGroup", payload);
       this.loading = false;
       this.$Message.success(result);
+      this.goBack();
     }
   }
 };

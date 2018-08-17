@@ -11,7 +11,6 @@ import SvgIcon from "./components/common/svgIcon";
 import CheckIn from "./page/checkin/CheckIn";
 import Reward from "./components/reward";
 import ChooseTags from "./page/chooseTags";
-// import ChooseGroupCate from "./page/chooseGroupCate.vue";
 import InfoTips from "./components/infoTips";
 import ApplyTop from "./components/applyForTop";
 
@@ -31,7 +30,6 @@ export default {
           <CheckIn />
           <Reward />
           <ChooseTags />
-          {/* <ChooseGroupCate /> */}
           <InfoTips />
           <ApplyTop />
         </div>

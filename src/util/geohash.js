@@ -43,6 +43,13 @@ function calculateAdjacent (srcHash, dir) {
   return base + BASE32[NEIGHBORS[dir][type].indexOf(lastChr)]
 }
 
+
+/**
+ * decode geoHash
+ * @export
+ * @param {string} geohash
+ * @returns {{latitude: number, longitude: number}}
+ */
 export function decodeGeoHash (geohash) {
   var is_even = 1
   var lat = []
@@ -75,6 +82,13 @@ export function decodeGeoHash (geohash) {
   return { latitude: lat, longitude: lon }
 }
 
+/**
+ * encode geoHash
+ * @export
+ * @param {number} latitude
+ * @param {number} longitude
+ * @returns {string} geoHash
+ */
 export function encodeGeoHash (latitude, longitude) {
   var is_even = 1
   var i = 0
