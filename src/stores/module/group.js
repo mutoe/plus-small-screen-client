@@ -1,5 +1,4 @@
 import * as api from "@/api/group";
-import lstore from "@/plugins/lstore/lstore";
 
 export const TYPES = {};
 
