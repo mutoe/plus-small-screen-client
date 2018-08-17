@@ -2,9 +2,9 @@
   <header class="c-common-header">
     <div class="left">
       <slot name="left">
-        <v-icon
-          type="base-back"
-          @click="onBackClick"/>
+        <svg class="m-style-svg m-svg-def" @click="onBackClick">
+          <use xlink:href="#base-back"/>
+        </svg>
       </slot>
     </div>
     <div class="title">
