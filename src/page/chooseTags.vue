@@ -1,30 +1,13 @@
 <template>
   <transition name="fade">
-    <div
-      v-if="show"
-      class="m-box-model m-pos-f p-choose-tags m-main">
-      <header class="m-box m-aln-center m-justify-bet m-flex-grow0 m-flex-shrink0 m-head-top m-main m-bb1">
-        <div class="m-flex-grow1 m-flex-shrink1">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="nextFuc">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-flex-grow1 m-shrink1 m-head-top-title m-text-c">
-          <span>选择标签</span>
-        </div>
-        <div class="m-flex-grow1 m-flex-shrink1 m-text-r"/>
-      </header>
+    <div v-if="show" class="m-box-model m-pos-f p-choose-tags m-main">
+
+      <common-header :back="nextFuc">选择标签</common-header>
+
       <main class="m-box-model m-flex-grow1 m-flex-shrink1">
         <section class="m-flex-grow0 m-flex-shrink0 m-tags-group selected m-bb1">
           <span class="m-tags-label">可选择{{ 5 }}个标签，已选择{{ chooseTags.length }}标签</span>
-          <transition-group
-            tag="ul"
-            style="min-height: 0.9rem"
-            class="m-tags">
+          <transition-group tag="ul" class="m-tags">
             <li
               v-for="tag in chooseTags"
               v-if="tag.id"
@@ -32,25 +15,19 @@
               class="m-tag"
               @click="switchTagStatus(tag, -1)">
               <svg class="m-style-svg m-svg-def">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#base-clean"/>
+                <use xlink:href="#base-clean"/>
               </svg>
               <span>{{ tag.name }}</span>
             </li>
           </transition-group>
         </section>
-        <div
-          class="m-flex-grow1 m-flex-shrink1"
-          style="overflow-y: auto;">
+        <div class="m-flex-grow1 m-flex-shrink1" style="overflow-y: auto;">
           <section
             v-for="(group, Gindex) in tags"
             :key="group.id"
             class="m-tags-group">
             <span class="m-tags-label">{{ group.name }}</span>
-            <transition-group
-              tag="ul"
-              class="m-tags">
+            <transition-group tag="ul" class="m-tags">
               <li
                 v-for="(tag, Tindex) in group.tags"
                 v-if="tag.id"
@@ -217,6 +194,8 @@ export default {
   .m-tags {
     margin-left: -30px;
     margin-top: 0;
+    min-height: 90px;
+
     .m-svg-def {
       position: absolute;
       top: 0;

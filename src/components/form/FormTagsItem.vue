@@ -32,10 +32,10 @@ export default {
         this.$emit("input", tags);
       };
       const onSelect = tagId => {
-        console.log("selected", tagId);
+        this.$emit("select", tagId);
       };
       const onRemove = tagId => {
-        console.log("deleted", tagId);
+        this.$emit("delete", tagId);
       };
       bus.$emit("choose-tags", { chooseTags, nextStep, onSelect, onRemove });
     }
