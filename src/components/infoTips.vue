@@ -1,26 +1,26 @@
 <template>
   <div @touchmove.prevent>
     <transition name="toast">
-      <div 
-        v-if="show" 
-        class="m-pop-box" 
+      <div
+        v-if="show"
+        class="m-pop-box"
         @click="handelCancel"/>
     </transition>
     <transition name="toast">
-      <div 
-        v-if="show" 
+      <div
+        v-if="show"
         class="m-box-model m-justify-bet m-info-tips-box">
         <h2 class="m-info-tips-head">
           <slot name="title">
             <span>{{ title }}</span>
           </slot>
         </h2>
-        <div 
-          class="m-info-tips-body" 
+        <div
+          class="m-info-tips-body"
           v-html="content"/>
         <div class="m-info-tips-foot">
-          <button 
-            class="m-info-tips-btn" 
+          <button
+            class="m-info-tips-btn"
             @click="handelCancel">{{ cancelTxt }}</button>
         </div>
       </div>

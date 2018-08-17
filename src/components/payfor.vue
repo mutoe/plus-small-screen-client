@@ -1,14 +1,14 @@
 <template>
   <div @touchmove.prevent>
     <transition name="toast">
-      <div 
-        v-if="show" 
-        class="m-pop-box" 
+      <div
+        v-if="show"
+        class="m-pop-box"
         @click="cancel"/>
     </transition>
     <transition name="popr">
-      <div 
-        v-if="show" 
+      <div
+        v-if="show"
         class="m-box-model m-justify-bet m-payfor-box">
         <h2 class="m-payfor-head">
           <slot name="title">
@@ -22,11 +22,11 @@
           <p>{{ content || `你只需要支付${ amount }${ currency_name }就可查看此${ nodeType }` }}</p>
         </div>
         <div class="m-payfor-foot">
-          <button 
-            class="m-payfor-btn primary" 
+          <button
+            class="m-payfor-btn primary"
             @click="handelOk">{{ confirmText || "购买" }}</button>
-          <button 
-            class="m-payfor-btn" 
+          <button
+            class="m-payfor-btn"
             @click="handelCancel">{{ cancelText || "返回" }}</button>
         </div>
       </div>

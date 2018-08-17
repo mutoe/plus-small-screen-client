@@ -1,15 +1,15 @@
 <template>
   <transition name="fade">
-    <div 
-      v-if="show" 
+    <div
+      v-if="show"
       class="m-box-model m-pos-f p-choose-tags m-main">
       <header class="m-box m-aln-center m-justify-bet m-flex-grow0 m-flex-shrink0 m-head-top m-main m-bb1">
         <div class="m-flex-grow1 m-flex-shrink1">
-          <svg 
-            class="m-style-svg m-svg-def" 
+          <svg
+            class="m-style-svg m-svg-def"
             @click="nextFuc">
-            <use 
-              xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <use
+              xmlns:xlink="http://www.w3.org/1999/xlink"
               xlink:href="#base-back"/>
           </svg>
         </div>
@@ -32,24 +32,24 @@
               class="m-tag"
               @click="switchTagStatus(tag, -1)">
               <svg class="m-style-svg m-svg-def">
-                <use 
-                  xmlns:xlink="http://www.w3.org/1999/xlink" 
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                   xlink:href="#base-clean"/>
               </svg>
               <span>{{ tag.name }}</span>
             </li>
           </transition-group>
         </section>
-        <div 
-          class="m-flex-grow1 m-flex-shrink1" 
+        <div
+          class="m-flex-grow1 m-flex-shrink1"
           style="overflow-y: auto;">
           <section
             v-for="(group, Gindex) in tags"
             :key="group.id"
             class="m-tags-group">
             <span class="m-tags-label">{{ group.name }}</span>
-            <transition-group 
-              tag="ul" 
+            <transition-group
+              tag="ul"
               class="m-tags">
               <li
                 v-for="(tag, Tindex) in group.tags"
