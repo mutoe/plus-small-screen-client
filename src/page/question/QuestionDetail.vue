@@ -141,8 +141,7 @@ import { render } from "@/util/markdown";
 import * as api from "@/api/question/questions";
 import { listByDefault, listByTime } from "@/api/question/answer";
 import QuestionAnswerItem from "./QuestionAnswerItem";
-
-const noop = () => {};
+import { noop } from "@/util";
 
 export default {
   name: "QuestionDetail",

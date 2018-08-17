@@ -17,15 +17,17 @@
 </template>
 
 <script>
+import { noop } from "@/util";
+
 export default {
   name: "CommonHeader",
   props: {
-    back: { type: Function, default: null }
+    back: { type: Function, default: noop }
   },
   methods: {
     onBackClick() {
-      if (this.back && typeof this.back === "function") this.back();
-      else this.goBack();
+      if (this.back === noop) this.goBack();
+      else this.back();
     }
   }
 };

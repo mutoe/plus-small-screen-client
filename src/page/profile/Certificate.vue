@@ -174,8 +174,8 @@
 import ContentText from "@/page/post/components/ContentText.vue";
 import ImagePoster from "@/components/ImagePoster.vue";
 import * as api from "@/api/user.js";
+import { noop } from "@/util";
 
-const noop = () => {};
 const formInfo = {
   user: {
     name: { label: "真实姓名", placeholder: "输入真实姓名" },

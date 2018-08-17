@@ -76,9 +76,9 @@ import FeedAdCard from "./components/FeedAdCard.vue";
 import BannerAd from "@/components/advertisement/BannerAd.vue";
 import * as api from "@/api/feeds.js";
 import * as bootApi from "@/api/bootstrappers.js";
+import { noop } from "@/util";
 
 const feedTypesMap = ["new", "hot", "follow"];
-const noop = () => {};
 
 export default {
   name: "FeedList",

@@ -62,8 +62,7 @@ import QuestionCard from "./components/QuestionCard.vue";
 import { queryList as queryQuestions } from "@/api/question/questions";
 import { query as queryTopics } from "@/api/question/topics";
 import { limit } from "@/api/api";
-
-const noop = () => {};
+import { noop } from "@/util";
 
 export default {
   name: "QuestionSearch",

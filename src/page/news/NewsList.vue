@@ -47,8 +47,7 @@ import NewsCard from "./components/NewsCard.vue";
 import AdCard from "./components/AdCard.vue";
 import NewsFilter from "./components/NewsFilter.vue";
 import BannerAd from "@/components/advertisement/BannerAd.vue";
-
-const noop = () => {};
+import { noop } from "@/util";
 
 export default {
   name: "NewsList",

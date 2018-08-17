@@ -35,7 +35,8 @@
 </template>
 <script>
 import bus from "@/bus.js";
-const noop = () => {};
+import { noop } from "@/util";
+
 export default {
   name: "PayFor",
   data() {

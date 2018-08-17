@@ -150,8 +150,7 @@ import wechatShare from "@/util/wechatShare.js";
 import md from "@/util/markdown.js";
 import { limit } from "@/api/api.js";
 import * as api from "@/api/news.js";
-
-const noop = () => {};
+import { noop } from "@/util";
 
 export default {
   name: "NewsDetail",

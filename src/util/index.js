@@ -1,4 +1,12 @@
 /**
+ * 空函数
+ * 用于默认函数引用判断
+ * @author mutoe <mutoe@foxmail.com>
+ * @returns {Function} () => {}
+ */
+export const noop = () => {};
+
+/**
  * 驼峰命名
  *     @author jsonleex <jsonlseex@163.com>
  */

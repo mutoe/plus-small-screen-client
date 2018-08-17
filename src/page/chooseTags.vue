@@ -70,8 +70,7 @@
 
 <script>
 import bus from "@/bus.js";
-
-const noop = () => {};
+import { noop } from "@/util";
 
 /**
  * 打开选择标签页面 (钩子 -> "choose-tags")
