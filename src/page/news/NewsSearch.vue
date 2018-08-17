@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     /**
-     * 使用 lodash.debounce 节流，每输入 600ms 后执行
+     * 使用 lodash.debounce 防抖，每输入 600ms 后执行
      * 不要使用箭头函数，会导致 this 作用域丢失
      * @author mutoe <mutoe@foxmail.com>
      */
