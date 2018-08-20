@@ -41,6 +41,17 @@ const actions = {
   async searchGroups(store, payload) {
     const { data } = await api.searchGroups(payload);
     return data;
+  },
+
+  /**
+   * 发帖
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {api.GroupPostObject}
+   */
+  async createPost(store, payload) {
+    const { groupId, ...params } = payload;
+    const { data } = await api.createGroupPost(groupId, params);
+    return data;
   }
 };
 

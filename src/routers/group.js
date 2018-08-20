@@ -8,7 +8,8 @@ import GroupDetail from "@/page/group/GroupDetail.vue";
 import GroupsPostDetail from "@/page/group/GroupPostDetail.vue";
 import GroupCreate from "@/page/group/GroupCreate.vue";
 import GroupSearch from "@/page/group/GroupSearch.vue";
-import SearchPost from "@/page/group/SearchPost.vue";
+import GroupPostCreate from "@/page/group/GroupPostCreate.vue";
+import GroupSearchPost from "@/page/group/SearchPost.vue";
 import likes from "@/page/article/ArticleLikes.vue";
 import rewards from "@/page/article/ArticleRewards.vue";
 
@@ -69,6 +70,7 @@ export default [
     }
   },
   {
+    name: "groupPostDetail",
     path: "/groups/:groupID(\\d+)/posts/:postID(\\d+)",
     component: GroupsPostDetail,
     meta: {
@@ -78,9 +80,18 @@ export default [
     }
   },
   {
+    name: "groupCreatePost",
+    path: "/groups/create_post",
+    component: GroupPostCreate,
+    meta: {
+      title: "发帖",
+      requiresAuth: true
+    }
+  },
+  {
     name: "groupSearchPost",
     path: "/groups/:groupId(\\d+)/search",
-    component: SearchPost,
+    component: GroupSearchPost,
     meta: {
       title: "搜索帖子",
       requiresAuth: true

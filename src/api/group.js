@@ -241,6 +241,26 @@ export function rewardPost(postId, data) {
 }
 
 /**
+ * 创建帖子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {Object} data
+ * @param {string} data.title
+ * @param {string} data.body
+ * @param {string} data.summary
+ * @param {number[]} [data.images]
+ * @param {number} [data.sync_feed]
+ * @param {number} [data.feed_from]
+ * @returns {Promise<GroupPostObject[]>}
+ */
+export function createGroupPost(groupId, data) {
+  const url = `/plus-group/groups/${groupId}/posts`;
+  Object.assign(data, { feed_from: 2 });
+  return api.post(url, data, { validateStatus: s => s === 201 });
+}
+
+/**
  * 删除帖子
  * @author mutoe <mutoe@foxmail.com>
  * @export

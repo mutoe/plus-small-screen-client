@@ -119,6 +119,11 @@
         </span>
       </div>
     </main>
+    <button class="create-post" @click="onCreatePostClick">
+      <svg class="m-icon-svg m-svg-def">
+        <use xlink:href="#foot-plus" fill="#fff"/>
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -351,6 +356,12 @@ export default {
         name: "groupSearchPost",
         params: { groupId: this.groupID }
       });
+    },
+    onCreatePostClick() {
+      this.$router.push({
+        name: "groupCreatePost",
+        query: { group: this.groupID }
+      });
     }
   }
 };
@@ -372,6 +383,26 @@ export default {
     width: 32px;
     height: 32px;
     margin: 0 10px;
+  }
+}
+.p-group-detail {
+  .create-post {
+    position: fixed;
+    bottom: 40px;
+    height: 60px;
+    width: 60px;
+    left: 50%;
+    padding: 0;
+    border-radius: 100%;
+    margin-left: -30px;
+    background-color: @primary;
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 12px 0px rgba(89, 182, 215, 0.43);
+
+    > svg {
+      display: block;
+      margin: auto;
+    }
   }
 }
 .p-group-detail-banner {
