@@ -48,7 +48,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .msg-bubble {
   &-main {
     margin: 0 20px;
@@ -77,6 +77,9 @@ export default {
       border-color: #87c6dd;
       background-color: #b3e1f2;
     }
+  }
+  .m-avatar-box {
+    margin: inherit;
   }
 }
 .room-tips {

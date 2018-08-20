@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .chat-item {
   padding: 30px 20px;
   height: 135px;
