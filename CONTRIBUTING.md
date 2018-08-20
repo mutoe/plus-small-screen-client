@@ -210,6 +210,40 @@ export default {}
 <common-header>提现</common-header>
 ```
 
+### 标签页导航栏 NavTab
+
+`@/components/common/NavTab.vue`
+
+``` vue
+<template>
+  <div class="p-group-search">
+    <nav-tab :nav="nav" :route="{name: 'searchGroup', query: 'type'}" />
+
+    <!-- ... -->
+
+  </div>
+</template>
+
+<script>
+import NavTab from '@/components/common/NavTab.vue';
+export default {
+  components: { NavTab },
+  data: () => {
+    nav: {
+      groups: '圈子',
+      posts: '帖子'
+    }
+  },
+  created() {
+    if (!this.$route.query.type)
+      this.$router.replace(
+        Object.assign({}, this.$route, { query: { type: "groups" } })
+      );
+  },
+}
+</script>
+```
+
 ### 通用搜索栏 SearchBar
 
 `@/components/common/SearchBar.vue`
