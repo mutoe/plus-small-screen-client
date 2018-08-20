@@ -30,6 +30,17 @@ const actions = {
   async searchPosts(store, payload) {
     const { data } = await api.searchPosts(payload);
     return data;
+  },
+
+  /**
+   * 根据关键字搜索圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {Object} payload
+   * @returns {api.GroupObject[]}
+   */
+  async searchGroups(store, payload) {
+    const { data } = await api.searchGroups(payload);
+    return data;
   }
 };
 

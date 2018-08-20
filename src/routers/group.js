@@ -7,6 +7,7 @@ import GroupsForUser from "@/page/group/GroupsForUser.vue";
 import GroupDetail from "@/page/group/GroupDetail.vue";
 import GroupsPostDetail from "@/page/group/GroupPostDetail.vue";
 import GroupCreate from "@/page/group/GroupCreate.vue";
+import GroupSearch from "@/page/group/GroupSearch.vue";
 import SearchPost from "@/page/group/SearchPost.vue";
 import likes from "@/page/article/ArticleLikes.vue";
 import rewards from "@/page/article/ArticleRewards.vue";
@@ -27,6 +28,15 @@ export default [
     component: GroupList,
     meta: {
       title: "全部圈子",
+      requiresAuth: true
+    }
+  },
+  {
+    name: "groupSearch",
+    path: "/group/search",
+    component: GroupSearch,
+    meta: {
+      title: "搜索",
       requiresAuth: true
     }
   },

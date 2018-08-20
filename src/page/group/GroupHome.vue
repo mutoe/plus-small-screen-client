@@ -4,7 +4,7 @@
     <common-header>
       圈子
       <template slot="right">
-        <svg class="m-style-svg m-svg-def">
+        <svg class="m-style-svg m-svg-def" @click="onSearchClick">
           <use xlink:href="#base-search"/>
         </svg>
         <svg class="m-style-svg m-svg-def" @click="beforeCreateGroup">
@@ -137,6 +137,9 @@ export default {
         this.clickCount += 1;
         this.fetchRecing = false;
       });
+    },
+    onSearchClick() {
+      this.$router.push({ name: "groupSearch" });
     },
     /**
      * 创建圈子前检查

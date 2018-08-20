@@ -1,6 +1,18 @@
 import api, { limit } from "./api.js";
 
 /**
+ * 定义圈子对象
+ * @typedef {Object} GroupObject
+ * @property {number} id
+ * @property {string} name
+ * @property {number} user_id
+ * @property {number} category_id
+ * @property {string} avatar
+ * @property {*} ...others
+ */
+
+/**
+ *  定义圈子帖子对象
  * @typedef {Object} GroupPostObject
  * @property {number} group_id
  * @property {number} user_id
@@ -324,6 +336,20 @@ export function applyTopPostComment({ postId, commentId }, payload) {
 export function deletePostComment(postId, commentId) {
   const url = `/plus-group/group-posts/${postId}/comments/${commentId}`;
   return api.delete(url, { validateStatus: s => s === 204 });
+}
+
+/**
+ * 搜索圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @returns {Promise<GroupObject[]>}
+ */
+export function searchGroups(params) {
+  return api.get("/plus-group/groups", {
+    params,
+    validateStatus: s => s === 200
+  });
 }
 
 /**
