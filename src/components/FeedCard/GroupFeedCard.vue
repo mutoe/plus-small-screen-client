@@ -32,7 +32,8 @@ export default {
       }
     },
     body() {
-      return this.feed.summary || "";
+      const body = this.feed.summary || "";
+      return body.replace(/@!\[image\]\(\d+\)/g, "");
     },
     images() {
       let images = [];
