@@ -80,7 +80,7 @@
 <script>
 import bus from "@/bus";
 import { mapState } from "vuex";
-import GroupItem from "./GroupItem.vue";
+import GroupItem from "./components/GroupItem.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
 import * as api from "@/api/group.js";
 

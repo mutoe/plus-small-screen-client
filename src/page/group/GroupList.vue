@@ -67,7 +67,7 @@
 
 <script>
 import { mapState } from "vuex";
-import GroupItem from "./GroupItem.vue";
+import GroupItem from "./components/GroupItem.vue";
 import { getGroupsByCate } from "@/api/group.js";
 export default {
   name: "Groups",

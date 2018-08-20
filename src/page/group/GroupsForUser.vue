@@ -34,7 +34,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import GroupItem from "./GroupItem.vue";
+import GroupItem from "./components/GroupItem.vue";
 import { getGroupsByUser } from "@/api/group.js";
 export default {
   name: "UserGroups",
