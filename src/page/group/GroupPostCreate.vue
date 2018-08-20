@@ -10,6 +10,12 @@
         @click="onSubmit">发布</span>
     </common-header>
 
+    <form-select-item
+      v-if="!groupID"
+      v-model="group.name"
+      label="选择圈子"
+      @click="selectGroup" />
+
     <main>
       <div class="title-wrap">
         <input
@@ -30,16 +36,27 @@
       </div>
     </main>
 
+    <choose-group
+      v-if="!groupID"
+      ref="chooseGroup"
+      @change="onGroupChange"/>
+
   </div>
 </template>
 
 <script>
+import ChooseGroup from "./components/ChooseGroup.vue";
+
 export default {
   name: "GroupPostCreate",
+  components: {
+    ChooseGroup
+  },
   data() {
     return {
       title: "",
-      content: ""
+      content: "",
+      group: {}
     };
   },
   computed: {
@@ -47,14 +64,14 @@ export default {
       return this.$route.query.group;
     },
     disabled() {
+      if (!this.groupID && !this.group.id) return true;
       return !this.title || !this.content;
     }
   },
-  created() {},
   methods: {
     async onSubmit() {
       const params = {
-        groupId: this.groupID,
+        groupId: this.groupID || this.group.id,
         title: this.title,
         body: this.content,
         summary: this.content
@@ -67,6 +84,13 @@ export default {
           params: { groupID: data.post.group_id, postID: data.post.id }
         });
       }
+    },
+
+    selectGroup() {
+      this.$refs.chooseGroup.show();
+    },
+    onGroupChange(group) {
+      this.group = group;
     }
   }
 };
