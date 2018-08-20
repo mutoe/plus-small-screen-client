@@ -52,6 +52,16 @@ const actions = {
     const { groupId, ...params } = payload;
     const { data } = await api.createGroupPost(groupId, params);
     return data;
+  },
+
+  /**
+   * 获取我加入的圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {api.GroupObject[]}
+   */
+  async getMyGroups() {
+    const { data } = await api.getMyGroups();
+    return data;
   }
 };
 

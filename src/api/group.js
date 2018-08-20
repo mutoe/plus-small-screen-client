@@ -61,14 +61,12 @@ export function getGroupCates() {
 
 /**
  * 获取我加入的圈子
- * @author jsonleex <jsonlseex@163.com>
- * @returns {Promise<Array>}
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @returns {Promise<GroupObject[]>}
  */
 export function getMyGroups() {
-  return api
-    .get("/plus-group/user-groups")
-    .then(({ data = [] }) => data)
-    .catch(err => (err, []));
+  return api.get("/plus-group/user-groups", { validateStatus: s => s === 200 });
 }
 
 /**

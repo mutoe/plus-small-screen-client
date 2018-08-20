@@ -124,10 +124,9 @@ export default {
         this.myGroupChangeTracker += 1;
       });
     },
-    fetchMyGroups() {
-      api.getMyGroups().then(groups => {
-        this.formateGroups(groups);
-      });
+    async fetchMyGroups() {
+      const groups = await this.$store.dispatch("group/getMyGroups");
+      this.formateGroups(groups);
     },
     fetchRecGroups() {
       if (this.fetchRecing) return;
