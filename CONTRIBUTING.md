@@ -281,10 +281,6 @@ export default {
 
 提示内容, 默认值为 "搜索"
 
-##### `position` {string}
-
-浮动位置, 枚举 {relative: 页面顶部, fixed: 屏幕顶部}
-
 ### 提示信息弹框 PopupDialog
 
 `@/components/PopupDialog.vue`

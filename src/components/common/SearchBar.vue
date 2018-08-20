@@ -1,5 +1,5 @@
 <template>
-  <header :style="{position}" class="c-search-bar">
+  <header class="c-search-bar">
 
     <form class="input-wrap" onsubmit="return false">
       <svg class="m-icon-svg m-svg-def"><use xlink:href="#base-search"/></svg>
@@ -23,16 +23,7 @@ export default {
   props: {
     value: { type: String, default: "" },
     placeholder: { type: String, default: "搜索" },
-    back: { type: Function, default: noop },
-
-    /** 位置 */
-    position: {
-      type: String,
-      default: "relative",
-      validator(val) {
-        return ["relative", "fixed"].includes(val);
-      }
-    }
+    back: { type: Function, default: noop }
   },
   methods: {
     onBackClick() {
