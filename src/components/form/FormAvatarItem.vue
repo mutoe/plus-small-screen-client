@@ -120,7 +120,7 @@ export default {
 <style lang="less" scoped>
 @import url("./formItem.less");
 
-.c-form-avatar-item {
+form .c-form-avatar-item {
   height: 160px;
   border-bottom: 1px solid @border-color;
   padding-right: 20px;

@@ -17,7 +17,7 @@
       </template>
     </common-header>
 
-    <main>
+    <form>
 
       <form-avatar-item
         v-model="avatar"
@@ -95,7 +95,7 @@
 
       <p class="footage">点击创建即代表同意《ThinkSNS+圈子创建协议》</p>
 
-    </main>
+    </form>
 
     <choose-group-cate ref="chooseGroupCate" @change="onGroupCateChange"/>
 

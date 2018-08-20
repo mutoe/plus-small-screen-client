@@ -29,4 +29,14 @@ export default {
 
 <style lang="less" scoped>
 @import url("./formItem.less");
+
+.c-form-select-item {
+  .input-wrap {
+    justify-content: flex-end;
+
+    > span {
+      margin-right: 10px;
+    }
+  }
+}
 </style>
