@@ -1,34 +1,26 @@
 <template>
-  <section
-    class="m-box m-aln-center m-justify-bet m-main group-item"
-    @click="beforeViewDetail">
-    <div class="m-flex-grow0 m-flex-shrink0 group-item-avatar">
+  <section class="c-group-item" @click="beforeViewDetail">
+    <div class="avatar">
       <img :src="avatar">
     </div>
-    <div class="m-flex-grow1 m-flex-shrink1 group-item-info">
+    <div class="info">
       <div class="m-box m-aln-center m-text-cut">
         <h2>{{ name }}</h2>
-        <svg
-          v-if="mode === 'paid'"
-          class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#id"/>
+        <svg v-if="mode === 'paid'" class="m-style-svg m-svg-def">
+          <use xlink:href="#id"/>
         </svg>
       </div>
       <p>
-        <span>帖子<em>{{ feedCount | formatNum }}</em></span>
-        <span>成员<em>{{ memberCount | formatNum }}</em></span>
+        <span>帖子<span class="number">{{ feedCount | formatNum }}</span></span>
+        <span>成员<span class="number">{{ memberCount | formatNum }}</span></span>
       </p>
     </div>
-    <div
-      v-if="showRole && role"
-      class="m-box m-aln-center m-flex-grow0 m-flex-shink0 group-item-role">
+
+    <div v-if="showRole && role" class="m-box m-aln-center m-flex-grow0 m-flex-shink0 role">
       <span>{{ role }}</span>
     </div>
-    <div
-      v-if="showAction"
-      class="m-box m-aln-center m-flex-grow0 m-flex-shink0 group-item-action">
+
+    <div v-if="showAction" class="action">
       <button
         v-if="!joined || joined.audit === 0"
         :disabled="loading || joined.audit === 0"
@@ -38,9 +30,7 @@
           v-if="!(joined.audit ===0)"
           :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}"
           class="m-style-svg m-svg-def">
-          <use
-            :xlink:href="`#${loading?'base-loading':'foot-plus'}`"
-            xmlns:xlink="http://www.w3.org/1999/xlink"/>
+          <use :xlink:href="`#${loading?'base-loading':'foot-plus'}`" />
         </svg>
         <span>{{ joined.audit === 0 ? "审核中" : "加入" }}</span>
       </button>
@@ -51,22 +41,13 @@
 <script>
 import bus from "@/bus.js";
 import { joinGroup } from "@/api/group.js";
+
 export default {
   name: "GroupItem",
   props: {
-    group: {
-      type: Object,
-      requirted: true,
-      default: () => {}
-    },
-    showAction: {
-      type: Boolean,
-      default: true
-    },
-    showRole: {
-      type: Boolean,
-      default: false
-    }
+    group: { type: Object, required: true },
+    showAction: { type: Boolean, default: true },
+    showRole: { type: Boolean, default: true }
   },
   data() {
     return {
@@ -140,17 +121,25 @@ export default {
 };
 </script>
 
-<style lang="less">
-.group-item {
+<style lang="less" scoped>
+.c-group-item {
+  display: flex;
+  align-items: center;
   padding: 30px 20px;
-  &-info {
+  background-color: #fff;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: auto;
+    height: 100%;
     margin-left: 20px;
     margin-right: 20px;
+    font-size: 28px;
 
     h2 {
       font-size: 32px;
-      line-height: normal;
-      margin: 15px 0;
     }
 
     span {
@@ -160,14 +149,15 @@ export default {
       }
     }
 
-    em {
+    .number {
       color: @primary;
       margin: 0 5px;
     }
   }
-  &-avatar {
-    overflow: hidden;
 
+  .avatar {
+    overflow: hidden;
+    flex: none;
     width: 120px;
     height: 120px;
     background-color: @gray-bg;
@@ -178,36 +168,36 @@ export default {
       object-fit: cover;
     }
   }
-}
 
-.group-item-action {
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .action {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    width: 126px;
-    height: 50px;
+      width: 126px;
+      height: 50px;
 
-    border: 1px solid currentColor; /*no*/
-    border-radius: 8px;
-    background-color: #fff;
+      border: 1px solid currentColor;
+      border-radius: 8px;
+      background-color: #fff;
 
-    font-size: 24px;
-    color: @primary;
-    transition: all 0.3s ease;
-    span {
+      font-size: 24px;
+      color: @primary;
       transition: all 0.3s ease;
-      margin-left: 5px;
-    }
-    &[disabled] {
-      color: @border-color;
-      cursor: not-allowed;
       span {
-        color: @text-color3;
+        transition: all 0.3s ease;
+        margin-left: 5px;
       }
-      svg {
-        opacity: 0.5;
+      &[disabled] {
+        color: @border-color;
+        cursor: not-allowed;
+        span {
+          color: @text-color3;
+        }
+        svg {
+          opacity: 0.5;
+        }
       }
     }
   }
