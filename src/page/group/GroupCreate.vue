@@ -93,24 +93,30 @@
         maxlength="2000"
         warnlength="200" />
 
-      <p class="footage">点击创建即代表同意《ThinkSNS+圈子创建协议》</p>
+      <p class="footage">点击创建即代表同意<a href="javascript:;" @click="showProtocol">《ThinkSNS+圈子创建协议》</a></p>
 
     </form>
 
+    <!-- 选择圈子分类遮罩层 -->
     <choose-group-cate ref="chooseGroupCate" @change="onGroupCateChange"/>
+
+    <!-- 圈子协议遮罩层 -->
+    <group-protocol ref="protocol"/>
 
   </div>
 </template>
 
 <script>
 import ChooseGroupCate from "./components/chooseGroupCate.vue";
+import GroupProtocol from "./components/GroupProtocol.vue";
 import { encodeGeoHash } from "@/util/geohash";
 
 export default {
   name: "GroupCreate",
   components: {
     Location,
-    ChooseGroupCate
+    ChooseGroupCate,
+    GroupProtocol
   },
   data() {
     return {
@@ -175,6 +181,9 @@ export default {
     }
   },
   methods: {
+    showProtocol() {
+      this.$refs.protocol.show();
+    },
     switchCate() {
       this.$refs.chooseGroupCate.show();
     },

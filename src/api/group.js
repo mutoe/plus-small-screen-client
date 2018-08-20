@@ -387,3 +387,15 @@ export function searchPosts(params) {
     validateStatus: s => s === 200
   });
 }
+
+/**
+ * 获取圈子协议
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @returns {Promise<Object>}
+ */
+export function getProtocol() {
+  return api.get("/plus-group/groups/protocol", {
+    validateStatus: s => s === 200
+  });
+}

@@ -2,7 +2,9 @@ import * as api from "@/api/group";
 
 export const TYPES = {};
 
-const state = {};
+const state = {
+  protocol: ""
+};
 
 const getters = {};
 
@@ -62,6 +64,17 @@ const actions = {
   async getMyGroups() {
     const { data } = await api.getMyGroups();
     return data;
+  },
+
+  /**
+   * 获取圈子协议
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {string}
+   */
+  async getProtocol({ state }) {
+    const { data } = await api.getProtocol();
+    state.protocol = data.protocol;
+    return data.protocol || "";
   }
 };
 
