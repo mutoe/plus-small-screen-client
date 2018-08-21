@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <div class="m-box m-aln-center m-text-cut">
-        <h2>{{ name }}</h2>
+        <h2 class="m-text-cut">{{ group.name }}</h2>
         <svg v-if="mode === 'paid'" class="m-style-svg m-svg-def">
           <use xlink:href="#id"/>
         </svg>
@@ -140,6 +140,7 @@ export default {
 
     h2 {
       font-size: 32px;
+      max-width: 12em;
     }
 
     span {
