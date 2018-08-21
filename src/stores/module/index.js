@@ -7,6 +7,7 @@ import currency from "./currency";
 import question from "./question";
 import news from "./news";
 import group from "./group";
+import feed from "./feed";
 
 export default {
   rank,
@@ -17,5 +18,6 @@ export default {
   currency,
   question,
   news,
-  group
+  group,
+  feed
 };

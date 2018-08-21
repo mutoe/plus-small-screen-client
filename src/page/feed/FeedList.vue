@@ -28,6 +28,7 @@
         </router-link>
       </ul>
     </nav>
+
     <jo-load-more
       ref="loadmore"
       :auto-load="true"
@@ -74,8 +75,6 @@
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
 import FeedAdCard from "./components/FeedAdCard.vue";
 import BannerAd from "@/components/advertisement/BannerAd.vue";
-import * as api from "@/api/feeds.js";
-import * as bootApi from "@/api/bootstrappers.js";
 import { noop } from "@/util";
 
 const feedTypesMap = ["new", "hot", "follow"];
@@ -84,39 +83,23 @@ export default {
   name: "FeedList",
   components: { FeedCard, BannerAd, FeedAdCard },
   data() {
-    return {
-      pinned: [], // 置顶
-      adCardList: [],
-      adIndex: 0,
-
-      newFeeds: [],
-      hotFeeds: [],
-      followFeeds: []
-    };
+    return {};
   },
   computed: {
     feedType() {
       return this.$route.query.type;
     },
-    feeds: {
-      get() {
-        return this.feedType ? this.$data[`${this.feedType}Feeds`] : [];
-      },
-      set(val) {
-        this.$data[`${this.feedType}Feeds`] = val;
-      }
+    feeds() {
+      return this.$store.getters[`feed/${this.feedType}`];
     },
-    maxId() {
+    pinned() {
+      return this.$store.getters["feed/pinned"];
+    },
+    after() {
       const len = this.feeds.length;
-      return len ? this.feeds[len - 1].id : 0;
-    },
-    /**
-     * 模拟动态卡片广告列表
-     * @returns {FeedDetail[]}
-     */
-    feedCardAdsId() {
-      const adType = this.$store.getters.getAdTypeBySpace("feed:list:analog");
-      return adType.id;
+      if (!len) return 0;
+      if (this.feedType !== "hot") return this.feeds[len - 1].id; // after
+      return this.$store.getters[`feed/hot`].length; // offset
     }
   },
   watch: {
@@ -127,53 +110,21 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch("feed/getAdvertise");
     this.onRefresh(noop);
-    this.getAdCards();
   },
   methods: {
-    onRefresh(callback) {
-      // TODO: @mutoe [api] refactor there with vuex action
-      api.getFeedsByType(this.feedType, 15).then(({ data }) => {
-        const { pinned = [], feeds = [] } = data;
-        this.pinned = pinned;
-        callback(feeds.length < 15);
-        if (this.feedType === "hot") {
-          // 从广告栈顶取出一条随机插入列表
-          let rand = ~~(Math.random() * 14) + 1;
-          rand > feeds.length && (rand = feeds.length);
-          this.adIndex = 0;
-          this.adCardList[this.adIndex] &&
-            feeds.splice(rand, 0, this.adCardList[this.adIndex++]);
-        }
-        this.feeds = feeds;
-      });
+    async onRefresh(callback) {
+      const type = this.feedType.replace(/^\S/, s => s.toUpperCase());
+      const action = `feed/get${type}Feeds`;
+      const data = await this.$store.dispatch(action, { refresh: true });
+      callback(data.length < 15);
     },
-    onLoadMore(callback) {
-      if (!this.feedType) return;
-      // 热门动态 修改为 offset
-      const after =
-        this.feedType === "hot"
-          ? this.hotFeeds.length - this.adCardList.length
-          : this.maxId;
-      api.getFeedsByType(this.feedType, 15, after).then(({ data }) => {
-        const { pinned = [], feeds = [] } = data;
-        this.pinned = pinned;
-        callback(feeds.length < 15);
-        if (this.feedType === "hot") {
-          // 从广告栈顶取出一条随机插入列表
-          let rand = ~~(Math.random() * 9) + 1;
-          rand > feeds.length && (rand = feeds.length);
-          this.adCardList[this.adIndex] &&
-            feeds.splice(rand, 0, this.adCardList[this.adIndex++]);
-        }
-        this.feeds = [...this.feeds, ...feeds];
-      });
-    },
-    getAdCards() {
-      // TODO: @mutoe [api] refactor there with vuex action
-      bootApi.getAdsById(this.feedCardAdsId).then(({ data }) => {
-        this.adCardList = data.sort((a, b) => a.sort < b.sort);
-      });
+    async onLoadMore(callback) {
+      const type = this.feedType.replace(/^\S/, s => s.toUpperCase());
+      const action = `feed/get${type}Feeds`;
+      const data = await this.$store.dispatch(action, { after: this.after });
+      callback(data.length < 15);
     }
   }
 };

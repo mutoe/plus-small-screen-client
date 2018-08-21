@@ -1,22 +1,29 @@
 import api, { limit } from "./api.js";
 
 /**
- * 获取 首页动态列表
- * @author jsonleex <jsonlseex@163.com>
- * @param  {string} type
- * @param  {number} limit
- * @param  {number} after
- * @returns {Promise<Array>}
+ * 定义动态对象
+ * @typedef {Object} FeedObject
+ * @property {number} id
+ * @property {number} user_id
+ * @property {string} feed_content
+ * @property {number[]} images
+ * @property {Object[]} topics
+ * @property ...others
  */
-export function getFeedsByType(type, limit = 15, after) {
-  const baseUrl = `/feeds?type=${type}&limit=${limit}`;
-  const url =
-    after > 0
-      ? type === "hot"
-        ? baseUrl + `&offset=${after}`
-        : baseUrl + `&after=${after}`
-      : baseUrl;
-  return api.get(url);
+
+/**
+ * 获取动态列表
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {string} params.type
+ * @param {number} params.limit
+ * @param {number} params.after
+ * @param {number} params.offset
+ * @returns {Promise<FeedObject[]>}
+ */
+export function getFeeds(params) {
+  return api.get("/feeds", { params, validateStatus: s => s === 200 });
 }
 
 /**
