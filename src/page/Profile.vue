@@ -206,6 +206,7 @@ export default {
   },
   watch: {
     verified(to) {
+      if (to) to.status = Number(to.status);
       if (to && to.status === 0) {
         this.verifiedText = "待审核";
       } else if (to && to.status === 1) {
