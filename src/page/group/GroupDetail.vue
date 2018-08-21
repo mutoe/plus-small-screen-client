@@ -128,15 +128,15 @@
     <aside class="slide-more">
       <ul class="list">
         <li>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-users"/></svg> 成员</span>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-6"/></svg> 成员</span>
           <span>{{ group.users_count }} <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
         </li>
         <li>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#wallet-alert-circle"/></svg> 详细信息</span>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-5"/></svg> 详细信息</span>
           <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
         </li>
         <li>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-currency"/></svg> 发帖权限</span>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg> 发帖权限</span>
           <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
         </li>
       </ul>
@@ -149,6 +149,8 @@
         <use xlink:href="#foot-plus" fill="#fff"/>
       </svg>
     </button>
+
+
   </div>
 </template>
 
@@ -445,6 +447,10 @@ export default {
         height: 100px;
         border-bottom: 1px solid #4a4d5e;
         font-size: 30px;
+
+        svg {
+          vertical-align: sub;
+        }
       }
     }
 
