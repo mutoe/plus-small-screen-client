@@ -16,9 +16,7 @@
       </p>
     </div>
 
-    <div v-if="showRole && role" class="m-box m-aln-center m-flex-grow0 m-flex-shink0 role">
-      <span>{{ role }}</span>
-    </div>
+    <span v-if="isOwner" class="owner-badge">圈主</span>
 
     <div v-if="showAction" class="action">
       <button
@@ -78,6 +76,9 @@ export default {
     },
     role() {
       return typeof this.group.joined === "object" ? this.joined.role : false;
+    },
+    isOwner() {
+      return this.role === "founder";
     }
   },
   methods: {
@@ -154,6 +155,14 @@ export default {
       color: @primary;
       margin: 0 5px;
     }
+  }
+
+  .owner-badge {
+    background-color: #fca308;
+    color: #fff;
+    font-size: 22px;
+    border-radius: 200px;
+    padding: 2px 20px;
   }
 
   .avatar {
