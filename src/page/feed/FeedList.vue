@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     feedType() {
-      return this.$route.query.type || "hot";
+      return this.$route.query.type;
     },
     feeds: {
       get() {
@@ -149,6 +149,7 @@ export default {
       });
     },
     onLoadMore(callback) {
+      if (!this.feedType) return;
       // 热门动态 修改为 offset
       const after =
         this.feedType === "hot"
