@@ -69,7 +69,7 @@ export function formatDate(date, fmt = "yyyy/MM/dd hh:mm") {
 export const time2txt = str => {
   if (!str) return "";
   // 兼容 IOS 保证传入数据格式 YYYY/MM/dd HH:mm:ss
-  let date = new Date(str.replace(/-/g, "/"));
+  let date = new Date(str);
 
   // 时间差 = 当前时间 - date (单位: 毫秒)
   let time = new Date() - date;
