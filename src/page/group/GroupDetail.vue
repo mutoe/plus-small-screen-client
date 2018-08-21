@@ -1,5 +1,6 @@
 <template>
   <div
+    :class="{ 'show-slide': showSlide }"
     class="p-group-detail"
     @mousedown="startDrag"
     @touchstart="startDrag"
@@ -26,6 +27,9 @@
         <svg class="m-style-svg m-svg-def" @click="onSearchClick">
           <use xlink:href="#base-search"/>
         </svg>
+        <svg class="m-style-svg m-svg-def" @click="onMoreClick">
+          <use xlink:href="#feed-more"/>
+        </svg>
       </div>
     </header>
 
@@ -33,6 +37,7 @@
       <div/>
       <div/>
     </div>
+
     <main style="overflow-x: hidden; overflow-y:auto; min-height: 100vh">
       <div
         ref="banner"
@@ -119,6 +124,26 @@
         </span>
       </div>
     </main>
+
+    <aside class="slide-more">
+      <ul class="list">
+        <li>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-users"/></svg> 成员</span>
+          <span>{{ group.users_count }} <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
+        </li>
+        <li>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#wallet-alert-circle"/></svg> 详细信息</span>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
+        </li>
+        <li>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-currency"/></svg> 发帖权限</span>
+          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
+        </li>
+      </ul>
+      <button class="btn-quit">退出圈子</button>
+    </aside>
+    <div class="slide-mask" @click="showSlide = false"/>
+
     <button class="create-post" @click="onCreatePostClick">
       <svg class="m-icon-svg m-svg-def">
         <use xlink:href="#foot-plus" fill="#fff"/>
@@ -186,7 +211,8 @@ export default {
 
       posts: [],
       pinneds: [],
-      group: {}
+      group: {},
+      showSlide: false
     };
   },
   computed: {
@@ -241,7 +267,6 @@ export default {
     this.typeFilter = this.$refs.typeFilter;
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
   },
-
   activated() {
     this.preGID !== this.groupID
       ? ((this.loading = true), (this.feeds = []), this.updateData())
@@ -253,7 +278,6 @@ export default {
 
     this.preGID = this.groupID;
   },
-
   deactivated() {
     this.loading = true;
     this.showFilter = false;
@@ -308,7 +332,6 @@ export default {
         }
       );
     },
-
     updateData() {
       this.updating = true;
       this.dY = 0;
@@ -323,7 +346,6 @@ export default {
           this.goBack();
         });
     },
-
     onScroll: _.debounce(function() {
       this.scrollTop = Math.max(
         0,
@@ -331,7 +353,6 @@ export default {
         document.documentElement.scrollTop
       );
     }, 1000 / 60),
-
     startDrag(e) {
       e = e.changedTouches ? e.changedTouches[0] : e;
       if (this.scrollTop <= 0 && !this.updating) {
@@ -357,6 +378,9 @@ export default {
         params: { groupId: this.groupID }
       });
     },
+    onMoreClick() {
+      this.showSlide = !this.showSlide;
+    },
     onCreatePostClick() {
       this.$router.push({
         name: "groupCreatePost",
@@ -368,24 +392,98 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.m-user-home-foot {
-  height: 90px;
-  top: initial;
-  bottom: 0;
-  font-size: 30px;
-  > div {
-    width: 1/3 * 100%;
-    + div {
-      border-left: 1px solid @border-color; /*no*/
+.p-group-detail {
+  position: relative;
+  transition: 0.4s;
+
+  > header {
+    border-bottom: 0;
+    transition: all 0.4s ease;
+
+    &.bg-transp {
+      color: #fff;
+      background-color: transparent;
+    }
+    &.show-title {
+      background-image: none;
+      background-color: #fff;
+      border-bottom: 1px solid @border-color; /*no*/
+      color: #000;
+      .m-trans-y {
+        transform: none;
+      }
+    }
+    .m-trans-y {
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
     }
   }
-  .m-svg-def {
-    width: 32px;
-    height: 32px;
-    margin: 0 10px;
+
+  .slide-more {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #363845;
+    color: #ccc;
+    transition: 0.4s;
+    z-index: 11;
+    padding: 40px;
+
+    .list {
+      margin-top: 120px;
+      border-top: 1px solid #4a4d5e;
+
+      > li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100px;
+        border-bottom: 1px solid #4a4d5e;
+        font-size: 30px;
+      }
+    }
+
+    .btn-quit {
+      width: 100%;
+      border-radius: 8px;
+      height: 60px;
+      background-color: transparent;
+      color: #ccc;
+      border: 1px solid #4a4d5e;
+      font-size: 30px;
+    }
   }
-}
-.p-group-detail {
+  .slide-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: none;
+  }
+
+  &.show-slide {
+    margin-left: -400px;
+    padding-right: 400px;
+
+    > header {
+      margin-left: -400px;
+    }
+
+    .slide-more {
+      right: 0;
+    }
+    .slide-mask {
+      display: block;
+    }
+  }
+
   .create-post {
     position: fixed;
     bottom: 40px;
@@ -523,28 +621,6 @@ export default {
 .p-group-detail-feeds {
   li + li {
     margin-top: 10px;
-  }
-}
-
-.m-head-top {
-  border-bottom: 0;
-  &.bg-transp {
-    color: #fff;
-    transition: background 0.3s ease;
-    background-color: transparent;
-  }
-  &.show-title {
-    background-image: none;
-    background-color: #fff;
-    border-bottom: 1px solid @border-color; /*no*/
-    color: #000;
-    .m-trans-y {
-      transform: none;
-    }
-  }
-  .m-trans-y {
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
   }
 }
 
