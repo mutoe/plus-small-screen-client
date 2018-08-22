@@ -410,6 +410,18 @@ export function getMembers(groupId, params) {
 }
 
 /**
+ * 退出圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @returns {Promise<null>}
+ */
+export function exitGroup(groupId) {
+  const url = `/plus-group/groups/${groupId}/exit`;
+  return api.delete(url, { validateStatus: s => s === 204 });
+}
+
+/**
  * 转让圈子
  * @author mutoe <mutoe@foxmail.com>
  * @export

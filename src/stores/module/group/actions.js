@@ -93,6 +93,17 @@ export default {
   },
 
   /**
+   * 退出圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async exitGroup(store, payload) {
+    const { groupId } = payload;
+    await api.exitGroup(groupId);
+    return true;
+  },
+
+  /**
    * 转让圈子
    * @author mutoe <mutoe@foxmail.com>
    * @returns {Promise<string>} message

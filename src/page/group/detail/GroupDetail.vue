@@ -422,7 +422,23 @@ export default {
         query: { group: this.groupId }
       });
     },
-    onExit() {},
+    onExit() {
+      const actions = [
+        {
+          text: "退出圈子",
+          method: () => {
+            this.exitGroup();
+          },
+          style: { color: "red" }
+        }
+      ];
+      bus.$emit("actionSheet", actions, "取消", "确定要退出圈子吗?");
+    },
+    async exitGroup() {
+      await this.$store.dispatch("group/exitGroup", { groupId: this.groupId });
+      this.$Message.success("退出圈子成功");
+      this.$router.replace({ name: "groups" });
+    },
     onTransfer() {
       this.$router.push({ name: "groupTransfer" });
     }
