@@ -52,23 +52,48 @@ export default {
       return Number(this.$route.params.groupId);
     }
   },
+  watch: {
+    keyword(val, oldVal) {
+      if (val.trim() === "") return (this.searchList = []);
+      if (val.trim() === oldVal.trim()) return;
+      this.searchUser(val);
+    }
+  },
   created() {
     if (!this.group.id) this.fetchGroup();
     this.fetchMembers();
   },
   methods: {
     async fetchMembers() {
-      const list = await this.$store.dispatch("group/getMembers", {
-        groupId: this.groupId
+      const managerPromise = this.$store.dispatch("group/getMembers", {
+        groupId: this.groupId,
+        type: "manager",
+        limit: 100
       });
-      [this.member, this.administrator] = _.partition(
-        list,
-        m => m.role === "member"
-      );
+      const memberPromise = this.$store.dispatch("group/getMembers", {
+        groupId: this.groupId,
+        type: "member",
+        limit: 100 // TODO: paginate
+      });
+      // 并发
+      const [manager, member] = await Promise.all([
+        managerPromise,
+        memberPromise
+      ]);
+      this.member = member;
+      this.administrator = manager;
     },
     fetchGroup() {
       this.$store.dispatch("group/getGroupById", { groupId: this.groupId });
-    }
+    },
+    searchUser: _.debounce(async function(keyword) {
+      this.searchList = [];
+      const result = await this.$store.dispatch("group/getMembers", {
+        groupId: this.groupId,
+        name: keyword
+      });
+      this.searchList = result;
+    }, 600)
   }
 };
 </script>
