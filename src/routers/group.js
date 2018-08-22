@@ -32,6 +32,8 @@ const GroupInfo = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupInfo.vue");
 const GroupTransfer = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupTransfer.vue");
+const GroupPermission = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupPermission.vue");
 
 export default [
   {
@@ -110,6 +112,12 @@ export default [
         path: "transfer",
         component: GroupTransfer,
         meta: { sidebar: true }
+      },
+      {
+        name: "groupPermission",
+        path: "permission",
+        component: GroupPermission,
+        meta: { title: "权限管理", sidebar: true }
       }
     ]
   },

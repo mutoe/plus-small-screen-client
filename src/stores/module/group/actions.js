@@ -112,5 +112,16 @@ export default {
     const { target, groupId } = payload;
     const { data } = await api.transferGroup(groupId, { target });
     return data;
+  },
+
+  /**
+   * 更改发帖权限
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async changePermissions(store, payload) {
+    const { permissions, groupId } = payload;
+    await api.changePermissions(groupId, { permissions });
+    return true;
   }
 };

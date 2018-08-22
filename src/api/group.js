@@ -434,3 +434,17 @@ export function transferGroup(groupId, params) {
   const url = `/plus-group/groups/${groupId}/owner`;
   return api.patch(url, params, { validateStatus: s => s === 201 });
 }
+
+/**
+ * 更改圈子发帖权限
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {Object} params
+ * @param {string[]} params.permissions
+ * @returns
+ */
+export function changePermissions(groupId, params) {
+  const url = `/plus-group/groups/${groupId}/permissions`;
+  return api.patch(url, params, { validateStatus: s => s === 204 });
+}

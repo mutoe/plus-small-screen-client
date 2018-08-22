@@ -147,7 +147,7 @@
             <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
           </span>
         </li>
-        <li v-if="isOwner">
+        <li v-if="isOwner" @click="$router.push({name: 'groupPermission'})">
           <span>
             <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg>
             发帖权限
