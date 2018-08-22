@@ -32,7 +32,7 @@ export default {
 
 .c-form-select-item {
   .input-wrap {
-    justify-content: flex-end;
+    justify-content: space-between;
 
     > span {
       margin-right: 10px;
