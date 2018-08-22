@@ -127,17 +127,33 @@
 
     <aside class="slide-more">
       <ul class="list">
-        <li @click="onMembersClick">
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-6"/></svg> 成员</span>
-          <span>{{ group.users_count }} <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
+        <li @click="$router.push({ name: 'groupMembers' })">
+          <span>
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-6"/></svg>
+            成员
+          </span>
+          <span>
+            {{ group.users_count }}
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+          </span>
+        </li>
+        <li @click="$router.push({ name: 'groupInfo' })">
+          <span>
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-5"/></svg>
+            详细信息
+          </span>
+          <span>
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+          </span>
         </li>
         <li>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-5"/></svg> 详细信息</span>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
-        </li>
-        <li>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg> 发帖权限</span>
-          <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
+          <span>
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg>
+            发帖权限
+          </span>
+          <span>
+            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+          </span>
         </li>
       </ul>
       <button class="btn-quit">退出圈子</button>
@@ -239,7 +255,6 @@ export default {
     groupAvatar() {
       return this.group.avatar;
     },
-
     groupBackGround() {
       return {
         "background-image": this.groupAvatar ? `url("${this.groupAvatar}")` : ""
@@ -259,6 +274,11 @@ export default {
 
     joined() {
       return this.group.joined || false;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      if (from.meta.sidebar) this.showSlide = true;
     }
   },
   created() {
@@ -384,9 +404,6 @@ export default {
     },
     onMoreClick() {
       this.showSlide = !this.showSlide;
-    },
-    onMembersClick() {
-      this.$router.push({ name: "groupMembers" });
     },
     onCreatePostClick() {
       this.$router.push({

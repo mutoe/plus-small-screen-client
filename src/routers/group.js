@@ -28,6 +28,8 @@ const GroupSearchPost = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupSearchPost.vue");
 const GroupPostDetail = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupPostDetail.vue");
+const GroupInfo = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupInfo.vue");
 
 export default [
   {
@@ -67,24 +69,21 @@ export default [
     }
   },
   {
-    name: "groupsDetail",
     path: "/groups/:groupId(\\d+)",
     component: GroupDetailBase,
-    meta: {
-      title: "圈子详情",
-      requiresAuth: true
-    },
+    meta: { requiresAuth: true },
     children: [
       {
+        name: "groupsDetail",
         path: "",
         component: GroupDetail,
-        meta: { keepAlive: true }
+        meta: { title: "圈子详情", keepAlive: true }
       },
       {
         name: "groupMembers",
         path: "members",
         component: GroupMembers,
-        meta: { title: "圈子成员" }
+        meta: { title: "圈子成员", sidebar: true }
       },
       {
         name: "groupSearchPost",
@@ -96,7 +95,12 @@ export default [
         name: "groupPostDetail",
         path: "posts/:postID(\\d+)",
         component: GroupPostDetail,
-        meta: { title: "帖子详情" }
+        meta: { title: "帖子详情", sidebar: true }
+      },
+      {
+        name: "groupInfo",
+        path: "info",
+        component: GroupInfo
       }
     ]
   },
