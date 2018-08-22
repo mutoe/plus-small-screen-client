@@ -127,7 +127,7 @@
 
     <aside class="slide-more">
       <ul class="list">
-        <li>
+        <li @click="onMembersClick">
           <span><svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-6"/></svg> 成员</span>
           <span>{{ group.users_count }} <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg></span>
         </li>
@@ -150,6 +150,10 @@
       </svg>
     </button>
 
+    <group-members
+      ref="members"
+      :group="group"
+      class="members"/>
 
   </div>
 </template>
@@ -158,6 +162,7 @@
 import _ from "lodash";
 import bus from "@/bus.js";
 import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
+import GroupMembers from "./GroupMembers.vue";
 
 import { joinGroup } from "@/api/group.js";
 import { getGroudFeedsByType } from "@/api/group.js";
@@ -185,7 +190,8 @@ export default {
     }
   },
   components: {
-    GroupFeedCard
+    GroupFeedCard,
+    GroupMembers
   },
   data() {
     return {
@@ -388,6 +394,9 @@ export default {
     onMoreClick() {
       this.showSlide = !this.showSlide;
     },
+    onMembersClick() {
+      this.$refs.members.show();
+    },
     onCreatePostClick() {
       this.$router.push({
         name: "groupCreatePost",
@@ -512,6 +521,15 @@ export default {
       display: block;
       margin: auto;
     }
+  }
+
+  .members {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
   }
 }
 .p-group-detail-banner {

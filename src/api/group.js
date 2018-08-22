@@ -391,3 +391,20 @@ export function getProtocol() {
     validateStatus: s => s === 200
   });
 }
+
+/**
+ * 获取圈子成员
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {Object} params
+ * @param {number} [params.limit=15]
+ * @param {number} [params.after=0]
+ * @param {string} [params.name]
+ * @param {string} [params.type]
+ * @returns {Promise<UserObject[]>}
+ */
+export function getMembers(groupId, params) {
+  const url = `/plus-group/groups/${groupId}/members`;
+  return api.get(url, { params, validateStatus: s => s === 200 });
+}

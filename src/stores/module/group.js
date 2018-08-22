@@ -77,6 +77,12 @@ const actions = {
     return data.protocol || "";
   },
 
+  async getMembers(store, payload) {
+    const { groupId, ...params } = payload;
+    const { data } = await api.getMembers(groupId, params);
+    return data;
+  },
+
   async getGroupById(store, payload) {
     const { groupId } = payload;
     const { data } = await api.getGroupInfoById(groupId);
