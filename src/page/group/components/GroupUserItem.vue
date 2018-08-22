@@ -1,7 +1,9 @@
 <template>
-  <div class="c-group-user-item">
-    <avatar :user="user"/>
-    <span>{{ user.name }}</span>
+  <div class="c-group-user-item" @click="onUserClick">
+    <avatar :user="user" class="avatar"/>
+    <span class="name m-text-cut">{{ user.name }}</span>
+    <span v-if="member.role === 'founder'" class="founder">圈主</span>
+    <span v-if="member.role === 'administrator'" class="admin">管理员</span>
   </div>
 </template>
 
@@ -9,7 +11,20 @@
 export default {
   name: "GroupUserItem",
   props: {
-    user: { type: Object, required: true }
+    member: { type: Object, required: true }
+  },
+  computed: {
+    user() {
+      return this.member.user || {};
+    }
+  },
+  methods: {
+    onUserClick() {
+      this.$router.push({
+        name: "userDetail",
+        params: { userId: this.user.id }
+      });
+    }
   }
 };
 </script>
@@ -18,6 +33,33 @@ export default {
 .c-group-user-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   height: 134px;
+  border-bottom: 1px solid @border-color;
+  padding: 0 30px;
+
+  .avatar {
+    flex: none;
+    margin-left: 0;
+    margin-right: 30px;
+  }
+
+  .admin,
+  .founder {
+    display: inline-block;
+    background-color: @gray;
+    border-radius: 100px;
+    font-size: 22px;
+    margin-left: 30px;
+    color: #fff;
+    text-align: center;
+    width: 4em;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .founder {
+    background-color: #fca308;
+  }
 }
 </style>

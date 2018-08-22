@@ -1,16 +1,7 @@
 import * as api from "@/api/group";
+import { TYPES } from "./index";
 
-export const TYPES = {};
-
-const state = {
-  protocol: ""
-};
-
-const getters = {};
-
-const mutations = {};
-
-const actions = {
+export default {
   /**
    * 创建圈子
    * @author mutoe <mutoe@foxmail.com>
@@ -77,23 +68,27 @@ const actions = {
     return data.protocol || "";
   },
 
+  /**
+   * 获取圈子成员
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {api.GroupMemberObject}
+   */
   async getMembers(store, payload) {
     const { groupId, ...params } = payload;
     const { data } = await api.getMembers(groupId, params);
     return data;
   },
 
-  async getGroupById(store, payload) {
+  /**
+   * 获取圈子详情
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {*} payload
+   * @returns {api.GroupObject}
+   */
+  async getGroupById({ commit }, payload) {
     const { groupId } = payload;
     const { data } = await api.getGroupInfoById(groupId);
+    commit(TYPES.SAVE_GROUP, data);
     return data;
   }
-};
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
 };

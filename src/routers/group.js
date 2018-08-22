@@ -1,17 +1,33 @@
 /**
  * 圈子路由模块
  */
-import GroupHome from "@/page/group/GroupHome.vue";
-import GroupList from "@/page/group/GroupList.vue";
-import GroupsForUser from "@/page/group/GroupsForUser.vue";
-import GroupDetail from "@/page/group/GroupDetail.vue";
-import GroupsPostDetail from "@/page/group/GroupPostDetail.vue";
-import GroupCreate from "@/page/group/GroupCreate.vue";
-import GroupSearch from "@/page/group/GroupSearch.vue";
-import GroupPostCreate from "@/page/group/GroupPostCreate.vue";
-import GroupSearchPost from "@/page/group/SearchPost.vue";
-import likes from "@/page/article/ArticleLikes.vue";
-import rewards from "@/page/article/ArticleRewards.vue";
+const GroupHome = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupHome.vue");
+const GroupList = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupList.vue");
+const GroupsForUser = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupsForUser.vue");
+const GroupCreate = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupCreate.vue");
+const GroupSearch = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupSearch.vue");
+const GroupPostCreate = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/GroupPostCreate.vue");
+const ArticleLikes = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/article/ArticleLikes.vue");
+const ArticleRewards = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/article/ArticleRewards.vue");
+
+const GroupDetailBase = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupDetailBase.vue");
+const GroupDetail = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupDetail.vue");
+const GroupMembers = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupMembers.vue");
+const GroupSearchPost = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupSearchPost.vue");
+const GroupPostDetail = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupPostDetail.vue");
 
 export default [
   {
@@ -53,29 +69,42 @@ export default [
   {
     name: "groupsDetail",
     path: "/groups/:groupId(\\d+)",
-    component: GroupDetail,
+    component: GroupDetailBase,
     meta: {
       title: "圈子详情",
-      keepAlive: true,
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: "",
+        component: GroupDetail,
+        meta: { keepAlive: true }
+      },
+      {
+        name: "groupMembers",
+        path: "members",
+        component: GroupMembers,
+        meta: { title: "圈子成员" }
+      },
+      {
+        name: "groupSearchPost",
+        path: "search",
+        component: GroupSearchPost,
+        meta: { title: "搜索帖子" }
+      },
+      {
+        name: "groupPostDetail",
+        path: "posts/:postID(\\d+)",
+        component: GroupPostDetail,
+        meta: { title: "帖子详情" }
+      }
+    ]
   },
   {
     path: "/users/:userID(\\d+)/group",
     component: GroupsForUser,
     meta: {
       title: "TA的圈子",
-      // keepAlive: true,
-      requiresAuth: true
-    }
-  },
-  {
-    name: "groupPostDetail",
-    path: "/groups/:groupId(\\d+)/posts/:postID(\\d+)",
-    component: GroupsPostDetail,
-    meta: {
-      title: "帖子详情",
-      keepAlive: true,
       requiresAuth: true
     }
   },
@@ -88,15 +117,6 @@ export default [
       requiresAuth: true
     }
   },
-  {
-    name: "groupSearchPost",
-    path: "/groups/:groupId(\\d+)/search",
-    component: GroupSearchPost,
-    meta: {
-      title: "搜索帖子",
-      requiresAuth: true
-    }
-  },
 
   /**
    * 点赞列表 && 打赏列表 路由格式固定
@@ -106,7 +126,7 @@ export default [
    */
   {
     path: "/groups/:groupId(\\d+)/posts/:article(\\d+)/likers",
-    component: likes,
+    component: ArticleLikes,
     meta: {
       title: "点赞列表",
       type: "post"
@@ -114,7 +134,7 @@ export default [
   },
   {
     path: "/groups/:groupId(\\d+)/posts/:article(\\d+)/rewarders",
-    component: rewards,
+    component: ArticleRewards,
     meta: {
       title: "打赏列表",
       type: "post"

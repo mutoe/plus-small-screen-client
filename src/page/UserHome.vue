@@ -13,19 +13,11 @@
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }"
       class="m-box m-lim-width m-pos-f m-head-top bg-transp">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
-        <svg
-          v-show="updating"
-          class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-loading"/>
+        <svg v-show="updating" class="m-style-svg m-svg-def">
+          <use xlink:href="#base-loading"/>
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center m-trans-y">
@@ -37,9 +29,7 @@
         </svg> -->
       </div>
     </header>
-    <div
-      v-if="loading"
-      class="m-pos-f m-spinner">
+    <div v-if="loading" class="m-pos-f m-spinner">
       <div/>
       <div/>
     </div>
@@ -58,9 +48,7 @@
               class="m-rfile"
               @change="onBannerChange" >
           </label>
-          <avatar
-            :user="user"
-            size="big" />
+          <avatar :user="user" size="big" />
           <h3>{{ user.name }}</h3>
           <p>
             <router-link
@@ -75,9 +63,9 @@
         </div>
       </div>
       <div class="m-text-box m-urh-info">
-        <p
-          v-if="verified"
-          class="m-cf94">认证：<span>{{ verified.description }}</span></p>
+        <p v-if="verified" class="m-cf94">
+          认证：<span>{{ verified.description }}</span>
+        </p>
         <p v-if="user.location">地址：<span>{{ user.location }}</span></p>
         <p>简介：<span>{{ bio }}</span></p>
         <p style="margin-top: 0; margin-left: -0.1rem">
@@ -95,14 +83,10 @@
         class="m-box m-aln-center m-justify-bet m-urh-filter-box"
         @click="showFilter = !showFilter">
         <span>{{ feedsCount }}条动态</span>
-        <div
-          v-if="isMine"
-          class="m-box m-aln-center m-urh-filter">
+        <div v-if="isMine" class="m-box m-aln-center m-urh-filter">
           <span>{{ feedTypes[screen] }}</span>
           <svg class="m-style-svg m-svg-def">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-filter-list"/>
+            <use xlink:href="#base-filter-list"/>
           </svg>
           <transition v-if="showFilter">
             <ul class="m-urh-filter-options">
@@ -112,12 +96,8 @@
                 class="m-box m-aln-center m-justify-bet"
                 @click="screen = key">
                 <span>{{ val }}</span>
-                <svg
-                  v-if="screen === key"
-                  class="m-style-svg m-svg-def">
-                  <use
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    xlink:href="#base-checked"/>
+                <svg v-if="screen === key" class="m-style-svg m-svg-def">
+                  <use xlink:href="#base-checked"/>
                 </svg>
               </li>
             </ul>
@@ -136,9 +116,7 @@
         </li>
       </ul>
       <div class="m-box m-aln-center m-justify-center load-more-box">
-        <span
-          v-if="noMoreData"
-          class="load-more-ph">---没有更多---</span>
+        <span v-if="noMoreData" class="load-more-ph">---没有更多---</span>
         <span
           v-else
           class="load-more-btn"
@@ -151,13 +129,9 @@
       v-if="!isMine"
       ref="foot"
       class="m-box m-pos-f m-main m-bt1 m-user-home-foot">
-      <div
-        class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center"
-        @click="rewardUser">
+      <div class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center" @click="rewardUser">
         <svg class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#profile-integral"/>
+          <use xlink:href="#profile-integral"/>
         </svg>
         <span>打赏</span>
       </div>
@@ -166,20 +140,14 @@
         class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center"
         @click="followUserByStatus(relation.status)">
         <svg class="m-style-svg m-svg-def">
-          <use
-            :xlink:href="relation.icon"
-            xmlns:xlink="http://www.w3.org/1999/xlink"/>
+          <use :xlink:href="relation.icon"/>
         </svg>
         <span>{{ relation.text }}</span>
       </div>
       <!-- `/chats/${user.id}` -->
-      <div
-        class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center"
-        @click="startSingleChat">
+      <div class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center" @click="startSingleChat">
         <svg class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#message-comments"/>
+          <use xlink:href="#message-comments"/>
         </svg>
         <span>聊天</span>
       </div>
@@ -287,7 +255,7 @@ export default {
       return this.$store.state.CURRENTUSER;
     },
     userID() {
-      return ~~this.$route.params.userID;
+      return ~~this.$route.params.userId;
     },
     user: {
       get() {

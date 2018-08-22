@@ -103,7 +103,8 @@ export default [
     }
   },
   {
-    path: "/users/:userID(\\d+)",
+    name: "userDetail",
+    path: "/users/:userId(\\d+)",
     component: UserHome,
     meta: {
       title: "个人主页",

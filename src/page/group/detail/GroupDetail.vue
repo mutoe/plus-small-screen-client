@@ -150,11 +150,6 @@
       </svg>
     </button>
 
-    <group-members
-      ref="members"
-      :group="group"
-      class="members"/>
-
   </div>
 </template>
 
@@ -162,7 +157,6 @@
 import _ from "lodash";
 import bus from "@/bus.js";
 import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
-import GroupMembers from "./GroupMembers.vue";
 
 import { joinGroup } from "@/api/group.js";
 import { getGroudFeedsByType } from "@/api/group.js";
@@ -190,8 +184,7 @@ export default {
     }
   },
   components: {
-    GroupFeedCard,
-    GroupMembers
+    GroupFeedCard
   },
   data() {
     return {
@@ -291,7 +284,6 @@ export default {
     this.preGID = this.groupId;
   },
   deactivated() {
-    this.loading = true;
     this.showFilter = false;
     window.removeEventListener("scroll", this.onScroll);
   },
@@ -345,7 +337,6 @@ export default {
       );
     },
     updateData() {
-      this.updating = true;
       this.dY = 0;
       this.$store
         .dispatch("group/getGroupById", { groupId: this.groupId })
@@ -395,7 +386,7 @@ export default {
       this.showSlide = !this.showSlide;
     },
     onMembersClick() {
-      this.$refs.members.show();
+      this.$router.push({ name: "groupMembers" });
     },
     onCreatePostClick() {
       this.$router.push({
@@ -521,15 +512,6 @@ export default {
       display: block;
       margin: auto;
     }
-  }
-
-  .members {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 20;
   }
 }
 .p-group-detail-banner {
