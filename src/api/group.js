@@ -171,23 +171,15 @@ export function uncollectPost(postId) {
 
 /**
  * 获取指定圈子的圈子详情
- * @author jsonleex <jsonlseex@163.com>
- * @param  {number} groupId
- * @return {Promise -> Object}
+ * @author mutoe <mutoe@foxmai.com>
+ * @export
+ * @param {number} groupId
+ * @returns {Promise<GroupObject>}
  */
 export function getGroupInfoById(groupId) {
-  return api.get(`/plus-group/groups/${groupId}`).then(
-    ({ data = {} }) => {
-      // TODO 错误处理
-      if (data.message === "未加入该圈子") {
-        throw data;
-      }
-      return data;
-    },
-    err => {
-      throw err;
-    }
-  );
+  return api.get(`/plus-group/groups/${groupId}`, {
+    validateStatus: s => s === 200
+  });
 }
 
 /**

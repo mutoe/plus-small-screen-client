@@ -75,6 +75,12 @@ const actions = {
     const { data } = await api.getProtocol();
     state.protocol = data.protocol;
     return data.protocol || "";
+  },
+
+  async getGroupById(store, payload) {
+    const { groupId } = payload;
+    const { data } = await api.getGroupInfoById(groupId);
+    return data;
   }
 };
 

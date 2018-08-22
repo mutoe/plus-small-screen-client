@@ -160,7 +160,7 @@ import bus from "@/bus.js";
 import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
 
 import { joinGroup } from "@/api/group.js";
-import { getGroupInfoById, getGroudFeedsByType } from "@/api/group.js";
+import { getGroudFeedsByType } from "@/api/group.js";
 
 export default {
   name: "GroupDetail",
@@ -337,7 +337,8 @@ export default {
     updateData() {
       this.updating = true;
       this.dY = 0;
-      getGroupInfoById(this.groupID)
+      this.$store
+        .dispatch("group/getGroupById", { groupId: this.groupID })
         .then(group => {
           this.group = group;
           this.updating = this.loading = false;
