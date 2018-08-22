@@ -199,8 +199,8 @@ export default {
     postID() {
       return this.$route.params.postID;
     },
-    groupID() {
-      return this.$route.params.groupID;
+    groupId() {
+      return this.$route.params.groupId;
     },
     likes() {
       return this.feed.likes || [];
@@ -316,7 +316,7 @@ export default {
         this.$store.state.BROWSER.OS === "IOS" ? window.initUrl : shareUrl;
 
       this.$http
-        .get(`/plus-group/groups/${this.groupID}/posts/${this.feedID}`)
+        .get(`/plus-group/groups/${this.groupId}/posts/${this.feedID}`)
         .then(({ data = {} }) => {
           this.feed = { ...data };
           this.user = this.feed.user;
@@ -476,7 +476,7 @@ export default {
                       text: "删除",
                       style: { color: "#f4504d" },
                       method: () => {
-                        api.deletePost(this.groupID, this.postID).then(() => {
+                        api.deletePost(this.groupId, this.postID).then(() => {
                           this.$Message.success("删除帖子成功");
                           this.goBack();
                         });

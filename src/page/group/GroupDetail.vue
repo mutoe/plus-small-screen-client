@@ -107,10 +107,10 @@
         </div>
       </div>
       <ul class="p-group-detail-feeds">
-        <li v-for="feed in pinneds" :key="`gdf-${groupID}-pinned-feed-${feed.id}`">
+        <li v-for="feed in pinneds" :key="`gdf-${groupId}-pinned-feed-${feed.id}`">
           <group-feed-card :pinned="true" :feed="feed" />
         </li>
-        <li v-for="feed in posts" :key="`gdf-${groupID}-feed-${feed.id}`">
+        <li v-for="feed in posts" :key="`gdf-${groupId}-feed-${feed.id}`">
           <group-feed-card :feed="feed" />
         </li>
       </ul>
@@ -218,8 +218,8 @@ export default {
     };
   },
   computed: {
-    groupID() {
-      return this.$route.params.groupID;
+    groupId() {
+      return this.$route.params.groupId;
     },
     currentUser() {
       return this.$store.state.CURRENTUSER;
@@ -270,15 +270,19 @@ export default {
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
   },
   activated() {
-    this.preGID !== this.groupID
-      ? ((this.loading = true), (this.feeds = []), this.updateData())
-      : setTimeout(() => {
-          this.loading = false;
-        }, 300);
+    if (this.preGID !== this.groupId) {
+      this.loading = true;
+      this.feeds = [];
+      this.updateData();
+    } else {
+      setTimeout(() => {
+        this.loading = false;
+      }, 300);
+    }
 
     window.addEventListener("scroll", this.onScroll);
 
-    this.preGID = this.groupID;
+    this.preGID = this.groupId;
   },
   deactivated() {
     this.loading = true;
@@ -324,7 +328,7 @@ export default {
       if (this.fetchFeeding) return;
       this.fetchFeeding = true;
       const offset = more ? this.pinneds.length + this.posts.length : 0;
-      getGroudFeedsByType(this.groupID, this.screen, 10, offset).then(
+      getGroudFeedsByType(this.groupId, this.screen, 10, offset).then(
         ({ pinneds = [], posts = [] }) => {
           this.posts = more ? [...this.posts, ...posts] : posts;
           this.pinneds = more ? [...this.pinneds, ...pinneds] : pinneds;
@@ -338,7 +342,7 @@ export default {
       this.updating = true;
       this.dY = 0;
       this.$store
-        .dispatch("group/getGroupById", { groupId: this.groupID })
+        .dispatch("group/getGroupById", { groupId: this.groupId })
         .then(group => {
           this.group = group;
           this.updating = this.loading = false;
@@ -378,7 +382,7 @@ export default {
     onSearchClick() {
       this.$router.push({
         name: "groupSearchPost",
-        params: { groupId: this.groupID }
+        params: { groupId: this.groupId }
       });
     },
     onMoreClick() {
@@ -387,7 +391,7 @@ export default {
     onCreatePostClick() {
       this.$router.push({
         name: "groupCreatePost",
-        query: { group: this.groupID }
+        query: { group: this.groupId }
       });
     }
   }

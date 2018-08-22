@@ -52,7 +52,7 @@ export default [
   },
   {
     name: "groupsDetail",
-    path: "/groups/:groupID(\\d+)",
+    path: "/groups/:groupId(\\d+)",
     component: GroupDetail,
     meta: {
       title: "圈子详情",
@@ -71,7 +71,7 @@ export default [
   },
   {
     name: "groupPostDetail",
-    path: "/groups/:groupID(\\d+)/posts/:postID(\\d+)",
+    path: "/groups/:groupId(\\d+)/posts/:postID(\\d+)",
     component: GroupsPostDetail,
     meta: {
       title: "帖子详情",
@@ -105,7 +105,7 @@ export default [
    * copy by @/routers/feed.js
    */
   {
-    path: "/groups/:groupID(\\d+)/posts/:article(\\d+)/likers",
+    path: "/groups/:groupId(\\d+)/posts/:article(\\d+)/likers",
     component: likes,
     meta: {
       title: "点赞列表",
@@ -113,7 +113,7 @@ export default [
     }
   },
   {
-    path: "/groups/:groupID(\\d+)/posts/:article(\\d+)/rewarders",
+    path: "/groups/:groupId(\\d+)/posts/:article(\\d+)/rewarders",
     component: rewards,
     meta: {
       title: "打赏列表",

@@ -16,7 +16,7 @@
     </head-top>
     <div/>
     <div :class="`${prefixCls}-content`">
-      <template v-if="!groupID || selectGroup.id">
+      <template v-if="!groupId || selectGroup.id">
         <div
           :class="`${prefixCls}-select`"
           @click.stop="showChoosePage">
@@ -67,8 +67,8 @@ export default {
     chooseTips() {
       return this.selectGroup.name || "选择圈子";
     },
-    groupID() {
-      return this.selectGroup.id || this.$route.params.groupID;
+    groupId() {
+      return this.selectGroup.id || this.$route.params.groupId;
     },
     disabled() {
       return !(this.title.length > 0 && this.body.length > 0);
@@ -85,7 +85,7 @@ export default {
       this.$router.go(-1);
     },
     postFeed() {
-      if (this.groupID) {
+      if (this.groupId) {
         const params = {
           title: this.title,
           body: this.body,
@@ -94,12 +94,12 @@ export default {
         };
         // /groups/:group/posts
         this.$http
-          .post(`/plus-group/groups/${this.groupID}/posts`, {
+          .post(`/plus-group/groups/${this.groupId}/posts`, {
             ...params
           })
           .then(({ data: { post } }) => {
             if (post.id) {
-              this.$router.push(`/group/${this.groupID}/feed/${post.id}`);
+              this.$router.push(`/group/${this.groupId}/feed/${post.id}`);
             }
           });
       }

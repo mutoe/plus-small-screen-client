@@ -11,7 +11,7 @@
     </common-header>
 
     <form-select-item
-      v-if="!groupID"
+      v-if="!groupId"
       v-model="group.name"
       label="选择圈子"
       @click="selectGroup" />
@@ -37,7 +37,7 @@
     </main>
 
     <choose-group
-      v-if="!groupID"
+      v-if="!groupId"
       ref="chooseGroup"
       @change="onGroupChange"/>
 
@@ -60,18 +60,18 @@ export default {
     };
   },
   computed: {
-    groupID() {
+    groupId() {
       return this.$route.query.group;
     },
     disabled() {
-      if (!this.groupID && !this.group.id) return true;
+      if (!this.groupId && !this.group.id) return true;
       return !this.title || !this.content;
     }
   },
   methods: {
     async onSubmit() {
       const params = {
-        groupId: this.groupID || this.group.id,
+        groupId: this.groupId || this.group.id,
         title: this.title,
         body: this.content,
         summary: this.content
@@ -81,7 +81,7 @@ export default {
         this.$Message.success(data.message);
         this.$router.replace({
           name: "groupPostDetail",
-          params: { groupID: data.post.group_id, postID: data.post.id }
+          params: { groupId: data.post.group_id, postID: data.post.id }
         });
       }
     },
