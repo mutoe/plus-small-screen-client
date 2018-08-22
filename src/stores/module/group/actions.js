@@ -90,5 +90,16 @@ export default {
     const { data } = await api.getGroupInfoById(groupId);
     commit(TYPES.SAVE_GROUP, data);
     return data;
+  },
+
+  /**
+   * 转让圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns {Promise<string>} message
+   */
+  async transferGroup(store, payload) {
+    const { target, groupId } = payload;
+    const { data } = await api.transferGroup(groupId, { target });
+    return data;
   }
 };

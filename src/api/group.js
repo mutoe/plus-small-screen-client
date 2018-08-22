@@ -408,3 +408,17 @@ export function getMembers(groupId, params) {
   const url = `/plus-group/groups/${groupId}/members`;
   return api.get(url, { params, validateStatus: s => s === 200 });
 }
+
+/**
+ * 转让圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {Object} params
+ * @param {number} params.target 被转让用户id
+ * @returns
+ */
+export function transferGroup(groupId, params) {
+  const url = `/plus-group/groups/${groupId}/owner`;
+  return api.patch(url, params, { validateStatus: s => s === 201 });
+}

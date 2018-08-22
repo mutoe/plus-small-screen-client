@@ -147,7 +147,7 @@
             <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
           </span>
         </li>
-        <li>
+        <li v-if="isOwner">
           <span>
             <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg>
             发帖权限
@@ -157,7 +157,14 @@
           </span>
         </li>
       </ul>
-      <button class="btn-quit">退出圈子</button>
+      <button
+        v-if="isOwner"
+        class="btn-quit"
+        @click="onTransfer">转让圈子</button>
+      <button
+        v-else
+        class="btn-quit"
+        @click="onExit">退出圈子</button>
     </aside>
     <div class="slide-mask" @click="showSlide = false"/>
 
@@ -414,6 +421,10 @@ export default {
         name: "groupCreatePost",
         query: { group: this.groupId }
       });
+    },
+    onExit() {},
+    onTransfer() {
+      this.$router.push({ name: "groupTransfer" });
     }
   }
 };

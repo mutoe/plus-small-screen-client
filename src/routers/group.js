@@ -30,6 +30,8 @@ const GroupPostDetail = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupPostDetail.vue");
 const GroupInfo = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupInfo.vue");
+const GroupTransfer = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupTransfer.vue");
 
 export default [
   {
@@ -71,13 +73,13 @@ export default [
   {
     path: "/groups/:groupId(\\d+)",
     component: GroupDetailBase,
-    meta: { requiresAuth: true },
+    meta: { title: "圈子详情", requiresAuth: true },
     children: [
       {
-        name: "groupsDetail",
+        name: "groupDetail",
         path: "",
         component: GroupDetail,
-        meta: { title: "圈子详情", keepAlive: true }
+        meta: { keepAlive: true }
       },
       {
         name: "groupMembers",
@@ -95,12 +97,19 @@ export default [
         name: "groupPostDetail",
         path: "posts/:postID(\\d+)",
         component: GroupPostDetail,
-        meta: { title: "帖子详情", sidebar: true }
+        meta: { title: "帖子详情" }
       },
       {
         name: "groupInfo",
         path: "info",
-        component: GroupInfo
+        component: GroupInfo,
+        meta: { title: "圈子转让", sidebar: true }
+      },
+      {
+        name: "groupTransfer",
+        path: "transfer",
+        component: GroupTransfer,
+        meta: { sidebar: true }
       }
     ]
   },
