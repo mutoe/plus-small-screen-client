@@ -57,9 +57,10 @@
             </p>
             <p>
               <span
+                class="m-text-cut address"
                 append
                 to="followings"
-                tag="span">地址:<i>位置</i></span>
+                tag="span">地址:<address>{{ group.location }}</address></span>
             </p>
           </div>
           <div class="m-box m-aln-center m-flex-grow0 m-flex-shink0 group-item-action c_fff">
@@ -274,6 +275,9 @@ export default {
 
     joined() {
       return this.group.joined || false;
+    },
+    isOwner() {
+      return this.groupOwner.id === this.currentUser.id;
     }
   },
   watch: {
@@ -512,6 +516,11 @@ export default {
     }
   }
 
+  .address {
+    display: inline-block;
+    max-width: 20em;
+  }
+
   .create-post {
     position: fixed;
     bottom: 40px;
@@ -524,6 +533,7 @@ export default {
     background-color: @primary;
     border: 2px solid #fff;
     box-shadow: 0px 0px 12px 0px rgba(89, 182, 215, 0.43);
+    z-index: 1;
 
     > svg {
       display: block;
@@ -653,6 +663,8 @@ export default {
 }
 
 .group-item-action {
+  margin-bottom: 80px;
+
   button {
     display: flex;
     align-items: center;
