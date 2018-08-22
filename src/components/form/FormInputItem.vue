@@ -8,6 +8,7 @@
         :value="value"
         :maxlength="maxlength"
         :placeholder="placeholder"
+        :readonly="readonly"
         type="text"
         @input="$emit('input', $event.target.value)">
     </div>
@@ -20,9 +21,10 @@
         :value="value"
         :placeholder="placeholder"
         :maxlength="maxlength"
+        :readonly="readonly"
         rows="1"
         @input="$emit('input', $event.target.value)" />
-      <span v-show="value.length > warnlength" class="word-length">{{ value.length }} / {{ maxlength }}</span>
+      <span v-show="maxlength && value.length > warnlength" class="word-length">{{ value.length }} / {{ maxlength }}</span>
     </div>
 
   </section>
@@ -34,6 +36,7 @@ export default {
   props: {
     value: { type: String, default: "" },
     label: { type: String, required: true },
+    readonly: { type: Boolean, default: false },
 
     /**
      * 文本框类型
@@ -63,12 +66,17 @@ export default {
       padding: 0;
       width: 100%;
       background-color: transparent;
+
+      &[readonly] {
+        color: #999;
+        cursor: not-allowed;
+      }
     }
   }
 }
 
 .c-form-textarea-item {
-  height: auto;
+  height: auto !important;
 
   > label {
     align-self: flex-start;
@@ -80,6 +88,7 @@ export default {
     width: 100%;
     height: calc(~"100% + 40px");
     padding-right: 20px;
+    align-self: flex-start;
 
     .textarea-shadow {
       opacity: 0;
@@ -104,6 +113,11 @@ export default {
       background-color: transparent;
       word-wrap: break-word;
       word-break: break-all;
+
+      &[readonly] {
+        color: #999;
+        cursor: not-allowed;
+      }
     }
 
     .word-length {
@@ -112,6 +126,12 @@ export default {
       margin-top: -18px;
       padding-bottom: 18px;
       text-align: right;
+    }
+  }
+
+  + .c-form-item {
+    .textarea-wrap {
+      border-top: 1px solid @border-color;
     }
   }
 }

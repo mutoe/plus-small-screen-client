@@ -501,9 +501,13 @@ export default {
 
 输入框标签 label
 
-##### `placeholder` {string}
+##### `placeholder` {string} `""(empty string)`
 
 占位符
+
+##### `readonly` {boolean} `false`
+
+只读
 
 ### `FormInputItem` 文本输入框
 
@@ -511,10 +515,9 @@ export default {
 
 #### `Props`
 
-##### `type` {string}
+##### `type` {string} `input`
 
-输入框的类型, 支持 input(单行文本框) 和 textarea(多行文本框), 默认值为 'input'  
-
+输入框的类型, 支持 input(单行文本框) 和 textarea(多行文本框)
 
 ##### `maxlength` {number|string}
 

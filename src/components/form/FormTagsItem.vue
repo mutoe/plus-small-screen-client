@@ -9,7 +9,7 @@
           :key="tag.id"
           class="m-tag">{{ tag.name }}</span>
       </div>
-      <svg class="m-style-svg m-svg-def m-entry-append">
+      <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
         <use xlink:href="#base-arrow-r"/>
       </svg>
     </div>
@@ -23,10 +23,12 @@ export default {
   name: "FormTagsItem",
   props: {
     value: { type: Array, default: () => [] },
-    label: { type: String, default: "标签" }
+    label: { type: String, default: "标签" },
+    readonly: { type: Boolean, default: false }
   },
   methods: {
     switchTags() {
+      if (this.readonly) return;
       const chooseTags = this.value.map(t => t.id);
       const nextStep = tags => {
         this.$emit("input", tags);

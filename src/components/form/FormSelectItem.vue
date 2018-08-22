@@ -3,7 +3,7 @@
     <label>{{ label }}</label>
     <div class="input-wrap" @click="onClick">
       <span :class="{placeholder: value.length === 0}">{{ value || placeholder }}</span>
-      <svg class="m-style-svg m-svg-def m-entry-append">
+      <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
         <use xlink:href="#base-arrow-r"/>
       </svg>
     </div>
@@ -17,10 +17,12 @@ export default {
     value: { type: String, default: "" },
     label: { type: String, default: "" },
     placeholder: { type: String, default: "" },
-    multiline: { type: Boolean, default: false }
+    multiline: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false }
   },
   methods: {
     onClick() {
+      if (this.readonly) return;
       this.$emit("click");
     }
   }

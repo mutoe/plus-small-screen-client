@@ -4,7 +4,7 @@
       <img :src="avatar" class="m-avatar-img">
     </div>
     <span class="avatar-label">{{ label }}</span>
-    <svg class="m-style-svg m-svg-def m-entry-append">
+    <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
       <use xlink:href="#base-arrow-r"/>
     </svg>
     <input
@@ -45,6 +45,7 @@ export default {
   props: {
     value: { type: null, default: null },
     label: { type: String, default: "上传头像" },
+    readonly: { type: Boolean, default: false },
 
     /**
      * 文件类型
@@ -54,7 +55,7 @@ export default {
       type: String,
       default: "id",
       validator(type) {
-        return ["blob", "id"].includes(type);
+        return ["blob", "id", "url"].includes(type);
       }
     },
 
@@ -66,6 +67,7 @@ export default {
   computed: {
     avatar() {
       if (!this.value) return null;
+      if (this.value.match(/^https?:/)) return this.value;
       switch (this.type) {
         case "id":
           return `${baseURL}/files/${this.value}`;
@@ -81,6 +83,7 @@ export default {
 
   methods: {
     beforeSelectFile() {
+      if (this.readonly) return;
       this.$refs.imagefile.click();
     },
     async selectPhoto(e) {
@@ -122,7 +125,7 @@ export default {
 
 form .c-form-avatar-item {
   height: 160px;
-  border-bottom: 1px solid @border-color;
+  border-bottom: 1px solid @border-color !important;
   padding-right: 20px;
 
   .avatar-wrap {

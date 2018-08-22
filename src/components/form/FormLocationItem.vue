@@ -3,7 +3,7 @@
     <label>{{ label }}</label>
     <div class="input-wrap" @click="switchPosition">
       <span :class="{placeholder: !value.label}">{{ value.label || "设置圈子的地理位置" }}</span>
-      <svg class="m-style-svg m-svg-def m-entry-append">
+      <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
         <use xlink:href="#base-arrow-r"/>
       </svg>
     </div>
@@ -24,7 +24,8 @@ export default {
   components: { Location },
   props: {
     value: { type: null, default: () => {} },
-    label: { type: String, default: "位置" }
+    label: { type: String, default: "位置" },
+    readonly: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -33,6 +34,7 @@ export default {
   },
   methods: {
     switchPosition() {
+      if (this.readonly) return;
       this.showPosition = true;
     },
     close(val) {
