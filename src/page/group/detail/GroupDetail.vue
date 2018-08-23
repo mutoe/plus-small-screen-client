@@ -283,6 +283,13 @@ export default {
     joined() {
       return this.group.joined || false;
     },
+    role() {
+      if (!this.joined) return false;
+      return this.joined.role;
+    },
+    permissions() {
+      return this.group.permissions.split(",");
+    },
     isOwner() {
       return this.groupOwner.id === this.currentUser.id;
     }
@@ -417,12 +424,20 @@ export default {
       this.showSlide = !this.showSlide;
     },
     onCreatePostClick() {
-      if (this.joined)
-        return this.$router.push({
-          name: "groupCreatePost",
-          query: { group: this.groupId }
-        });
-      bus.$emit("actionSheet", [], "知道了", "需要先加入才可发帖");
+      if (!this.joined)
+        return bus.$emit("actionSheet", [], "知道了", "需要先加入才可发帖");
+      if (!this.permissions.includes(this.role)) {
+        const roleText = this.permissions.includes("administrator")
+          ? "圈主和管理员"
+          : "圈主";
+        const text = `${this.group.name}仅${roleText}拥有发帖权限`;
+        return bus.$emit("actionSheet", [], "知道了", text);
+      }
+
+      this.$router.push({
+        name: "groupCreatePost",
+        query: { group: this.groupId }
+      });
     },
     onExit() {
       const actions = [
