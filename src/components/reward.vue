@@ -161,6 +161,7 @@ export default {
     },
     cancel() {
       this.show = false;
+      this.customAmount = null;
       this.type = "";
       this.api = noop;
       this.callback = noop;
