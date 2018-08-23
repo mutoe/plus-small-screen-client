@@ -111,7 +111,7 @@
         <li v-for="feed in pinneds" :key="`gdf-${groupId}-pinned-feed-${feed.id}`">
           <group-feed-card :pinned="true" :feed="feed" />
         </li>
-        <li v-for="feed in posts" :key="`gdf-${groupId}-feed-${feed.id}`">
+        <li v-for="(feed, index) in posts" :key="`gdf-${groupId}-feed-${feed.id}-${index}`">
           <group-feed-card :feed="feed" />
         </li>
       </ul>
@@ -297,6 +297,9 @@ export default {
   watch: {
     $route(to, from) {
       if (from.meta.sidebar) this.showSlide = true;
+    },
+    screen() {
+      this.getFeeds();
     }
   },
   created() {
