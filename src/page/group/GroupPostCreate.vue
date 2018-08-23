@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.disabled) return;
       const params = {
         groupId: this.groupId || this.group.id,
         title: this.title,
