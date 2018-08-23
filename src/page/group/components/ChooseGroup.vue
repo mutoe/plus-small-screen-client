@@ -62,8 +62,8 @@ export default {
   background-color: #f4f5f5;
 
   .list {
-    > li {
-      border-bottom: 1px solid @border-color;
+    > li + li {
+      border-top: 1px solid @border-color;
     }
   }
 }
