@@ -47,4 +47,17 @@ export default {
 
 <style lang="less" scoped>
 @import url("./formItem.less");
+
+.c-form-item.c-form-tags-item {
+  min-height: 100px;
+  height: auto;
+
+  .input-wrap {
+    padding: 28px 20px 28px 0;
+
+    > svg {
+      flex: none;
+    }
+  }
+}
 </style>
