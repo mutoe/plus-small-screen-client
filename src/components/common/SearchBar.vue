@@ -65,6 +65,7 @@ export default {
       color: #7c7c7c;
       flex: auto;
       background-color: transparent;
+      font-size: 30px;
     }
   }
 
