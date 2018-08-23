@@ -127,7 +127,7 @@ export default {
       if (this.isMine) {
         // 是否是自己文章
         actions.push({
-          text: "申请文章置顶",
+          text: "申请帖子置顶",
           method: () => {
             bus.$emit("applyTop", {
               type: "post",
