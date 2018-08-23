@@ -464,7 +464,7 @@ export default {
     async exitGroup() {
       await this.$store.dispatch("group/exitGroup", { groupId: this.groupId });
       this.$Message.success("退出圈子成功");
-      this.$router.replace({ name: "groups" });
+      this.$router.replace({ name: "groupHome" });
     },
     onTransfer() {
       this.$router.push({ name: "groupTransfer" });

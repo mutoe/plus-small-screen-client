@@ -37,6 +37,7 @@ const GroupPermission = () =>
 
 export default [
   {
+    name: "groupHome",
     path: "/group",
     component: GroupHome,
     meta: {
