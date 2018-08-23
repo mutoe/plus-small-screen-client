@@ -16,7 +16,7 @@ export default {
   name: "GroupPermission",
   data() {
     return {
-      current: ""
+      current: this.remote
     };
   },
   computed: {
@@ -26,7 +26,7 @@ export default {
     group() {
       return this.$store.state.group.current;
     },
-    origin() {
+    remote() {
       let permissions = this.group.permissions || "";
       permissions = permissions.split(",");
       if (permissions.includes("member")) return "member";
@@ -40,9 +40,12 @@ export default {
       if (!oldVal) return;
       this.switch(val);
     },
-    origin(val) {
+    remote(val) {
       this.current = val;
     }
+  },
+  mounted() {
+    this.current = this.remote;
   },
   methods: {
     switch(role) {
