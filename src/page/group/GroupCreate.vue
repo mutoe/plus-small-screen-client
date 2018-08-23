@@ -134,7 +134,7 @@ export default {
         summary: "", // 简介
         allow_feed: 0,
         mode: "public",
-        money: null,
+        money: "",
         notice: "" // 公告
       }
     };
