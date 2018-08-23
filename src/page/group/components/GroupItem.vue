@@ -17,6 +17,7 @@
     </div>
 
     <span v-if="isOwner" class="owner-badge">圈主</span>
+    <span v-if="isAdmin" class="admin-badge">管理员</span>
 
     <div v-if="showAction" class="action">
       <button
@@ -79,6 +80,9 @@ export default {
     },
     isOwner() {
       return this.role === "founder";
+    },
+    isAdmin() {
+      return this.role === "administrator";
     }
   },
   methods: {
@@ -159,6 +163,14 @@ export default {
 
   .owner-badge {
     background-color: #fca308;
+    color: #fff;
+    font-size: 22px;
+    border-radius: 200px;
+    padding: 2px 20px;
+  }
+
+  .admin-badge {
+    background-color: #ccc;
     color: #fff;
     font-size: 22px;
     border-radius: 200px;
