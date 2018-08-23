@@ -81,7 +81,7 @@ export default {
         memberPromise
       ]);
       this.member = member;
-      this.administrator = manager;
+      this.administrator = manager.sort(m => m.role !== "founder");
     },
     fetchGroup() {
       this.$store.dispatch("group/getGroupById", { groupId: this.groupId });
