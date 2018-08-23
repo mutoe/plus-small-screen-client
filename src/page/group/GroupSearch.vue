@@ -33,7 +33,13 @@
     </jo-load-more>
 
     <p v-show="loading" class="load-more-ph m-text-c mt10">正在搜索...</p>
-    <div v-show="noResult &&!loading && keyword && !list.length" class="m-no-find"/>
+    <template v-if="noResult &&!loading && keyword && !list.length" >
+      <div v-if="type === 'posts'" class="m-no-find"/>
+      <div v-else class="no-groups">
+        <p> 未找到相关圈子, 创建属于自己的圈子吧</p>
+        <button @click="$router.push({name: 'groupCreate'})">创建圈子</button>
+      </div>
+    </template>
 
   </div>
 </template>
@@ -153,6 +159,27 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+  }
+  .no-groups {
+    padding-top: 180px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+
+    > button {
+      background-color: @primary;
+      color: #fff;
+      border-radius: 8px;
+      padding: 15px 120px;
+      font-size: 32px;
+      margin-top: 30px;
+    }
   }
 }
 </style>
