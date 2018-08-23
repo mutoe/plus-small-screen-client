@@ -67,7 +67,8 @@ export default {
   computed: {
     avatar() {
       if (!this.value) return null;
-      if (this.value.match(/^https?:/)) return this.value;
+      if (typeof this.value === "string" && this.value.match(/^https?:/))
+        return this.value;
       switch (this.type) {
         case "id":
           return `${baseURL}/files/${this.value}`;
