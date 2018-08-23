@@ -60,7 +60,7 @@
                 class="m-text-cut address"
                 append
                 to="followings"
-                tag="span">地址:<address>{{ group.location }}</address></span>
+                tag="span">地址:<address>{{ location }}</address></span>
             </p>
           </div>
           <div class="m-box m-aln-center m-flex-grow0 m-flex-shink0 group-item-action c_fff">
@@ -267,6 +267,13 @@ export default {
       return {
         "background-image": this.groupAvatar ? `url("${this.groupAvatar}")` : ""
       };
+    },
+    location() {
+      const location = this.group.location;
+      if (location) return location;
+      const map = ["水星", "金星", "火星", "土星", "地球"];
+      const rand = Math.floor(Math.random() * map.length);
+      return map[rand];
     },
 
     // banner 相关

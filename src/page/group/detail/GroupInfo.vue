@@ -25,7 +25,7 @@
 
       <!-- 位置选择 -->
       <form-input-item
-        v-model="group.location"
+        v-model="location"
         :readonly="true"
         type="textarea"
         label="位置"/>
@@ -60,6 +60,11 @@ export default {
     },
     category() {
       return this.group.category || {};
+    },
+    location() {
+      const location = this.group.location;
+      if (location) return location;
+      return "不显示位置";
     }
   },
   created() {
