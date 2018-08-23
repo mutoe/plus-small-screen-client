@@ -17,7 +17,7 @@
     </jo-load-more>
 
     <p v-show="loading" class="load-more-ph m-text-c mt10">正在搜索...</p>
-    <div v-show="noResult && !loading && keyword && !list.length" class="placeholder m-no-find"/>
+    <div v-show="noResult && !loading && !list.length" class="m-no-find"/>
 
   </div>
 </template>
@@ -69,6 +69,7 @@ export default {
       });
       this.loading = false;
       this.list = data;
+      this.noResult = !this.list.length;
       this.$refs.loadmore.afterRefresh(data.length < 15);
     }, 600),
 
@@ -89,7 +90,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.lodemore {
-  padding-top: 90px;
+.p-search-post {
+  height: 100%;
+
+  .m-no-find {
+    height: calc(~"100% - 90px");
+  }
 }
 </style>
