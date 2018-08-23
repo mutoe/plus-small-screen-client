@@ -417,10 +417,12 @@ export default {
       this.showSlide = !this.showSlide;
     },
     onCreatePostClick() {
-      this.$router.push({
-        name: "groupCreatePost",
-        query: { group: this.groupId }
-      });
+      if (this.joined)
+        return this.$router.push({
+          name: "groupCreatePost",
+          query: { group: this.groupId }
+        });
+      bus.$emit("actionSheet", [], "知道了", "需要先加入才可发帖");
     },
     onExit() {
       const actions = [
