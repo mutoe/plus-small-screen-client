@@ -22,11 +22,8 @@
         </span>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <template
-          v-if="!isMine"
-          :class="{ c_59b6d7: relation.status !== 'unFollow' }"
-          @click="followUserByStatus(relation.status)">
-          <svg class="m-style-svg m-svg-def">
+        <template v-if="!isMine" :class="{ c_59b6d7: relation.status !== 'unFollow' }" >
+          <svg class="m-style-svg m-svg-def" @click="followUserByStatus(relation.status)">
             <use :xlink:href="relation.icon"/>
           </svg>
         </template>
@@ -152,6 +149,7 @@ import plusImagePlugin from "markdown-it-plus-image";
 import FeedDetail from "@/page/feed/FeedDetail.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
 import wechatShare from "@/util/wechatShare.js";
+import { followUserByStatus } from "@/api/user.js";
 import { limit } from "@/api/api.js";
 import * as api from "@/api/group.js";
 
@@ -241,6 +239,39 @@ export default {
       },
       set(val) {
         this.feed.collected = val;
+      }
+    },
+    relation: {
+      get() {
+        const relations = {
+          unFollow: {
+            text: "关注",
+            status: "unFollow",
+            icon: `#base-unFollow`
+          },
+          follow: {
+            text: "已关注",
+            status: "follow",
+            icon: `#base-follow`
+          },
+          eachFollow: {
+            text: "互相关注",
+            status: "eachFollow",
+            icon: `#base-eachFollow`
+          }
+        };
+        const { follower, following } = this.user;
+        return relations[
+          follower && following
+            ? "eachFollow"
+            : follower
+              ? "follow"
+              : "unFollow"
+        ];
+      },
+
+      set(val) {
+        this.user.follower = val;
       }
     }
   },
@@ -477,6 +508,19 @@ export default {
             }
           ];
       bus.$emit("actionSheet", [...defaultActions, ...actions], "取消");
+    },
+    // TODO: refactor 'followUserByStatus' api to vuex.action
+    followUserByStatus(status) {
+      if (!status || this.fetchFollow) return;
+      this.fetchFollow = true;
+
+      followUserByStatus({
+        id: this.user.id,
+        status
+      }).then(follower => {
+        this.relation = follower;
+        this.fetchFollow = false;
+      });
     },
     replyComment(uid, uname, commentId) {
       // 是否是自己的评论
