@@ -22,6 +22,7 @@ export default [
     }
   },
   {
+    name: "currencyRecharge",
     path: "/currency/recharge",
     component: CurrencyRecharge,
     meta: {

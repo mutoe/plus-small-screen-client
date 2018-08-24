@@ -40,6 +40,7 @@
 
 <script>
 import bus from "@/bus.js";
+import { mapState } from "vuex";
 
 export default {
   name: "GroupItem",
@@ -54,6 +55,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["CURRENTUSER"]),
     avatar() {
       return this.group.avatar;
     },
@@ -100,7 +102,8 @@ export default {
             amount: this.money,
             content: `你只需支付${this.money}积分来加入圈子`,
             onOk: async () => {
-              this.joinGroup();
+              if (this.money <= this.CURRENTUSER.currency.sum) this.joinGroup();
+              else this.$router.push({ name: "currencyRecharge" });
             },
             onCancel: () => {
               this.loading = false;
