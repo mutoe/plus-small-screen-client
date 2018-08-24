@@ -136,5 +136,32 @@ export default {
       ? await api.joinGroupWithPaid(groupId)
       : await api.joinGroup(groupId);
     return data;
+  },
+
+  // 获取圈子分类数据
+  async getGroupTypes({ commit }) {
+    const { data = [] } = await api.getGroupCates();
+    commit(TYPES.SAVE_GROUP_CATES, data);
+    return data;
+  },
+
+  /**
+   * 获取圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {*} store
+   * @param {*} payload
+   * @returns
+   */
+  async getGroups(store, payload) {
+    const { type, limit, offset = 0, categoryId } = payload;
+
+    const { data } = ["recommend", "random"].includes(type)
+      ? await api.getRecommendGroups({
+          type: type === "random" ? "random" : undefined,
+          limit,
+          offset
+        })
+      : await api.getGroups({ category_id: categoryId, limit, offset });
+    return data;
   }
 };

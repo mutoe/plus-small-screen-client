@@ -23,9 +23,6 @@ const state = {
   /* 终端信息 */
   BROWSER: detectOS(),
 
-  /* 圈子分类 */
-  GROUPTYPES: lstore.getData("GROUPTYPES") || [],
-
   /* 当前登录用户信息 */
   CURRENTUSER: lstore.getData("H5_CUR_USER") || {},
 
@@ -48,9 +45,7 @@ const state = {
     category: {},
     data: {},
     files: []
-  },
-
-  GROUP_CATES: lstore.getData("H5_GROUP_CATES") || []
+  }
 };
 
 export default new Vuex.Store({

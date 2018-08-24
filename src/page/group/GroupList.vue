@@ -25,7 +25,7 @@
           <span>推荐</span>
         </router-link>
         <router-link
-          v-for="cate in GROUP_CATES"
+          v-for="cate in categories"
           :to="{ name: 'groups', query: { category: cate.id } }"
           :key="cate.id"
           class="m-text-box p-groups-nav-item"
@@ -37,11 +37,12 @@
         </router-link>
       </nav>
 
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        style="padding-top: 0.9rem">
+        :auto-load="false"
+        style="padding-top: 0.9rem"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore">
         <div
           v-for="group in groups"
           :key="group.id"
@@ -50,30 +51,30 @@
             :group="group"
             :show-action="true" />
         </div>
-      </load-more>
+      </jo-load-more>
 
     </main>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import GroupItem from "./components/GroupItem.vue";
-import { getGroupsByCate } from "@/api/group.js";
+
 export default {
-  name: "Groups",
+  name: "GroupList",
   components: {
     GroupItem
   },
   data() {
-    const GROUPS = new Map();
     return {
-      GROUPS,
+      GROUPS: new Map(),
       GROUPChangeTracker: 1
     };
   },
   computed: {
-    ...mapState(["GROUP_CATES"]),
+    categories() {
+      return this.$store.state.group.categories;
+    },
     recommend: {
       get() {
         return this.$route.query.type || false;
@@ -105,11 +106,14 @@ export default {
     }
   },
   created() {
-    if (!this.$route.query.type)
+    if (!this.$route.query.type && !this.$route.query.category)
       this.$router.replace(
         Object.assign({}, this.$route, { query: { type: "recommend" } })
       );
-    this.$store.dispatch("GET_GROUP_TYPES");
+    this.$store.dispatch("group/getGroupTypes");
+  },
+  mounted() {
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     formateGroups(groups) {
@@ -126,19 +130,23 @@ export default {
       this.recommend = false;
       this.$route.query.category = cate.id;
     },
-    onRefresh() {
-      getGroupsByCate(this.currentType, 15).then((data = []) => {
-        this.formateGroups(data);
-        this.$refs.loadmore.topEnd(!(data.length < 15));
-      });
+    async onRefresh() {
+      const params = {};
+      if (this.recommend) params.type = "recommend";
+      else params.categoryId = this.category;
+
+      const data = await this.$store.dispatch("group/getGroups", params);
+      this.formateGroups(data);
+      this.$refs.loadmore.afterRefresh(data.length < 15);
     },
-    onLoadMore() {
-      getGroupsByCate(this.currentType, 15, this.groups.length).then(
-        (data = []) => {
-          this.formateGroups(data);
-          this.$refs.loadmore.bottomEnd(data.length < 15);
-        }
-      );
+    async onLoadMore() {
+      const params = { offset: this.groups.length };
+      if (this.recommend) params.type = "recommend";
+      else params.categoryId = this.category;
+
+      const data = await this.$store.dispatch("group/getGroups", params);
+      this.formateGroups(data);
+      this.$refs.loadmore.afterLoadMore(data.length < 15);
     }
   }
 };
@@ -153,12 +161,15 @@ export default {
   font-size: 26px;
   color: @text-color3;
   overflow-y: auto;
+
   &-item {
     flex: 0 0 auto;
     transition: all 0.1s ease;
+
     & + & {
       margin-left: 50px;
     }
+
     &.active {
       color: @text-color1;
       font-size: 30px;

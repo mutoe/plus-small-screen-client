@@ -124,23 +124,35 @@ export function getGroupsByUser(UID, limit = 15, offset = 0) {
 }
 
 /**
- * 获取指定分类下的圈子列表
- * @author jsonleex <jsonlseex@163.com>
- * @param  {number} cate    分类id (cate === -1  && 获取推荐圈子)
- * @param  {number} limit
- * @param  {number} offset
- * @returns {Promise -> Array}
+ * 全部圈子列表
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} [params]
+ * @param {number} [params.limit]
+ * @param {number} [params.offset]
+ * @param {string} [params.keyword]
+ * @param {number} [params.category_id]
+ * @param {string} [params.id] 以逗号分隔的 id 字符串
+ * @returns {Promise<GroupObject>}
  */
-export function getGroupsByCate(cate = -1, limit = 15, offset = 0) {
-  const url =
-    cate > -1
-      ? `/plus-group/groups?category_id=${cate}`
-      : "/plus-group/recommend/groups";
-  const params = { limit, offset };
-  return api
-    .get(url, { params })
-    .then(({ data = [] }) => data)
-    .catch(err => (err, []));
+export function getGroups(params) {
+  const url = `/plus-group/groups`;
+  return api.get(url, { params, validateStatus: s => s === 200 });
+}
+
+/**
+ * 获取推荐圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} [params]
+ * @param {number} [params.limit]
+ * @param {number} [params.offset]
+ * @param {string} [params.type]
+ * @returns {Promise<GroupObject[]>}
+ */
+export function getRecommendGroups(params) {
+  const url = "/plus-group/recommend/groups";
+  return api.get(url, { params, validateStatus: s => s === 200 });
 }
 
 /**

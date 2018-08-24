@@ -60,12 +60,6 @@ export default {
     lstore.setData("H5_CUR_USER", state.CURRENTUSER);
   },
 
-  // 保存圈子分类列表
-  SAVE_GROUP_CATES(state, cates) {
-    state.GROUP_CATES = cates;
-    lstore.setData("GROUP_CATES", cates);
-  },
-
   // 保存用户标签数据
   SAVE_USER_TAGS(state, list) {
     state.USERTAGS = list;

@@ -128,14 +128,16 @@ export default {
       const groups = await this.$store.dispatch("group/getMyGroups");
       this.formateGroups(groups);
     },
-    fetchRecGroups() {
+    async fetchRecGroups() {
       if (this.fetchRecing) return;
       this.fetchRecing = true;
-      api.getRecGroups().then(groups => {
-        this.recGroups = groups;
-        this.clickCount += 1;
-        this.fetchRecing = false;
+      const groups = await this.$store.dispatch("group/getGroups", {
+        type: "random",
+        limit: 5
       });
+      this.recGroups = groups;
+      this.clickCount += 1;
+      this.fetchRecing = false;
     },
     onSearchClick() {
       this.$router.push({ name: "groupSearch" });

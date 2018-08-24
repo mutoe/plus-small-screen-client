@@ -7,7 +7,7 @@
       <main>
         <ul class="m-cates">
           <li
-            v-for="cate in GROUP_CATES"
+            v-for="cate in categories"
             v-if="cate.id"
             :key="cate.id"
             class="m-cate"
@@ -19,8 +19,6 @@
   </transition>
 </template>
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "ChooseGroupCate",
   data() {
@@ -30,10 +28,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["GROUP_CATES"])
+    categories() {
+      return this.$store.state.group.categories;
+    }
   },
   mounted() {
-    this.$store.dispatch("GET_GROUP_TYPES");
+    this.$store.dispatch("group/getGroupTypes");
   },
   methods: {
     show() {
