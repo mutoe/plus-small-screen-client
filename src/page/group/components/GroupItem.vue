@@ -40,7 +40,6 @@
 
 <script>
 import bus from "@/bus.js";
-import { joinGroup } from "@/api/group.js";
 
 export default {
   name: "GroupItem",
@@ -84,35 +83,44 @@ export default {
     },
     isAdmin() {
       return this.role === "administrator";
+    },
+    needPaid() {
+      return this.mode === "paid" && this.money > 0;
     }
   },
   methods: {
-    beforeJoined() {
+    async beforeJoined() {
       if (this.joined || this.loading) return;
       this.loading = true;
-      this.mode === "paid" && this.money > 0
-        ? bus.$emit("payfor", {
+      !this.needPaid
+        ? this.joinGroup()
+        : bus.$emit("payfor", {
             title: "申请加入圈子",
             confirmText: "支付并加入",
             amount: this.money,
             content: `你只需支付${this.money}积分来加入圈子`,
-            onOk: () => {
-              joinGroup(this.group.id).then(
-                ({ data: { message = "加圈成功" } }) => {
-                  this.$Message.success(message);
-                  this.loading = false;
-                  this.group.joined = true;
-                }
-              );
+            onOk: async () => {
+              this.joinGroup();
             },
             onCancel: () => {
               this.loading = false;
             }
-          })
-        : joinGroup(this.group.id).then(() => {
-            this.loading = false;
-            this.group.joined = true;
           });
+    },
+    joinGroup() {
+      this.$store
+        .dispatch("group/joinGroup", {
+          groupId: this.group.id,
+          needPaid: this.needPaid
+        })
+        .then(data => {
+          this.loading = false;
+          this.$Message.success(data);
+          this.group.joined = this.needPaid ? {} : { audit: 1 };
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     beforeViewDetail() {
       this.joined

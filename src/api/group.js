@@ -88,14 +88,26 @@ export function getRecGroups() {
 
 /**
  * 加入圈子
- * @author jsonleex <jsonlseex@163.com>
- * @param  {number} GID
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
  * @returns
  */
-export function joinGroup(GID) {
-  return api.put(`/plus-group/groups/${GID}`, {
-    validateStatus: s => s === 201
-  });
+export function joinGroup(groupId) {
+  const url = `/plus-group/groups/${groupId}`;
+  return api.put(url, {}, { validateStatus: s => s === 201 });
+}
+
+/**
+ * 加入付费圈子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @returns
+ */
+export function joinGroupWithPaid(groupId) {
+  const url = `/plus-group/currency-groups/${groupId}`;
+  return api.put(url, {}, { validateStatus: s => s === 201 });
 }
 
 /**

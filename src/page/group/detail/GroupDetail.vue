@@ -182,7 +182,6 @@ import _ from "lodash";
 import bus from "@/bus.js";
 import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
 
-import { joinGroup } from "@/api/group.js";
 import { getGroudFeedsByType } from "@/api/group.js";
 
 export default {
@@ -344,29 +343,19 @@ export default {
     beforeJoined() {
       if (this.joined || this.loading) return;
       this.loading = true;
-      this.mode === "paid" && this.money > 0
-        ? bus.$emit("payfor", {
-            title: "申请加入圈子",
-            confirmText: "支付并加入",
-            amount: this.money,
-            content: `您只需支付${this.money}积分来加入圈子`,
-            onOk: () => {
-              joinGroup(this.group.id).then(
-                ({ data: { message = "加圈成功" } }) => {
-                  this.$Message.success(message);
-                  this.group.joined = true;
-                  this.loading = false;
-                }
-              );
-            },
-            onCancel: () => {
-              this.loading = false;
-            }
-          })
-        : joinGroup(this.group.id).then(() => {
-            this.loading = false;
-            this.group.joined = true;
-          });
+      this.$store
+        .dispatch("group/joinGroup", {
+          groupId: this.group.id,
+          needPaid: this.needPaid
+        })
+        .then(data => {
+          this.loading = false;
+          this.$Message.success(data);
+          this.updateData();
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     hidenFilter() {
       this.showFilter = false;

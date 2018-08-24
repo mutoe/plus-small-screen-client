@@ -123,5 +123,18 @@ export default {
     const { permissions, groupId } = payload;
     await api.changePermissions(groupId, { permissions });
     return true;
+  },
+
+  /**
+   * 加入圈子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async joinGroup(store, payload) {
+    const { groupId, needPaid = false } = payload;
+    const { data } = needPaid
+      ? await api.joinGroupWithPaid(groupId)
+      : await api.joinGroup(groupId);
+    return data;
   }
 };
