@@ -6,6 +6,7 @@
     <div class="info">
       <div class="m-box m-aln-center m-text-cut">
         <h2 class="m-text-cut">{{ group.name }}</h2>
+        <span v-if="mode === 'paid'" class="paid">付费</span>
         <svg v-if="mode === 'paid'" class="m-style-svg m-svg-def">
           <use xlink:href="#id"/>
         </svg>
@@ -145,7 +146,19 @@ export default {
 
     h2 {
       font-size: 32px;
-      max-width: 12em;
+      max-width: 11em;
+    }
+
+    .paid {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      background: linear-gradient(135deg, #cea97a 49%, #c8a06c 50%);
+      color: #fff;
+      font-size: 22px;
+      border-radius: 8px;
+      padding: 0 6px;
+      margin-left: 10px;
     }
 
     span {
