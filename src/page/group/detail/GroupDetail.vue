@@ -303,7 +303,8 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (from.meta.sidebar) this.showSlide = true;
+      if (from.name === "groupDetail") return;
+      this.showSlide = from.meta.sidebar;
     },
     screen() {
       this.getFeeds();

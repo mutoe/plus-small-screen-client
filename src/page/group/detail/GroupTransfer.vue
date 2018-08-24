@@ -84,7 +84,10 @@ export default {
       });
       console.log(msg);
       this.$Message.success(msg);
-      this.$router.replace({ name: "groups" });
+      this.$router.replace({
+        name: "groupDetail",
+        params: { groupId: this.group.id }
+      });
     }
   }
 };

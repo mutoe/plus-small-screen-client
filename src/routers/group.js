@@ -112,7 +112,7 @@ export default [
         name: "groupTransfer",
         path: "transfer",
         component: GroupTransfer,
-        meta: { title: "圈子转让", sidebar: true }
+        meta: { title: "圈子转让" }
       },
       {
         name: "groupPermission",
