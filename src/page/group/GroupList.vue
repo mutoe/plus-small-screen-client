@@ -1,28 +1,19 @@
 <template>
   <div class="p-groups">
-    <header class="m-box m-aln-center m-justify-bet m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+
+    <common-header>
+      全部圈子
+      <template slot="right">
+        <svg class="m-style-svg m-svg-def" @click="$router.push({name: 'groupSearch'})">
+          <use xlink:href="#base-search"/>
         </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-justify-center m-head-top">
-        <span>全部圈子</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1">
-        <!--         <svg class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-search"></use>
+        <svg class="m-style-svg m-svg-def" @click="$router.push({name: 'groupCreate'})">
+          <use xlink:href="#group-add"/>
         </svg>
-        <svg class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#group-add"></use>
-        </svg> -->
-      </div>
-    </header>
-    <main style="padding-top: 0.9rem">
+      </template>
+    </common-header>
+
+    <main>
       <nav class="m-box m-aln-center m-pos-f m-main m-bb1 p-groups-nav">
         <router-link
           :to="{name: 'groups', query: { type: 'recommend' }}"
