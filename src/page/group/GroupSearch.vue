@@ -11,23 +11,30 @@
     <jo-load-more
       ref="loadmore"
       :auto-load="false"
-      :show-bottom="list.length > 0"
+      :show-bottom="list.length > 0 "
       class="loadmore"
       @onRefresh="onSearchInput"
       @onLoadMore="onLoadMore">
-
-      <template v-if="type === 'groups'">
-        <group-item
-          v-for="group in list"
-          :key="group.id"
-          :group="group"/>
-      </template>
 
       <template v-if="type === 'posts'">
         <group-feed-card
           v-for="post in list"
           :key="post.id"
           :feed="post"/>
+      </template>
+
+      <template v-else-if="type === 'groups' && keyword.length > 0">
+        <group-item
+          v-for="group in list"
+          :key="group.id"
+          :group="group"/>
+      </template>
+
+      <template v-else>
+        <group-item
+          v-for="group in recommendList"
+          :key="group.id"
+          :group="group"/>
       </template>
 
     </jo-load-more>
@@ -63,6 +70,7 @@ export default {
     return {
       keywordOrigin: "",
       list: [],
+      recommendList: [],
       loading: false,
       noResult: false,
       nav: {
@@ -92,10 +100,10 @@ export default {
     }
   },
   created() {
-    if (!this.$route.query.type)
-      this.$router.replace(
-        Object.assign({}, this.$route, { query: { type: "groups" } })
-      );
+    // 如果不带参 默认搜索圈子
+    if (!this.$route.query.type) this.$route.query.type = "groups";
+    // 如果搜索圈子, 没有数据时显示推荐的列表
+    if (this.type === "groups") this.fetchRecommendGroups();
   },
   methods: {
     /**
@@ -134,6 +142,14 @@ export default {
           group_id: this.groupId,
           offset
         });
+    },
+
+    async fetchRecommendGroups() {
+      const data = await this.$store.dispatch("group/getGroups", {
+        type: "recommend"
+      });
+      this.recommendList = data;
+      this.$refs.loadmore.afterRefresh(true);
     }
   }
 };
