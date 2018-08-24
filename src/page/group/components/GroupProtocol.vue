@@ -2,7 +2,7 @@
   <transition name="pop">
     <div v-if="visible" class="p-group-protocol">
       <common-header :back="close">圈子创建协议</common-header>
-      <main class="m-art-body" v-html="body"/>
+      <main class="m-art-body markdown-body" v-html="body"/>
     </div>
   </transition>
 </template>
@@ -47,5 +47,13 @@ export default {
   right: 0;
   z-index: 11;
   background-color: #fff;
+
+  .markdown-body {
+    font-size: 28px;
+    color: #666;
+    padding: 20px;
+    height: calc(~"100% - 90px");
+    overflow-y: auto;
+  }
 }
 </style>
