@@ -40,6 +40,12 @@
       </div>
     </main>
 
+    <form-switch-item
+      v-if="group.allow_feed"
+      v-model="feed"
+      class="form-switch-item"
+      label="同步至动态"/>
+
     <choose-group
       v-if="!groupId"
       ref="chooseGroup"
@@ -60,7 +66,8 @@ export default {
     return {
       title: "",
       content: "",
-      group: {}
+      group: {},
+      feed: false
     };
   },
   computed: {
@@ -79,7 +86,8 @@ export default {
         groupId: this.groupId || this.group.id,
         title: this.title,
         body: this.content,
-        summary: this.content
+        summary: this.content,
+        sync_feed: Number(this.feed)
       };
       const data = await this.$store.dispatch("group/createPost", params);
       if (data) {
@@ -180,6 +188,12 @@ export default {
       height: 100%;
       font-size: 30px;
     }
+  }
+
+  .form-switch-item {
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid @border-color;
   }
 }
 </style>
