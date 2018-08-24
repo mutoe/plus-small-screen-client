@@ -47,9 +47,7 @@
           v-for="group in groups"
           :key="group.id"
           class="m-bb1">
-          <group-item
-            :group="group"
-            :show-action="true" />
+          <group-item :group="group" :show-action="true" />
         </div>
       </jo-load-more>
 

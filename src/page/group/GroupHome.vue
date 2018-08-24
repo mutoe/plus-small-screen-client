@@ -24,6 +24,7 @@
           <use xlink:href="#base-arrow-r"/>
         </svg>
       </div>
+
       <!-- 我加入的 -->
       <div class="m-box-model">
         <router-link
@@ -40,29 +41,19 @@
         </router-link>
 
         <ul class="group-list">
-          <li
-            v-for="group in groups"
-            :key="`mygroup-${group.id}`">
+          <li v-for="group in groups" :key="`mygroup-${group.id}`">
             <group-item :group="group" />
           </li>
         </ul>
       </div>
 
       <!-- 推荐圈子 -->
-      <div
-        v-if="recGroups.length > 0"
-        class="m-box-model">
+      <div v-if="recGroups.length > 0" class="m-box-model">
         <div class="group-label">
           <span>热门推荐</span>
-          <div
-            class="m-box m-aln-center m-justify-end"
-            @click="fetchRecGroups">
-            <svg
-              :style="{ transform: `rotate(${clickCount}turn)` }"
-              class="m-style-svg m-svg-small">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-refresh"/>
+          <div class="m-box m-aln-center m-justify-end" @click="fetchRecGroups">
+            <svg :style="{ transform: `rotate(${clickCount}turn)` }" class="m-style-svg m-svg-small">
+              <use xlink:href="#base-refresh"/>
             </svg>
             <span style="margin-left: 0.05rem">换一批</span>
           </div>

@@ -82,7 +82,6 @@ export default {
         groupId: this.groupId,
         target: userId
       });
-      console.log(msg);
       this.$Message.success(msg);
       this.$router.replace({
         name: "groupDetail",

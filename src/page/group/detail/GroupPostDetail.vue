@@ -6,33 +6,24 @@
     @on-share="shareFeed"
     @on-more="moreAction"
     @on-comment="commentFeed">
-    <header
-      slot="head"
-      class="m-box m-justify-bet m-aln-center m-art-head"
-      style="padding: 0">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
+
+    <common-header slot="head">
+      <avatar :user="user" size="tiny" />
+      <span class="m-text-cut m-flex-none username">
+        {{ user.name }}
+      </span>
+      <template
+        v-if="!isMine"
+        slot="right"
+        :class="{ c_59b6d7: relation.status !== 'unFollow' }" >
+        <svg class="m-style-svg m-svg-def" @click="followUserByStatus(relation.status)">
+          <use :xlink:href="relation.icon"/>
         </svg>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title m-text-cut">
-        <avatar :user="user" />
-        <span class="m-text-cut m-flex-grow1 m-flex-shrink1 username">
-          {{ user.name }}
-        </span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <template v-if="!isMine" :class="{ c_59b6d7: relation.status !== 'unFollow' }" >
-          <svg class="m-style-svg m-svg-def" @click="followUserByStatus(relation.status)">
-            <use :xlink:href="relation.icon"/>
-          </svg>
-        </template>
-      </div>
-    </header>
+      </template>
+    </common-header>
+
     <!-- 内容 -->
-    <load-more
-      ref="loadmore"
-      :on-refresh="onRefresh">
+    <load-more ref="loadmore" :on-refresh="onRefresh">
       <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
         <div class="m-art-body">
           <h2 v-if="title">{{ title }}</h2>
@@ -111,9 +102,7 @@
       <detail-ad type="group:post"/>
 
       <!-- 评论列表 -->
-      <div
-        id="comment_list"
-        class="m-box-model m-art-comments">
+      <div id="comment_list" class="m-box-model m-art-comments">
         <ul class="m-box m-aln-center m-art-comments-tabs">
           <li>{{ commentCount | formatNum }}条评论</li>
         </ul>
@@ -220,9 +209,6 @@ export default {
     },
     feedContent() {
       const { body = "" } = this.feed;
-
-      // return render(body);
-      // return this.$options.filters.markdownHtml(body);
       return body;
     },
     reward() {
@@ -511,6 +497,7 @@ export default {
     },
     // TODO: refactor 'followUserByStatus' api to vuex.action
     followUserByStatus(status) {
+      console.log(1);
       if (!status || this.fetchFollow) return;
       this.fetchFollow = true;
 

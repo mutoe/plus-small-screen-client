@@ -70,7 +70,7 @@
               type="text"
               placeholder="设置收费入圈金额"
               maxlength="8">
-            <span>金币</span>
+            <span>积分</span>
           </label>
         </section>
 

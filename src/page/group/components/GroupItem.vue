@@ -174,6 +174,7 @@ export default {
 
     span {
       color: @text-color3;
+
       + span {
         margin-left: 25px;
       }

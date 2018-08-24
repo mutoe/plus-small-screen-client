@@ -7,12 +7,8 @@
       @touchmove.prevent>
       <header class="m-box m-aln-center m-head-top m-main m-bb1">
         <div class="m-flex-grow1">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="cancel">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
+          <svg class="m-style-svg m-svg-def" @click="cancel">
+            <use xlink:href="#base-back"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-head-top-title">
@@ -53,19 +49,13 @@
             </div>
           </div>
         </div>
-        <div
-          class="plr20 m-lim-width"
-          style="margin-top: 0.6rem">
+        <div class="plr20 m-lim-width" style="margin-top: 0.6rem">
           <button
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
             @click="handleOk">
-            <svg
-              v-if="loading"
-              class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-loading"/>
+            <svg v-if="loading" class="m-style-svg m-svg-def">
+              <use xlink:href="#base-loading"/>
             </svg>
             <span v-else>确定</span>
           </button>
