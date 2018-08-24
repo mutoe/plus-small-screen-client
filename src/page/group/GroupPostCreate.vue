@@ -10,11 +10,15 @@
         @click="onSubmit">发布</span>
     </common-header>
 
-    <form-select-item
-      v-if="!groupId"
-      v-model="group.name"
-      label="选择圈子"
-      @click="selectGroup" />
+    <section v-if="!groupId" class="form-select-item">
+      <label>选择圈子</label>
+      <div class="input-wrap" @click="selectGroup">
+        <span class="placeholder">{{ group.name }}</span>
+        <svg class="m-style-svg m-svg-def m-entry-append">
+          <use xlink:href="#base-arrow-r"/>
+        </svg>
+      </div>
+    </section>
 
     <main>
       <div class="title-wrap">
@@ -110,6 +114,25 @@ export default {
 
   .disabled {
     color: #ccc;
+  }
+
+  .form-select-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+    border-bottom: 1px solid @border-color;
+
+    .input-wrap {
+      svg {
+        vertical-align: middle;
+      }
+    }
+
+    .placeholder {
+      margin-right: 20px;
+      color: #999;
+    }
   }
 
   > main {
