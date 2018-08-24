@@ -105,6 +105,10 @@ export default {
     }
   },
   created() {
+    if (!this.$route.query.type)
+      this.$router.replace(
+        Object.assign({}, this.$route, { query: { type: "recommend" } })
+      );
     this.$store.dispatch("GET_GROUP_TYPES");
   },
   methods: {
