@@ -106,13 +106,13 @@ export default [
         name: "groupInfo",
         path: "info",
         component: GroupInfo,
-        meta: { title: "圈子转让", sidebar: true }
+        meta: { sidebar: true }
       },
       {
         name: "groupTransfer",
         path: "transfer",
         component: GroupTransfer,
-        meta: { sidebar: true }
+        meta: { title: "圈子转让", sidebar: true }
       },
       {
         name: "groupPermission",
