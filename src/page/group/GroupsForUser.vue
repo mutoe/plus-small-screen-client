@@ -55,11 +55,15 @@ export default {
       return ~~this.$route.params.userID;
     },
     title() {
-      return `${this.CURRENTUSER.id === this.userID ? "我" : "TA"}的圈子`;
+      if (this.CURRENTUSER.id === this.userID) return "我加入的";
+      return "TA的圈子";
     },
     groups() {
       return this.groupsChangeTracker && Array.from(this.GROUPS.values());
     }
+  },
+  created() {
+    document.title = this.title;
   },
   activated() {
     this.preUID === this.userID
