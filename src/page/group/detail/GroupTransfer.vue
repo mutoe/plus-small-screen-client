@@ -74,7 +74,7 @@ export default {
       ];
       const groupName = this.group.name;
       const username = member.user.name;
-      const info = `确定将圈子 ${groupName} 转让给${username}, 使其成为新的圈主?`;
+      const info = `确定将圈子"${groupName}"转让给"${username}", 使其成为新的圈主?`;
       bus.$emit("actionSheet", actions, "取消", info);
     },
     async transferGroup(userId) {
