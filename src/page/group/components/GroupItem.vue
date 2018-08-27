@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    async beforeJoined() {
+    beforeJoined() {
       if (this.joined || this.loading) return;
       this.loading = true;
       !this.needPaid
@@ -102,6 +102,7 @@ export default {
             amount: this.money,
             content: `你只需支付${this.money}积分来加入圈子`,
             onOk: async () => {
+              this.loading = false;
               if (this.money <= this.CURRENTUSER.currency.sum) this.joinGroup();
               else this.$router.push({ name: "currencyRecharge" });
             },

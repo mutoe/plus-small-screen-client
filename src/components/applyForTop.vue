@@ -5,17 +5,9 @@
       class="m-box-model m-pos-f"
       style="background-color: #f4f5f6; z-index: 101"
       @touchmove.prevent>
-      <header class="m-box m-aln-center m-head-top m-main m-bb1">
-        <div class="m-flex-grow1">
-          <svg class="m-style-svg m-svg-def" @click="cancel">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-flex-grow1 m-text-c m-head-top-title">
-          <span>申请置顶</span>
-        </div>
-        <div class="m-flex-grow1 m-text-r"/>
-      </header>
+
+      <common-header> 申请置顶 </common-header>
+
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width">
           <div class="m-pinned-amount-btns m-main">
@@ -30,6 +22,7 @@
                 @click="chooseDefaultDay(item)">{{ ((~~item)) }} 天</button>
             </div>
           </div>
+
           <div
             class="m-box m-aln-center m-justify-bet m-bb1 m-pinned-row plr20 m-pinned-amount-customize m-main"
             style="margin-top: .2rem">
@@ -45,6 +38,7 @@
               <span>{{ currency_name }}</span>
             </div>
           </div>
+
           <div class="m-box m-aln-center m-justify-bet m-pinned-row plr20 m-pinned-amount-customize m-main">
             <span>总金额</span>
             <div class="m-box m-aln-center">
@@ -60,22 +54,17 @@
               <span>{{ currency_name }}</span>
             </div>
           </div>
-          <p
-            class="placeholder m-flex-grow1 m-flex-shrink1"
-            style="padding: .3rem .2rem 0; font-size: .24rem;">
-            <!-- 最近置顶平均{{  }},  -->
+          <p class="placeholder m-flex-grow1 m-flex-shrink1">
             可用积分{{ currencySum }}
           </p>
         </div>
-        <div
-          class="plr20 m-lim-width"
-          style="margin-top: 0.6rem">
+        <div class="plr20 m-lim-width" style="margin-top: 0.6rem">
           <button
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
             @click="handleOk">
             <svg v-if="loading" class="m-style-svg m-svg-def">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading"/>
+              <use xlink:href="#base-loading"/>
             </svg>
             <span v-else>{{ isOwner ? '确认置顶' : '申请置顶' }}</span>
           </button>
@@ -84,6 +73,7 @@
     </div>
   </transition>
 </template>
+
 <script>
 import bus from "@/bus.js";
 import { noop } from "@/util";
@@ -119,6 +109,10 @@ export default {
     },
     disabled() {
       return this.amount < 0;
+    },
+    currency() {
+      const currency = this.$store.state.CURRENTUSER.currency || {};
+      return currency.sum || 0;
     }
   },
   created() {
@@ -144,6 +138,10 @@ export default {
   },
   methods: {
     applyTop() {
+      if (this.currency < this.amount) {
+        this.$router.push({ name: "currencyRecharge" });
+        return this.cancel();
+      }
       if (this.loading || !this.applyType) return;
       this.loading = true;
       const params = {
@@ -159,8 +157,8 @@ export default {
           this.$nextTick(this.cancel);
         })
         .catch(err => {
-          console.warn(err);
           this.loading = false;
+          this.$Message.error(err.response.data);
         });
     },
     handleOk() {
@@ -194,7 +192,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .m-pinned-row {
   font-size: 0.3rem;
   height: 1rem;
@@ -202,5 +200,9 @@ export default {
 .plr20 {
   padding-left: 20px;
   padding-right: 20px;
+}
+.placeholder {
+  padding: 0.3rem 0.2rem 0;
+  font-size: 0.24rem;
 }
 </style>
