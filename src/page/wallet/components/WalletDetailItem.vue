@@ -14,6 +14,7 @@ import { timeOffset } from "@/filters";
 
 const week = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 function splitYMD(date) {
+  if (typeof date === "string") date = date.replace(/-/g, "/"); // for safari
   date = date || new Date();
   date = new Date(date);
   const Y = date.getFullYear();

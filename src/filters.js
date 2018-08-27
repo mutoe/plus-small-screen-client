@@ -96,6 +96,7 @@ export const addTimeOffset = date => {
 };
 
 export const time2tips = date => {
+  if (typeof date === "string") date = date.replace(/-/g, "/"); // for safari
   const time = new Date(date);
   // 服务器返回的时间是祖鲁时间，需要进行本地化
   const offset = (new Date().getTime() - time + timeOffset) / 1000;

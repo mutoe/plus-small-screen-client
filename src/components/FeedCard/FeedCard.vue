@@ -184,7 +184,8 @@ export default {
       return this.feed.feed_view_count || 0;
     },
     time() {
-      const time = new Date(this.feed.created_at).getTime() - timeOffset;
+      const createdAt = this.feed.created_at.replace(/-/g, "/"); // for safari
+      const time = new Date(createdAt).getTime() - timeOffset;
       return new Date(time) || "";
     },
     user() {
