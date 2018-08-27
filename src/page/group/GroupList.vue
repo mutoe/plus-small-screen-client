@@ -1,7 +1,7 @@
 <template>
-  <div class="p-groups">
+  <div class="p-group-list">
 
-    <common-header>
+    <common-header class="common-header">
       全部圈子
       <template slot="right">
         <svg class="m-style-svg m-svg-def" @click="$router.push({name: 'groupSearch'})">
@@ -13,44 +13,42 @@
       </template>
     </common-header>
 
-    <main>
-      <nav class="m-box m-aln-center m-pos-f m-main m-bb1 p-groups-nav">
-        <router-link
-          :to="{name: 'groups', query: { type: 'recommend' }}"
-          class="m-text-box p-groups-nav-item"
-          exact
-          replace
-          tag="div"
-          active-class="active">
-          <span>推荐</span>
-        </router-link>
-        <router-link
-          v-for="cate in categories"
-          :to="{ name: 'groups', query: { category: cate.id } }"
-          :key="cate.id"
-          class="m-text-box p-groups-nav-item"
-          exact
-          replace
-          tag="div"
-          active-class="active">
-          <span class="m-text-cut">{{ cate.name }}</span>
-        </router-link>
-      </nav>
+    <nav class="groups-nav">
+      <router-link
+        :to="{name: 'groups', query: { type: 'recommend' }}"
+        class="item"
+        exact
+        replace
+        tag="div"
+        active-class="active">
+        <span>推荐</span>
+      </router-link>
+      <router-link
+        v-for="cate in categories"
+        :to="{ name: 'groups', query: { category: cate.id } }"
+        :key="cate.id"
+        class="item"
+        exact
+        replace
+        tag="div"
+        active-class="active">
+        <span class="m-text-cut">{{ cate.name }}</span>
+      </router-link>
+    </nav>
 
+    <main>
       <jo-load-more
         ref="loadmore"
         :auto-load="false"
-        style="padding-top: 0.9rem"
         @onRefresh="onRefresh"
         @onLoadMore="onLoadMore">
         <div
           v-for="group in groups"
           :key="group.id"
-          class="m-bb1">
+          class="group-item-wrap">
           <group-item :group="group" :show-action="true" />
         </div>
       </jo-load-more>
-
     </main>
   </div>
 </template>
@@ -151,26 +149,52 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.p-groups-nav {
-  padding: 0 30px;
-  top: 90px;
-  height: 90px;
-  flex-wrap: nowrap;
-  font-size: 26px;
-  color: @text-color3;
-  overflow-y: auto;
+.p-group-list {
+  .common-header {
+    position: fixed;
+    top: 0;
+  }
 
-  &-item {
-    flex: 0 0 auto;
-    transition: all 0.1s ease;
+  .groups-nav {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    top: 90px;
+    height: 90px;
+    left: 0;
+    right: 0;
+    flex-wrap: nowrap;
+    font-size: 26px;
+    color: @text-color3;
+    overflow-y: auto;
+    border-bottom: 1px solid @border-color;
+    z-index: 10;
+    max-width: 1080px;
+    background-color: #fff;
 
-    & + & {
-      margin-left: 50px;
+    .item {
+      flex: 0 0 auto;
+      transition: all 0.1s ease;
+
+      + .item {
+        margin-left: 50px;
+      }
+
+      &.active {
+        color: @text-color1;
+        font-size: 30px;
+      }
     }
+  }
 
-    &.active {
-      color: @text-color1;
-      font-size: 30px;
+  > main {
+    padding-top: 180px;
+
+    .group-item-wrap {
+      + .group-item-wrap {
+        border-top: 1px solid @border-color;
+      }
     }
   }
 }

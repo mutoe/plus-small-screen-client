@@ -7,9 +7,6 @@
       <div class="m-box m-aln-center m-text-cut">
         <h2 class="m-text-cut">{{ group.name }}</h2>
         <span v-if="mode === 'paid'" class="paid">付费</span>
-        <svg v-if="mode === 'paid'" class="m-style-svg m-svg-def">
-          <use xlink:href="#id"/>
-        </svg>
       </div>
       <p>
         <span>帖子<span class="number">{{ feedCount | formatNum }}</span></span>
@@ -30,7 +27,7 @@
           v-if="!(joined.audit ===0)"
           :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}"
           class="m-style-svg m-svg-def">
-          <use :xlink:href="`#${loading?'base-loading':'foot-plus'}`" />
+          <use :xlink:href="`#${loading ? 'base-loading' : 'foot-plus'}`" />
         </svg>
         <span>{{ joined.audit === 0 ? "审核中" : "加入" }}</span>
       </button>
@@ -131,7 +128,7 @@ export default {
         ? this.joined.audit === 1
           ? this.$router.push(`/groups/${this.group.id}`)
           : this.$Message.error("审核通过后，才能查看圈子信息哦~")
-        : this.mode === "paid"
+        : this.mode !== "public"
           ? this.$Message.error("需要先加入圈子，才能查看圈子信息哦~")
           : this.$router.push(`/groups/${this.group.id}`);
     }
@@ -188,6 +185,7 @@ export default {
   }
 
   .owner-badge {
+    flex: none;
     background-color: #fca308;
     color: #fff;
     font-size: 22px;
@@ -196,6 +194,7 @@ export default {
   }
 
   .admin-badge {
+    flex: none;
     background-color: #ccc;
     color: #fff;
     font-size: 22px;
