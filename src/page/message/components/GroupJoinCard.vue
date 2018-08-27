@@ -66,8 +66,7 @@ export default {
       return summary;
     },
     accept() {
-      const { currentItem = {} } = this;
-      const { group_id: group = 0, member_id: member = 0 } = currentItem;
+      const { group_id: group = 0, member_id: member = 0 } = this.audit;
       this.$http
         .patch(
           `/plus-group/currency-groups/${group}/members/${member}/audit`,
@@ -86,8 +85,7 @@ export default {
         .catch(() => {});
     },
     reject() {
-      const { currentItem = {} } = this;
-      const { group_id: group = 0, member_id: member = 0 } = currentItem;
+      const { group_id: group = 0, member_id: member = 0 } = this.audit;
       this.$http
         .patch(
           `/plus-group/currency-groups/${group}/members/${member}/audit`,
