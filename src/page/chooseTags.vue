@@ -81,7 +81,7 @@ function onChooseTags({ chooseTags = [], nextStep, onSelect, onRemove }) {
   this.show = true;
   this.scrollable = false;
 
-  if (this.isFirst) {
+  if (this.isFirst && this.$route.name !== "groupCreate") {
     this.$nextTick(() => {
       bus.$emit("info-tips", {
         content:
