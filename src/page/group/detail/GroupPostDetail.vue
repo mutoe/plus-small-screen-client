@@ -429,9 +429,9 @@ export default {
         });
     },
     moreAction() {
-      const defaultActions = [];
+      const actions = [];
       if (this.has_collect) {
-        defaultActions.push({
+        actions.push({
           text: "取消收藏",
           method: () => {
             api.uncollectPost(this.feedID).then(() => {
@@ -441,7 +441,7 @@ export default {
           }
         });
       } else {
-        defaultActions.push({
+        actions.push({
           text: "收藏",
           method: () => {
             api.collectionPost(this.feedID).then(() => {
@@ -452,48 +452,41 @@ export default {
         });
       }
 
-      const actions = this.isMine
-        ? [
-            {
-              text: "申请帖子置顶",
-              method: () => {
-                bus.$emit("applyTop", {
-                  type: "post",
-                  api: api.applyTopPost,
-                  payload: this.postID
-                });
-              }
-            },
-            {
-              text: "删除帖子",
-              method: () => {
-                setTimeout(() => {
-                  const actionSheet = [
-                    {
-                      text: "删除",
-                      style: { color: "#f4504d" },
-                      method: () => {
-                        api.deletePost(this.groupId, this.postID).then(() => {
-                          this.$Message.success("删除帖子成功");
-                          this.goBack();
-                        });
-                      }
-                    }
-                  ];
-                  bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
-                }, 200);
-              }
+      if (this.isMine) {
+        if (!this.pinned)
+          actions.push({
+            text: "申请帖子置顶",
+            method: () => {
+              bus.$emit("applyTop", {
+                type: "post",
+                api: api.applyTopPost,
+                payload: this.postID
+              });
             }
-          ]
-        : [
-            {
-              text: "举报",
-              method: () => {
-                this.$Message.info("举报功能开发中，敬请期待");
-              }
-            }
-          ];
-      bus.$emit("actionSheet", [...defaultActions, ...actions], "取消");
+          });
+        actions.push({
+          text: "删除帖子",
+          method: () => {
+            setTimeout(() => {
+              const actionSheet = [
+                {
+                  text: "删除",
+                  style: { color: "#f4504d" },
+                  method: () => {
+                    api.deletePost(this.groupId, this.postID).then(() => {
+                      this.$Message.success("删除帖子成功");
+                      this.goBack();
+                    });
+                  }
+                }
+              ];
+              bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
+            }, 200);
+          }
+        });
+      }
+
+      bus.$emit("actionSheet", actions, "取消");
     },
     // TODO: refactor 'followUserByStatus' api to vuex.action
     followUserByStatus(status) {

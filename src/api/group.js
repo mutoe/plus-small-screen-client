@@ -472,3 +472,15 @@ export function changePermissions(groupId, params) {
   const url = `/plus-group/groups/${groupId}/permissions`;
   return api.patch(url, params, { validateStatus: s => s === 204 });
 }
+
+/**
+ * 管理员取消置顶帖子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} postId
+ * @returns
+ */
+export function unpinnedPost(postId) {
+  const url = `/plus-group/pinned/posts/${postId}/cancel`;
+  return api.patch(url, {}, { validateStatus: s => s === 201 });
+}

@@ -109,10 +109,13 @@
       </div>
       <ul class="p-group-detail-feeds">
         <li v-for="feed in pinneds" :key="`gdf-${groupId}-pinned-feed-${feed.id}`">
-          <group-feed-card :pinned="true" :feed="feed" />
+          <group-feed-card
+            :pinned="true"
+            :feed="feed"
+            :group="group" />
         </li>
         <li v-for="(feed, index) in posts" :key="`gdf-${groupId}-feed-${feed.id}-${index}`">
-          <group-feed-card :feed="feed" />
+          <group-feed-card :feed="feed" :group="group" />
         </li>
       </ul>
       <div class="m-box m-aln-center m-justify-center load-more-box">

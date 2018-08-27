@@ -6,7 +6,16 @@ import * as api from "@/api/group.js";
 export default {
   name: "GroupFeedCard",
   extends: FeedCard,
+  props: {
+    group: { type: Object, default: () => {} }
+  },
   computed: {
+    post() {
+      return this.feed || {};
+    },
+    currentUser() {
+      return this.$store.state.CURRENTUSER;
+    },
     liked: {
       get() {
         return !!this.feed.liked;
@@ -54,6 +63,9 @@ export default {
     },
     viewCount() {
       return this.feed.views_count || 0;
+    },
+    isGroupOwner() {
+      return this.group.founder.user_id === this.currentUser.id;
     }
   },
   methods: {
@@ -124,18 +136,45 @@ export default {
           }
         });
       }
+      if (!this.pinned) {
+        this.isMine &&
+          actions.push({
+            text: "申请帖子置顶",
+            method: () => {
+              bus.$emit("applyTop", {
+                type: "post",
+                api: api.applyTopPost,
+                payload: this.feed.id
+              });
+            }
+          });
+      } else {
+        this.isGroupOwner &&
+          actions.push({
+            text: "撤销置顶",
+            method: () => {
+              setTimeout(() => {
+                const actionSheet = [
+                  {
+                    text: "撤销置顶",
+                    method: () => {
+                      this.$store
+                        .dispatch("group/unpinnedPost", {
+                          postId: this.post.id
+                        })
+                        .then(() => {
+                          this.$router.go(0);
+                        });
+                    }
+                  }
+                ];
+                bus.$emit("actionSheet", actionSheet, "取消", "确认撤销置顶?");
+              }, 200);
+            }
+          });
+      }
       if (this.isMine) {
         // 是否是自己文章
-        actions.push({
-          text: "申请帖子置顶",
-          method: () => {
-            bus.$emit("applyTop", {
-              type: "post",
-              api: api.applyTopPost,
-              payload: this.feed.id
-            });
-          }
-        });
         actions.push({
           text: "删除帖子",
           method: () => {

@@ -163,5 +163,16 @@ export default {
         })
       : await api.getGroups({ category_id: categoryId, limit, offset });
     return data;
+  },
+
+  /**
+   * 撤销置顶帖子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async unpinnedPost(store, payload) {
+    const { postId } = payload;
+    const { data } = await api.unpinnedPost(postId);
+    return data;
   }
 };

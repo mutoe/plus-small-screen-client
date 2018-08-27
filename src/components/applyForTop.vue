@@ -6,7 +6,7 @@
       style="background-color: #f4f5f6; z-index: 101"
       @touchmove.prevent>
 
-      <common-header> 申请置顶 </common-header>
+      <common-header :back="cancel">申请置顶</common-header>
 
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width">
