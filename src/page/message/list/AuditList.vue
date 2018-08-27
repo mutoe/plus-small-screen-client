@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${prefixCls}`">
+  <div class="p-audit-list">
 
     <common-header>
       <diy-select
@@ -9,17 +9,14 @@
         style="margin-top: -1px"/>
     </common-header>
 
-    <div
-      :class="`${prefixCls}-container`"
-      style="padding-top: 0.9rem">
+    <div class="container">
       <router-view/>
     </div>
+
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 const prefixCls = "auditList";
 const options = [
   {
@@ -46,22 +43,21 @@ const options = [
 // const items = {};
 
 export default {
-  name: "MyAudits",
+  name: "AuditList",
   data: () => ({
     prefixCls,
     refreshData: [],
     options,
-    currentType: "feedComment"
+    currentType: "feedcomments"
   }),
-  computed: {
-    ...mapState({
-      // audits: state =>
-    })
-  },
   watch: {
     currentType(type) {
       this.$router.replace(`/message/audits/${type}`);
     }
+  },
+  created() {
+    const regex = new RegExp("/message/audits/");
+    this.currentType = this.$route.path.replace(regex, "");
   }
 };
 </script>
@@ -69,17 +65,17 @@ export default {
 <style lang="less" scoped>
 @import url("../style.less");
 
-.c-common-header {
-  position: fixed;
-}
+.p-audit-list {
+  .c-common-header {
+    position: fixed;
+  }
 
-.diy-select {
-  width: 10em;
-}
+  .diy-select {
+    width: 10em;
+  }
 
-.auditList {
-  .diy-select--options {
-    margin-top: -1px; /* no */
+  .container {
+    padding-top: 90px;
   }
 }
 </style>

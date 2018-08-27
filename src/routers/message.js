@@ -12,8 +12,8 @@ const msgComments = () =>
   import(/* webpackChunkName: 'message' */ "@/page/message/list/comments");
 const msgLikes = () =>
   import(/* webpackChunkName: 'message' */ "@/page/message/list/likes");
-const msgAudits = () =>
-  import(/* webpackChunkName: 'message' */ "@/page/message/list/audits");
+const AuditList = () =>
+  import(/* webpackChunkName: 'message' */ "@/page/message/list/AuditList");
 const feedCommentAudit = () =>
   import(/* webpackChunkName: 'message' */ "@/page/message/children/audits/feedCommentAudit");
 const newsCommentAudit = () =>
@@ -98,7 +98,7 @@ export default [
   },
   {
     path: "/message/audits",
-    component: msgAudits,
+    component: AuditList,
     meta: {
       title: "审核列表",
       requiresAuth: true
@@ -106,7 +106,7 @@ export default [
   },
   {
     path: "/message/audits",
-    component: msgAudits,
+    component: AuditList,
     redirect: "/message/audits/feedcomments",
     meta: {
       title: "审核列表",
@@ -114,6 +114,7 @@ export default [
     },
     children: [
       {
+        name: "auditFeedComments",
         path: "feedcomments",
         component: feedCommentAudit,
         meta: {
@@ -121,6 +122,7 @@ export default [
         }
       },
       {
+        name: "auditNewsComments",
         path: "newscomments",
         component: newsCommentAudit,
         meta: {
@@ -128,6 +130,7 @@ export default [
         }
       },
       {
+        name: "auditGroupPosts",
         path: "groupposts",
         component: groupPostAudit,
         meta: {
@@ -135,6 +138,7 @@ export default [
         }
       },
       {
+        name: "auditGroupComments",
         path: "groupcomments",
         component: groupCommentAudit,
         meta: {
@@ -142,6 +146,7 @@ export default [
         }
       },
       {
+        name: "auditGroupJoins",
         path: "groupjoins",
         component: groupJoinAudit,
         meta: {

@@ -4,9 +4,7 @@
     class="diy-select"
     @click="open = !open">
     <div class="diy-select--label">{{ curSelectValue }}</div>
-    <div
-      v-show="open"
-      class="diy-select--options">
+    <div v-show="open" class="diy-select--options">
       <div
         v-for="option in options"
         :key="option.label"
@@ -38,19 +36,11 @@ export default {
   computed: {
     curSelectValue: {
       set(val) {
-        if (this.options) {
-          this.options.forEach(option => {
-            if (option.value === val) {
-              return (this.curVal = option);
-            }
-          });
-        }
+        console.log(val);
+        this.curVal = this.options.find(o => o.value === val);
       },
       get() {
-        if (
-          typeof this.curVal !== "undefined" &&
-          typeof this.curVal.label !== "undefined"
-        ) {
+        if (this.curVal && typeof this.curVal.label !== "undefined") {
           return this.curVal.label;
         } else {
           return this.placeholder;
@@ -64,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    this.curSelectValue = "0";
+    this.curSelectValue = this.value;
   },
   methods: {
     setCurVal(val) {
