@@ -77,16 +77,22 @@ export default {
       const info = `确定将圈子"${groupName}"转让给"${username}", 使其成为新的圈主?`;
       bus.$emit("actionSheet", actions, "取消", info);
     },
-    async transferGroup(userId) {
-      const msg = await this.$store.dispatch("group/transferGroup", {
-        groupId: this.groupId,
-        target: userId
-      });
-      this.$Message.success(msg);
-      this.$router.replace({
-        name: "groupDetail",
-        params: { groupId: this.group.id }
-      });
+    transferGroup(userId) {
+      this.$store
+        .dispatch("group/transferGroup", {
+          groupId: this.groupId,
+          target: userId
+        })
+        .then(msg => {
+          this.$Message.success(msg);
+          this.$router.replace({
+            name: "groupDetail",
+            params: { groupId: this.group.id }
+          });
+        })
+        .catch(({ response: { data: message } }) => {
+          message && this.$Message.error(message);
+        });
     }
   }
 };

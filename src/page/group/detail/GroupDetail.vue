@@ -309,10 +309,8 @@ export default {
       this.getFeeds();
     }
   },
-  created() {
-    this.updateData();
-  },
   mounted() {
+    this.updateData();
     this.typeFilter = this.$refs.typeFilter;
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
   },
