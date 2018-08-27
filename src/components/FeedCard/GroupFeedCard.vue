@@ -103,6 +103,7 @@ export default {
       api.postComment(this.feed.id, params).then(comment => {
         this.commentCount += 1;
         this.comments.unshift(comment);
+        this.comments.pop();
         this.$Message.success("评论成功");
         bus.$emit("commentInput:close", true);
       });
