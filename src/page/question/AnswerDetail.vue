@@ -9,27 +9,12 @@
     @on-more="moreAction"
     @on-comment="commentAnswer">
 
-    <header
-      slot="head"
-      class="m-box m-justify-bet m-aln-center m-art-head m-main"
-      style="padding: 0">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-flex-grow2 m-flex-shrink2 m-aln-center m-flex-base0 m-head-top-title m-justify-center">
-        <span class="m-text-cut">{{ answer.question.subject }}</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-    </header>
+    <common-header slot="head">{{ answer.question.subject }}</common-header>
 
     <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
       <!-- 回答者信息 -->
       <div class="user-info-wrap">
-        <avatar
-          :anonymity="answer.anonymity"
-          :user="user" />
+        <avatar :anonymity="answer.anonymity" :user="user" />
         <div class="user-info">
           <h2 v-if="isMine || !answer.anonymity" class="m-text-cut">{{ user.name }} <span v-if="answer.anonymity" class="gray">(匿名)</span></h2>
           <h2 v-else class="m-text-cut">匿名用户</h2>

@@ -469,6 +469,10 @@ export default {
   position: relative;
   transition: 0.4s;
 
+  .m-head-top {
+    padding: 0 20px;
+  }
+
   > header {
     border-bottom: 0;
     transition: all 0.4s ease;
