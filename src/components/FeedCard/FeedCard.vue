@@ -408,9 +408,10 @@ export default {
       };
       api
         .postComment(this.feedID, params)
-        .then(({ data = { comment: {} } }) => {
+        .then(comment => {
           this.commentCount += 1;
-          this.comments.unshift(data.comment);
+          this.comments.unshift(comment);
+          if (this.comments.length > 5) this.comments.pop();
           this.$Message.success("评论成功");
           bus.$emit("commentInput:close", true);
         })
