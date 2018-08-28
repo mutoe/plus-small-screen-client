@@ -79,6 +79,9 @@ export default {
       return !this.title || !this.content;
     }
   },
+  mounted() {
+    this.initGroup();
+  },
   methods: {
     async onSubmit() {
       if (this.disabled) return;
@@ -97,6 +100,17 @@ export default {
           params: { groupId: data.post.group_id, postID: data.post.id }
         });
       }
+    },
+    async initGroup() {
+      // 从 store 中读取当前圈子信息
+      if (!this.group.id && this.groupId)
+        this.group = this.$store.state.group.current;
+
+      // 如果没有读到, 去远端拉取
+      if (!this.group.id)
+        this.group = await this.$store.dispatch("group/getGroupById", {
+          groupId: this.groupId
+        });
     },
 
     selectGroup() {
