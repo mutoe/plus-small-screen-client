@@ -29,8 +29,6 @@
           maxlength="20">
       </div>
 
-      <hr>
-
       <div class="content-wrap">
         <div class="textarea-shadow">{{ content }}</div> <!-- 用于撑起文本框自适应高度 -->
         <textarea
@@ -160,8 +158,9 @@ export default {
   > main {
     padding: 30px;
 
-    > hr {
-      border-bottom: 1px solid @border-color;
+    .title-wrap {
+      padding-bottom: 15px;
+      border-bottom: 2px solid @border-color;
     }
 
     .content-wrap {
@@ -169,6 +168,7 @@ export default {
       width: 100%;
       height: calc(~"100% + 40px");
       padding-right: 20px;
+      margin-top: 15px;
 
       .textarea-shadow {
         opacity: 0;
