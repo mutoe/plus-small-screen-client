@@ -59,11 +59,10 @@ import { noop } from "@/util";
  * @param {Function} options.onRemove 取消选择某个标签时执行的回调函数
  */
 function onChooseTags({ chooseTags = [], nextStep, onSelect, onRemove }) {
-  console.log(1);
   this.isFirst = !this.$lstore.hasData("H5_CHOOSE_TAGS_FIRST");
-  [nextStep, onSelect, onRemove].map(fn => {
-    typeof fn === "function" && (this[fn.name] = fn);
-  });
+  this.nextStep = nextStep || noop;
+  this.onSelect = onSelect || noop;
+  this.onRemove = onRemove || noop;
 
   if (chooseTags && chooseTags.length > 0) {
     this.tags.forEach((g, Gindex) => {
