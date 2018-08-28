@@ -59,6 +59,7 @@ export default {
       const result = await this.$store.dispatch("group/getMembers", {
         groupId: this.groupId,
         name: keyword,
+        type: "audit_user",
         limit: 100
       });
       this.searchList = result.filter(m => m.user_id !== this.currentUser.id);
