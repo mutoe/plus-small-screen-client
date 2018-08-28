@@ -431,7 +431,7 @@ export default {
         const roleText = this.permissions.includes("administrator")
           ? "圈主和管理员"
           : "圈主";
-        const text = `${this.group.name}仅${roleText}拥有发帖权限`;
+        const text = `"${this.group.name}"仅${roleText}拥有发帖权限`;
         return bus.$emit("actionSheet", [], "知道了", text);
       }
 
