@@ -30,7 +30,7 @@ export async function getCurrentPosition() {
   return {
     lng: data.position.getLng(),
     lat: data.position.getLat(),
-    label: city || "定位成功"
+    label: city || "定位失败"
   };
 }
 

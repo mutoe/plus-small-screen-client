@@ -2,30 +2,12 @@
   <transition
     v-if="show"
     enter-active-class="animated slideInRight"
-    leave-active-class="animated slideOutLeft">
+    leave-active-class="animated slideOutRight">
     <div class="m-box-model m-pos-f p-location">
-      <header class="m-pos-f m-box m-aln-center m-justify-bet m-main m-bb1">
-        <div class="m-flex-grow1 m-flex-shrink1 m-flex-base0">
-          <div class="m-search-box">
-            <svg class="m-style-svg m-svg-def">
-              <use xlink:href="#base-search"/>
-            </svg>
-            <form action="#" onsubmit="return false">
-              <input
-                v-model="keyword"
-                type="search"
-                placeholder="搜索"
-                @focus="onFocus"
-                @blur="onBlur"
-                @input="searchCityByName">
-            </form>
-          </div>
-        </div>
-        <div class="m-flex-grow0 m-flex-shrink0">
-          <a @click.stop="goBack">取消</a>
-        </div>
-      </header>
-      <main style="padding-top: 0.95rem">
+
+      <search-bar v-model="keyword" :back="goBack"/>
+
+      <main>
         <div v-if="showHot">
           <div class="m-box m-aln-center m-justify-bet m-main current-location">
             <span>当前定位</span>
@@ -65,11 +47,15 @@
 </template>
 
 <script>
+import SearchBar from "@/components/common/SearchBar.vue";
 import _ from "lodash";
 import * as api from "@/api/bootstrappers.js";
 
 export default {
   name: "Location",
+  components: {
+    SearchBar
+  },
   props: {
     show: {
       type: Boolean,
@@ -114,6 +100,11 @@ export default {
         this.autoPos = val;
         this.$store.commit("SAVE_H5_POSITION", val);
       }
+    }
+  },
+  watch: {
+    keyword() {
+      this.searchCityByName();
     }
   },
   mounted() {
