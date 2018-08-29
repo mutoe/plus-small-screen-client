@@ -21,7 +21,7 @@ const mutations = {
 
   // 保存圈子分类列表
   [TYPES.SAVE_GROUP_CATES](state, cates) {
-    state.types = cates;
+    state.categories = cates;
     lstore.setData("GROUP_CATES", cates);
   }
 };
