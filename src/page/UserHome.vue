@@ -40,7 +40,7 @@
         :style="bannerStyle"
         class="m-urh-banner">
         <div class="m-box-model m-aln-center m-justify-end m-pos-f m-urh-bg-mask">
-          <label class="banner-click-area">
+          <label v-if="isMine" class="banner-click-area">
             <input
               ref="imagefile"
               :accept="accept"
