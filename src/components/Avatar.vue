@@ -68,10 +68,11 @@ export default {
     },
     avatar: {
       get() {
-        return this.user.avatar;
+        const avatar = this.user.avatar || {};
+        return avatar.url;
       },
       set(val) {
-        this.user.avatar = val;
+        this.user.avatar.url = val;
       }
     }
   },
