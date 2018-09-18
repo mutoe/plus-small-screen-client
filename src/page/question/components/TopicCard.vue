@@ -1,7 +1,7 @@
 <template>
   <div class="topic-card">
     <router-link
-      :src="topic.avatar"
+      :src="avatar"
       :to="`/question-topics/${topic.id}`"
       tag="img"
       class="topic-image" />
@@ -33,6 +33,12 @@ export default {
   props: {
     topic: { type: Object, required: true },
     type: { type: String, default: "hot" }
+  },
+  computed: {
+    avatar() {
+      const avatar = this.topic.avatar || {};
+      return avatar.url || null;
+    }
   },
   methods: {
     handleUnfollow(topic) {

@@ -6,7 +6,7 @@
     <!-- Topic base -->
     <main>
       <div class="topic">
-        <img src="https://images.zhibocloud.cn/question/topics/000/000/000/02.png">
+        <img :src="avatar" class="avatar">
         <div class="title">
           <h3 class="topic-name m-text-cut">{{ topic.name }}</h3>
           <div class="label">
@@ -117,6 +117,10 @@ export default {
     },
     loadContainer() {
       return this.$refs.load;
+    },
+    avatar() {
+      const avatar = this.topic.avatar || {};
+      return avatar.url || null;
     }
   },
   watch: {
@@ -258,11 +262,12 @@ export default {
     background-color: #fff;
     border-bottom: solid 1px #ededed;
 
-    > img {
+    > .avatar {
       flex: none;
       width: 120px;
       height: 120px;
       margin-right: 18px;
+      background-color: #ededed;
     }
 
     .title {
