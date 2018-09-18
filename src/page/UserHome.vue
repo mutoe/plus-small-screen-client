@@ -662,6 +662,8 @@ export default {
 
 .m-head-top {
   border-bottom: 0;
+  padding: 0 20px;
+
   &.bg-transp {
     color: #fff;
     transition: background 0.3s ease;
