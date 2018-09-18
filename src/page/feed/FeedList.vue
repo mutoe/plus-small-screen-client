@@ -99,7 +99,7 @@ export default {
       const len = this.feeds.length;
       if (!len) return 0;
       if (this.feedType !== "hot") return this.feeds[len - 1].id; // after
-      return this.$store.getters[`feed/hot`].length; // offset
+      return this.feeds[len - 1].hot; // offset
     }
   },
   watch: {

@@ -103,7 +103,7 @@ const actions = {
    */
   async getHotFeeds({ commit, state }, payload) {
     const { after, refresh = false } = payload;
-    const { data } = await api.getFeeds({ type: "hot", offset: after });
+    const { data } = await api.getFeeds({ type: "hot", hot: after });
     const { feeds = [], pinned = [] } = data;
     commit(TYPES.SAVE_PINNED_LIST, { list: pinned });
     commit(TYPES.SAVE_FEED_LIST, { type: "hot", data: feeds, refresh });
