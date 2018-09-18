@@ -1,38 +1,28 @@
 <template>
   <div>
-    <header 
-      slot="head" 
-      class="m-box m-justify-bet m-aln-center m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg 
-          class="m-style-svg m-svg-def" 
-          @click="cancel">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>排行榜</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-    </header>
+
+    <common-header class="common-header">排行榜</common-header>
+
     <div class="rank-nav">
-      <router-link 
-        tag="div" 
-        class="rank-nav-item" 
+      <router-link
+        tag="div"
+        class="rank-nav-item"
+        replace
         to="/rank/users">用户</router-link>
-      <router-link 
-        tag="div" 
-        class="rank-nav-item" 
+      <router-link
+        tag="div"
+        class="rank-nav-item"
+        replace
         to="/rank/questions">问答</router-link>
-      <router-link 
-        tag="div" 
-        class="rank-nav-item" 
+      <router-link
+        tag="div"
+        class="rank-nav-item"
+        replace
         to="/rank/feeds">动态</router-link>
-      <router-link 
-        tag="div" 
-        class="rank-nav-item" 
+      <router-link
+        tag="div"
+        class="rank-nav-item"
+        replace
         to="/rank/news">资讯</router-link>
     </div>
     <div class="rank-content">
@@ -65,7 +55,11 @@ export default {
 };
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
+.common-header {
+  position: fixed;
+  top: 0;
+}
 .rank-nav {
   position: fixed;
   z-index: 100;

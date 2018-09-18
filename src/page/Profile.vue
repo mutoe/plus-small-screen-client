@@ -3,7 +3,7 @@
 
     <common-header>
       我
-      <template slot="left"/>
+      <template slot="left"><span/></template>
     </common-header>
 
     <main class="m-box-model">

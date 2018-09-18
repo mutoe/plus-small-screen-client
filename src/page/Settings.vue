@@ -1,21 +1,9 @@
 <template>
   <div class="p-setting">
-    <header class="m-pos-f m-box m-aln-center m-head-top m-main m-bb1">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>设置</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-    </header>
-    <main style="padding-top: 0.9rem">
+
+    <common-header>设置</common-header>
+
+    <main>
       <ul class="m-box-model m-entry-group padding">
         <router-link
           to="/changePassword"

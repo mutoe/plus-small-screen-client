@@ -1,27 +1,12 @@
 <template>
   <div :class="prefixCls">
-    <header 
-      slot="head" 
-      class="m-box m-justify-bet m-aln-center m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg 
-          class="m-style-svg m-svg-def" 
-          @click="cancel">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>{{ title }}动态排行榜</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-    </header>
+
+    <common-header>{{ title }}动态排行榜</common-header>
+
     <load-more
       ref="loadmore"
       :on-refresh="onRefresh"
-      :on-load-more="onLoadMore"
-      style="padding-top: .9rem">
+      :on-load-more="onLoadMore">
       <div :class="`${prefixCls}-list`">
         <rank-list-item
           v-for="(user, index) in users"

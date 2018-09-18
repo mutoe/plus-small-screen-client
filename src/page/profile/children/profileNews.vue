@@ -1,20 +1,7 @@
 <template>
   <div class="p-profile-news">
-    <header class="m-box m-pos-f m-main m-bb1 m-head-top">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-center m-head-top-title">
-        <span>我的投稿</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-base0 m-justify-end"/>
-    </header>
+
+    <common-header>我的投稿</common-header>
 
     <main style="padding-top: .9rem">
       <div class="m-pos-f m-box m-aln-center m-justify-bet m-sub-nav m-bb1 m-main">
@@ -57,7 +44,7 @@
           :key="news.id" />
       </load-more>
     </main>
-  </div>
+  </common-header我的投稿></div>
 </template>
 <script>
 import { getMyNews } from "@/api/news.js";
