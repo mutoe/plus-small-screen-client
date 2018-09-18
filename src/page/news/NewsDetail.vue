@@ -234,6 +234,14 @@ export default {
     },
     isWechat() {
       return this.$store.state.BROWSER.isWechat;
+    },
+    has_collect: {
+      get() {
+        return this.news.has_collect;
+      },
+      set(val) {
+        this.news.has_collect = val;
+      }
     }
   },
   activated() {
@@ -387,12 +395,28 @@ export default {
       else this.$Message.success("请使用浏览器的分享功能😳");
     },
     moreAction() {
-      const defaultActions = [
-        {
+      const defaultActions = [];
+      if (this.has_collect) {
+        defaultActions.push({
+          text: "取消收藏",
+          method: () => {
+            api.uncollectNews(this.newsID).then(() => {
+              this.$Message.success("取消成功");
+              this.has_collect = false;
+            });
+          }
+        });
+      } else {
+        defaultActions.push({
           text: "收藏",
-          method() {}
-        }
-      ];
+          method: () => {
+            api.collectionNews(this.newsID).then(() => {
+              this.$Message.success("收藏成功");
+              this.has_collect = true;
+            });
+          }
+        });
+      }
 
       const actions = this.isMine
         ? [

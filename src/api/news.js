@@ -202,3 +202,27 @@ export function getRewardInfo(newsId) {
   const url = `/news/${newsId}/rewards/sum`;
   return api.get(url, { validateStatus: s => s === 200 });
 }
+
+/**
+ * 收藏资讯
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} newsId
+ * @returns
+ */
+export function collectionNews(newsId) {
+  const url = `/news/${newsId}/collections`;
+  return api.post(url, { validateStatus: s => s === 201 });
+}
+
+/**
+ * 取消收藏资讯
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} newsId
+ * @returns
+ */
+export function uncollectNews(newsId) {
+  const url = `/news/${newsId}/collections`;
+  return api.delete(url, { validateStatus: s => s === 204 });
+}
