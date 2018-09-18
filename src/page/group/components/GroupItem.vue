@@ -54,7 +54,8 @@ export default {
   computed: {
     ...mapState(["CURRENTUSER"]),
     avatar() {
-      return this.group.avatar;
+      const avatar = this.group.avatar || {};
+      return avatar.url || null;
     },
     name() {
       return this.group.name;

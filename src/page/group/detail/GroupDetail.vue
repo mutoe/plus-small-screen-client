@@ -263,7 +263,8 @@ export default {
       return summary;
     },
     groupAvatar() {
-      return this.group.avatar;
+      const avatar = this.group.avatar || {};
+      return avatar.url || null;
     },
     groupBackGround() {
       return {

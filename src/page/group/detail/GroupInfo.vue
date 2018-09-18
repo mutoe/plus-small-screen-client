@@ -8,7 +8,7 @@
         :readonly="true"
         label="圈子头像"
         shape="square"
-        type="blob" />
+        type="storage" />
 
       <form-input-item
         v-model="group.name"
