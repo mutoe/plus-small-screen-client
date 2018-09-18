@@ -157,6 +157,8 @@
 
 <script>
 import _ from "lodash";
+import axios from "axios";
+import { hashFile } from "@/util/SendImage.js";
 import bus from "@/bus.js";
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
 import HeadRoom from "headroom.js";
@@ -291,7 +293,7 @@ export default {
       ];
     },
     userBackGround() {
-      const ubg = this.user.bg;
+      let ubg = this.user.bg && this.user.bg.url;
       return ubg ? { "background-image": `url("${ubg}")` } : {};
     },
     verified() {
@@ -490,9 +492,9 @@ export default {
 
       checkImageType([file])
         .then(() => {
-          api
-            .uploadUserBanner(file)
-            .then(() => {
+          this.uploadFile(file)
+            .then(async node => {
+              await this.$http.patch("/user", { bg: node });
               this.$Message.success("更新个人背景成功！");
               this.fetchUserInfo();
             })
@@ -504,6 +506,33 @@ export default {
         .catch(() => {
           this.$Message.info("请上传正确格式的图片文件");
           $input.value = "";
+        });
+    },
+    async uploadFile(file) {
+      // 如果需要新文件存储方式上传
+      console.log(file);
+      const hash = await hashFile(file);
+      const params = {
+        filename: file.name,
+        hash,
+        size: file.size,
+        mime_type: file.type || "image/png",
+        storage: { channel: "public" }
+      };
+      const result = await this.$store.dispatch("uploadStorage", params);
+      return axios({
+        method: result.method,
+        url: result.uri,
+        headers: result.headers,
+        data: file
+      })
+        .then(res => {
+          return Promise.resolve(res.data.node);
+        })
+        .catch(err => {
+          console.warn(err);
+          this.$Message.error("文件上传失败，请检查文件系统配置");
+          return Promise.reject();
         });
     },
     onScroll: _.debounce(function() {
