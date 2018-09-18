@@ -3,7 +3,7 @@
 
     <common-header>我的收藏</common-header>
 
-    <main style="padding-top: .9rem">
+    <main>
       <div class="m-pos-f m-box m-aln-center m-justify-bet m-sub-nav m-bb1 m-main">
         <router-link
           replace
