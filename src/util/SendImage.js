@@ -1,27 +1,31 @@
 import MD5 from "js-md5";
 import http from "@/http.js";
-function existed(file) {
-  return new Promise((resolve, reject) => {
+
+export function hashFile(file) {
+  return new Promise(resolve => {
     const reader = new FileReader();
     reader.onload = e => {
       const base64 = e.target.result;
       const hash = MD5(base64);
-      http
-        .get(`/files/uploaded/${hash}`, {
-          validateStatus: s => s === 404 || s === 200
-        })
-        .then(
-          ({ status, data: { id } }) => {
-            resolve(status === 200 && id > 0 ? id : false);
-          },
-          err => {
-            reject(err);
-          }
-        );
+      resolve(hash);
     };
     reader.readAsArrayBuffer(file);
   });
 }
+
+function existed(file) {
+  return hashFile(file).then(hash => {
+    http
+      .get(`/files/uploaded/${hash}`, {
+        validateStatus: s => s === 404 || s === 200
+      })
+      .then(({ status, data: { id } }) =>
+        Promise.resolve(status === 200 && id > 0 ? id : false)
+      )
+      .catch(err => Promise.reject(err));
+  });
+}
+
 function sendImage(file) {
   const formData = new FormData();
   formData.append("file", file);

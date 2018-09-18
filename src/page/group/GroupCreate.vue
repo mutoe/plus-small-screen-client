@@ -114,7 +114,6 @@ import { encodeGeoHash } from "@/util/geohash";
 export default {
   name: "GroupCreate",
   components: {
-    Location,
     ChooseGroupCate,
     GroupProtocol
   },

@@ -14,7 +14,7 @@
 export default {
   name: "FormSelectItem",
   props: {
-    value: { type: String, default: "" },
+    value: { type: [String, Number], default: "" },
     label: { type: String, default: "" },
     placeholder: { type: String, default: "" },
     multiline: { type: Boolean, default: false },

@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { hashFile } from "@/util/SendImage.js";
+import axios from "axios";
 import { baseURL } from "@/api/api";
 import { getFileUrl } from "@/util";
 import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
@@ -55,7 +57,7 @@ export default {
       type: String,
       default: "id",
       validator(type) {
-        return ["blob", "id", "url"].includes(type);
+        return ["blob", "id", "url", "storage"].includes(type);
       }
     },
 
@@ -63,6 +65,11 @@ export default {
      * 头像形状 square: 方形 circle: 圆形
      */
     shape: { type: String, default: "circle" }
+  },
+  data() {
+    return {
+      avatarBlob: null
+    };
   },
   computed: {
     avatar() {
@@ -76,12 +83,20 @@ export default {
         case "blob":
           return getFileUrl(this.value);
 
+        case "storage":
+          // 获取初始头像资源
+          if (typeof this.value !== "string") return this.value.url || null;
+          // 否则获取修改过后的 blob 对象资源
+          return getFileUrl(this.avatarBlob);
+
         default:
           return null;
       }
+    },
+    filename() {
+      return this.$refs.imagefile.files[0].name;
     }
   },
-
   methods: {
     beforeSelectFile() {
       if (this.readonly) return;
@@ -99,23 +114,57 @@ export default {
         },
         onOk: screenCanvas => {
           screenCanvas.toBlob(async blob => {
-            // 如果需要得到服务器文件接口返回的 ID
-            if (this.type === "id") {
-              const formData = new FormData();
-              formData.append("file", blob);
-              const id = await this.$store.dispatch("uploadFile", formData);
-              this.$Message.success("头像上传成功");
-              this.$emit("input", id);
-            }
-            // 如果需要 Blob 对象
-            else if (this.type === "blob") {
-              this.$emit("input", blob);
-            }
-
+            this.uploadBlob(blob);
             this.$refs.imagefile.value = null;
           }, "image/png");
         }
       });
+    },
+
+    async uploadBlob(blob) {
+      // 如果需要得到服务器文件接口返回的 ID
+      if (this.type === "id") {
+        const formData = new FormData();
+        formData.append("file", blob);
+        const id = await this.$store.dispatch("uploadFile", formData);
+        this.$Message.success("头像上传成功");
+        this.$emit("input", id);
+      }
+      // 如果需要 Blob 对象
+      else if (this.type === "blob") {
+        this.$emit("input", blob);
+      }
+      // 如果需要新文件存储方式上传
+      else if (this.type === "storage") {
+        this.avatarBlob = blob;
+        const hash = await hashFile(
+          new File([blob], this.filename, {
+            type: blob.type,
+            lastModified: new Date()
+          })
+        );
+        const params = {
+          filename: this.filename,
+          hash,
+          size: blob.size,
+          mime_type: blob.type || "image/png",
+          storage: { channel: "public" }
+        };
+        const result = await this.$store.dispatch("uploadStorage", params);
+        axios({
+          method: result.method,
+          url: result.uri,
+          headers: result.headers,
+          data: blob
+        })
+          .then(res => {
+            this.$emit("input", res.data.node);
+          })
+          .catch(err => {
+            console.warn(err);
+            this.$Message.error("文件上传失败，请检查文件系统配置");
+          });
+      }
     }
   }
 };
