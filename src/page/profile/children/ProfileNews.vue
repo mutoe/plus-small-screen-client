@@ -44,7 +44,7 @@
           :key="news.id" />
       </load-more>
     </main>
-  </common-header我的投稿></div>
+  </div>
 </template>
 <script>
 import { getMyNews } from "@/api/news.js";

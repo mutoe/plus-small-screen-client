@@ -10,28 +10,29 @@
           v-for="feed in feeds"
           :key="`clet-${feed.id}`"
           class="p-profile-collection-feeds-item">
-          <feed-card
-            :feed="feed"
-            :show-footer="false"/>
+          <feed-card :feed="feed" :show-footer="false"/>
         </li>
       </ul>
     </load-more>
   </div>
 </template>
+
 <script>
-// import FeedItem from "./children/feedItem.vue";
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
 import { getCollectedFeed } from "@/api/feeds.js";
+
 export default {
   name: "ProfileCollectionFeeds",
   components: {
     FeedCard
   },
-  data: () => ({
-    feedList: new Map(),
-    ChangeTracker: 1,
-    isCurrentView: false
-  }),
+  data() {
+    return {
+      feedList: new Map(),
+      ChangeTracker: 1,
+      isCurrentView: false
+    };
+  },
   computed: {
     offset() {
       return this.feeds.length;
@@ -73,13 +74,15 @@ export default {
   }
 };
 </script>
-<style lang="less">
+
+<style lang="less" scoped>
 .p-profile-collection-feeds {
   &-item {
     .m-card-main {
       padding-bottom: 30px;
     }
   }
+
   &-item + &-item {
     margin-top: 10px;
   }
