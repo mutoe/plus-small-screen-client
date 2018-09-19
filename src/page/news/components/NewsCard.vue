@@ -6,17 +6,13 @@
     <section class="body">
       <h2>{{ title }}</h2>
       <p>
-        <i
-          v-show="!currentCate"
-          class="news-cate">{{ cate }}</i>
+        <i v-show="!currentCate" class="news-cate">{{ cate }}</i>
         <span>{{ author }}</span>
         <span>・{{ hits }}浏览</span>
         <span>・{{ time | time2tips }}</span>
       </p>
     </section>
-    <div
-      v-if="image"
-      class="poster">
+    <div v-if="image" class="poster">
       <img :src="image">
     </div>
   </router-link>
@@ -27,7 +23,7 @@ export default {
   name: "NewsCard",
   props: {
     currentCate: { type: Number, default: 0 },
-    news: { type: Object, default: () => {} }
+    news: { type: Object, required: true }
   },
   data() {
     return {

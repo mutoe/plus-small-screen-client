@@ -69,6 +69,11 @@ export default {
       line-height: 90px;
       text-align: center;
 
+      > a {
+        display: inline-block;
+        width: 100%;
+      }
+
       &.router-link-active {
         color: #333;
         border-bottom: 4px solid #59b6d7;

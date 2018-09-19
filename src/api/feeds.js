@@ -84,13 +84,17 @@ export function deleteFeed(feedId) {
 
 /**
  * 获取当前用户收藏的动态
- * @type {number}
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {number} params.limit
+ * @param {number} params.offset
+ * @param {number} [params.user] 用户id
+ * @returns {Promise<FeedObject[]>}
  */
-export function getCollectedFeed({ limit = 15, offset = 0 }) {
-  return api.get("/feeds/collections", {
-    limit,
-    offset
-  });
+export function getCollectedFeed(params) {
+  const url = "/feeds/collections";
+  return api.get(url, { params, validateStatus: s => s === 200 });
 }
 
 /**

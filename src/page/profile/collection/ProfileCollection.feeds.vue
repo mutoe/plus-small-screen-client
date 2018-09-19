@@ -1,25 +1,26 @@
 <template>
   <div class="p-profile-collection-feeds">
-    <load-more
+    <jo-load-more
       ref="loadmore"
-      :on-refresh="onRefresh"
-      :on-load-more="onLoadMore"
-      style="padding-top: .9rem">
+      style="padding-top: .9rem"
+      @onRefresh="onRefresh"
+      @onLoadMore="onLoadMore">
       <ul>
         <li
-          v-for="feed in feeds"
+          v-for="feed in feedList"
           :key="`clet-${feed.id}`"
           class="p-profile-collection-feeds-item">
           <feed-card :feed="feed" :show-footer="false"/>
         </li>
       </ul>
-    </load-more>
+    </jo-load-more>
   </div>
 </template>
 
 <script>
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
-import { getCollectedFeed } from "@/api/feeds.js";
+import { limit } from "@/api/api";
+import * as api from "@/api/feeds";
 
 export default {
   name: "ProfileCollectionFeeds",
@@ -28,47 +29,23 @@ export default {
   },
   data() {
     return {
-      feedList: new Map(),
-      ChangeTracker: 1,
-      isCurrentView: false
+      feedList: []
     };
   },
-  computed: {
-    offset() {
-      return this.feeds.length;
-    },
-    feeds() {
-      return this.ChangeTracker && Array.from(this.feedList.values());
-    },
-    params() {
-      return {
-        offset: this.offset,
-        limit: 15
-      };
-    }
-  },
   methods: {
-    formatFeeds(feedList) {
-      feedList.forEach(feed => {
-        this.feedList.set(feed.id, feed);
-        this.ChangeTracker += 1;
-      });
-    },
     onRefresh() {
-      let params = this.params;
-      params = {
-        ...params,
-        offset: 0
-      };
-      getCollectedFeed({ ...params }).then(({ data = [] }) => {
-        this.formatFeeds(data);
-        this.$refs.loadmore.topEnd(!(data.length < this.params.limit));
+      // TODO: refactor there with vuex action.
+      api.getCollectedFeed().then(({ data = [] }) => {
+        this.feedList = data;
+        this.$refs.loadmore.afterRefresh(data.length < limit);
       });
     },
     onLoadMore() {
-      getCollectedFeed({ ...this.params }).then(({ data = [] }) => {
-        this.formatFeeds(data);
-        this.$refs.loadmore.bottomEnd(data.length < this.params.limit);
+      const offset = this.feeds.length;
+      // TODO: refactor there with vuex action.
+      api.getCollectedFeed({ offset }).then(({ data = [] }) => {
+        this.feedList = [...this.feedList, ...data];
+        this.$refs.loadmore.afterLoadMore(data.length < limit);
       });
     }
   }

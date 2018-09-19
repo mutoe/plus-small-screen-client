@@ -204,6 +204,20 @@ export function getRewardInfo(newsId) {
 }
 
 /**
+ * 获取收藏资讯
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {number} params.limit
+ * @param {number} params.after
+ * @returns {Promise<NewsObject[]>}
+ */
+export function getCollectedNews(params) {
+  const url = "/news/collections";
+  return api.get(url, { params, validateStatus: s => s === 200 });
+}
+
+/**
  * 收藏资讯
  * @author mutoe <mutoe@foxmail.com>
  * @export
