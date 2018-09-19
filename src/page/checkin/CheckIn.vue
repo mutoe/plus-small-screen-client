@@ -1,24 +1,20 @@
 <template>
   <div @touchmove.prevent>
     <transition name="toast">
-      <div 
-        v-if="show" 
-        class="m-pop-box" 
+      <div
+        v-if="show"
+        class="m-pop-box"
         @click="cancel"/>
     </transition>
     <transition>
       <!-- 屏蔽出场动画 -->
       <!-- enter-active-class="animated jello" -->
-      <div 
-        v-if="show" 
-        class="m-box-model m-main m-check-in-box">
+      <div v-if="show" class="m-box-model m-main m-check-in-box">
         <header class="m-box-model m-aln-center m-justify-center m-check-in-head">
           <h2>每日签到</h2>
           <p>累计签到{{ last_checkin_count }}天</p>
-          <a 
-            class="m-check-in-close" 
-            @click="cancel">
-            <svg 
+          <a class="m-check-in-close" @click="cancel">
+            <svg
               viewBox="0 0 1024 1024"
               class="m-style-svg m-svg-def"
               style="fill:#fff;overflow:hidden;padding:3px;border-radius:100%;background:rgba(255, 255, 255, .2);box-shadow: 1px 1px 2px 1px rgba(0, 0, 0,.1);">
@@ -32,25 +28,25 @@
             <h2>+{{ attach_balance }}</h2>
             <p>每日签到得{{ currency_name }}</p>
           </section>
-          <button 
+          <button
             :disabled="checked_in"
             class="m-check-in-btn"
             @click="fetchCheckIn">{{ checked_in ? "已签到" : "签到" }}</button>
           <div class="m-lim-width">
             <ul class="m-box m-lan-center m-justify-center m-check-in-user-list">
-              <li 
+              <li
                 v-for="(user, index) in rank_users"
                 v-if="user.id"
                 :key="user.id"
-                class="m-box-model m-aln-center" 
+                class="m-box-model m-aln-center"
                 @click="cancel">
-                <router-link 
+                <router-link
                   :to="`/users/${user.id}`"
                   :class="[`m-avatar-box-tiny`, `m-avatar-box-${user.sex}`]"
                   class="m-flex-shrink0 m-flex-grow0 m-avatar-box">
-                  <img 
-                    v-if="user.avatar" 
-                    :src="user.avatar.url" 
+                  <img
+                    v-if="user.avatar"
+                    :src="user.avatar.url"
                     class="m-avatar-img">
                 </router-link>
                 <span>{{ index + 1 }}</span>
@@ -62,6 +58,7 @@
     </transition>
   </div>
 </template>
+
 <script>
 import bus from "@/bus.js";
 export default {

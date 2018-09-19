@@ -23,12 +23,8 @@
             <span>来自 {{ news.from || '原创' }}</span>
           </p>
         </section>
-        <p
-          v-if="news.subject"
-          class="m-art-subject">{{ news.subject }}</p>
-        <div
-          class="m-art-body"
-          v-html="body"/>
+        <p v-if="news.subject" class="m-art-subject">{{ news.subject }}</p>
+        <div class="m-art-body" v-html="body"/>
         <div class="m-box m-aln-center m-justify-bet m-art-foot">
           <div class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list">
             <template v-if="likeCount > 0 && news.audit_status===0">
@@ -50,9 +46,7 @@
           </div>
         </div>
         <div class="m-box-model m-box-center m-box-center-a m-art-reward">
-          <button
-            class="m-art-rew-btn"
-            @click="rewardNews">打 赏</button>
+          <button class="m-art-rew-btn" @click="rewardNews">打 赏</button>
           <p class="m-art-rew-label">
             <a href="javascript:;">{{ reward.count | formatNum }}</a>人打赏，共
             <a href="javascript:;">{{ ~~reward.amount | formatNum }}</a>积分
@@ -69,15 +63,9 @@
               class="m-flex-grow0 m-flex-shrink0 m-art-rew m-avatar-box tiny">
               <img :src="rew.user.avatar.url">
             </li>
-            <li
-              v-if="rewardList.length > 0"
-              class="m-box m-aln-center">
-              <svg
-                class="m-style-svg m-svg-def"
-                style="fill:#bfbfbf">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#base-arrow-r"/>
+            <li v-if="rewardList.length > 0" class="m-box m-aln-center">
+              <svg class="m-style-svg m-svg-def" style="fill:#bfbfbf">
+                <use xlink:href="#base-arrow-r"/>
               </svg>
             </li>
           </router-link>
@@ -104,9 +92,7 @@
             :comment="comment"
             @click="replyComment" />
           <div class="m-box m-aln-center m-justify-center load-more-box">
-            <span
-              v-if="noMoreCom"
-              class="load-more-ph">---没有更多---</span>
+            <span v-if="noMoreCom" class="load-more-ph">---没有更多---</span>
             <span
               v-else
               class="load-more-btn"
