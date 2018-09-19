@@ -50,7 +50,7 @@
                   class="m-flex-shrink0 m-flex-grow0 m-avatar-box">
                   <img 
                     v-if="user.avatar" 
-                    :src="user.avatar" 
+                    :src="user.avatar.url" 
                     class="m-avatar-img">
                 </router-link>
                 <span>{{ index + 1 }}</span>

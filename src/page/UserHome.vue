@@ -394,7 +394,7 @@ export default {
         title: this.user.name,
         desc: this.user.bio,
         link: shareUrl,
-        imgUrl: this.user.avatar || ""
+        imgUrl: this.user.avatar.url || ""
       });
     }
 

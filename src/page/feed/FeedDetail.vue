@@ -87,7 +87,7 @@
               :key="rew.id"
               :class="`m-avatar-box-${rew.user.sex}`"
               class="m-flex-grow0 m-flex-shrink0 m-art-rew m-avatar-box tiny">
-              <img :src="rew.user.avatar">
+              <img :src="rew.user.avatar.url">
             </li>
             <li v-if="rewardList.length > 0" class="m-box m-aln-center">
               <svg class="m-style-svg m-svg-def" style="fill: #bfbfbf">
