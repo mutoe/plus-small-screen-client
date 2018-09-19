@@ -2,6 +2,7 @@
   <div class="p-profile-collection-news">
     <jo-load-more
       ref="loadmore"
+      :auto-load="false"
       style="padding-top: .9rem"
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
@@ -30,6 +31,9 @@ export default {
       newsList: []
     };
   },
+  mounted() {
+    this.onRefresh();
+  },
   methods: {
     onRefresh() {
       // TODO: refactor there with vuex action.
@@ -39,7 +43,10 @@ export default {
       });
     },
     onLoadMore() {
-      const after = this.newsList[this.newsList.length - 1].id;
+      const after =
+        this.newsList.length > 0
+          ? this.newsList[this.newsList.length - 1].id
+          : 0;
       // TODO: refactor there with vuex action.
       api.getCollectedNews({ after }).then(({ data }) => {
         this.newsList = [...this.newsList, ...data];

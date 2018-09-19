@@ -2,6 +2,7 @@
   <div class="p-profile-collection-feeds">
     <jo-load-more
       ref="loadmore"
+      :auto-load="false"
       style="padding-top: .9rem"
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
@@ -32,6 +33,9 @@ export default {
       feedList: []
     };
   },
+  mounted() {
+    this.onRefresh();
+  },
   methods: {
     onRefresh() {
       // TODO: refactor there with vuex action.
@@ -41,7 +45,7 @@ export default {
       });
     },
     onLoadMore() {
-      const offset = this.feeds.length;
+      const offset = this.feedList.length;
       // TODO: refactor there with vuex action.
       api.getCollectedFeed({ offset }).then(({ data = [] }) => {
         this.feedList = [...this.feedList, ...data];
