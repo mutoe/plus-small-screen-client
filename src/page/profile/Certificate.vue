@@ -1,21 +1,14 @@
 <template>
   <div class="p-profile-certificate">
-    <header class="m-box m-pos-f m-main m-bb1 m-head-top">
-      <div
-        class="m-box m-aln-center m-flex-none"
-        @click="step > 1 ? step-- : goBack()">
-        <v-icon type="base-back" />
-      </div>
-      <div class="m-box m-aln-center m-flex-auto m-justify-center m-head-top-title">
-        <span>{{ step === 1 ? '基本信息' : '上传资料' }}</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-none btn-submit">
-        <span
-          v-show="step === 2"
-          :class="['btn-submit', disabled]"
-          @click="validate(onSubmit)">提交</span>
-      </div>
-    </header>
+
+    <common-header :back="back">
+      {{ step === 1 ? '基本信息' : '上传资料' }}
+      <span
+        v-show="step === 2"
+        slot="right"
+        :class="['btn-submit', disabled]"
+        @click="validate(onSubmit)">提交</span>
+    </common-header>
 
     <transition-group
       :enter-active-class="animated.enter"
@@ -315,6 +308,9 @@ export default {
     });
   },
   methods: {
+    back() {
+      this.step > 1 ? this.step-- : this.goBack();
+    },
     onSubmit() {
       const postData = Object.assign({ files: this.files }, this.formData);
       if (this.status === 0) {

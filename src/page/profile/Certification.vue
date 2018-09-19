@@ -1,16 +1,8 @@
 <template>
   <div class="p-profile-certification">
-    <header class="m-box m-pos-f m-main m-bb1 m-head-top">
-      <div
-        class="m-box m-aln-center m-flex-none"
-        @click="goBack">
-        <v-icon type="base-back" />
-      </div>
-      <div class="m-box m-aln-center m-flex-auto m-justify-center m-head-top-title">
-        <span>{{ type === 'user' ? '个人' : '企业' }}认证</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-none btn-submit"/>
-    </header>
+
+    <common-header>{{ type === 'user' ? '个人' : '企业' }}认证</common-header>
+
     <main class="m-box-model main">
       <div
         v-if="verified.status === 0"
@@ -55,6 +47,7 @@
         </div>
       </div>
     </main>
+
   </div>
 </template>
 
@@ -131,8 +124,6 @@ export default {
   background-color: #fff;
 
   main {
-    padding-top: 0.9rem;
-
     .info-bar {
       background-color: #4bb893;
       color: #fff;
