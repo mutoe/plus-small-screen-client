@@ -210,7 +210,7 @@ export class ChatRoom {
     this.avatar = avatar;
     this.latest = latest;
     this.unreadCount = unreadCount;
-    this.time = latest ? latest.time : time;
+    this.time = latest ? latest.time || time : time;
   }
 
   /**
