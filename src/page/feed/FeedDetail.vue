@@ -63,7 +63,7 @@
                   :style="{ zIndex: 5-index }"
                   :class="`m-avatar-box-${user.sex}`"
                   class="m-avatar-box tiny">
-                  <img :src="user.avatar">
+                  <img :src="user.avatar.url">
                 </li>
               </ul>
               <span>{{ likeCount | formatNum }}人点赞</span>

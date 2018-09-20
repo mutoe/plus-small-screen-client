@@ -48,7 +48,8 @@ export default {
       return this.item.name;
     },
     avatar() {
-      return this.item.avatar;
+      const avatar = this.item.avatar || {};
+      return avatar.url || null;
     },
     time() {
       return this.item.time;
