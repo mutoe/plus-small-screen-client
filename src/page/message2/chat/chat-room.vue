@@ -1,29 +1,13 @@
 <template>
   <div class="p-chat-room m-box-model">
-    <header class="m-box m-aln-center m-head-top m-main m-bb1 m-flex-grow0 m-flex-shrink0">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-flex-base0">
-        <svg 
-          class="m-style-svg m-svg-def" 
-          @click="goBack">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow2 m-flex-shrink2 m-flex-base0 m-justify-center m-head-top-title">
-        <span class="m-text-cut">{{ name }}</span>
-        <span>{{ count }}</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-flex-base0"/>
-    </header>
-    <main 
-      ref="main"
-      class="m-box-model p-chat-room-main m-flex-grow1 m-flex-shrink1 m-main">
-      <bubble 
+
+    <common-header><span class="m-text-cut">{{ name }}</span><span>{{ count }}</span></common-header>
+
+    <main ref="main" class="m-box-model p-chat-room-main m-flex-grow1 m-flex-shrink1 m-main">
+      <bubble
         v-for="msg in messages"
         :msg="msg"
-        :key="msg.id"
-      />
+        :key="msg.id" />
     </main>
 
     <footer
@@ -31,36 +15,33 @@
       class="m-box m-aln-end m-main p-chat-room-foot m-flex-grow0 m-flex-shrink0 m-bt1">
       <form
         action="#"
-        class="m-box-model m-aln-center m-justify-center m-flex-grow1 m-flex-shrink1 m-main p-chat-input">      
-        <textarea 
+        class="m-box-model m-aln-center m-justify-center m-flex-grow1 m-flex-shrink1 m-main p-chat-input">
+        <textarea
           ref="textarea"
           v-model.trim="body"
           :style="{ height: `${scrollHeight}px` }"
           placeholder="随便说说~"
           @focus="onFocus"
           @keydown.enter.prevent="sendMessage"/>
-        <textarea 
+        <textarea
           ref="shadow"
-          v-model.trim="shadowText" 
-          rows="1" 
+          v-model.trim="shadowText"
+          rows="1"
           class="shadow-input"/>
       </form>
-      <button 
+      <button
         :disabled="disabled || sending"
         class="m-flex-grow0 m-flex-shrink0 p-chat-button"
         @click="sendMessage">
-        <svg 
-          v-if="sending" 
-          class="m-style-svg m-svg-def">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-loading"/>
+        <svg v-if="sending" class="m-style-svg m-svg-def">
+          <use xlink:href="#base-loading"/>
         </svg>
         <span v-else>发送</span>
       </button>
     </footer>
   </div>
 </template>
+
 <script>
 import bus from "@/bus.js";
 

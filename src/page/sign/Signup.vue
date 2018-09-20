@@ -3,20 +3,13 @@
     enter-active-class="animated bounceInRight"
     leave-active-class="animated bounceOutLeft">
     <div class="p-signup">
-      <header class="m-box m-aln-center m-head-top m-pos-f m-main m-bb1">
-        <div class="m-box m-aln-center m-flex-grow1 m-flex-base0">
-          <svg class="m-style-svg m-svg-def" @click="goBack">
-            <use xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-flex-base0 m-head-top-title">
-          <span>{{ _$type.label }}注册</span>
-        </div>
-        <div class="m-box m-aln-center m-justify-end m-flex-grow1 m-flex-base0">
-          <a @click.prevent="changeType">{{ _$type.label2 }}</a>
-        </div>
-      </header>
-      <main style="padding-top: 0.9rem">
+
+      <common-header>
+        {{ _$type.label }}注册
+        <a slot="right" @click.prevent="changeType">{{ _$type.label2 }}</a>
+      </common-header>
+
+      <main>
         <div class="m-form-row m-main">
           <label for="username">用户名</label>
           <div class="m-input">
@@ -380,6 +373,7 @@ export default {
 <style lang="less" scoped>
 .p-signup {
   display: flex;
+  flex-direction: column;
   height: 100%;
 
   > * {

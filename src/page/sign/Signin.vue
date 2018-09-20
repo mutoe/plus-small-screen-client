@@ -3,16 +3,14 @@
     enter-active-class="animated bounceInRight"
     leave-active-class="animated bounceOutLeft">
     <div class="m-box-model m-pos-f p-signin">
-      <header class="m-box m-pos-f m-aln-center m-main m-head-top m-bb1">
-        <div class="m-flex-grow1 m-flex-base0"/>
-        <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center m-justify-center m-head-top-title">
-          <span>登录</span>
-        </div>
-        <div class="m-box m-flex-grow1 m-flex-base0 m-aln-center m-justify-end">
-          <router-link to="/signup">注册</router-link>
-        </div>
-      </header>
-      <main class="m-box-model m-flex-grow1" style="padding-top: 0.9rem">
+
+      <common-header>
+        登录
+        <span slot="left"/>
+        <router-link slot="right" to="/signup">注册</router-link>
+      </common-header>
+
+      <main class="m-box-model m-flex-grow1">
         <div class="m-form-row m-main">
           <label for="account">账户</label>
           <div class="m-input">

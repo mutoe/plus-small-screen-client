@@ -7,9 +7,7 @@
       tag="li"
       class="m-entry">
       <svg class="m-style-svg m-svg-big m-entry-prepend m-flex-grow0 m-flex-shrink0">
-        <use
-          :xlink:href="`#${item.icon}`"
-          xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <use :xlink:href="`#${item.icon}`" />
       </svg>
       <div class="m-box-model m-justify-bet m-flex-grow1 m-flex-shrink1 m-flex-base0 m-entry-main">
         <h2 class="m-text-cut">{{ item.title }}</h2>
@@ -21,9 +19,7 @@
         </h5>
         <h5 v-else/>
         <div class="m-box m-aln-center m-justify-end">
-          <span
-            v-if="computedGetter(item.count) !== 0"
-            :class="`${prefixCls}-time-count`">
+          <span v-if="computedGetter(item.count) !== 0" :class="`${prefixCls}-time-count`">
             <i>{{ computedGetter(item.count) }}</i>
           </span>
         </div>
