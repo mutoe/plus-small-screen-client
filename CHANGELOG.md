@@ -1,3 +1,41 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0-rc.9...v4.0.0) (2018-09-20)
+
+
+### Features
+
+* **group:** 圈子相关功能
+* **question:** 问答相关功能
+* **news:** 收藏资讯 ([6ff3269](https://github.com/slimkit/plus-small-screen-client/commit/6ff3269))
+* **collect:** ([#511](https://github.com/slimkit/plus-small-screen-client/issues/511)) 增加我的收藏-资讯列表 ([14aa4b2](https://github.com/slimkit/plus-small-screen-client/commit/14aa4b2))
+
+
+### Bug Fixes
+
+* 修复 safari 下不支持 Date 构造非常规时间字符串的问题 ([36c640a](https://github.com/slimkit/plus-small-screen-client/commit/36c640a))
+* 修复帖子发帖时间显示有时差的问题 ([4c13a20](https://github.com/slimkit/plus-small-screen-client/commit/4c13a20))
+* 新头像资源更新 ([bbd5a87](https://github.com/slimkit/plus-small-screen-client/commit/bbd5a87))
+* 新版本文件上传头像路径适应调整 ([f61fe74](https://github.com/slimkit/plus-small-screen-client/commit/f61fe74))
+* **certificate:** ([#513](https://github.com/slimkit/plus-small-screen-client/issues/513)) 未认证用户点击认证时页面报错 ([e85720a](https://github.com/slimkit/plus-small-screen-client/commit/e85720a))
+* **chat:** 修复聊天窗口头像没有对齐的问题 ([3f9d0a3](https://github.com/slimkit/plus-small-screen-client/commit/3f9d0a3))
+* **chat:** 聊天时间显示NaN的问题 ([79ed76a](https://github.com/slimkit/plus-small-screen-client/commit/79ed76a))
+* **collection:** 解决进入收藏详情页再返回收藏列表时页面报错的问题 ([b75f3f0](https://github.com/slimkit/plus-small-screen-client/commit/b75f3f0))
+* **feed:** ([#463](https://github.com/slimkit/plus-small-screen-client/issues/463)) 修复(hack)在某些情况下动态列表接口被异常重复加载的问题 ([fe1d4fc](https://github.com/slimkit/plus-small-screen-client/commit/fe1d4fc))
+* **feed:** ([#463](https://github.com/slimkit/plus-small-screen-client/issues/463)) 修复动态列表接口加载异常的问题 ([92cc844](https://github.com/slimkit/plus-small-screen-client/commit/92cc844))
+* **feed:** 在动态详情页下的关注按钮失效的问题 ([7702f77](https://github.com/slimkit/plus-small-screen-client/commit/7702f77))
+* **feed:** 热门动态加载更多接口修正 ([35038ff](https://github.com/slimkit/plus-small-screen-client/commit/35038ff))
+* **location:** 定位精度显示到城市 ([e590ba1](https://github.com/slimkit/plus-small-screen-client/commit/e590ba1))
+* **news:** 修复资讯列表加载卡片广告时偶尔复现的重复加载问题 ([7f03897](https://github.com/slimkit/plus-small-screen-client/commit/7f03897))
+* **news:** 编辑文章页面 title 更正 ([0c4d004](https://github.com/slimkit/plus-small-screen-client/commit/0c4d004))
+* **profile:** 修复个人主页报错的问题 ([23d1f9a](https://github.com/slimkit/plus-small-screen-client/commit/23d1f9a))
+* **profile:** 修复动态评论置顶样式问题 ([76ef462](https://github.com/slimkit/plus-small-screen-client/commit/76ef462))
+* **share:** H5 分享提示进行浏览器分享 ([7e0ba83](https://github.com/slimkit/plus-small-screen-client/commit/7e0ba83))
+* **user:** ([#509](https://github.com/slimkit/plus-small-screen-client/issues/509)) 在别人的个人主页也能唤起更换 banner 的问题 ([c8823b4](https://github.com/slimkit/plus-small-screen-client/commit/c8823b4))
+* **wallet, recharge:** 充值成功后可以正常的跳转回应用内了 :tada: ([d803af2](https://github.com/slimkit/plus-small-screen-client/commit/d803af2))
+
+> 查看更多提交历史请[点击这里](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0-rc.9...v4.0.0)
+
+
 <a name="4.0.0-rc.9"></a>
 # [4.0.0-rc.9](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0-rc.8...v4.0.0-rc.9) (2018-08-03)
 
