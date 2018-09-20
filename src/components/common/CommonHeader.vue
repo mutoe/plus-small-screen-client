@@ -1,5 +1,5 @@
 <template>
-  <header class="c-common-header">
+  <header :class="{pinned}" class="c-common-header">
     <div class="left">
       <slot name="left">
         <svg class="m-style-svg m-svg-def" @click="onBackClick">
@@ -22,7 +22,8 @@ import { noop } from "@/util";
 export default {
   name: "CommonHeader",
   props: {
-    back: { type: Function, default: noop }
+    back: { type: Function, default: noop },
+    pinned: { type: Boolean, default: false }
   },
   methods: {
     onBackClick() {
@@ -52,6 +53,10 @@ export default {
   font-size: 32px;
   color: inherit;
   z-index: 10;
+
+  &.pinned {
+    position: fixed;
+  }
 
   .left,
   .right,
