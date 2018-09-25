@@ -456,6 +456,7 @@ export default {
 - `FormTagsItem` 标签选择栏
 - `FormSelectItem` 通用选择框
 - `FormSwitchItem` 切换开关栏
+- `TextareaInput` 多行输入文本框（不含label）
 
 ### 使用方法
 
@@ -464,12 +465,14 @@ export default {
   <form>
     <form-avatar-item v-model="avatar" label="请上传圈子头像" />
     <form-input-item v-model="name" placeholder="请输入圈子名称, 20字以内" maxlength="20" />
-    <form-input-item v-model="summary" type="textarea" placeholder="请输入圈子简介, 255字以内" maxlength="255" warnlength="200" />>
+    <form-input-item v-model="summary" type="textarea" placeholder="请输入圈子简介, 255字以内" maxlength="255" warnlength="200" />
     <form-tags-item v-model="tags" placeholder="请选择圈子标签"/>
     <form-select-item v-model="modeMap[mode] || ''" placeholder="请选择圈子类别" @click="mode = 'private'" />
     <form-location-item v-model="location" placeholder="设置圈子的地理位置" />
     <form-switch-item v-model="allowFeed" label="是否将帖子同步至动态" />
   </form>
+  
+  <textarea-input v-model="summary" maxlength="50" warnlength="30" placeholder="这是一个占满宽度的文本输入框" />
 </template>
 
 <script>
