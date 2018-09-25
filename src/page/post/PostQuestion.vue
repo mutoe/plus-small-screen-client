@@ -112,7 +112,7 @@
             :key="topic.id"
             class="m-box m-aln-center m-topic m-bb1"
             @click="selectedTopic(topic)" >
-            <img :src="topic.avatar" class="m-flex-grow0 m-flex-shrink0 m-topic-avatar">
+            <img :src="getAvatar(topic.avatar)" class="m-flex-grow0 m-flex-shrink0 m-topic-avatar">
             <section class="m-flex-grow1 m-flex-shrink1 m-box-model m-ovxh">
               <h3>{{ topic.name }}</h3>
               <p>{{ topic.description }}</p>
@@ -256,6 +256,10 @@ export default {
       this.$http.get(`/question-topics`).then(({ data = [] }) => {
         this.topics = data;
       });
+    },
+    getAvatar(avatar) {
+      avatar = avatar || {};
+      return avatar.url || null;
     },
     preStep() {
       this.step > 1 &&
