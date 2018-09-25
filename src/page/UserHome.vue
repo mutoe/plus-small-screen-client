@@ -390,11 +390,12 @@ export default {
         this.$route.fullPath;
       const signUrl =
         this.$store.state.BROWSER.OS === "IOS" ? window.initUrl : shareUrl;
+      const avatar = this.user.avatar || {};
       wechatShare(signUrl, {
         title: this.user.name,
         desc: this.user.bio,
         link: shareUrl,
-        imgUrl: this.user.avatar.url || ""
+        imgUrl: avatar.url || ""
       });
     }
 

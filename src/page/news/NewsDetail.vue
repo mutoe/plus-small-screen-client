@@ -34,7 +34,7 @@
                   :key="id"
                   :style="{ zIndex: 5-index }"
                   class="m-avatar-box tiny">
-                  <img :src="user.avatar.url">
+                  <img :src="getAvatar(user.avatar)">
                 </li>
               </ul>
               <span>{{ likeCount | formatNum }}人点赞</span>
@@ -61,7 +61,7 @@
               :key="rew.id"
               :class="`m-avatar-box-${rew.user.sex}`"
               class="m-flex-grow0 m-flex-shrink0 m-art-rew m-avatar-box tiny">
-              <img :src="rew.user.avatar.url">
+              <img :src="getAvatar(rew.user.avatar)">
             </li>
             <li v-if="rewardList.length > 0" class="m-box m-aln-center">
               <svg class="m-style-svg m-svg-def" style="fill:#bfbfbf">
@@ -497,6 +497,10 @@ export default {
       this.fetchNews(() => {
         this.$refs.loadmore.afterRefresh(true);
       });
+    },
+    getAvatar(avatar) {
+      avatar = avatar || {};
+      return avatar.url || null;
     }
   }
 };
