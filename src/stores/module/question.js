@@ -1,4 +1,6 @@
 import * as answerApi from "@/api/question/answer";
+import * as questionApi from "@/api/question/questions";
+import * as topicApi from "@/api/question/topics";
 
 const actions = {
   async postAnswer(state, payload) {
@@ -10,6 +12,20 @@ const actions = {
     });
 
     return data;
+  },
+
+  async searchQuestion(state, payload) {
+    const { keyword = "" } = payload;
+    if (!keyword) return Promise.resolve([]);
+    const { data } = await questionApi.queryList({ subject: keyword });
+    return data || [];
+  },
+
+  async searchTopics(state, payload) {
+    const { keyword = "" } = payload;
+    if (!keyword) return Promise.resolve([]);
+    const { data } = await topicApi.query({ name: keyword });
+    return data || [];
   }
 };
 

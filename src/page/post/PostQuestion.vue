@@ -1,7 +1,9 @@
 <template>
   <div class="p-post-question">
-    <header class="m-pos-f m-box m-aln-center m-justify-bet m-head-top m-main m-bb1">
-      <div class="m-flex-grow1 m-flex-shrink1 m-flex-base0">
+
+    <common-header>
+      {{ title }}
+      <template slot="left">
         <a v-if="step === 1" @click.prevent="cancel">取消</a>
         <svg
           v-else
@@ -9,11 +11,8 @@
           @click="preStep">
           <use xlink:href="#base-back"/>
         </svg>
-      </div>
-      <div class="m-box m-flex-grow1 m-flex-shrink0 m-flex-base0 m-justify-center m-head-top-title">
-        <span>{{ title }}</span>
-      </div>
-      <div class="m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-r">
+      </template>
+      <template slot="right">
         <a
           v-if="step !== 3"
           :class="{ disabled }"
@@ -23,8 +22,8 @@
           v-if="step === 3 && selectedTops.length > 0"
           class="m-send-btn"
           @click="beforePost">发布</a>
-      </div>
-    </header>
+      </template>
+    </common-header>
 
     <transition-group
       :enter-active-class="animated.enterClass"
@@ -36,17 +35,14 @@
         v-show="step === 1"
         key="step1"
         class="m-pos-f m-box-model m-flex-grow1 m-flex-shrink1 m-main">
-        <div class="m-box m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title">
-          <content-text
-            ref="contentText"
-            :rows="1"
+        <div class="m-box m-lim-width question-title">
+          <textarea-input
+            v-model="question.title"
             :maxlength="50"
-            :warn-length="30"
-            class="m-reles-txt-wrap"
-            placeholder="请输入问题并以问号结尾"
-            @input="serachQuestionByKey" />
+            :warnlength="30"
+            placeholder="请输入问题并以问号结尾"/>
         </div>
-        <ul class="m-box-model m-flex-grow1 m-flex-shrink1 m-lim-width question-list">
+        <ul class="m-box-model m-lim-width question-list">
           <router-link
             v-for="q in questions"
             v-if="q.id"
@@ -128,11 +124,12 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import bus from "@/bus.js";
+import TextareaInput from "@/components/form/TextareaInput.vue";
 import ContentText from "./components/ContentText.vue";
 
 export default {
   name: "PostQuestion",
-  components: { ContentText },
+  components: { ContentText, TextareaInput },
   data() {
     return {
       step: 1,
@@ -193,6 +190,9 @@ export default {
     },
     compose(val) {
       this.question.title = val;
+    },
+    ["question.title"]() {
+      this.serachQuestionByKey();
     }
   },
   created() {
@@ -211,31 +211,28 @@ export default {
           ? this.$Message.error("添加专题不可以超过5个")
           : this.selectedTops.push(topic);
     },
-    serachQuestionByKey: _.debounce(function() {
-      // GET /questions subject
-      this.$http
-        .get("/questions", {
-          params: {
-            subject: this.compose
-          }
-        })
-        .then(({ data = [] }) => {
-          this.questions = data;
-        });
-    }, 1e3),
-    inputTopicKeyWord: _.debounce(function() {
-      // GET /question-topics
-      if (!this.topicKeyWord) return;
-      this.$http
-        .get("/question-topics", {
-          params: {
-            name: this.topicKeyWord
-          }
-        })
-        .then(({ data = [] }) => {
-          this.topics = data;
-        });
-    }, 1000),
+    /**
+     * 搜索问题
+     * 使用 lodash.debounce 防抖，450ms
+     */
+    serachQuestionByKey: _.debounce(async function() {
+      const data = await this.$store.dispatch("question/searchQuestion", {
+        keyword: this.question.title
+      });
+      this.questions = data;
+    }, 450),
+
+    /**
+     * 搜索话题
+     * 使用 lodash.debounce 防抖，450ms
+     */
+    inputTopicKeyWord: _.debounce(async function() {
+      const data = await this.$store.dispatch("question/searchTopics", {
+        keyword: this.topicKeyWord
+      });
+      this.topics = data;
+    }, 450),
+
     onBlur() {
       this.showPlaceholder = this.question.body.length === 0;
       // this.moveCurPos();
@@ -343,21 +340,31 @@ export default {
   > div {
     animation-duration: 0.3s;
   }
+
   .m-pos-f {
     top: 90px;
   }
+
   .question-title {
+    flex: none;
     padding: 0 40px;
+    border-bottom: 1px solid @border-color;
+
+    &.step3 {
+      padding: 40px;
+    }
+
     input {
       font-size: 30px;
       line-height: 1.5;
       width: 100%;
     }
-    &.step3 {
-      padding: 40px;
-    }
   }
+
   .question-list {
+    flex: auto;
+    overflow: auto;
+
     li {
       border-bottom: 1px solid @border-color; /*no*/
       color: @text-color2;
@@ -365,6 +372,7 @@ export default {
       padding: 40px;
     }
   }
+
   .m-reles-body {
     height: auto;
     margin-bottom: 0;
@@ -388,16 +396,20 @@ export default {
     }
   }
 }
+
 .m-rich-box {
   font-size: 30px;
   width: 100%;
   padding: 40px;
   position: relative;
+  overflow: auto;
+
   .placeholder {
     position: absolute;
     color: #ccc;
   }
 }
+
 .m-editor {
   border: 0;
   outline: 0;
@@ -413,9 +425,11 @@ export default {
 
 .m-topics {
   overflow-y: auto;
+
   &.ml {
     margin-left: 15px;
   }
+
   li.m-topic {
     float: left;
     margin-left: 15px;
@@ -426,6 +440,8 @@ export default {
     border-radius: 25px;
     background-color: rgba(89, 182, 215, 0.2);
     color: @text-color2;
+    font-size: 26px;
+
     > .m-svg-def {
       margin-left: 20px;
       width: 32px;
