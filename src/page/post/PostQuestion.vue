@@ -133,6 +133,7 @@ export default {
   data() {
     return {
       step: 1,
+      loading: false,
 
       topics: [],
       questions: [],
@@ -297,6 +298,8 @@ export default {
       });
     },
     postQuestion(params) {
+      if (this.loading) return;
+      this.loading = true;
       // POST /questions
       this.$http
         .post(`/questions`, params, {
@@ -306,6 +309,9 @@ export default {
           this.$Message.success(message);
           this.$router.push(`/questions/${question.id}`);
           this.$lstore.removeData("H5_POST_QUESTION_DRAFT");
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     cancel() {

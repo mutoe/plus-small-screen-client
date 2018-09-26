@@ -5,6 +5,7 @@ import "./style/tsplus.less";
 import "github-markdown-css";
 import Vue from "vue";
 import "./util/rem";
+import "./util/prototype"; // 原型拓展
 
 import Modal from "./plugins/modal/";
 // import imgLazy from "./plugins/imgLazy";
