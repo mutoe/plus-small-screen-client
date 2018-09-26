@@ -106,6 +106,7 @@ export default {
       const params = {
         offset: this.offset,
         limit: this.limit,
+        type: "all",
         subject: this.keyword
       };
       queryQuestions(params).then(({ data }) => {
