@@ -1,85 +1,77 @@
 <template>
   <div class="p-find-person">
-    <header class="m-pos-f m-box m-aln-center m-justify-bet m-lim-width m-bb1 m-main m-head-top">
+
+    <header class="m-pos-f m-box m-aln-center m-justify-bet m-lim-width m-bb1 m-main m-head-top" style="padding: 0 10px;">
       <div class="m-box m-aln-center m-flex-grow0 m-flex-shrink0">
-        <svg 
-          class="m-style-svg m-svg-def" 
-          @click="goBack">
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def" @click="goBack">
+          <use xlink:href="#base-back"/>
         </svg>
       </div>
-      <div 
-        class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-head-search-box" 
-        @click="showSearchUser">
-        <svg class="m-style-svg m-svg-def placeholder"> 
-          <use 
-            xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xlink:href="#base-search"/>
+      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-head-search-box" @click="showSearchUser">
+        <svg class="m-style-svg m-svg-def placeholder">
+          <use xlink:href="#base-search"/>
         </svg>
         <span class="placeholder">搜索</span>
       </div>
-      <div 
-        class="m-box m-aln-center m-flex-grow0 m-flex-shrink0 m-justify-end m-location" 
-        @click="switchLocation">
-        <svg 
-          :class="loading?'m-svg-small':'m-svg-def'" 
-          class="m-style-svg">
+      <div class="m-box m-aln-center m-flex-grow0 m-flex-shrink0 m-justify-end m-location" @click="switchLocation">
+        <svg :class="loading?'m-svg-small':'m-svg-def'" class="m-style-svg">
           <use :xlink:href="loading ? `#base-loading` : `#find-location`"/>
         </svg>
         <span class="m-location-label m-text-cut">{{ location }}</span>
       </div>
     </header>
+
     <main style="padding-top: 0.9rem">
       <div class="m-pos-f m-box m-aln-center m-justify-bet m-sub-nav m-bb1 m-main">
-        <router-link 
-          replace 
-          exact 
-          tag="div" 
-          exact-active-class="active" 
-          to="/find/pop" 
+        <router-link
+          replace
+          exact
+          tag="div"
+          exact-active-class="active"
+          to="/find/pop"
           class="m-sub-nav-item">
           <a>热门</a>
         </router-link>
-        <router-link 
-          replace 
-          exact 
-          tag="div" 
-          exact-active-class="active" 
-          to="/find/new" 
+        <router-link
+          replace
+          exact
+          tag="div"
+          exact-active-class="active"
+          to="/find/new"
           class="m-sub-nav-item">
           <a>最新</a>
         </router-link>
-        <router-link 
-          replace 
-          exact 
-          tag="div" 
-          exact-active-class="active" 
-          to="/find/rec" 
+        <router-link
+          replace
+          exact
+          tag="div"
+          exact-active-class="active"
+          to="/find/rec"
           class="m-sub-nav-item">
           <a>推荐</a>
         </router-link>
-        <router-link 
-          replace 
-          exact 
-          tag="div" 
-          exact-active-class="active" 
-          to="/find/ner" 
+        <router-link
+          replace
+          exact
+          tag="div"
+          exact-active-class="active"
+          to="/find/ner"
           class="m-sub-nav-item">
           <a>附近</a>
         </router-link>
       </div>
       <keep-alive>
-        <router-view 
-          class="p-find-body" 
+        <router-view
+          class="p-find-body"
           style="padding-top: 0.9rem"/>
       </keep-alive>
     </main>
   </div>
 </template>
+
 <script>
 import { getCurrentPosition } from "@/api/bootstrappers.js";
+
 export default {
   name: "Find",
   data() {
@@ -130,7 +122,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-find-person {
   .m-sub-nav {
     top: 90px;

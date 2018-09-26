@@ -7,11 +7,11 @@
  */
 
 const notification = () =>
-  import(/* webpackChunkName: 'message' */ "@/page/message/list/notification");
+  import(/* webpackChunkName: 'message' */ "@/page/message/list/MyNotifications.vue");
 const msgComments = () =>
-  import(/* webpackChunkName: 'message' */ "@/page/message/list/comments");
+  import(/* webpackChunkName: 'message' */ "@/page/message/list/MyComments.vue");
 const msgLikes = () =>
-  import(/* webpackChunkName: 'message' */ "@/page/message/list/likes");
+  import(/* webpackChunkName: 'message' */ "@/page/message/list/MyLikes.vue");
 const AuditList = () =>
   import(/* webpackChunkName: 'message' */ "@/page/message/list/AuditList");
 const feedCommentAudit = () =>

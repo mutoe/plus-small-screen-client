@@ -1,21 +1,7 @@
 <template>
   <div class="p-question-search">
-    <header class="m-box m-aln-center m-pos-f m-main m-bb1 m-head-top">
-      <div class="m-box m-flex-grow2 m-flex-shrink2 m-aln-center m-head-top-title">
-        <div class="m-search-box">
-          <form action="#" onsubmit="return false">
-            <input
-              v-model="keyword"
-              type="search"
-              placeholder="搜索"
-              @input="searchQuestions">
-          </form>
-        </div>
-      </div>
-      <div class="m-box m-flex-grow0 m-flex-shrink0 m-aln-center m-justify-end">
-        <a @click.prevent.stop="goBack">取消</a>
-      </div>
-    </header>
+
+    <search-bar v-model="keyword"/>
 
     <nav class="questions-nav">
       <router-link
@@ -34,7 +20,7 @@
       ref="loadmore"
       :auto-load="false"
       :show-bottom="list.length > 0"
-      style="padding-top: 1.8rem"
+      style="padding-top: 0.9rem"
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
       <template v-if="type === 'question'">
@@ -57,6 +43,7 @@
 
 <script>
 import _ from "lodash";
+import SearchBar from "@/components/common/SearchBar.vue";
 import TopicCard from "./components/TopicCard.vue";
 import QuestionCard from "./components/QuestionCard.vue";
 import { queryList as queryQuestions } from "@/api/question/questions";
@@ -66,7 +53,7 @@ import { noop } from "@/util";
 
 export default {
   name: "QuestionSearch",
-  components: { TopicCard, QuestionCard },
+  components: { TopicCard, QuestionCard, SearchBar },
   data() {
     return {
       type: "question",
@@ -90,6 +77,9 @@ export default {
       this.offset = 0;
       this.noData = false;
       this.keyword = "";
+    },
+    keyword() {
+      this.searchQuestions();
     }
   },
   mounted() {
@@ -204,7 +194,7 @@ export default {
 <style lang="less">
 .p-question-search {
   .jo-loadmore-head {
-    top: 1.8rem;
+    top: 90px;
   }
 }
 </style>

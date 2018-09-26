@@ -1,6 +1,7 @@
 <template>
   <div class="p-user-fans">
-    <nav class="m-box m-head-top m-lim-width m-pos-f m-main m-bb1">
+
+    <nav class="m-box m-head-top m-lim-width m-pos-f m-main m-bb1" style="padding: 0 10px;">
       <div class="m-box m-aln-center m-flex-shrink0 ">
         <svg class="m-style-svg m-svg-def" @click="goBack">
           <use xlink:href="#base-back"/>
@@ -26,6 +27,7 @@
       </ul>
       <div class="m-box m-justify-end"/>
     </nav>
+
     <main style="padding-top: 0.9rem">
       <jo-load-more
         ref="loadmore"

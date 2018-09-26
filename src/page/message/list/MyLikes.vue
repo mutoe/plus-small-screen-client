@@ -1,26 +1,9 @@
 <template>
   <div :class="`${prefixCls}`">
-    <header
-      slot="head"
-      class="m-box m-justify-bet m-aln-center m-head-top m-pos-f m-main m-bb1">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>收到的赞</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-    </header>
 
-    <div
-      :class="`${prefixCls}-container`"
-      style="padding-top: 0.9rem">
+    <common-header>收到的赞</common-header>
+
+    <div :class="`${prefixCls}-container`">
       <load-more
         ref="loadmore"
         :on-refresh="onRefresh"
@@ -31,9 +14,7 @@
           v-if="like.id"
           :class="`${prefixCls}-item`"
           :key="like.id">
-          <component
-            :is="items[like.likeable_type]"
-            :like="like"/>
+          <component :is="items[like.likeable_type]" :like="like"/>
         </div>
       </load-more>
     </div>
@@ -118,5 +99,7 @@ export default {
   }
 };
 </script>
-<style lang="less" src="../style.less">
+
+<style lang="less">
+@import url("../style.less");
 </style>
