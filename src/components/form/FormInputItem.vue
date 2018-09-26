@@ -16,7 +16,7 @@
     <!-- 多行文本输入框 -->
     <template v-else-if="type === 'textarea'">
       <textarea-input
-        v-model="value"
+        v-model="textareaContent"
         :placeholder="placeholder"
         :maxlength="maxlength"
         :readonly="readonly"
@@ -52,6 +52,19 @@ export default {
     maxlength: { type: [Number, String], default: null },
     warnlength: { type: [Number, String], default: null },
     placeholder: { type: String, default: "" }
+  },
+  data() {
+    return {
+      textareaContent: ""
+    };
+  },
+  watch: {
+    textareaContent(val) {
+      this.$emit("input", val);
+    }
+  },
+  mounted() {
+    this.textareaContent = this.value || "";
   }
 };
 </script>
