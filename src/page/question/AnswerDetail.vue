@@ -195,16 +195,16 @@ export default {
     },
     isMine() {
       return this.user.id === this.CURRENTUSER.id;
-    },
-    getAvatar(avatar) {
-      avatar = avatar || {};
-      return avatar.url || null;
     }
   },
   created() {
     this.fetchAnswer();
   },
   methods: {
+    getAvatar(avatar) {
+      avatar = avatar || {};
+      return avatar.url || null;
+    },
     formatBody(body) {
       return markdownIt({
         html: true
