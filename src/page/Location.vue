@@ -171,7 +171,7 @@ export default {
         err => {
           this.loading = false;
           this.currentPos = {};
-          this.placeholder = "未定位";
+          this.placeholder = "定位失败";
           this.$Message.error(err.message);
         }
       );
