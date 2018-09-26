@@ -1,36 +1,31 @@
 <template>
   <div class="m-box-model p-post-news">
-    <header class="m-pos-f m-box m-aln-center m-justify-bet m-head-top m-main m-bb1">
-      <div class="m-flex-grow1 m-flex-base0">
-        <a
-          v-if="step === 1"
-          @click.prevent="cancel">取消</a>
+
+    <common-header>
+      {{ title }}
+      <template slot="left">
+        <a v-if="step === 1" @click.prevent="cancel">取消</a>
         <svg
           v-else
           class="m-style-svg m-svg-def"
           @click="preStep">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+          <use xlink:href="#base-back"/>
         </svg>
-      </div>
-      <div class="m-flex-grow1 m-flex-base0 m-text-c m-head-top-title">
-        <span>{{ title }}</span>
-      </div>
-      <div class="m-flex-grow1 m-flex-base0 m-text-r">
+      </template>
+      <template slot="right">
         <a
           v-if="step != 3"
           :class="{ disabled }"
           class="m-send-btn"
           @click.prevent="nextStep">下一步</a>
-      </div>
-    </header>
+      </template>
+    </common-header>
+
     <transition-group
       :enter-active-class="animated.enterClass"
       :leave-active-class="animated.leaveClass"
       tag="main"
-      class="m-box-model m-flex-grow1 m-flex-shrink1 p-post-news-main"
-      style="padding-top: 0.9rem;">
+      class="m-box-model m-flex-grow1 m-flex-shrink1 p-post-news-main">
       <template v-if="step === 1">
         <div
           key="step1"
@@ -53,47 +48,31 @@
         </div>
       </template>
       <template v-if="step === 2">
-        <div
-          key="step2"
-          class="m-pos-f m-box-model m-flex-grow1 m-flex-shrink1">
-          <div
-            class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1"
-            @click="switchCate">
+        <div key="step2" class="m-pos-f m-box-model m-flex-grow1 m-flex-shrink1">
+          <div class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1" @click="switchCate">
             <span class="m-post-news-row-label">选择栏目</span>
-            <div
-              :class="{placeholder: !(category.id > 0)}"
-              class="m-box m-flex-grow1 m-flex-shrink1 m-aln-center m-justify-end">
+            <div :class="{placeholder: !(category.id > 0)}" class="m-box m-flex-grow1 m-flex-shrink1 m-aln-center m-justify-end">
               <span>{{ category.name || "选择栏目" }}</span>
               <svg class="m-style-svg m-svg-def m-entry-append">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#base-arrow-r"/>
+                <use xlink:href="#base-arrow-r"/>
               </svg>
             </div>
           </div>
-          <div
-            class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1"
-            @click="switchTags">
+          <div class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1" @click="switchTags">
             <span class="m-post-news-row-label">选择标签</span>
             <div class="m-flex-grow1 m-flex-shrink1 m-text-r">
-              <div
-                v-if="tags.length > 0"
-                class="m-tags">
+              <div v-if="tags.length > 0" class="m-tags">
                 <span
                   v-for="tag in tags"
                   :key="tag.id"
                   class="m-tag">{{ tag.name }}</span>
               </div>
-              <div
-                v-else
-                class="m-box m-justify-end placeholder">
+              <div v-else class="m-box m-justify-end placeholder">
                 <span>最多选择5个标签</span>
               </div>
             </div>
             <svg class="m-flex-grow0 m-flex-shrink0 m-style-svg m-svg-def m-entry-append">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-arrow-r"/>
+              <use xlink:href="#base-arrow-r"/>
             </svg>
           </div>
           <div class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1">
@@ -129,9 +108,7 @@
         </div>
       </template>
       <template v-if="step === 3">
-        <div
-          key="step3"
-          class="m-box-model m-flex-grow1 m-flex-shrink1 m-aln-center step3 m-main">
+        <div key="step3" class="m-box-model m-flex-grow1 m-flex-shrink1 m-aln-center step3 m-main">
           <div
             :class="{ loading: poster.loading, error: poster.error }"
             class="m-box m-aln-center m-justify-center m-poster-box"
@@ -142,22 +119,14 @@
               class="m-poster"
               @load.stop="loadedPoster(poster)"
               @error="posterError">
-            <div
-              v-else
-              class="m-box-model m-aln-center m-justify-center m-lim-width m-poster-placeholder">
-              <svg
-                viewBox="0 0 24 24"
-                class="m-style-svg m-svg-big">
+            <div v-else class="m-box-model m-aln-center m-justify-center m-lim-width m-poster-placeholder">
+              <svg viewBox="0 0 24 24" class="m-style-svg m-svg-big">
                 <path d="M21.8,20.8H2.1c-0.5,0-1.1-0.4-1.1-1V6.3c0-0.5,0.4-1.1,1.1-1.1h4.3L8,3.6c0.1-0.3,0.5-0.4,0.8-0.4H15 c0.3,0,0.5,0.1,0.7,0.3l1.9,1.8h4.3c0.5,0,1.1,0.4,1.1,1.1V20C22.9,20.4,22.5,20.8,21.8,20.8L21.8,20.8z M12,6.6 c-3.4,0-6.1,2.7-6.1,6.1s2.7,6.1,6.1,6.1s6.1-2.7,6.1-6.1S15.4,6.6,12,6.6L12,6.6z M12,16.8c-2.3,0-4.1-1.8-4.1-4.1S9.7,8.6,12,8.6 s4.1,1.8,4.1,4.1S14.3,16.8,12,16.8L12,16.8z"/>
               </svg>
               <span>点击上传封面</span>
             </div>
-            <div
-              v-if="!poster.error && poster.loading"
-              class="fixed-loading">
-              <div
-                class="u-loading"
-                style="height: 58px;width: 58px">
+            <div v-if="!poster.error && poster.loading" class="fixed-loading">
+              <div class="u-loading" style="height: 58px;width: 58px">
                 <svg
                   class="loading"
                   width="100%"
@@ -191,9 +160,7 @@
               @change="selectPhoto">
           </div>
           <p>不上传封面则默认为文章内第一张图</p>
-          <button
-            class="m-long-btn m-signin-btn"
-            @click="handleOk">{{ newsPay ? '支付并发布资讯' : '发布资讯' }}</button>
+          <button class="m-long-btn m-signin-btn" @click="handleOk">{{ newsPay ? '支付并发布资讯' : '发布资讯' }}</button>
         </div>
       </template>
     </transition-group>

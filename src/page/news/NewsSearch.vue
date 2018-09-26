@@ -1,28 +1,12 @@
 <template>
   <div class="p-news-search">
-    <header class="m-box m-aln-center m-pos-f m-main m-bb1 m-head-top">
-      <div class="m-box m-flex-grow2 m-flex-shrink2 m-aln-center m-head-top-title">
-        <div class="m-search-box">
-          <form
-            action="#"
-            onsubmit="return false">
-            <input
-              v-model="keywordOrigin"
-              type="search"
-              placeholder="搜索"
-              @input="searchNewsByKey">
-          </form>
-        </div>
-      </div>
-      <div class="m-box m-flex-grow0 m-flex-shrink0 m-aln-center m-justify-end">
-        <a @click.prevent.stop="goBack">取消</a>
-      </div>
-    </header>
+
+    <search-bar v-model="keywordOrigin" />
+
     <jo-load-more
       ref="loadmore"
       :auto-load="false"
       :show-bottom="list.length > 0"
-      style="padding-top: 0.9rem"
       @onLoadMore="onLoadMore">
       <news-card
         v-for="news in list"
@@ -30,17 +14,14 @@
         :key="news.id"
         :news="news" />
     </jo-load-more>
-    <p
-      v-show="loading"
-      class="load-more-ph m-text-c mt10">正在搜索...</p>
-    <div
-      v-show="noResult && !loading && keyword && !list.length"
-      class="placeholder m-no-find"/>
+    <p v-show="loading" class="load-more-ph m-text-c mt10">正在搜索...</p>
+    <div v-show="noResult && !loading && keyword && !list.length" class="placeholder m-no-find"/>
   </div>
 </template>
 
 <script>
 import _ from "lodash";
+import SearchBar from "@/components/common/SearchBar.vue";
 import NewsCard from "./components/NewsCard.vue";
 import { searchNewsByKey } from "@/api/news.js";
 import { limit } from "@/api/api";
@@ -48,7 +29,8 @@ import { limit } from "@/api/api";
 export default {
   name: "NewsSearch",
   components: {
-    NewsCard
+    NewsCard,
+    SearchBar
   },
   data() {
     return {
@@ -65,6 +47,11 @@ export default {
     },
     keyword() {
       return this.keywordOrigin.trim();
+    }
+  },
+  watch: {
+    keyword() {
+      this.searchNewsByKey();
     }
   },
   methods: {
@@ -101,13 +88,10 @@ export default {
 
   .m-head-top-title {
     padding: 0 20px 0 0;
+
     .m-search-box {
       width: 100%;
     }
-  }
-
-  .jo-loadmore-head {
-    top: 90px;
   }
 
   .placeholder {
@@ -119,6 +103,6 @@ export default {
 
 <style lang="less">
 .jo-loadmore-head {
-  top: 90px;
+  top: 0px;
 }
 </style>

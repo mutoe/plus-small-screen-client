@@ -1,42 +1,31 @@
 <template>
   <div class="p-post-text m-box-model">
-    <header class="m-box m-flex-shrink0 m-flex-grow0 m-justify-bet m-aln-center m-main m-bb1 m-head-top m-pos-f">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <a
-          href="javascript:;"
-          @click="beforeGoBack">取消</a>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>发布动态</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <svg
-          v-if="loading"
-          class="m-style-svg m-svg-def">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-loading"/>
+
+    <common-header>
+      发布动态
+      <template slot="left">
+        <a href="javascript:;" @click="beforeGoBack">取消</a>
+      </template>
+      <template slot="right">
+        <svg v-if="loading" class="m-style-svg m-svg-def">
+          <use xlink:href="#base-loading"/>
         </svg>
         <a
           v-else
           :class="{ disabled }"
           class="m-send-btn"
           @click.prevent.stop="beforePost">发布</a>
-      </div>
-    </header>
-    <main
-      class="m-flex-grow1 m-flex-shrink1 m-reles-con"
-      style="padding-top: 0.9rem"
-      @click.self="areaFocus">
+      </template>
+    </common-header>
+
+    <main class="m-flex-grow1 m-flex-shrink1 m-reles-con" @click.self="areaFocus">
       <content-text
         ref="contentText"
         :rows="8"
         :maxlength="255"
         class="m-reles-txt-wrap" />
     </main>
-    <footer
-      class="m-box-model m-flex-shrink0 m-flex-grow1 m-aln-center m-main"
-      style="z-index: 10;">
+    <footer class="m-box-model m-flex-shrink0 m-flex-grow1 m-aln-center m-main" style="z-index: 10;">
       <v-switch
         v-if="paycontrol"
         v-model="pinned"
@@ -47,13 +36,10 @@
       <div
         :style="{ visibility: pinned ? 'visible' : 'hidden' }"
         style="margin-top: -1px"
-        class="m-box-model m-lim-width m-main"
-      >
+        class="m-box-model m-lim-width m-main" >
         <div class="m-pinned-amount-btns">
           <p class="m-pinned-amount-label">设置文字收费金额</p>
-          <div
-            v-if="items.length > 0"
-            class="m-box m-aln-center">
+          <div v-if="items.length > 0" class="m-box m-aln-center">
             <button
               v-for="item in items"
               :key="item"
@@ -81,10 +67,12 @@
     </footer>
   </div>
 </template>
+
 <script>
 import bus from "@/bus.js";
 import { mapGetters } from "vuex";
 import ContentText from "./components/ContentText.vue";
+
 export default {
   name: "PostText",
   components: {

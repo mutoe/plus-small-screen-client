@@ -1,23 +1,9 @@
 <template>
   <transition name="fade">
-    <div 
-      v-if="show" 
-      class="m-box-model m-pos-f p-choose-category m-main">
-      <header class="m-box m-aln-center m-justify-bet m-flex-grow0 m-flex-shrink0 m-head-top m-main m-bb1">
-        <div class="m-flex-grow1 m-flex-shrink1">
-          <svg 
-            class="m-style-svg m-svg-def" 
-            @click="cancel">
-            <use 
-              xmlns:xlink="http://www.w3.org/1999/xlink" 
-              xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-flex-grow1 m-shrink1 m-head-top-title m-text-c">
-          <span>选择栏目</span>
-        </div>
-        <div class="m-flex-grow1 m-flex-shrink1 m-text-r"/>
-      </header>
+    <div v-if="show" class="m-box-model m-pos-f p-choose-category m-main">
+
+      <common-header>选择栏目</common-header>
+
       <main>
         <ul class="m-cates">
           <li
@@ -31,8 +17,10 @@
     </div>
   </transition>
 </template>
+
 <script>
 import bus from "@/bus.js";
+
 export default {
   name: "ChooseCate",
   data() {
@@ -74,7 +62,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-choose-category {
   .m-cates {
     padding: 30px;
