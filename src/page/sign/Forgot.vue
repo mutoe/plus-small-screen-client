@@ -258,8 +258,7 @@ export default {
           this.$router.push("/signin");
           this.loading = false;
         })
-        .catch(e => {
-          console.warn(e);
+        .catch(() => {
           this.loading = false;
           this.disabled = true;
         });

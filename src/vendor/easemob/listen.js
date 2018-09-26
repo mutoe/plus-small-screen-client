@@ -21,10 +21,12 @@ WebIM.conn.listen({
 
       WebIM.conn.setPresence();
     } catch (e) {
+      // eslint-disable-next-line
       console.warn(e);
     }
   },
   onClosed: msg => {
+    // eslint-disable-next-line
     console.info("与聊天服务器断开连接", msg);
   },
   /**
@@ -32,6 +34,7 @@ WebIM.conn.listen({
    * @author jsonleex <jsonlseex@163.com>
    */
   onError: err => {
+    // eslint-disable-next-line
     console.error("聊天模块又双叒叕报错啦:", err);
   },
   /**
@@ -53,14 +56,17 @@ WebIM.conn.listen({
   },
   onPictureMessage: message => {
     process.env.NODE_ENV !== "production" &&
+      // eslint-disable-next-line
       console.info("onPictureMessage", message);
   },
 
   onReceivedMessage: message => {
+    // eslint-disable-next-line
     process.env.NODE_ENV !== "production" && console.info(message);
   },
 
   onPresence: msg => {
+    // eslint-disable-next-line
     process.env.NODE_ENV !== "production" && console.info(msg);
   }
 });

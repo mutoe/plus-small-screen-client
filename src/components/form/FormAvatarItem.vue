@@ -160,8 +160,7 @@ export default {
           .then(res => {
             this.$emit("input", res.data.node);
           })
-          .catch(err => {
-            console.warn(err);
+          .catch(() => {
             this.$Message.error("文件上传失败，请检查文件系统配置");
           });
       }

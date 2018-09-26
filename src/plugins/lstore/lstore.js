@@ -16,6 +16,7 @@ export default {
         true
       );
     } catch (err) {
+      // eslint-disable-next-line
       console.warn("你的浏览器不支持本地存储");
       return false;
     }

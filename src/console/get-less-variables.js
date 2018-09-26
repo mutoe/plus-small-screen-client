@@ -54,6 +54,7 @@ function getContent(file) {
       if (!key) return;
       key = key.trim();
       if (!/^[A-Za-z0-9_-]*$/.test(key)) {
+        // eslint-disable-next-line
         console.warn(`不正确命名，将被忽略：${key}`);
         return;
       }

@@ -490,7 +490,6 @@ export default {
     },
     // TODO: refactor 'followUserByStatus' api to vuex.action
     followUserByStatus(status) {
-      console.log(1);
       if (!status || this.fetchFollow) return;
       this.fetchFollow = true;
 

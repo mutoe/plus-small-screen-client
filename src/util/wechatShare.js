@@ -59,10 +59,12 @@ export default (url, options) => {
         wx.onMenuShareAppMessage(options);
       });
       wx.error(res => {
+        // eslint-disable-next-line
         console.warn(res);
       });
     },
     err => {
+      // eslint-disable-next-line
       console.warn(err);
       throw new Error("微信分享: 获取微信配置信息失败");
     }

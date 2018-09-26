@@ -17,6 +17,5 @@ export function getRankUsers(rankApi, params = {}) {
   params = Object.assign({ limit, offset: 0 }, params);
   return api
     .get(`${rankApi}`, { params, validateStatus: s => s === 200 })
-    .then(({ data }) => data)
-    .catch(err => console.warn(err));
+    .then(({ data }) => data);
 }

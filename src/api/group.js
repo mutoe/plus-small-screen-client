@@ -31,8 +31,7 @@ export function getGroupTotalNumber() {
   return api
     .get("/plus-group/groups/count")
     .then(({ data: { count = 0 } }) => count)
-    .catch(err => {
-      console.warn(err);
+    .catch(() => {
       return 0;
     });
 }

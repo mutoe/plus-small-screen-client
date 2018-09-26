@@ -285,8 +285,7 @@ export default {
             });
           }
         })
-        .catch(err => {
-          console.warn(err);
+        .catch(() => {
           this.$router.back();
         });
     },

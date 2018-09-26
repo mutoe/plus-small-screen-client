@@ -31,7 +31,7 @@ export default {
       Api.post(`/auth/logout`);
       commit("SIGN_OUT");
     } catch (e) {
-      console.warn(e);
+      // no condition here
     }
   },
 

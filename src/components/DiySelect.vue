@@ -36,7 +36,6 @@ export default {
   computed: {
     curSelectValue: {
       set(val) {
-        console.log(val);
         this.curVal = this.options.find(o => o.value === val);
       },
       get() {

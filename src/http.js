@@ -17,6 +17,7 @@ axios.interceptors.request.use(
     return config;
   },
   error => {
+    // eslint-disable-next-line
     console.error("错误的传参", "fail");
     return Promise.reject(error);
   }
@@ -54,8 +55,10 @@ axios.interceptors.response.use(
           break;
       }
     } else if (error.request) {
+      // eslint-disable-next-line
       console.warn(error.request);
     } else {
+      // eslint-disable-next-line
       console.warn("Error", error.message);
     }
 

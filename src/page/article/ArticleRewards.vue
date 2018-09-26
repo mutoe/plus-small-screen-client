@@ -105,8 +105,7 @@ export default {
           this.rewards = data;
           callback(data.length < 15);
         })
-        .catch(e => {
-          console.warn(e);
+        .catch(() => {
           callback(true);
         });
     },
@@ -122,8 +121,7 @@ export default {
           this.rewards = [...this.rewards, ...data];
           callback(data.length < 15);
         })
-        .catch(e => {
-          console.warn(e);
+        .catch(() => {
           callback(true);
         });
     }

@@ -312,8 +312,7 @@ export default {
             this.loading = false;
           });
         })
-        .catch(e => {
-          console.warn(e);
+        .catch(() => {
           this.loading = false;
           this.fetchComing = false;
         });

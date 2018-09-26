@@ -209,7 +209,6 @@ export default {
 
       // 挂载位置信息
       if (this.location.label) {
-        console.log("location");
         const geoHash = encodeGeoHash(this.location.lat, this.location.lng);
         formData.append("location", this.location.label);
         formData.append("latitude", this.location.lat);

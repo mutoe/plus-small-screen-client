@@ -25,7 +25,6 @@ export async function getHotCities() {
 export async function getCurrentPosition() {
   let data = await location.getCurrentPosition();
   let { city } = data.addressComponent || {};
-  if (process.env.NODE_ENV !== "production") console.log(data.addressComponent);
 
   return {
     lng: data.position.getLng(),
@@ -49,8 +48,7 @@ export function getGeo(address) {
       const [lng, lat] = location.split(",");
       return Object.assign(res, { lng, lat, label });
     },
-    err => {
-      console.warn(err);
+    () => {
       return res;
     }
   );

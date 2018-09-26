@@ -500,7 +500,6 @@ export default {
               this.fetchUserInfo();
             })
             .catch(({ response: { data } = {} }) => {
-              console.warn(data);
               this.$Message.error(data.message);
             });
         })
@@ -511,7 +510,6 @@ export default {
     },
     async uploadFile(file) {
       // 如果需要新文件存储方式上传
-      console.log(file);
       const hash = await hashFile(file);
       const params = {
         filename: file.name,
@@ -530,8 +528,7 @@ export default {
         .then(res => {
           return Promise.resolve(res.data.node);
         })
-        .catch(err => {
-          console.warn(err);
+        .catch(() => {
           this.$Message.error("文件上传失败，请检查文件系统配置");
           return Promise.reject();
         });

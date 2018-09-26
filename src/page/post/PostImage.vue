@@ -148,9 +148,8 @@ export default {
             this.loading = false;
             this.successCallback();
           })
-          .catch(e => {
+          .catch(() => {
             this.$Message.error("发送失败，请稍后再试");
-            console.warn(e);
             this.loading = false;
           });
       }

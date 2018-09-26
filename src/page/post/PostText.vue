@@ -193,9 +193,8 @@ export default {
           this.successCallback();
           this.loading = false;
         })
-        .catch(error => {
+        .catch(() => {
           this.$Message.error("发送失败，请稍后重试");
-          console.warn(error);
           this.loading = false;
         });
     }

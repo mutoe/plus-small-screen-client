@@ -348,10 +348,9 @@ export default {
             this.$router.push("/signin");
           }
         })
-        .catch(err => {
+        .catch(() => {
           this.loading = false;
           this.disable = true;
-          console.warn(err);
           // this.$Message.error(errors); // 已经弹出过 message 了
         });
     },

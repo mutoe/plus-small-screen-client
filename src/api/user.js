@@ -146,8 +146,7 @@ export function getUserFansByType({ uid, type, limit = 15, offset = 0 }) {
   return api
     .get(`/users/${uid}/${type}`, { params })
     .then(({ data = [] }) => data)
-    .catch(err => {
-      console.warn(err);
+    .catch(() => {
       return [];
     });
 }
@@ -178,8 +177,7 @@ export function signinByAccount(payload) {
           return true;
       }
     },
-    err => {
-      console.warn(err);
+    () => {
       return false;
     }
   );

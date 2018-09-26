@@ -125,7 +125,6 @@ export default {
       const actions = [];
       for (let key in supportType) {
         const type = supportType[key];
-        console.log(key, type);
         if (this.wallet.type.includes(key))
           actions.push({
             text: type.title,

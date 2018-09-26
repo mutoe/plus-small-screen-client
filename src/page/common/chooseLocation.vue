@@ -151,9 +151,6 @@ export default {
             this.$router.go(-1);
           }
         })
-        .catch(err => {
-          console.warn(err);
-        });
     },
 
     // 使用_.debounce控制搜索的触发频率

@@ -102,11 +102,11 @@ export const connect = token => {
     pwd: token,
     appKey: config.appkey,
     success: function(res) {
-      console.log(res);
       var tokenAccess = res.access_token;
       webim.utils.setCookie("webim_" + mid, tokenAccess, 1);
     },
     error: function(msg) {
+      // eslint-disable-next-line
       console.log(msg);
     }
   };

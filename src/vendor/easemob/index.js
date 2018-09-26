@@ -120,6 +120,7 @@ export function getGroupInfo(gid) {
         resolve(group);
       })
       .catch(err => {
+        // eslint-disable-next-line
         console.warn("获取群组信息失败", err);
         resolve({});
       });
@@ -171,7 +172,6 @@ export function sendTextMessage({ to, from, body, type }) {
         });
       },
       fail(e) {
-        console.warn("Send private text error", e);
         reject(e);
       }
     });
