@@ -105,7 +105,7 @@ export default {
         this.group = this.$store.state.group.current;
 
       // 如果没有读到, 去远端拉取
-      if (!this.group.id)
+      if (!this.group.id && this.groupId)
         this.group = await this.$store.dispatch("group/getGroupById", {
           groupId: this.groupId
         });
@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-group-post-create {
   display: flex;
   flex-direction: column;
