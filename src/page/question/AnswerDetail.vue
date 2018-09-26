@@ -399,6 +399,7 @@ export default {
       flex: auto;
       margin-left: 20px;
       font-size: 26px;
+      overflow: hidden;
 
       .gray,
       > p {
@@ -406,6 +407,7 @@ export default {
       }
 
       + span {
+        flex: none;
         border: 1px solid #ccc;
         color: #ccc;
         border-radius: 10px;
