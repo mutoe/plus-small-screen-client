@@ -111,7 +111,7 @@ export default {
       bio: "",
       name: "",
       tags: [],
-      location: { label: "" },
+      location: { label: "请选择地理位置" },
       avatar: {},
       avatarNode: "",
       change: false,
