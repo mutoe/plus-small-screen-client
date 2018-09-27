@@ -1,3 +1,20 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0...v4.0.1) (2018-09-27)
+
+
+### Bug Fixes
+
+* **avatar:** 头像资源修正 ([e1e10e4](https://github.com/slimkit/plus-small-screen-client/commit/e1e10e4))
+* **component:** 修复输入组件多行文本框嵌套v-model报错的问题 ([6ac9698](https://github.com/slimkit/plus-small-screen-client/commit/6ac9698))
+* **group:** ([#516](https://github.com/slimkit/plus-small-screen-client/issues/516), [#517](https://github.com/slimkit/plus-small-screen-client/issues/517)) 管理员可以置顶帖子和撤销置顶帖子了 ([e2c70d8](https://github.com/slimkit/plus-small-screen-client/commit/e2c70d8))
+* **group:** ([#516](https://github.com/slimkit/plus-small-screen-client/issues/516)) 已经置顶的帖子在详情页不再显示申请置顶了 ([f8c5ffc](https://github.com/slimkit/plus-small-screen-client/commit/f8c5ffc))
+* **group:** ([#518](https://github.com/slimkit/plus-small-screen-client/issues/518)) 修复圈子外发帖时报错的问题 ([06adedc](https://github.com/slimkit/plus-small-screen-client/commit/06adedc))
+* **question:** ([#518](https://github.com/slimkit/plus-small-screen-client/issues/518)) 搜索问题时结果不全的问题 ([cb6886e](https://github.com/slimkit/plus-small-screen-client/commit/cb6886e))
+* **question:** 发布问题时增加重复提交拦截 ([385f722](https://github.com/slimkit/plus-small-screen-client/commit/385f722))
+* **question:** 回答详情页面报错的问题 ([fc01ecf](https://github.com/slimkit/plus-small-screen-client/commit/fc01ecf))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0-rc.9...v4.0.0) (2018-09-20)
 
