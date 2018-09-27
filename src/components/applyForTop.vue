@@ -23,40 +23,42 @@
             </div>
           </div>
 
-          <div
-            class="m-box m-aln-center m-justify-bet m-bb1 m-pinned-row plr20 m-pinned-amount-customize m-main"
-            style="margin-top: .2rem">
-            <span>置顶金额</span>
-            <div class="m-box m-aln-center">
-              <input
-                v-model="customAmount"
-                type="number"
-                pattern="[0-9]*"
-                placeholder="输入金额"
-                oninput="value=value.slice(0,8)"
-                class="m-flex-grow1 m-flex-shrink1 m-text-r">
-              <span>{{ currency_name }}</span>
+          <template v-if="applyType !== 'post-manager'">
+            <div class="m-box m-aln-center m-justify-bet m-bb1 m-pinned-row plr20 m-pinned-amount-customize m-main" style="margin-top: .2rem">
+              <span>置顶金额</span>
+              <div class="m-box m-aln-center">
+                <input
+                  v-model="customAmount"
+                  type="number"
+                  pattern="[0-9]*"
+                  placeholder="输入金额"
+                  oninput="value=value.slice(0,8)"
+                  class="m-flex-grow1 m-flex-shrink1 m-text-r">
+                <span>{{ currency_name }}</span>
+              </div>
             </div>
-          </div>
 
-          <div class="m-box m-aln-center m-justify-bet m-pinned-row plr20 m-pinned-amount-customize m-main">
-            <span>总金额</span>
-            <div class="m-box m-aln-center">
-              <input
-                v-model="amount"
-                class="m-flex-grow1 m-flex-shrink1 m-text-r"
-                type="number"
-                pattern="[0-9]*"
-                disabled="true"
-                readonly="true"
-                placeholder="总金额"
-                style="background-color: transparent">
-              <span>{{ currency_name }}</span>
+            <div class="m-box m-aln-center m-justify-bet m-pinned-row plr20 m-pinned-amount-customize m-main">
+              <span>总金额</span>
+              <div class="m-box m-aln-center">
+                <input
+                  v-model="amount"
+                  class="m-flex-grow1 m-flex-shrink1 m-text-r"
+                  type="number"
+                  pattern="[0-9]*"
+                  disabled="true"
+                  readonly="true"
+                  placeholder="总金额"
+                  style="background-color: transparent">
+                <span>{{ currency_name }}</span>
+              </div>
             </div>
-          </div>
-          <p class="placeholder m-flex-grow1 m-flex-shrink1">
-            可用积分{{ currencySum }}
-          </p>
+            <p class="placeholder m-flex-grow1 m-flex-shrink1">
+              可用积分{{ currencySum }}
+            </p>
+          </template>
+
+
         </div>
         <div class="plr20 m-lim-width" style="margin-top: 0.6rem">
           <button

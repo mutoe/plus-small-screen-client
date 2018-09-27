@@ -254,6 +254,19 @@ export function rewardPost(postId, data) {
 }
 
 /**
+ * 获取帖子详情
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {number} postId
+ * @returns
+ */
+export function getGroupPost(groupId, postId) {
+  const url = `/plus-group/groups/${groupId}/posts/${postId}`;
+  return api.get(url, { validateStatus: s => s === 200 });
+}
+
+/**
  * 创建帖子
  * @author mutoe <mutoe@foxmail.com>
  * @export
@@ -470,6 +483,20 @@ export function transferGroup(groupId, params) {
 export function changePermissions(groupId, params) {
   const url = `/plus-group/groups/${groupId}/permissions`;
   return api.patch(url, params, { validateStatus: s => s === 204 });
+}
+
+/**
+ * 管理员置顶帖子
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} postId
+ * @param {Object} params
+ * @param {number} params.day
+ * @returns
+ */
+export function pinnedPost(postId, params) {
+  const url = `/plus-group/pinned/posts/${postId}/create`;
+  return api.post(url, params, { validateStatus: s => s === 201 });
 }
 
 /**

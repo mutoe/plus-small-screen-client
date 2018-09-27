@@ -66,6 +66,10 @@ export default {
     },
     isGroupOwner() {
       return this.group.founder.user_id === this.currentUser.id;
+    },
+    isGroupManager() {
+      const { role = "" } = this.group.joined || {};
+      return ["founder", "administrator"].includes(role);
     }
   },
   methods: {
@@ -137,42 +141,57 @@ export default {
           }
         });
       }
-      if (!this.pinned) {
-        this.isMine &&
+      if (this.isGroupManager) {
+        if (!this.pinned)
           actions.push({
-            text: "申请帖子置顶",
+            text: "置顶帖子",
             method: () => {
               bus.$emit("applyTop", {
-                type: "post",
-                api: api.applyTopPost,
-                payload: this.feed.id
+                type: "post-manager",
+                api: api.pinnedPost,
+                payload: this.feed.id,
+                callback: () => {
+                  this.$Message.success("置顶成功！");
+                  this.$emit("reload");
+                }
               });
             }
           });
-      } else {
-        this.isGroupOwner &&
+        else
           actions.push({
             text: "撤销置顶",
             method: () => {
-              setTimeout(() => {
-                const actionSheet = [
-                  {
-                    text: "撤销置顶",
-                    method: () => {
-                      this.$store
-                        .dispatch("group/unpinnedPost", {
-                          postId: this.post.id
-                        })
-                        .then(() => {
-                          this.$router.go(0);
-                        });
-                    }
+              const actions = [
+                {
+                  text: "撤销置顶",
+                  method: () => {
+                    this.$store
+                      .dispatch("group/unpinnedPost", {
+                        postId: this.feed.id
+                      })
+                      .then(() => {
+                        this.$Message.success("撤销置顶成功！");
+                        this.$emit("reload");
+                      });
                   }
-                ];
-                bus.$emit("actionSheet", actionSheet, "取消", "确认撤销置顶?");
+                }
+              ];
+              setTimeout(() => {
+                bus.$emit("actionSheet", actions, "取消", "确认撤销置顶?");
               }, 200);
             }
           });
+      } else if (this.isMine && !this.pinned) {
+        actions.push({
+          text: "申请帖子置顶",
+          method: () => {
+            bus.$emit("applyTop", {
+              type: "post",
+              api: api.applyTopPost,
+              payload: this.feed.id
+            });
+          }
+        });
       }
       if (this.isMine) {
         // 是否是自己文章

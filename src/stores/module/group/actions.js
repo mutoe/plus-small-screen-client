@@ -174,5 +174,16 @@ export default {
     const { postId } = payload;
     const { data } = await api.unpinnedPost(postId);
     return data;
+  },
+
+  /**
+   * 获取帖子详情
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async getPostDetail(store, payload) {
+    const { postId, groupId } = payload;
+    const { data } = await api.getGroupPost(groupId, postId);
+    return data;
   }
 };

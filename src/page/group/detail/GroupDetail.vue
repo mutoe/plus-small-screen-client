@@ -112,10 +112,14 @@
           <group-feed-card
             :pinned="true"
             :feed="feed"
-            :group="group" />
+            :group="group"
+            @reload="updateData" />
         </li>
         <li v-for="(feed, index) in posts" :key="`gdf-${groupId}-feed-${feed.id}-${index}`">
-          <group-feed-card :feed="feed" :group="group" />
+          <group-feed-card
+            :feed="feed"
+            :group="group"
+            @reload="updateData" />
         </li>
       </ul>
       <div class="m-box m-aln-center m-justify-center load-more-box">

@@ -141,6 +141,7 @@ import wechatShare from "@/util/wechatShare.js";
 import { followUserByStatus } from "@/api/user.js";
 import { limit } from "@/api/api.js";
 import * as api from "@/api/group.js";
+import { noop } from "@/util";
 
 export default {
   name: "GroupPostDetail",
@@ -168,6 +169,9 @@ export default {
     },
     groupId() {
       return this.$route.params.groupId;
+    },
+    group() {
+      return this.feed.group || {};
     },
     likes() {
       return this.feed.likes || [];
@@ -226,6 +230,10 @@ export default {
       set(val) {
         this.feed.collected = val;
       }
+    },
+    isGroupManager() {
+      const { role = "" } = this.group.joined || {};
+      return ["founder", "administrator"].includes(role);
     },
     relation: {
       get() {
@@ -301,7 +309,7 @@ export default {
         .use(plusImagePlugin, `${this.$http.defaults.baseURL}/files/`)
         .render(body);
     },
-    fetchFeed(callback) {
+    fetchFeed(callback = noop) {
       if (this.fetching) return;
       this.fetching = true;
 
@@ -312,9 +320,12 @@ export default {
       const signUrl =
         this.$store.state.BROWSER.OS === "IOS" ? window.initUrl : shareUrl;
 
-      this.$http
-        .get(`/plus-group/groups/${this.groupId}/posts/${this.feedID}`)
-        .then(({ data = {} }) => {
+      this.$store
+        .dispatch("group/getPostDetail", {
+          groupId: this.groupId,
+          postId: this.feedID
+        })
+        .then(data => {
           this.feed = { ...data };
           this.user = this.feed.user;
           this.oldID = this.feedID;
@@ -322,6 +333,7 @@ export default {
           this.fetchFeedComments();
           this.fetchRewards();
           this.fetchLikes();
+
           this.isWechat &&
             wechatShare(signUrl, {
               title: `${data.user.name}的动态`,
@@ -334,15 +346,12 @@ export default {
                     }`
                   : ""
             });
-          if (callback && typeof callback === "function") {
-            callback();
-          }
+
+          callback();
         })
         .catch(() => {
           this.goBack();
-          if (callback && typeof callback === "function") {
-            callback();
-          }
+          callback();
         });
     },
     fetchRewards() {
@@ -452,18 +461,58 @@ export default {
         });
       }
 
-      if (this.isMine) {
+      if (this.isGroupManager) {
         if (!this.feed.pinned)
           actions.push({
-            text: "申请帖子置顶",
+            text: "置顶帖子",
             method: () => {
               bus.$emit("applyTop", {
-                type: "post",
-                api: api.applyTopPost,
-                payload: this.postID
+                type: "post-manager",
+                api: api.pinnedPost,
+                payload: this.feed.id,
+                callback: () => {
+                  this.$Message.success("置顶成功！");
+                  this.fetchFeed();
+                }
               });
             }
           });
+        else
+          actions.push({
+            text: "撤销置顶",
+            method: () => {
+              const actions = [
+                {
+                  text: "撤销置顶",
+                  method: () => {
+                    this.$store
+                      .dispatch("group/unpinnedPost", {
+                        postId: this.feed.id
+                      })
+                      .then(() => {
+                        this.$Message.success("撤销置顶成功！");
+                        this.fetchFeed();
+                      });
+                  }
+                }
+              ];
+              setTimeout(() => {
+                bus.$emit("actionSheet", actions, "取消", "确认撤销置顶?");
+              }, 200);
+            }
+          });
+      } else if (this.isMine && !this.feed.pinned)
+        actions.push({
+          text: "申请帖子置顶",
+          method: () => {
+            bus.$emit("applyTop", {
+              type: "post",
+              api: api.applyTopPost,
+              payload: this.postID
+            });
+          }
+        });
+      if (this.isMine) {
         actions.push({
           text: "删除帖子",
           method: () => {
