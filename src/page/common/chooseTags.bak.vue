@@ -121,7 +121,7 @@ export default {
       background-color: #f4f5f5;
       position: relative;
       &.active {
-        color: #59b6d7;
+        color: @primary;
         background-color: rgba(89, 182, 215, 0.15);
       }
       &.selected {

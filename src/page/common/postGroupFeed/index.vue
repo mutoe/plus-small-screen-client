@@ -116,7 +116,7 @@ export default {
   &-btn {
     font-size: 32px;
     background-color: #fff;
-    color: #59b6d7;
+    color: @primary;
     &[disabled] {
       color: #ccc;
     }

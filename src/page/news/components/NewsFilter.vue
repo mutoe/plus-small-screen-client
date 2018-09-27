@@ -157,7 +157,7 @@ export default {
       outline: 0;
       border: 0;
       background-color: inherit;
-      color: #59b6d7;
+      color: @primary;
       margin-left: 60px;
     }
   }

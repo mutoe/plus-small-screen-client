@@ -150,7 +150,7 @@ export default {
     }
     .router-link-active {
       color: #333;
-      border-bottom-color: #59b6d7;
+      border-bottom-color: @primary;
     }
   }
 
@@ -168,13 +168,13 @@ export default {
     &-item {
       padding: 0 30px;
       font-size: 32px;
-      color: #59b6d7;
+      color: @primary;
       height: 60px;
       line-height: 60px;
       border-width: 1px 0;
       /*no*/
       border-style: solid;
-      border-color: #59b6d7;
+      border-color: @primary;
 
       &:first-child {
         border-left-width: 1px;
@@ -194,7 +194,7 @@ export default {
       }
 
       &.router-link-active {
-        background-color: #59b6d7;
+        background-color: @primary;
         color: #fff;
       }
     }
@@ -231,7 +231,7 @@ export default {
     }
   }
   &-cancel {
-    color: #59b6d7;
+    color: @primary;
   }
 
   &-search {

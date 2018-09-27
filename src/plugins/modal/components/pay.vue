@@ -92,16 +92,16 @@ export default {
         height: 70px;
         line-height: 70px;
         font-size: 30px;
-        color: #59b6d7;
+        color: @primary;
         background-color: #fff;
-        border: 1px solid #59b6d7; /*no*/
+        border: 1px solid @primary; /*no*/
         border-radius: 6px;
         & + button {
           margin-top: 20px;
         }
         &.primary {
           color: #fff;
-          background-color: #59b6d7;
+          background-color: @primary;
           &[disabled] {
             background-color: #ccc;
             border-color: #ccc;

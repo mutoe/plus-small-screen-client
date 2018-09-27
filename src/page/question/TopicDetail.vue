@@ -290,7 +290,7 @@ export default {
         color: #666;
 
         > span {
-          color: #59b6d7;
+          color: @primary;
         }
       }
     }
@@ -300,8 +300,8 @@ export default {
       height: 50px;
       background-color: #fff;
       border-radius: 8px;
-      border: solid 2px #59b6d7;
-      color: #59b6d7;
+      border: solid 2px @primary;
+      color: @primary;
       font-size: 26px;
       font-weight: normal;
       font-stretch: normal;

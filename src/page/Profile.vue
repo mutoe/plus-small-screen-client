@@ -285,7 +285,7 @@ export default {
 
 .p-profile {
   .m-entry-prepend {
-    color: #59b6d7;
+    color: @primary;
     width: 36px;
     height: 36px;
   }

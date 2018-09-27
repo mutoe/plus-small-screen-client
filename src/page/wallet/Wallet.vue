@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@panel-color: #59b6d7;
+@panel-color: @primary;
 
 .header {
   background-color: @panel-color;

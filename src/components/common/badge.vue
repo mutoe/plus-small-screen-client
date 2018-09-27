@@ -90,7 +90,7 @@ export default {
     height: 20px;
     min-width: 20px;
     border-radius: 10px;
-    background: #f4504d;
+    background: @error;
     border: 1px solid transparent; /*no*/
     color: #fff;
     line-height: 20px;
@@ -100,7 +100,7 @@ export default {
     white-space: nowrap;
     transform-origin: -10% center;
     z-index: 10;
-    box-shadow: 0 0 0 1px #f4504d; /*no*/
+    box-shadow: 0 0 0 1px @error; /*no*/
 
     a,
     a:hover {
@@ -128,9 +128,9 @@ export default {
     width: 6px;
     /* no */
     border-radius: 100%;
-    background: #f4504d;
+    background: @error;
     z-index: 10;
-    box-shadow: 0 0 0 1px #f4504d;
+    box-shadow: 0 0 0 1px @error;
     /* no */
   }
 }

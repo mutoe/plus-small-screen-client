@@ -1,13 +1,13 @@
 <template>
   <div class="profile-group">
     <head-top :go-back="cancel">
-      <div 
-        slot="nav" 
+      <div
+        slot="nav"
         class="head-top-tabs-nav">
-        <router-link 
-          v-for="({label, path}, index) in types" 
-          :key="`profile-group-tab-${index}`" 
-          :to="path" 
+        <router-link
+          v-for="({label, path}, index) in types"
+          :key="`profile-group-tab-${index}`"
+          :to="path"
           class="head-top-tabs-nav-item">
           {{ label }}
         </router-link>
@@ -74,7 +74,7 @@ export default {
 
       &.router-link-active,
       &.active {
-        border-color: #59b6d7;
+        border-color: @primary;
         color: #333;
       }
     }

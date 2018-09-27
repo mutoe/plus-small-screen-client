@@ -55,12 +55,12 @@ export default {
       line-height: 60px;
       text-align: center;
       box-sizing: content-box;
-      border: solid 1px #59b6d7;
-      color: #59b6d7;
+      border: solid 1px @primary;
+      color: @primary;
       font-size: 32px;
 
       &.active {
-        background: #59b6d7;
+        background: @primary;
         color: #fff;
       }
 

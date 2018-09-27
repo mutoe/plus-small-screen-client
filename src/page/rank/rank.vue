@@ -84,7 +84,7 @@ export default {
     }
 
     &.router-link-active {
-      border-color: #59b6d7;
+      border-color: @primary;
       color: #333;
     }
   }

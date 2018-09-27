@@ -90,7 +90,7 @@ export default {
       margin-top: 16px;
 
       > span {
-        color: #59b6d7;
+        color: @primary;
       }
     }
   }
@@ -102,8 +102,8 @@ export default {
     padding: 0;
     background-color: #fff;
     border-radius: 8px;
-    border: solid 2px #59b6d7;
-    color: #59b6d7;
+    border: solid 2px @primary;
+    color: @primary;
     outline: none;
 
     > span {

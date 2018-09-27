@@ -112,7 +112,7 @@ export default {
         display: inline-block;
         font-size: 20px;
         height: 30/0.95px;
-        color: #59b6d7;
+        color: @primary;
         line-height: 30/0.95-10px;
         border: 1px solid currentColor; /*no*/
         -webkit-transform-origin-x: 0;

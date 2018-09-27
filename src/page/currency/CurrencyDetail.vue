@@ -117,7 +117,7 @@ export default {
 
       &.active {
         color: #333;
-        border-bottom: 2px solid #59b6d7;
+        border-bottom: 2px solid @primary;
       }
     }
   }

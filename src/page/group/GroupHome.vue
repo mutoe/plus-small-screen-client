@@ -180,7 +180,7 @@ export default {
 
     strong {
       font-size: 40px;
-      color: #f4504d;
+      color: @error;
     }
 
     .m-svg-small {

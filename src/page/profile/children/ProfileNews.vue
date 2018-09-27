@@ -141,7 +141,7 @@ export default {
       line-height: 90px;
       &.router-link-active {
         color: #333;
-        border-bottom: 4px solid #59b6d7;
+        border-bottom: 4px solid @primary;
       }
     }
   }

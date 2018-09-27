@@ -36,7 +36,7 @@ export default {
     width: 70px;
     height: 70px;
     opacity: 0.5;
-    background-color: #59b6d7;
+    background-color: @primary;
     border-radius: 50%;
     animation: scale1 2s infinite ease-in-out;
     &:nth-child(2) {

@@ -92,7 +92,7 @@ export default {
 
   footer {
     flex: none;
-    color: #59b6d7;
+    color: @primary;
     text-align: center;
     width: 100%;
     padding: 38px 0;

@@ -418,8 +418,8 @@ export default {
         text-align: center;
 
         &.actived {
-          color: #59b6d7;
-          border-color: #59b6d7;
+          color: @primary;
+          border-color: @primary;
         }
       }
     }

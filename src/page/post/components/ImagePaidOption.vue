@@ -1,14 +1,14 @@
 <template>
   <div @touchmove.prevent>
     <transition name="toast">
-      <div 
-        v-if="isShow" 
-        class="m-pop-box" 
+      <div
+        v-if="isShow"
+        class="m-pop-box"
         @click="cancel"/>
     </transition>
     <transition name="fade">
-      <div 
-        v-if="isShow" 
+      <div
+        v-if="isShow"
         class="m-box-model m-image-paid-option-box">
         <h2 class="m-image-paid-option-head">
           <slot name="title">
@@ -18,7 +18,7 @@
         <div class="m-image-paid-option-row m-bt1">
           <p class="m-image-paid-option-label">选择图片收费金额</p>
           <div class="m-box m-aln-center m-justify-bet m-image-paid-option-btns">
-            <button 
+            <button
               v-for="item in items"
               :key="item"
               :style="{ width: `${1 / items.length * 100}%` }"
@@ -27,26 +27,26 @@
               @click="chooseDefaultAmount(item)">{{ (~~item) }}</button>
           </div>
         </div>
-        <div 
-          class="m-image-paid-option-row m-bt1 m-box" 
+        <div
+          class="m-image-paid-option-row m-bt1 m-box"
           style="overflow: hidden;">
-          <p 
-            class="m-image-paid-option-label m-flex-grow0 m-flex-shrink0" 
+          <p
+            class="m-image-paid-option-label m-flex-grow0 m-flex-shrink0"
             style="margin-bottom: 0">自定义金额</p>
           <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-justify-end m-lim-width m-pinned-amount-customize">
-            <input  
+            <input
               v-model="customAmount"
               type="number"
               pattern="[0-9]*"
               placeholder="输入自定义金额"
-              oninput="value=value.slice(0, 8)" 
+              oninput="value=value.slice(0, 8)"
               class="m-text-r m-flex-grow1 m-flex-shrink1">
             <span class="m-flex-grow0 m-flex-shrink0">{{ currency_name }}</span>
           </div>
         </div>
         <div class="m-image-paid-option-row m-bt1">
-          <button 
-            class="m-long-btn" 
+          <button
+            class="m-long-btn"
             @click="handleOk">确定</button>
         </div>
       </div>
@@ -162,8 +162,8 @@ export default {
     border: 1px solid #dedede; /*no*/
     margin: 0 20px;
     &.active {
-      color: #59b6d7;
-      border-color: #59b6d7;
+      color: @primary;
+      border-color: @primary;
     }
   }
   font-size: 32px;

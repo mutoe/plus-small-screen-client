@@ -1,9 +1,9 @@
 <template>
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
-  <div 
-    class="pswp" 
-    tabindex="-1" 
-    role="dialog" 
+  <div
+    class="pswp"
+    tabindex="-1"
+    role="dialog"
     aria-hidden="true">
     <!-- Background of PhotoSwipe.
       It's a separate element, as animating opacity is faster than rgba(). -->
@@ -22,8 +22,8 @@
         <div class="pswp__top-bar">
           <!--  Controls are self-explanatory. Order can be changed. -->
           <div class="pswp__counter"/>
-          <button 
-            class="pswp__button pswp__button--close" 
+          <button
+            class="pswp__button pswp__button--close"
             title="Close (Esc)"/>
           <!-- <button class="pswp__button pswp__button--share" title="Share"></button> -->
           <!-- <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> -->
@@ -41,11 +41,11 @@
         <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
           <div class="pswp__share-tooltip"/>
         </div>
-        <button 
-          class="pswp__button pswp__button--arrow--left" 
+        <button
+          class="pswp__button pswp__button--arrow--left"
           title="Previous (arrow left)"/>
-        <button 
-          class="pswp__button pswp__button--arrow--right" 
+        <button
+          class="pswp__button pswp__button--arrow--right"
           title="Next (arrow right)"/>
         <div class="pswp__caption">
           <div class="pswp__caption__center"/>
@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import "./style/pswp/pswp.min.css";
+import "./style/pswp/pswp.min.less";
 
 import PhotoSwipe from "photoswipe";
 import PhotoSwipeUI from "photoswipe/dist/photoswipe-ui-default.js";

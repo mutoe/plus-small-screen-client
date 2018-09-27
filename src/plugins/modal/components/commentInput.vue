@@ -118,7 +118,7 @@ export default {
     background: none;
     resize: none;
     border-radius: 0;
-    border-bottom: 1px solid #59b6d7;
+    border-bottom: 1px solid @primary;
     /*no*/
   }
   p {
@@ -137,7 +137,7 @@ export default {
     width: 100px;
     height: 50px;
     color: #fff;
-    background-color: #59b6d7;
+    background-color: @primary;
     border-radius: 2px;
     /*no*/
     &[disabled] {

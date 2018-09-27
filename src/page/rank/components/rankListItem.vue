@@ -79,7 +79,7 @@ export default {
   justify-content: center;
   .rank {
     &.top {
-      color: #59b6d7;
+      color: @primary;
     }
     width: 15%;
     display: inline-flex;
