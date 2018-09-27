@@ -453,7 +453,7 @@ export default {
       }
 
       if (this.isMine) {
-        if (!this.pinned)
+        if (!this.feed.pinned)
           actions.push({
             text: "申请帖子置顶",
             method: () => {
