@@ -12,9 +12,11 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapState } from "vuex";
 import UserItem from "@/components/UserItem.vue";
-import { findNearbyUser, getUserInfoById } from "@/api/user.js";
+import { findNearbyUser } from "@/api/user.js";
+
 export default {
   name: "FindNer",
   components: {
@@ -41,16 +43,21 @@ export default {
     this.$refs.loadmore.beforeRefresh();
   },
   methods: {
-    formateUsers(users) {
-      for (let i = 0; i < users.length; i++) {
-        /**
-         * 强制从后端获取用户数据, 同时刷新本地存储的用户信息
-         * @author jsonleex <jsonlseex@163.com>
-         */
-        getUserInfoById(users[i]["user_id"], true).then(user => {
-          this.users.push(user);
-        });
+    async formateUsers(users) {
+      const userList = [];
+      for (let item of users) {
+        userList.push(item.user_id);
       }
+      const data = await this.$store.dispatch("user/getUserList", {
+        id: userList.join(",")
+      });
+      // 修正数据顺序
+      const sortedUsers = [];
+      for (const user_id of userList) {
+        const user = data.find(u => u.id === user_id);
+        user && sortedUsers.push(user);
+      }
+      this.users = sortedUsers;
     },
     onRefresh(callback) {
       this.page = 1;

@@ -130,6 +130,24 @@ export const getUserInfoById = (id, force = false) => {
 };
 
 /**
+ * 获取用户列表
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {Object} params
+ * @param {number} [params.limit]
+ * @param {string} [params.order]
+ * @param {number} [params.since]
+ * @param {string} [params.name]
+ * @param {string} [params.fetch_by]
+ * @param {string} [params.id]
+ * @returns {Promise<UserObject[]>}
+ */
+export function getUserList(params) {
+  const url = "/users";
+  return api.get(url, { params, validateStatus: s => s === 200 });
+}
+
+/**
  * 获取用户粉丝列表
  * @author jsonleex <jsonlseex@163.com>
  * @export

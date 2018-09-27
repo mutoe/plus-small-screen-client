@@ -8,6 +8,7 @@ import question from "./question";
 import news from "./news";
 import group from "./group";
 import feed from "./feed";
+import user from "./user";
 
 export default {
   rank,
@@ -19,5 +20,6 @@ export default {
   question,
   news,
   group,
-  feed
+  feed,
+  user
 };
