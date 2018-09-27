@@ -5,8 +5,8 @@ const GroupHome = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/GroupHome.vue");
 const GroupList = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/GroupList.vue");
-const GroupsForUser = () =>
-  import(/* webpackChunkName: 'group' */ "@/page/group/GroupsForUser.vue");
+const UserGroups = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/UserGroups.vue");
 const GroupCreate = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/GroupCreate.vue");
 const GroupSearch = () =>
@@ -124,7 +124,7 @@ export default [
   },
   {
     path: "/users/:userID(\\d+)/group",
-    component: GroupsForUser,
+    component: UserGroups,
     meta: {
       title: "TA的圈子",
       requiresAuth: true

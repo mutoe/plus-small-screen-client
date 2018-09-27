@@ -52,8 +52,8 @@ export default {
    * @author mutoe <mutoe@foxmail.com>
    * @returns {api.GroupObject[]}
    */
-  async getMyGroups() {
-    const { data } = await api.getMyGroups();
+  async getMyGroups(store, payload) {
+    const { data } = await api.getMyGroups(payload);
     return data;
   },
 

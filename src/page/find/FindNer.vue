@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapState } from "vuex";
 import UserItem from "@/components/UserItem.vue";
 import { findNearbyUser } from "@/api/user.js";

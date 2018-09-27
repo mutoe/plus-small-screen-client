@@ -33,7 +33,8 @@
           class="group-label">
           <span>我加入的</span>
           <div class="m-box m-aln-center m-justify-end">
-            <span>查看全部</span>
+            <span v-if="!myGroupsCount">查看全部</span>
+            <span v-else-if="myGroupsCount > 5">查看更多</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
               <use xlink:href="#base-arrow-r"/>
             </svg>
@@ -89,7 +90,8 @@ export default {
       groupTotalNumber: 0,
 
       fetchRecing: false,
-      myGroupChangeTracker: 0
+      myGroupChangeTracker: 0,
+      myGroupsCount: 0
     };
   },
   computed: {
@@ -116,8 +118,11 @@ export default {
       });
     },
     async fetchMyGroups() {
-      const groups = await this.$store.dispatch("group/getMyGroups");
-      this.formateGroups(groups);
+      const groups = await this.$store.dispatch("group/getMyGroups", {
+        limit: 6 // 获取 6 条数据，判断是否大于5个圈子
+      });
+      this.myGroupsCount = groups.length;
+      this.formateGroups(groups.slice(0, 5));
     },
     async fetchRecGroups() {
       if (this.fetchRecing) return;

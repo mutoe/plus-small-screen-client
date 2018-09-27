@@ -1,21 +1,14 @@
 <template>
   <div class="p-user-groups">
-    <header class="m-box m-aln-center m-pos-f m-head-top m-main m-bb1">
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-flex-shrink1 m-head-title">
-        <span>{{ title }}</span>
-      </div>
-      <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-flex-base0"/>
-    </header>
-    <main style="padding-top: 0.9rem">
-      <load-more
+
+    <common-header>{{ title }}</common-header>
+
+    <main>
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore">
+        :auto-load="false"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore">
         <ul>
           <li
             v-for="group in groups"
@@ -24,7 +17,7 @@
             <group-item :group="group"/>
           </li>
         </ul>
-      </load-more>
+      </jo-load-more>
     </main>
   </div>
 </template>
@@ -33,6 +26,7 @@
 import { mapState } from "vuex";
 import GroupItem from "./components/GroupItem.vue";
 import { getGroupsByUser } from "@/api/group.js";
+
 export default {
   name: "UserGroups",
   components: {
@@ -62,7 +56,7 @@ export default {
   created() {
     document.title = this.title;
   },
-  activated() {
+  mounted() {
     if (this.preUID !== this.userID) {
       this.GROUPS.clear();
       this.groupsChangeTracker = 1;
@@ -80,14 +74,14 @@ export default {
     onRefresh() {
       getGroupsByUser(this.userID, 15).then(({ data = [] }) => {
         this.formateGroups(data);
-        this.$refs.loadmore.topEnd(!(data.length < 15));
+        this.$refs.loadmore.afterRefresh(data.length < 15);
       });
     },
     onLoadMore() {
       getGroupsByUser(this.userID, 15, this.groups.length).then(
         ({ data = [] }) => {
           this.formateGroups(data);
-          this.$refs.loadmore.bottomEnd(data.length < 15);
+          this.$refs.loadmore.afterLoadMore(data.length < 15);
         }
       );
     }

@@ -62,10 +62,15 @@ export function getGroupCates() {
  * 获取我加入的圈子
  * @author mutoe <mutoe@foxmail.com>
  * @export
+ * @param {Object} params
+ * @param {number} params.limit
+ * @param {number} params.offset
+ * @param {string} params.type
  * @returns {Promise<GroupObject[]>}
  */
-export function getMyGroups() {
-  return api.get("/plus-group/user-groups", { validateStatus: s => s === 200 });
+export function getMyGroups(params) {
+  const url = "/plus-group/user-groups";
+  return api.get(url, { params, validateStatus: s => s === 200 });
 }
 
 /**
