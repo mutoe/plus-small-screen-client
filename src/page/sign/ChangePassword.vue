@@ -1,34 +1,19 @@
 <template>
   <div class="p-forgot forgot signup">
-    <header class="m-pos-f m-box m-justify-bet m-aln-center m-main m-bb1 m-head-top">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>修改密码</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <a
-          :disabled="loading || disabled"
-          @click="handleOk">
-          <svg
-            v-if="loading"
-            class="m-style-svg m-svg-def">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-loading"/>
+
+    <common-header>
+      修改密码
+      <template slot="right">
+        <a :disabled="loading || disabled" @click="handleOk">
+          <svg v-if="loading" class="m-style-svg m-svg-def">
+            <use xlink:href="#base-loading"/>
           </svg>
           <span v-else>更改</span>
         </a>
-      </div>
-    </header>
-    <main style="padding-top: 0.9rem">
+      </template>
+    </common-header>
+
+    <main>
       <div class="m-form-row m-main">
         <label for="old-password">旧密码</label>
         <div class="m-input">
@@ -72,6 +57,7 @@
     </main>
   </div>
 </template>
+
 <script>
 export default {
   name: "Forgot",
