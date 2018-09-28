@@ -18,7 +18,7 @@
         </router-link>
         <li class="m-entry" @click="aboutUs">
           <span class="m-box m-text-box m-flex-grow1">关于我们</span>
-          <span class="m-box m-text-box m-flex-grow1 m-justify-end m-entry-extra">{{ version }}</span>
+          <span class="m-box m-text-box m-flex-grow1 m-justify-end m-entry-extra">v{{ version }}</span>
           <svg class="m-style-svg m-svg-def m-entry-append">
             <use
               xmlns:xlink="http://www.w3.org/1999/xlink"
