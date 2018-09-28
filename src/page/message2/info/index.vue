@@ -7,7 +7,7 @@
       tag="li"
       class="m-entry">
       <svg class="m-style-svg m-svg-big m-entry-prepend m-flex-grow0 m-flex-shrink0">
-        <use :xlink:href="`#${item.icon}`" />
+        <use :xlink:href="`#icon-message-${item.icon}`" />
       </svg>
       <div class="m-box-model m-justify-bet m-flex-grow1 m-flex-shrink1 m-flex-base0 m-entry-main">
         <h2 class="m-text-cut">{{ item.title }}</h2>
@@ -34,7 +34,7 @@ import { mapState } from "vuex";
 const prefixCls = "msg";
 
 export default {
-  name: "Msg",
+  name: "MsgInfo",
   data() {
     return {
       prefixCls,
@@ -42,7 +42,7 @@ export default {
         system: {
           title: "系统消息",
           placeholder: "sPlaceholder",
-          icon: "message-tongzhi",
+          icon: "notice",
           hanBadge: 0,
           url: "/message/notification",
           count: "sCount",
@@ -51,7 +51,7 @@ export default {
         comments: {
           title: "收到的评论",
           placeholder: "cPlaceholder",
-          icon: "message-pinglun",
+          icon: "comment",
           hanBadge: 0,
           url: "/message/comments",
           count: "cCount",
@@ -60,7 +60,7 @@ export default {
         diggs: {
           title: "收到的赞",
           placeholder: "dPlaceholder",
-          icon: "message-zan",
+          icon: "like",
           hanBadge: 0,
           url: "/message/likes",
           count: "dCount",
@@ -69,7 +69,7 @@ export default {
         audits: {
           title: "审核通知",
           placeholder: "aPlaceholder",
-          icon: "message-shenghe",
+          icon: "audit",
           hanBadge: 0,
           url: "/message/audits/feedcomments",
           count: "aCount"

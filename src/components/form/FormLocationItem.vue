@@ -4,7 +4,7 @@
     <div class="input-wrap" @click="switchPosition">
       <span :class="{placeholder: !value.label}">{{ value.label || "设置圈子的地理位置" }}</span>
       <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
-        <use xlink:href="#base-arrow-r"/>
+        <use xlink:href="#icon-arrow-right"/>
       </svg>
     </div>
 

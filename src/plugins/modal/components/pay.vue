@@ -18,9 +18,7 @@
           class="primary"
           @click="ok">
           确定
-          <v-icon
-            v-if="loading"
-            type="base-loading"/>
+          <circle-loading v-if="loading" />
         </button>
         <button @click="cancel">取消</button>
       </slot>

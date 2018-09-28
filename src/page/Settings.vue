@@ -11,26 +11,20 @@
           class="m-entry">
           <span>修改密码</span>
           <svg class="m-style-svg m-svg-def m-entry-append">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-arrow-r"/>
+            <use xlink:href="#icon-arrow-right"/>
           </svg>
         </router-link>
         <li class="m-entry" @click="aboutUs">
           <span class="m-box m-text-box m-flex-grow1">关于我们</span>
           <span class="m-box m-text-box m-flex-grow1 m-justify-end m-entry-extra">v{{ version }}</span>
           <svg class="m-style-svg m-svg-def m-entry-append">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-arrow-r"/>
+            <use xlink:href="#icon-arrow-right"/>
           </svg>
         </li>
         <li class="m-entry" @click="signOut">
           <a>退出登录</a>
           <svg class="m-style-svg m-svg-def m-entry-append">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-arrow-r"/>
+            <use xlink:href="#icon-arrow-right"/>
           </svg>
         </li>
       </ul>

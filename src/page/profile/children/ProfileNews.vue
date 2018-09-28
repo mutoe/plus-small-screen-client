@@ -33,16 +33,15 @@
           <a>被驳回</a>
         </router-link>
       </div>
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        style="padding-top: .9rem">
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore">
         <news-card
           v-for="news in newsList"
           :news="news"
           :key="news.id" />
-      </load-more>
+      </jo-load-more>
     </main>
   </div>
 </template>
@@ -119,13 +118,13 @@ export default {
     onRefresh() {
       getMyNews({ ...this.params }).then(({ data }) => {
         this.formatNews(data);
-        this.$refs.loadmore.topEnd(!(data.length < this.params.limit));
+        this.$refs.loadmore.afterRefresh(data.length < this.params.limit);
       });
     },
     onLoadMore() {
       getMyNews({ ...this.params }).then(({ data = [] }) => {
         this.formatNews(data);
-        this.$refs.loadmore.bottomEnd(data.length < this.params.limit);
+        this.$refs.loadmore.afterLoadMore(data.length < this.params.limit);
       });
     }
   }
@@ -136,9 +135,12 @@ export default {
   .m-sub-nav {
     top: 90px;
     z-index: 2;
+
     .m-sub-nav-item {
       height: 100%;
       line-height: 90px;
+      text-align: center;
+
       &.router-link-active {
         color: #333;
         border-bottom: 4px solid @primary;

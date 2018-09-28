@@ -57,7 +57,7 @@ export default {
     onLoadMore() {
       const { id = 0 } = _.head(this.audits) || {};
       if (id === 0) {
-        this.$refs.loadmore.bottomEnd(true);
+        this.$refs.loadmore.afterLoadMore(true);
         return false;
       }
 

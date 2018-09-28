@@ -9,7 +9,7 @@
           v-else
           class="m-style-svg m-svg-def"
           @click="preStep">
-          <use xlink:href="#base-back"/>
+          <use xlink:href="#icon-back"/>
         </svg>
       </template>
       <template slot="right">
@@ -81,13 +81,13 @@
             @click="selectedTopic(topic)">
             <span>{{ topic.name }}</span>
             <svg class="m-style-svg m-svg-def">
-              <use xlink:href="#base-clean"/>
+              <use xlink:href="#icon-clean"/>
             </svg>
           </li>
         </ul>
         <div class="m-box m-aln-center m-flex-grow0 m-shrink0 m-bb1 m-lim-width question-title step3">
           <svg class="m-style-svg m-svg-def" style="fill: #ccc; margin-right: 0.3rem">
-            <use xlink:href="#base-search"/>
+            <use xlink:href="#icon-search"/>
           </svg>
           <input
             v-model="topicKeyWord"
@@ -99,7 +99,7 @@
             class="m-style-svg m-svg-def"
             style="fill: #ccc; margin-right: 0.3rem"
             @click="topicKeyWord = ''">
-            <use xlink:href="#base-clean"/>
+            <use xlink:href="#icon-clean"/>
           </svg>
         </div>
         <div class="m-flex-grow1 m-flex-shrink1 m-topics">

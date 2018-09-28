@@ -3,7 +3,7 @@
     <div class="left">
       <slot name="left">
         <svg class="m-style-svg m-svg-def" @click="onBackClick">
-          <use xlink:href="#base-back"/>
+          <use xlink:href="#icon-back"/>
         </svg>
       </slot>
     </div>

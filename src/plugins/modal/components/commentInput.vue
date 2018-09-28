@@ -15,9 +15,7 @@
       <button
         :disabled="disabled"
         @click="handleDone">
-        <svg v-if="loading">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-if="loading" />
         <template v-else>发送</template>
       </button>
     </div>

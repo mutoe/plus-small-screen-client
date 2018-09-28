@@ -19,9 +19,7 @@
       <svg
         class="m-style-svg m-svg-big"
         @click.stop="followUser(user, isFollow(user))">
-        <use
-          :xlink:href="`#base-${isFollow(user)}`"
-          xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <use :xlink:href="`#icon-${isFollow(user)}`"/>
       </svg>
     </template>
   </div>

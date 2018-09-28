@@ -10,7 +10,7 @@
           class="m-tag">{{ tag.name }}</span>
       </div>
       <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
-        <use xlink:href="#base-arrow-r"/>
+        <use xlink:href="#icon-arrow-right"/>
       </svg>
     </div>
   </section>

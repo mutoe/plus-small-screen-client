@@ -1,5 +1,4 @@
 /** common components */
-import vIcon from "./components/common/vIcons"; /* Icons */
 import btnSwitch from "./components/common/btnSwitch"; /* btnSwitch 按钮 */
 import badge from "./components/common/badge"; /* Badge 徽标 */
 import CommonHeader from "./components/common/CommonHeader.vue"; /* 通用头部 */
@@ -12,12 +11,12 @@ import AsyncFile from "./components/common/AsyncFile";
 import JoLoadMore from "@/components/JoLoadMore.vue";
 import Avatar from "@/components/Avatar.vue";
 import NavTabs from "@/components/tabs/NavTabs.vue";
+import CircleLoading from "@/icons/CircleLoading.vue";
 
 import FormItems from "@/components/form/formItem.js";
 
 export default [
   Avatar,
-  vIcon,
   btnSwitch,
   badge,
   loadMore,
@@ -29,6 +28,7 @@ export default [
   AsyncFile,
   JoLoadMore,
   CommonHeader,
+  CircleLoading,
 
   ...FormItems
 ];

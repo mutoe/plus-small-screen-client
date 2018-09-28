@@ -20,7 +20,9 @@
             :key="`group--tag-selected-${tag.id}`"
             class="user--tags-list-item ellipsis selected"
             @click="selectTag(tag)">
-            <v-icon type="base-clean"/>
+            <svg class="m-style-svg m-svg-def">
+              <use xlink:href="#icon-clean" />
+            </svg>
             {{ tag.name }}
           </div>
         </div>

@@ -4,7 +4,9 @@
     <common-header class="header">
       我的积分
       <router-link slot="left" to="/profile">
-        <v-icon type="base-back"/>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-back" />
+        </svg>
       </router-link>
       <router-link
         slot="right"
@@ -23,25 +25,25 @@
         to="/currency/recharge"
         tag="li"
         class="m-entry">
-        <v-icon
-          class="m-entry-prepend"
-          type="wallet-recharge"/>
+        <svg class="m-style-svg m-svg-def m-entry-prepend">
+          <use xlink:href="#icon-currency-recharge" />
+        </svg>
         <span class="m-text-box m-flex-grow1">充值积分</span>
-        <v-icon
-          class="m-entry-append"
-          type="base-arrow-r"/>
+        <svg class="m-style-svg m-svg-def m-entry-append">
+          <use xlink:href="#icon-arrow-right" />
+        </svg>
       </router-link>
       <router-link
         to="/currency/withdraw"
         tag="li"
         class="m-entry">
-        <v-icon
-          class="m-entry-prepend"
-          type="wallet-withdraw"/>
+        <svg class="m-style-svg m-svg-def m-entry-prepend">
+          <use xlink:href="#icon-profile-wallet" />
+        </svg>
         <span class="m-text-box m-flex-grow1">提取积分</span>
-        <v-icon
-          class="m-entry-append"
-          type="base-arrow-r"/>
+        <svg class="m-style-svg m-svg-def m-entry-append">
+          <use xlink:href="#icon-arrow-right" />
+        </svg>
       </router-link>
     </ul>
 
@@ -49,9 +51,9 @@
 
     <footer>
       <p @click="showRule">
-        <v-icon
-          style="vertical-align: bottom;"
-          type="wallet-alert-circle"/>
+        <svg class="m-style-svg m-svg-small">
+          <use xlink:href="#icon-wallet-warning" />
+        </svg>
         积分规则
       </p>
     </footer>

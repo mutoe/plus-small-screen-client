@@ -38,7 +38,7 @@
                 @click="orgFields.org_name = ''">
                 <use
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#base-clean"/>
+                  xlink:href="#icon-clean"/>
               </svg>
             </div>
             <!-- 机构地址 -->
@@ -58,7 +58,7 @@
                 @click="orgFields.org_address = ''">
                 <use
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#base-clean"/>
+                  xlink:href="#icon-clean"/>
               </svg>
             </div>
           </template>
@@ -122,9 +122,7 @@
               :disabled="loading||disabled"
               class="m-long-btn m-signin-btn"
               @click="validate(() => {step = 2})">
-              <v-icon
-                v-if="loading"
-                type="base-loading"/>
+              <circle-loading v-if="loading" />
               <span v-else>下一步</span>
             </button>
           </div>

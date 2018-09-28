@@ -24,8 +24,18 @@
           <span
             v-if="!user.follower"
             class="actived"
-            @click="followUser(true)">+ 关注</span>
-          <span v-else @click="followUser(false)">✓ 已关注</span>
+            @click="followUser(true)">
+            <svg class="m-style-svg follow-btn">
+              <use xlink:href="#icon-plus" />
+            </svg>
+            关注
+          </span>
+          <span v-else @click="followUser(false)">
+            <svg class="m-style-svg follow-btn">
+              <use xlink:href="#icon-yes" />
+            </svg>
+            已关注
+          </span>
         </template>
       </div>
       <div class="m-art-body">
@@ -34,7 +44,7 @@
       <div class="m-box m-aln-center m-justify-bet m-art-foot">
         <div class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list">
           <template v-if="likeCount > 0">
-            <ul class="m-box m-flex-grow0 m-flex-shrink0">
+            <ul class="m-box m-flex-grow0 m-flex-shrink0 mr10">
               <li
                 v-for="({user = {}, id}, index) in likes.slice(0, 5)"
                 :key="id"
@@ -44,7 +54,7 @@
                 <img :src="getAvatar(user.avatar)">
               </li>
             </ul>
-            <span>{{ likeCount | formatNum }}人点赞</span>
+            <span>{{ likeCount | formatNum }} 人点赞</span>
           </template>
         </div>
         <div class="m-box-model m-aln-end m-art-info">
@@ -55,8 +65,8 @@
       <div class="m-box-model m-box-center m-box-center-a m-art-reward">
         <button class="m-art-rew-btn" @click="rewardAnswer">打 赏</button>
         <p class="m-art-rew-label">
-          <a href="javascript:;">{{ reward.count | formatNum }}</a>人打赏，共
-          <a href="javascript:;">{{ ~~reward.amount }}</a>积分
+          <a href="javascript:;">{{ reward.count | formatNum }}</a> 人打赏，共
+          <a href="javascript:;">{{ ~~reward.amount }}</a> 积分
         </p>
         <router-link
           tag="ul"
@@ -72,7 +82,7 @@
           </li>
           <li v-if="rewardList.length > 0" class="m-box m-aln-center">
             <svg class="m-style-svg m-svg-def" style="fill:#bfbfbf">
-              <use xlink:href="#base-arrow-r"/>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
           </li>
         </router-link>
@@ -417,9 +427,20 @@ export default {
         width: 5em;
         text-align: center;
 
+        .follow-btn {
+          color: #ccc;
+          width: 20px;
+          height: 20px;
+          vertical-align: baseline;
+        }
+
         &.actived {
           color: @primary;
           border-color: @primary;
+
+          .follow-btn {
+            color: @primary;
+          }
         }
       }
     }

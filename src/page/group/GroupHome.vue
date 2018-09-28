@@ -5,10 +5,10 @@
       圈子
       <template slot="right">
         <svg class="m-style-svg m-svg-def" @click="onSearchClick">
-          <use xlink:href="#base-search"/>
+          <use xlink:href="#icon-search"/>
         </svg>
         <svg class="m-style-svg m-svg-def" @click="beforeCreateGroup">
-          <use xlink:href="#group-add"/>
+          <use xlink:href="#icon-group-create"/>
         </svg>
       </template>
     </common-header>
@@ -21,7 +21,7 @@
       <div class="group-label" @click="$router.push({ name: 'groups', query: { type: 'recommend' } })">
         <h2><strong>{{ groupTotalNumber }}</strong>个兴趣小组，等待你的加入！</h2>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use xlink:href="#base-arrow-r"/>
+          <use xlink:href="#icon-arrow-right"/>
         </svg>
       </div>
 
@@ -36,7 +36,7 @@
             <span v-if="!myGroupsCount">查看全部</span>
             <span v-else-if="myGroupsCount > 5">查看更多</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xlink:href="#base-arrow-r"/>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
           </div>
         </router-link>
@@ -54,7 +54,7 @@
           <span>热门推荐</span>
           <div class="m-box m-aln-center m-justify-end" @click="fetchRecGroups">
             <svg :style="{ transform: `rotate(${clickCount}turn)` }" class="m-style-svg m-svg-small">
-              <use xlink:href="#base-refresh"/>
+              <use xlink:href="#icon-refresh"/>
             </svg>
             <span style="margin-left: 0.05rem">换一批</span>
           </div>

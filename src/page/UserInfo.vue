@@ -4,9 +4,7 @@
     <common-header>
       个人资料
       <template slot="right">
-        <svg v-if="loading" class="m-style-svg m-svg-def">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-if="loading" />
         <a
           v-else
           :class="{ disabled }"
@@ -50,7 +48,7 @@
                 class="m-tag">{{ tag.name }}</span>
             </div>
             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xlink:href="#base-arrow-r"/>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
           </div>
         </section>

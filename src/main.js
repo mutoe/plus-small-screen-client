@@ -1,9 +1,11 @@
 import { version } from "../package.json";
 export { version };
 
-import "./style/tsplus.less";
-import "github-markdown-css";
 import Vue from "vue";
+
+import "./style/tsplus.less";
+import "./icons/iconfont.js"; // from http://www.iconfont.cn h5 仓库
+import "github-markdown-css";
 import "./util/rem";
 import "./util/prototype"; // 原型拓展
 

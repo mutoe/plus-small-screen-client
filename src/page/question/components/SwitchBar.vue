@@ -24,7 +24,9 @@
 
     <template slot="right">
       <router-link to="/question/search" >
-        <v-icon class="search-btn" type="base-search"/>
+        <svg class="m-style-svg m-svg-def search-btn">
+          <use xlink:href="#icon-search" />
+        </svg>
       </router-link>
     </template>
   </common-header>

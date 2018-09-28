@@ -15,17 +15,22 @@
             <span>{{ topic.questions_count }}</span>&nbsp;问题
           </div>
         </div>
+
         <button
           v-if="topic.has_follow"
           class="follow active"
           @click="handleUnfollow(topic)" >
-          <span>✓</span>已关注
+          <svg class="m-style-svg m-svg-small">
+            <use xlink:href="#icon-yes"/>
+          </svg>已关注
         </button>
         <button
           v-else
           class="follow"
           @click="handleFollow(topic)">
-          <span>+</span>关注
+          <svg class="m-style-svg m-svg-small">
+            <use xlink:href="#icon-plus"/>
+          </svg>关注
         </button>
       </div>
 
@@ -76,16 +81,16 @@
       </nav>
 
       <!-- Questions -->
-      <load-more
-        ref="load"
-        :on-refresh="handleRefresh"
-        :on-load-more="handleLoadQuestions"
-        class="questions" >
+      <jo-load-more
+        ref="loadmore"
+        class="questions"
+        @onRefresh="handleRefresh"
+        @onLoadMore="handleLoadQuestions" >
         <question-card
           v-for="question in questions"
           :key="question.id"
           :question="question" />
-      </load-more>
+      </jo-load-more>
     </main>
 
   </div>
@@ -112,11 +117,7 @@ export default {
     },
     type() {
       const { type = "hot" } = this.$route.query;
-
       return type;
-    },
-    loadContainer() {
-      return this.$refs.load;
     },
     avatar() {
       const avatar = this.topic.avatar || {};
@@ -130,7 +131,7 @@ export default {
         newRoute.query.type !== oldRoute.query.type
       ) {
         this.questions = [];
-        this.loadContainer.beforeRefresh();
+        this.$refs.loadmore.beforeRefresh();
       }
     }
   },
@@ -149,8 +150,7 @@ export default {
         })
         .catch(({ response: { data } = {} }) => {
           this.loading = true;
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterRefresh(false);
           this.$Message.error(data);
         });
     },
@@ -161,12 +161,10 @@ export default {
         .questions(this.id, this.type, offset, limit)
         .then(({ data }) => {
           this.questions = data;
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(data.length < limit);
+          this.$refs.loadmore.afterRefresh(data.length < limit);
         })
         .catch(({ response: { data } = {} }) => {
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterRefresh(true);
           this.$Message.error(data);
         });
     },
@@ -177,10 +175,10 @@ export default {
         .questions(this.id, this.type, offset, limit)
         .then(({ data }) => {
           this.questions = [...this.questions, ...data];
-          this.loadContainer.bottomEnd(data.length < limit);
+          this.$refs.loadmore.afterLoadMore(data.length < limit);
         })
         .catch(({ response: { data } = {} }) => {
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterLoadMore(true);
           this.$Message.error(data);
         });
     },
@@ -309,11 +307,10 @@ export default {
       letter-spacing: 0px;
       outline: none;
 
-      > span {
-        width: 20px;
-        height: 20px;
-        font-size: 36px;
-        margin-right: 2px;
+      .m-svg-small {
+        width: 28px;
+        height: 28px;
+        margin-right: 10px;
       }
 
       &.active {

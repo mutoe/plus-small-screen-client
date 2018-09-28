@@ -18,7 +18,7 @@
             <p class="m-pr-bio m-text-cut-2">{{ user.bio || "这家伙很懒,什么也没有留下" }}</p>
           </div>
           <svg class="m-style-svg m-svg-def m-entry-append">
-            <use xlink:href="#base-arrow-r"/>
+            <use xlink:href="#icon-arrow-right"/>
           </svg>
         </router-link>
         <div class="m-box m-aln-center m-justify-aro m-bt1 m-pr-extra-box">
@@ -49,88 +49,110 @@
             tag="li"
             class="m-entry">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-home"/>
+              <use xlink:href="#icon-profile-home"/>
             </svg>
             <span class="m-text-box m-flex-grow1">个人主页</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
           <router-link
             to="/profile/news/released"
             tag="li"
             class="m-entry">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-plane"/>
+              <use xlink:href="#icon-profile-plane"/>
             </svg>
             <span class="m-text-box m-flex-grow1">我的投稿</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
-          <!--           <router-link to="/upgrade" tag="li" class="m-entry">
+          <!--
+          <router-link to="/upgrade" tag="li" class="m-entry">
             <svg class='m-style-svg m-svg-def m-entry-prepend'>
-              <use xlink:href="#profile-question"></use>
+              <use xlink:href="#icon-profile-question"></use>
             </svg>
             <span class="m-text-box m-flex-grow1">我的问答</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r"></use>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
-          </router-link> -->
-          <!--           <router-link to="/own/groups" tag="li" class="m-entry">
+          </router-link>
+          -->
+          <!--
+          <router-link to="/own/groups" tag="li" class="m-entry">
             <svg class='m-style-svg m-svg-def m-entry-prepend'>
-              <use xlink:href="#profile-group"></use>
+              <use xlink:href="#icon-profile-group"></use>
             </svg>
             <span class="m-text-box m-flex-grow1">我的圈子</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r"></use>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
-          </router-link> -->
+          </router-link>
+          -->
         </ul>
         <ul class="m-box-model m-entry-group">
           <router-link
             to="/wallet"
             class="m-entry"
             tag="li">
-            <v-icon type="profile-wallet" class="m-entry-prepend"/>
+            <svg class="m-style-svg m-svg-def m-entry-prepend">
+              <use xlink:href="#icon-profile-wallet"/>
+            </svg>
             <span class="m-text-box m-flex-grow1">钱包</span>
             <span class="m-entry-extra">{{ new_balance }}</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
           <router-link
             tag="li"
             to="/currency"
             class="m-entry">
-            <v-icon type="profile-integral" class="m-entry-prepend"/>
+            <svg class="m-style-svg m-svg-def m-entry-prepend">
+              <use xlink:href="#icon-profile-integral"/>
+            </svg>
             <span class="m-text-box m-flex-grow1">{{ currency_name }}</span>
             <span class="m-entry-extra">{{ sum }}</span>
-            <v-icon class="m-entry-append" type="base-arrow-r"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
           <router-link
             to="/profile/collection/feeds"
             tag="li"
             class="m-entry">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-collect"/>
+              <use xlink:href="#icon-profile-collect"/>
             </svg>
             <span class="m-text-box m-flex-grow1">收藏</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
         </ul>
         <ul class="m-box-model m-entry-group">
           <li class="m-entry" @click="selectCertType">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-approve"/>
+              <use xlink:href="#icon-profile-approve"/>
             </svg>
             <span class="m-text-box m-flex-grow1">认证</span>
             <span class="m-entry-extra">{{ verifiedText }}</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </li>
           <router-link
             to="/setting"
             tag="li"
             class="m-entry">
             <svg class="m-style-svg m-svg-def m-entry-prepend">
-              <use xlink:href="#profile-setting"/>
+              <use xlink:href="#icon-profile-setting"/>
             </svg>
             <span class="m-text-box m-flex-grow1">设置</span>
-            <v-icon type="base-arrow-r" class="m-entry-append"/>
+            <svg class="m-style-svg m-svg-def m-entry-append">
+              <use xlink:href="#icon-arrow-right"/>
+            </svg>
           </router-link>
         </ul>
       </div>

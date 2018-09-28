@@ -1,11 +1,11 @@
 <template>
   <div :class="`${prefixCls}`">
     <div :class="`${prefixCls}-container`">
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        :class="`${prefixCls}-loadmore`" >
+        :class="`${prefixCls}-loadmore`"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore" >
         <div
           v-for="audit in audits"
           :class="`${prefixCls}-item`"
@@ -27,14 +27,12 @@
               @click="goToDetail(audit.news.id)">
               对帖子“<span>{{ audit.post.title }}</span>”申请置顶,请及时审核
             </div>
-            <div
-              v-else
-              class="content red">
+            <div v-else class="content red">
               帖子已被删除
             </div>
           </div>
         </div>
-      </load-more>
+      </jo-load-more>
     </div>
   </div>
 </template>
@@ -73,18 +71,18 @@ export default {
             data
           });
         }
-        this.$refs.loadmore.topEnd(!(data.length < limit));
+        this.$refs.loadmore.afterRefresh(data.length < limit);
       });
     },
     onLoadMore() {
       const { id = 0 } = _.head(this.audits) || {};
       if (id === 0) {
-        this.$refs.loadmore.bottomEnd(true);
+        this.$refs.loadmore.afterLoadMore(true);
         return false;
       }
 
       getPostAudits({ after: id }).then(({ data }) => {
-        this.$refs.loadmore.bottomEnd(data.length < limit);
+        this.$refs.loadmore.afterLoadMore(data.length < limit);
         if (data.length > 0) {
           this.$store.commit("SAVE_GROUP_POST_AUDITS", {
             type: "more",

@@ -7,7 +7,7 @@
           @click="goBack">
           <use
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+            xlink:href="#icon-back"/>
         </svg>
       </div>
       <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
@@ -76,7 +76,7 @@
           @click="verifiable_code = ''">
           <use
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-clean"/>
+            xlink:href="#icon-clean"/>
         </svg>
       </div>
 
@@ -118,13 +118,7 @@
           :disabled="loading||disabled"
           class="m-long-btn m-signin-btn"
           @click="handleOk">
-          <svg
-            v-if="loading"
-            class="m-style-svg m-svg-def">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-loading"/>
-          </svg>
+          <circle-loading v-if="loading" />
           <span v-else>修改</span>
         </button>
       </div>

@@ -9,71 +9,74 @@
       </div>
     </transition>
     <transition @after-enter="transitionComplete">
-      <div
-        v-if="show"
-        class="m-box-model m-post-menu-con">
+      <div v-if="show" class="m-box-model m-post-menu-con">
         <transition-group
           tag="div"
           enter-active-class="animated bounceIn"
           class="m-box m-aln-center m-post-menu-list">
-          <!-- @click="to('/post/feed?type=1')" -->
-          <div
-            v-if="open"
-            key="ico_word"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="to('/post/text')">
-            <img src="../images/ico_word@3x.png">
-            <span>文字</span>
-          </div>
-          <!-- @click="to('/post/feed?type=2')" -->
-          <div
-            v-if="open"
-            key="ico_potoablum"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="to('/post/pic')">
-            <img src="../images/ico_potoablum@3x.png">
-            <span>图片</span>
-          </div>
-          <div
-            v-if="open"
-            key="ico_contribute"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="beforePostNews">
-            <img src="../images/ico_contribute@3x.png">
-            <span>投稿</span>
-          </div>
-          <div
-            v-if="open && checkin"
-            key="ico_attendance"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="showCheckIn">
-            <img src="../images/ico_attendance@3x.png">
-            <span>签到</span>
-          </div>
-          <div
-            v-if="open"
-            key="ico_question"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="to('/post/question')">
-            <img src="../images/ico_question@3x.png">
-            <span>提问</span>
-          </div>
-          <div
-            v-if="open"
-            key="ico_fatie"
-            class="m-box-model m-aln-center m-post-menu-item"
-            @click="to('/groups/create_post')">
-            <img src="../images/ico_fatie@3x.png">
-            <span>发帖</span>
-          </div>
+          <template v-if="open">
+            <div
+              key="ico_word"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="to('/post/text')">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-text"/>
+              </svg>
+              <span>文字</span>
+            </div>
+            <div
+              key="ico_potoablum"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="to('/post/pic')">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-pic"/>
+              </svg>
+              <span>图片</span>
+            </div>
+            <div
+              key="ico_contribute"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="beforePostNews">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-news"/>
+              </svg>
+              <span>投稿</span>
+            </div>
+            <div
+              v-if="checkin"
+              key="ico_attendance"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="showCheckIn">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-attendance"/>
+              </svg>
+              <span>签到</span>
+            </div>
+            <div
+              key="ico_question"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="to('/post/question')">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-question"/>
+              </svg>
+              <span>提问</span>
+            </div>
+            <div
+              key="ico_fatie"
+              class="m-box-model m-aln-center m-post-menu-item"
+              @click="to('/groups/create_post')">
+              <svg class="m-style-svg m-svg-def menu-svg">
+                <use xlink:href="#icon-release-post"/>
+              </svg>
+              <span>发帖</span>
+            </div>
+          </template>
         </transition-group>
         <transition name="pop">
-          <button
-            :class="{open}"
-            class="m-post-menu-btn"
-            @click="cancel">
-            <span/>
-            <span/>
+          <button class="m-post-menu-btn" @click="cancel">
+            <svg class="m-style-svg m-svg-def">
+              <use xlink:href="#icon-foot-close"/>
+            </svg>
           </button>
         </transition>
       </div>
@@ -195,6 +198,10 @@ export default {
     color: #575757;
     margin-top: 25px;
   }
+  .menu-svg {
+    width: 144px;
+    height: 144px;
+  }
 }
 .m-post-menu-btn {
   position: relative;
@@ -202,29 +209,6 @@ export default {
   width: 100%;
   background-color: #fff;
   box-shadow: 0 -1px 3px rgba(26, 26, 26, 0.1);
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    display: block;
-    width: 60px;
-    height: 1px; /*no*/
-    background-color: @primary;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.22, 1);
-  }
-  &.open {
-    span {
-      &:nth-of-type(1) {
-        transform: rotate(45deg);
-      }
-      &:nth-of-type(2) {
-        transform: rotate(-45deg);
-      }
-    }
-  }
 }
 
 .fadeIn-enter-active,

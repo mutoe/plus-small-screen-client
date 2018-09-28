@@ -47,7 +47,7 @@
         <span class="m-text-box m-flex-grow1">选择充值方式</span>
         <div class="m-box m-aln-end paid-type">{{ rechargeTypeText }}</div>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-arrow-r" />
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right" />
         </svg>
       </div>
 
@@ -56,16 +56,16 @@
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
           @click="beforeSubmit" >
-          <svg v-if="loading" class="m-style-svg m-svg-def" >
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-loading" />
-          </svg>
+          <circle-loading v-if="loading"/>
           <span v-else>确定</span>
         </button>
       </div>
 
       <footer>
         <p @click="popupRule">
-          <v-icon style="vertical-align: bottom;" type="wallet-alert-circle" />
+          <svg class="m-style-svg m-svg-small">
+            <use xlink:href="#icon-wallet-warning" />
+          </svg>
           用户充值协议
         </p>
       </footer>

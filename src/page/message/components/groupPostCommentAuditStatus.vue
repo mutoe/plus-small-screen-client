@@ -2,14 +2,10 @@
   <div :class="`${prefixCls}-status`">
     <section v-if="audit.comment">
       <section v-if="audit.expires_at">
-        <section
-          v-if="~~audit.status === 1"
-          class="gray">
+        <section v-if="~~audit.status === 1" class="gray">
           <span class="amount-show">{{ audit.amount }}积分 / {{ audit.day }}天</span>同意置顶
         </section>
-        <section
-          v-else
-          class="gray">
+        <section v-else class="gray">
           <span class="amount-show">{{ audit.amount }}积分 / {{ audit.day }}天</span>拒绝置顶
         </section>
       </section>
@@ -21,9 +17,7 @@
         <span class="audit-operation">审核</span>
       </section>
     </section>
-    <section
-      v-if="!audit.comment "
-      class="red">
+    <section v-if="!audit.comment " class="red">
       该评论已被删除
     </section>
   </div>
@@ -124,5 +118,6 @@ export default {
   }
 };
 </script>
-<style lang="less" src="../style.less">
+<style lang="less">
+@import url("../style.less");
 </style>

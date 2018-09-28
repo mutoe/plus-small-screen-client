@@ -19,11 +19,21 @@
     <button
       v-if="topic.has_follow || type === 'follow'"
       class="follow active"
-      @click="handleUnfollow(topic)"><span>✓ </span>已关注</button>
+      @click="handleUnfollow(topic)">
+      <svg class="m-style-svg m-svg-small">
+        <use xlink:href="#icon-yes"/>
+      </svg>
+      已关注
+    </button>
     <button
       v-else
       class="follow"
-      @click="handleFollow(topic)"><span class="big">+ </span>关注</button>
+      @click="handleFollow(topic)">
+      <svg class="m-style-svg m-svg-small">
+        <use xlink:href="#icon-plus"/>
+      </svg>
+      关注
+    </button>
   </div>
 </template>
 
@@ -106,14 +116,9 @@ export default {
     color: @primary;
     outline: none;
 
-    > span {
-      width: 20px;
-      height: 20px;
-      margin-right: 2px;
-
-      &.big {
-        font-size: 32px;
-      }
+    .m-svg-small {
+      width: 28px;
+      height: 28px;
     }
 
     &.active {

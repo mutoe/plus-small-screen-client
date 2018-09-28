@@ -17,7 +17,5 @@ export function getNotifications(offset = 0) {
  * @return   {[type]}                 [description]
  */
 export function resetUserCount(type = "") {
-  api.patch("/user/counts", {
-    type
-  });
+  api.patch("/user/counts", { type });
 }

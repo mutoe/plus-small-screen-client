@@ -5,10 +5,10 @@
       全部圈子
       <template slot="right">
         <svg class="m-style-svg m-svg-def" @click="$router.push({name: 'groupSearch'})">
-          <use xlink:href="#base-search"/>
+          <use xlink:href="#icon-search"/>
         </svg>
         <svg class="m-style-svg m-svg-def" @click="$router.push({name: 'groupCreate'})">
-          <use xlink:href="#group-add"/>
+          <use xlink:href="#icon-group-create"/>
         </svg>
       </template>
     </common-header>

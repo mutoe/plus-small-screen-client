@@ -91,7 +91,7 @@
             </li>
             <li v-if="rewardList.length > 0" class="m-box m-aln-center">
               <svg class="m-style-svg m-svg-def" style="fill: #bfbfbf">
-                <use xlink:href="#base-arrow-r"/>
+                <use xlink:href="#icon-arrow-right"/>
               </svg>
             </li>
           </router-link>
@@ -251,17 +251,17 @@ export default {
           unFollow: {
             text: "关注",
             status: "unFollow",
-            icon: `#base-unFollow`
+            icon: `#icon-unFollow`
           },
           follow: {
             text: "已关注",
             status: "follow",
-            icon: `#base-follow`
+            icon: `#icon-follow`
           },
           eachFollow: {
             text: "互相关注",
             status: "eachFollow",
-            icon: `#base-eachFollow`
+            icon: `#icon-eachFollow`
           }
         };
         const { follower, following } = this.user;

@@ -14,12 +14,8 @@
       </section>
     </div>
     <div :class="`${prefixCls}-item-bottom`">
-      <section
-        v-if="like.likeable !== null"
-        @click="goToFeedDetail()">
-        <div
-          :class="`${prefixCls}-item-bottom-noImg`"
-          class="content">
+      <section v-if="like.likeable !== null" @click="goToFeedDetail()">
+        <div :class="`${prefixCls}-item-bottom-noImg`" class="content">
           {{ like.likeable.title }}
         </div>
         <!-- <div :class="`${prefixCls}-item-bottom-img`" v-else>
@@ -32,15 +28,14 @@
         </div> -->
       </section>
       <section v-if="like.likeable === null">
-        <div
-          :class="`${prefixCls}-item-bottom-noImg`"
-          class="content">
+        <div :class="`${prefixCls}-item-bottom-noImg`" class="content">
           帖子已被删除
         </div>
       </section>
     </div>
   </section>
 </template>
+
 <script>
 const prefixCls = "msgList";
 export default {

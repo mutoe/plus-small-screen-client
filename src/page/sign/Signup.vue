@@ -24,7 +24,7 @@
             v-show="name.length > 0"
             class="m-style-svg m-svg-def"
             @click="name = ''">
-            <use xlink:href="#base-clean"/>
+            <use xlink:href="#icon-clean"/>
           </svg>
         </div>
         <div
@@ -79,7 +79,7 @@
             v-show="verifiable_code.length > 0"
             class="m-style-svg m-svg-def"
             @click="verifiable_code = ''">
-            <use xlink:href="#base-clean"/>
+            <use xlink:href="#icon-clean"/>
           </svg>
         </div>
 
@@ -113,9 +113,7 @@
             :disabled="loading||disabled"
             class="m-long-btn m-signin-btn"
             @click="signIn">
-            <svg v-if="loading" class="m-style-svg m-svg-def">
-              <use xlink:href="#base-loading"/>
-            </svg>
+            <circle-loading v-if="loading" />
             <span v-else>注册</span>
           </button>
         </div>

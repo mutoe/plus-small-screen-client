@@ -1,22 +1,8 @@
 <template>
   <div class="m-art-rewards">
-    <header
-      class="m-pos-r"
-      style="padding-top: 0.9rem">
-      <div class="m-pos-f m-box m-justify-bet m-aln-center m-head-top m-bb1 m-main">
-        <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-          <svg
-            class="m-style-svg m-svg-def"
-            @click="goBack">
-            <use
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">打赏列表</div>
-        <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end"/>
-      </div>
-    </header>
+
+    <common-header>打赏列表</common-header>
+
     <main>
       <jo-load-more
         ref="loadmore"
@@ -28,23 +14,21 @@
           :key="`reward-${id}-${index}`"
           class="m-box m-aln-center m-justify-bet m-art-reward-item m-bb1 m-main">
 
-          <avatar
-            :user="user"
-            size="tiny" />
+          <avatar :user="user" size="tiny" />
 
           <h2 class="m-box m-flex-grow1 m-flex-shrink1 m-text-cut"><b>{{ user.name }}</b>打赏了{{ typeMap[type] }}</h2>
 
-          <time
-            :datetime="created_at"
-            class="m-flex-grow0 m-flex-shrink0">{{ created_at | time2tips }}</time>
+          <time :datetime="created_at" class="m-flex-grow0 m-flex-shrink0">{{ created_at | time2tips }}</time>
         </section>
       </jo-load-more>
     </main>
+
   </div>
 </template>
+
 <script>
 export default {
-  name: "Rewards",
+  name: "ArticleRewards",
   data() {
     return {
       rewards: [],
@@ -129,18 +113,21 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .m-art-reward-item {
   padding: 30px 20px;
   color: #999;
+
   time {
     font-size: 24px;
     color: #ccc;
   }
+
   h2 {
     font-size: 30px;
     margin-left: 30px;
     margin-right: 30px;
+
     b {
       color: #000;
       margin-right: 10px;

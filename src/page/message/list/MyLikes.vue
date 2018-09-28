@@ -4,11 +4,11 @@
     <common-header>收到的赞</common-header>
 
     <div :class="`${prefixCls}-container`">
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        :class="`${prefixCls}-loadmore`" >
+        :class="`${prefixCls}-loadmore`"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore" >
         <div
           v-for="like in likes"
           v-if="like.id"
@@ -16,7 +16,7 @@
           :key="like.id">
           <component :is="items[like.likeable_type]" :like="like"/>
         </div>
-      </load-more>
+      </jo-load-more>
     </div>
   </div>
 </template>
@@ -58,8 +58,8 @@ export default {
       }
     }
   },
-  created() {
-    resetUserCount("liked");
+  mounted() {
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     // 刷新服务
@@ -74,7 +74,8 @@ export default {
           if (data.length > 0) {
             this.refreshData = data;
           }
-          this.$refs.loadmore.topEnd(!(data.length < 15));
+          resetUserCount("liked");
+          this.$refs.loadmore.afterRefresh(data.length < 15);
         });
     },
 
@@ -89,11 +90,11 @@ export default {
         )
         .then(({ data }) => {
           if (data.length === 0) {
-            this.$refs.loadmore.bottomEnd(true);
+            this.$refs.loadmore.afterLoadMore(true);
             return false;
           }
           this.$store.commit("SAVE_MY_LIKED", { type: "more", data });
-          this.$refs.loadmore.bottomEnd(data.length < 15);
+          this.$refs.loadmore.afterLoadMore(data.length < 15);
         });
     }
   }

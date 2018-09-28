@@ -4,18 +4,18 @@
     <common-header>收到的评论</common-header>
 
     <div class="msgList-container">
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        class="msgList-loadmore">
+        class="msgList-loadmore"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore">
         <div
           v-for="comment in comments"
           :key="`comment-key-${comment.id}`"
           class="msgList-item">
           <component :is="items[comment.commentable_type]" :comment="comment"/>
         </div>
-      </load-more>
+      </jo-load-more>
     </div>
   </div>
 </template>
@@ -83,8 +83,8 @@ export default {
       }
     }
   },
-  created() {
-    resetUserCount("commented");
+  mounted() {
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     // 刷新服务
@@ -95,11 +95,12 @@ export default {
           validateStatus: s => s === 200
         })
         .then(({ data }) => {
+          resetUserCount("commented");
           if (data.length > 0) {
             this.refreshData = data;
           }
           this.$nextTick(() => {
-            this.$refs.loadmore.topEnd(!(data.length < 15));
+            this.$refs.loadmore.afterRefresh(data.length < 15);
           });
         });
     },
@@ -119,7 +120,7 @@ export default {
             data
           });
           this.$nextTick(() => {
-            this.$refs.loadmore.bottomEnd(data.length < 15);
+            this.$refs.loadmore.afterLoadMore(data.length < 15);
           });
         });
     }

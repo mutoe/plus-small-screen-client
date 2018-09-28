@@ -15,7 +15,7 @@
       <div class="input-wrap" @click="selectGroup">
         <span class="placeholder">{{ group.name }}</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
-          <use xlink:href="#base-arrow-r"/>
+          <use xlink:href="#icon-arrow-right"/>
         </svg>
       </div>
     </section>

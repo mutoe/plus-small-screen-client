@@ -5,9 +5,7 @@
     @leave="handleLeave">
     <div :class="classes">
       <svg :class="[`${prefixCls}-icon`]">
-        <use
-          :xlink:href="`#${icon}`"
-          xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <use :xlink:href="`#icon-message-${icon}`"/>
       </svg>
       <span class="ellipsis">{{ content | plusMessageAnalyze(defaultMessage) }}</span>
     </div>
@@ -21,7 +19,7 @@ export default {
     duration: { type: Number, default: 3 },
     closable: { type: Boolean, default: false },
     transitionName: { type: String, default: "" },
-    icon: { type: String, default: "msg-info" },
+    icon: { type: String, default: "message-success" },
     content: { type: [Object, Array], required: true },
     onClose: { type: Function, default: () => {} },
     name: { type: String, required: true }

@@ -53,7 +53,7 @@
 
 <script>
 import message from "plus-message-bundle";
-import Loading from "@/icons/Loading.vue";
+import LinearLoading from "@/icons/LinearLoading.vue";
 import QuestionCard from "./components/QuestionCard.vue";
 import { list } from "@/api/question/questions";
 
@@ -61,7 +61,7 @@ export default {
   name: "QuestionList",
   components: {
     QuestionCard,
-    IconLoading: Loading
+    IconLoading: LinearLoading
   },
 
   data: () => ({

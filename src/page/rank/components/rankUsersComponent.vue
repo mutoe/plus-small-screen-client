@@ -8,7 +8,9 @@
         :class="`${prefixCls}-more`"
         @click="to(listUrl)">
         <span>全部</span>
-        <v-icon type="base-arrow-r"/>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-arrow-right" />
+        </svg>
       </div>
     </div>
     <div :class="`${prefixCls}-label`">
@@ -149,13 +151,6 @@ export default {
       margin: 0 5px;
       color: #999;
       font-size: 24px;
-    }
-    .v-icon {
-      width: 24px;
-      height: 24px;
-      transition: 0.5s ease;
-      font-size: 24px;
-      color: #999;
     }
   }
 }

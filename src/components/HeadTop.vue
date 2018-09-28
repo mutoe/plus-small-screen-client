@@ -10,7 +10,9 @@
               {{ goBack }}
             </template>
             <template v-else>
-              <v-icon type="base-back" />
+              <svg class="m-style-svg m-svg-def">
+                <use xlink:href="#icon-back" />
+              </svg>
             </template>
           </section>
         </slot>
@@ -205,13 +207,6 @@ export default {
     height: 100%;
     margin-left: 30px;
     font-size: 32px;
-    .v-icon {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
   }
   &-append {
     position: absolute;
@@ -219,7 +214,6 @@ export default {
     top: 50%;
     transform: translateY(-50%);
     font-size: 32px;
-    .v-icon,
     svg {
       width: 40px;
       height: 40px;
@@ -243,11 +237,6 @@ export default {
     height: 55px;
     background-color: #f4f5f5;
     border-radius: 10px;
-    &-icon.v-icon {
-      color: #999;
-      width: 28px;
-      height: 28px;
-    }
 
     &-input {
       margin-left: 15px;

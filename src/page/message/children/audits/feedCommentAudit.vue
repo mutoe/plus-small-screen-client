@@ -1,11 +1,11 @@
 <template>
   <div :class="`${prefixCls}`">
     <div :class="`${prefixCls}-container`">
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        :class="`${prefixCls}-loadmore`" >
+        :class="`${prefixCls}-loadmore`"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore" >
         <div
           v-for="audit in audits"
           :class="`${prefixCls}-item`"
@@ -15,8 +15,8 @@
             <section class="userInfo">
               <router-link
                 :class="`${prefixCls}-item-top-link`"
-                :to="`/users/${audit.user_id}`">{{
-                audit.user.name }}
+                :to="`/users/${audit.user_id}`">
+                {{ audit.user.name }}
               </router-link>
               <p>{{ audit.created_at | time2tips }}</p>
             </section>
@@ -24,7 +24,7 @@
           </div>
           <audit-content :audit="getAuditContent(audit)"/>
         </div>
-      </load-more>
+      </jo-load-more>
     </div>
   </div>
 </template>
@@ -66,17 +66,17 @@ export default {
             data
           });
         }
-        this.$refs.loadmore.topEnd(!(data.length < limit));
+        this.$refs.loadmore.afterRefresh(data.length < limit);
       });
     },
     onLoadMore() {
       const { id = 0 } = _.head(this.audits) || {};
       if (id === 0) {
-        this.$refs.loadmore.bottomEnd(true);
+        this.$refs.loadmore.afterLoadMore(true);
         return false;
       }
       getFeedCommentPinneds(this.lastId).then(({ data }) => {
-        this.$refs.loadmore.bottomEnd(data.length < limit);
+        this.$refs.loadmore.afterLoadMore(data.length < limit);
         if (data.length > 0) {
           this.$store.commit("SAVE_FEED_COMMENT_AUDITS", {
             type: "more",

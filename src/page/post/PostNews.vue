@@ -9,7 +9,7 @@
           v-else
           class="m-style-svg m-svg-def"
           @click="preStep">
-          <use xlink:href="#base-back"/>
+          <use xlink:href="#icon-back"/>
         </svg>
       </template>
       <template slot="right">
@@ -54,7 +54,7 @@
             <div :class="{placeholder: !(category.id > 0)}" class="m-box m-flex-grow1 m-flex-shrink1 m-aln-center m-justify-end">
               <span>{{ category.name || "选择栏目" }}</span>
               <svg class="m-style-svg m-svg-def m-entry-append">
-                <use xlink:href="#base-arrow-r"/>
+                <use xlink:href="#icon-arrow-right"/>
               </svg>
             </div>
           </div>
@@ -72,7 +72,7 @@
               </div>
             </div>
             <svg class="m-flex-grow0 m-flex-shrink0 m-style-svg m-svg-def m-entry-append">
-              <use xlink:href="#base-arrow-r"/>
+              <use xlink:href="#icon-arrow-right"/>
             </svg>
           </div>
           <div class="m-box m-aln-center m-lim-width m-post-news-row m-main m-bb1">
@@ -120,8 +120,8 @@
               @load.stop="loadedPoster(poster)"
               @error="posterError">
             <div v-else class="m-box-model m-aln-center m-justify-center m-lim-width m-poster-placeholder">
-              <svg viewBox="0 0 24 24" class="m-style-svg m-svg-big">
-                <path d="M21.8,20.8H2.1c-0.5,0-1.1-0.4-1.1-1V6.3c0-0.5,0.4-1.1,1.1-1.1h4.3L8,3.6c0.1-0.3,0.5-0.4,0.8-0.4H15 c0.3,0,0.5,0.1,0.7,0.3l1.9,1.8h4.3c0.5,0,1.1,0.4,1.1,1.1V20C22.9,20.4,22.5,20.8,21.8,20.8L21.8,20.8z M12,6.6 c-3.4,0-6.1,2.7-6.1,6.1s2.7,6.1,6.1,6.1s6.1-2.7,6.1-6.1S15.4,6.6,12,6.6L12,6.6z M12,16.8c-2.3,0-4.1-1.8-4.1-4.1S9.7,8.6,12,8.6 s4.1,1.8,4.1,4.1S14.3,16.8,12,16.8L12,16.8z"/>
+              <svg class="m-style-svg m-svg-big">
+                <use xlink:href="#icon-camera"/>
               </svg>
               <span>点击上传封面</span>
             </div>

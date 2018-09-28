@@ -1,11 +1,11 @@
 <template>
   <div :class="`${prefixCls}`">
     <div :class="`${prefixCls}-container`">
-      <load-more
+      <jo-load-more
         ref="loadmore"
-        :on-refresh="onRefresh"
-        :on-load-more="onLoadMore"
-        :class="`${prefixCls}-loadmore`" >
+        :class="`${prefixCls}-loadmore`"
+        @onRefresh="onRefresh"
+        @onLoadMore="onLoadMore" >
         <div
           v-for="audit in audits"
           :class="`${prefixCls}-item`"
@@ -27,7 +27,7 @@
           <!--</div>-->
           <audit-content :audit="getAuditContent(audit)" />
         </div>
-      </load-more>
+      </jo-load-more>
     </div>
   </div>
 </template>
@@ -107,18 +107,18 @@ export default {
             data
           });
         }
-        this.$refs.loadmore.topEnd(!(data.length < limit));
+        this.$refs.loadmore.afterRefresh(data.length < limit);
       });
     },
     onLoadMore() {
       const { id = 0 } = this.audits.slice(-1)[0] || {};
       if (id === 0) {
-        this.$refs.loadmore.bottomEnd(true);
+        this.$refs.loadmore.afterLoadMore(true);
         return false;
       }
 
       getPostCommentAudits({ after: id }).then(({ data }) => {
-        this.$refs.loadmore.bottomEnd(data.length < limit);
+        this.$refs.loadmore.afterLoadMore(data.length < limit);
         if (data.length > 0) {
           this.$store.commit("SAVE_POST_COMMENT_AUDITS", {
             type: "more",

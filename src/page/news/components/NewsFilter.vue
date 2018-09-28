@@ -15,7 +15,7 @@
         <svg>
           <use
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-arrow-r"/>
+            xlink:href="#icon-arrow-right"/>
         </svg>
       </div>
       <span :class="`${prefixCls}--list__label`">我的订阅</span>

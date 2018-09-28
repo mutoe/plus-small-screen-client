@@ -32,7 +32,7 @@ export default {
     };
   },
   mounted() {
-    this.onRefresh();
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     onRefresh() {

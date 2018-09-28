@@ -1,13 +1,9 @@
 <template>
   <section>
-    <div
-      :class="`${prefixCls}-item-top`"
-      class="m-box m-aln-center m-justify-bet">
+    <div :class="`${prefixCls}-item-top`" class="m-box m-aln-center m-justify-bet">
       <avatar :user="user" />
       <section class="userInfo m-flex-grow1 m-flex-shrink1 m-flex-base0">
-        <span
-          v-if="!user.id"
-          :class="`${prefixCls}-item-top-link`">未知用户</span>
+        <span v-if="!user.id" :class="`${prefixCls}-item-top-link`">未知用户</span>
         <router-link
           :class="`${prefixCls}-item-top-link`"
           :to="`/users/${user.id}`">{{ user.name }}</router-link>
@@ -15,24 +11,18 @@
         <p>{{ like.created_at | time2tips }}</p>
       </section>
       <svg class="m-style-svg m-svg-def m-flex-grow0 m-shrink0">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#feed-like"/>
+        <use xlink:href="#icon-like"/>
       </svg>
     </div>
     <div :class="`${prefixCls}-item-bottom`">
-      <section
-        v-if="like.likeable !== null"
-        @click="goToFeedDetail()">
+      <section v-if="like.likeable !== null" @click="goToFeedDetail()">
         <div
           v-if="!getImage && !getVideo"
           :class="`${prefixCls}-item-bottom-noImg`"
           class="content">
           {{ like.likeable.feed_content }}
         </div>
-        <div
-          v-else
-          :class="`${prefixCls}-item-bottom-img`">
+        <div v-else :class="`${prefixCls}-item-bottom-img`">
           <div class="img">
             <img
               v-if="getImage"
@@ -58,6 +48,7 @@
     </div>
   </section>
 </template>
+
 <script>
 const prefixCls = "msgList";
 export default {

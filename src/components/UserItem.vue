@@ -1,10 +1,7 @@
 <template>
-  <div
-    class="m-box m-aln-center m-main user-item"
-    @click="toUserHome">
+  <div class="m-box m-aln-center m-main user-item" @click="toUserHome">
     <avatar :user="user" />
-    <section
-      class="m-box-model m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-cut user-item-body">
+    <section class="m-box-model m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-cut user-item-body">
       <h2 class="m-text-box m-text-cut">{{ user.name }}</h2>
       <p class="m-text-box m-text-cut">{{ user.bio || "这家伙很懒，什么也没留下" }}</p>
     </section>
@@ -12,14 +9,14 @@
       v-if="!isMine"
       class="m-style-svg m-svg-def"
       @click.stop="followUser">
-      <use
-        :xlink:href="`#base-${isFollow}`"
-        xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      <use :xlink:href="`#icon-${isFollow}`"/>
     </svg>
   </div>
 </template>
+
 <script>
 import { followUserByStatus } from "@/api/user.js";
+
 export default {
   name: "UserItem",
   props: {
@@ -78,7 +75,8 @@ export default {
   }
 };
 </script>
-<style lang='less'>
+
+<style lang='less' scoped>
 .user-item {
   padding: 30px 20px;
   & + & {

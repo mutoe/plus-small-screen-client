@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`${prefix}`"
+    class="jo-loadmore"
 
     style="transform:translate(0,0)"
     @mousedown="startDrag"
@@ -15,59 +15,29 @@
     <!-- 顶部 -->
     <div
       ref="head"
-      :class="`${prefix}-head ${prefix}-head-box`"
-      :style="{transform: `translateY(${ tY - topBarHeight }px)`, transitionDuration}">
+      :style="{transform: `translateY(${ tY - topBarHeight }px)`, transitionDuration}"
+      class="jo-loadmore-head jo-loadmore-head-box">
       <slot name="head">
-        <div
-          v-if="refreshing"
-          :class="`${prefix}-loading ${prefix}-icon`">
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-        </div>
+        <circle-loading v-if="refreshing"/>
         <i
           v-else
-          :class="`${prefix}-icon`"
-          :style="{ transform: `rotate(${topStatus ? '180deg' : '0'})` }">↓</i>
+          :style="{ transform: `rotate(${topStatus ? '180deg' : '0'})` }"
+          class="jo-loadmore-icon">↓</i>
         <span>{{ topTxt }}</span>
       </slot>
     </div>
     <!-- 内容 -->
     <div
-      :class="`${prefix}-main`"
-      :style="{transform: `translateY(${tY}px)`, transitionDuration }">
+      :style="{transform: `translateY(${tY}px)`, transitionDuration }"
+      class="jo-loadmore-main">
       <slot/>
       <!-- 底部 -->
       <div
         v-if="bottomStatus > 0 && showBottom"
-        :class="`${prefix}-foot status-${bottomStatus}`"
+        :class="`jo-loadmore-foot status-${bottomStatus}`"
         @click="beforeLoadMore">
         <slot name="foot">
-          <div
-            v-if="bottomStatus === 1"
-            :class="`${prefix}-loading ${prefix}-icon`">
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-          </div>
+          <circle-loading v-if="bottomStatus === 1"/>
           <span>{{ bottomTxt }}</span>
         </slot>
       </div>
@@ -76,7 +46,6 @@
 </template>
 
 <script>
-const prefix = "jo-loadmore";
 /**
  * 获取页面可滚动的节点 <是否产生垂直方向的滚动条>
  * @author jsonleex <jsonlseex@163.com>
@@ -121,7 +90,6 @@ export default {
   },
   data() {
     return {
-      prefix,
       // 用于计算 scrollTop 的节点
       scrollTarget: null,
 
@@ -269,33 +237,32 @@ export default {
 .jo-loadmore {
   position: relative;
 
-  &-head,
-  &-foot {
+  .jo-loadmore-head,
+  .jo-loadmore-foot {
     width: 100%;
   }
-  &-head {
+  .jo-loadmore-head {
     position: fixed;
     z-index: 0;
+  }
+  .jo-loadmore-head-box {
+    height: 45px; /*no*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c7c7c;
+    font-size: 0.28rem;
 
-    &-box {
-      height: 45px; /*no*/
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #7c7c7c;
-      font-size: 0.28rem;
-
-      > span {
-        vertical-align: middle;
-        margin-left: 0.2rem;
-      }
-      i {
-        font-style: normal;
-        transition: all 0.3s ease;
-      }
+    > span {
+      vertical-align: middle;
+      margin-left: 0.2rem;
+    }
+    i {
+      font-style: normal;
+      transition: all 0.3s ease;
     }
   }
-  &-foot {
+  .jo-loadmore-foot {
     height: 100px;
     display: flex;
     align-items: center;
@@ -305,82 +272,8 @@ export default {
       color: #ccc;
     }
   }
-  &-main {
+  .jo-loadmore-main {
     background-color: inherit;
-  }
-  &-loading {
-    position: relative;
-    display: table;
-    width: 44px;
-    height: 44px;
-    overflow: hidden;
-    span {
-      animation: loading-fade-dark 1.1s infinite linear;
-      position: absolute;
-      left: 50%;
-      bottom: 4px;
-      margin-left: -1px;
-      width: 2px;
-      height: 8px;
-      border-radius: 2px; /* no */
-      transform-origin: center -8px;
-      &:nth-child(1) {
-        animation-delay: 0s;
-        transform: rotate(0);
-      }
-      &:nth-child(2) {
-        animation-delay: 0.1s;
-        transform: rotate(30deg);
-      }
-      &:nth-child(3) {
-        animation-delay: 0.2s;
-        transform: rotate(60deg);
-      }
-      &:nth-child(4) {
-        animation-delay: 0.3s;
-        transform: rotate(90deg);
-      }
-      &:nth-child(5) {
-        animation-delay: 0.4s;
-        transform: rotate(120deg);
-      }
-      &:nth-child(6) {
-        animation-delay: 0.5s;
-        transform: rotate(150deg);
-      }
-      &:nth-child(7) {
-        animation-delay: 0.6s;
-        transform: rotate(180deg);
-      }
-      &:nth-child(8) {
-        animation-delay: 0.7s;
-        transform: rotate(210deg);
-      }
-      &:nth-child(9) {
-        animation-delay: 0.8s;
-        transform: rotate(240deg);
-      }
-      &:nth-child(10) {
-        animation-delay: 0.9s;
-        transform: rotate(270deg);
-      }
-      &:nth-child(11) {
-        animation-delay: 1s;
-        transform: rotate(300deg);
-      }
-      &:nth-child(12) {
-        animation-delay: 1.1s;
-        transform: rotate(330deg);
-      }
-    }
-  }
-}
-@keyframes loading-fade-dark {
-  0% {
-    background-color: #5c5c5c;
-  }
-  100% {
-    background-color: rgba(255, 255, 255, 0);
   }
 }
 </style>

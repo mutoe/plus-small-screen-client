@@ -1,9 +1,7 @@
 <template>
   <div :class="`${prefixCls}-status`">
     <section v-if="audit.comment != null">
-      <section
-        v-if="audit.expires_at != null"
-        class="gray">
+      <section v-if="audit.expires_at != null" class="gray">
         <span class="amount-show">{{ audit.amount }}积分 / {{ audit.day }}天</span>已审核
       </section>
       <section
@@ -122,5 +120,7 @@ export default {
   }
 };
 </script>
-<style lang="less" src="../style.less">
+
+<style lang="less">
+@import url("../style.less");
 </style>

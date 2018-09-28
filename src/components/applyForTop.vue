@@ -65,9 +65,7 @@
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
             @click="handleOk">
-            <svg v-if="loading" class="m-style-svg m-svg-def">
-              <use xlink:href="#base-loading"/>
-            </svg>
+            <circle-loading v-if="loading"/>
             <span v-else>{{ isOwner ? '确认置顶' : '申请置顶' }}</span>
           </button>
         </div>

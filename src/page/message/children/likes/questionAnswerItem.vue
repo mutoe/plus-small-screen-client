@@ -3,9 +3,7 @@
     <div :class="`${prefixCls}-item-top`">
       <avatar :user="user" />
       <section class="userInfo">
-        <span
-          v-if="!user.id"
-          :class="`${prefixCls}-item-top-link`">未知用户 </span>
+        <span v-if="!user.id" :class="`${prefixCls}-item-top-link`">未知用户</span>
         <router-link
           v-else
           :class="`${prefixCls}-item-top-link`"
@@ -15,12 +13,8 @@
       </section>
     </div>
     <div :class="`${prefixCls}-item-bottom`">
-      <section
-        v-if="like.likeable !== null"
-        @click="goToFeedDetail()">
-        <div
-          :class="`${prefixCls}-item-bottom-noImg`"
-          class="content">
+      <section v-if="like.likeable !== null" @click="goToFeedDetail()">
+        <div :class="`${prefixCls}-item-bottom-noImg`" class="content">
           {{ like.likeable.body }}
         </div>
         <!-- <div :class="`${prefixCls}-item-bottom-img`" v-else>
@@ -33,15 +27,14 @@
         </div> -->
       </section>
       <section v-if="like.likeable === null">
-        <div
-          :class="`${prefixCls}-item-bottom-noImg`"
-          class="content">
+        <div :class="`${prefixCls}-item-bottom-noImg`" class="content">
           回答已被删除
         </div>
       </section>
     </div>
   </section>
 </template>
+
 <script>
 const prefixCls = "msgList";
 export default {
@@ -84,7 +77,7 @@ export default {
      */
     goToFeedDetail() {
       const {
-        likeable: { id = 0 }
+        likeable: { id }
       } = this.like;
       this.$router.push(`/questions/${id}`);
     }

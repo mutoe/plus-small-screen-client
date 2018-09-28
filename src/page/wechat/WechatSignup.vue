@@ -33,7 +33,7 @@
             @click="nickname = ''">
             <use
               xmlns:xlink="http://www.w3.org/1999/xlink"
-              xlink:href="#base-clean"/>
+              xlink:href="#icon-clean"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-text-box m-form-err-box">
@@ -47,13 +47,7 @@
             :disabled="err||loading"
             class="m-long-btn m-signin-btn"
             @click="signupByWechat">
-            <svg
-              v-if="loading"
-              class="m-style-svg m-svg-def">
-              <use
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-loading"/>
-            </svg>
+            <circle-loading v-if="loading" />
             <span v-else>提交</span>
           </button>
         </div>

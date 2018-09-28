@@ -7,7 +7,6 @@ import PostMenu from "./page/PostMenu";
 import Payable from "./components/payfor";
 import ActionSheet from "./components/ActionSheet.vue";
 import CommentInput from "./components/commentInput";
-import SvgIcon from "./components/common/svgIcon";
 import CheckIn from "./page/checkin/CheckIn";
 import Reward from "./components/reward";
 import ChooseTags from "./page/chooseTags";
@@ -21,7 +20,6 @@ export default {
         <keep-alive>{this.keepAlive && <router-view />}</keep-alive>
         {!this.keepAlive && <router-view />}
         <div>
-          <SvgIcon />
           <PSWP />
           <PostMenu />
           <Payable />

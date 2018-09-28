@@ -15,8 +15,12 @@
               :class="{placeholder: currentTxt.length === 0}"
               class="m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-cut"
               @click="goBack">{{ currentTxt || placeholder }}</p>
-            <svg class="m-style-svg m-svg-def" @click="getCurrentPosition">
-              <use :xlink:href="iconType" />
+            <circle-loading v-if="loading" />
+            <svg
+              v-else
+              class="m-style-svg m-svg-def"
+              @click="getCurrentPosition">
+              <use xlink:href="#icon-location-arrow" />
             </svg>
           </div>
           <div class="m-box-model">
@@ -84,9 +88,6 @@ export default {
     },
     currentTxt() {
       return this.currentPos ? this.currentPos.label : "";
-    },
-    iconType() {
-      return this.loading ? `#base-loading` : `#location-arrow`;
     },
     currentPos: {
       get() {

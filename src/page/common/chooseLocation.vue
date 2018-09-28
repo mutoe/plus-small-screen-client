@@ -1,18 +1,14 @@
 <template>
   <div class="page-location">
-    <head-top
-      :append="true"
-      title="选择定位">
+    <head-top :append="true" title="选择定位">
       <div
         slot="append"
         class="head-top-cancel"
         @click="$router.go(-1)">取消</div>
-      <div
-        slot="title"
-        class="head-top-search">
-        <v-icon
-          type="base-search"
-          class="head-top-search-icon"/>
+      <div slot="title" class="head-top-search">
+        <svg class="m-style-svg m-svg-def head-top-search-icon">
+          <use xlink:href="#icon-search" />
+        </svg>
         <input
           v-model="keyword"
           class="head-top-search-input"
@@ -26,13 +22,10 @@
     <template v-if="isShowHot">
       <div class="location-current">
         <span>当前定位</span>
-        <span
-          :class="{c999: !cur_txt }"
-          class="location-current-txt">{{ cur_txt || "未定位" }}</span>
-        <v-icon
-          :type="cur_icon"
-          class="location-current-append"
-          @click.native.stop="updateLocation"/>
+        <span :class="{c999: !cur_txt }" class="location-current-txt">{{ cur_txt || "未定位" }}</span>
+        <svg class="m-style-svg m-svg-def location-current-append" @click.native.stop="updateLocation">
+          <use xlink:href="#cur-icon" />
+        </svg>
       </div>
       <div class="location-hot">
         <label>热门城市</label>
@@ -62,6 +55,7 @@
     </template>
   </div>
 </template>
+
 <script>
 import _ from "lodash";
 import HeadTop from "@/components/HeadTop";
@@ -94,20 +88,15 @@ export default {
       }
       return location;
     },
-    cur_icon() {
-      return this.is_loading ? "base-loading" : "location-arrow";
-    },
     cur_txt() {
       return this.location.label || "";
     },
     hot_citys() {
       return this.$store.state.HOTCTIYS;
     },
-
     is_loading() {
       return this.loading || !(this.cur_txt.length > 0);
     },
-
     isShowHot() {
       return !(this.keyword.length > 0) && !(this.dataList.length > 0);
     }
@@ -217,7 +206,8 @@ export default {
   }
 };
 </script>
-<style lang='less'>
+
+<style lang='less' scoped>
 @location-prefix: location;
 .page-location {
   .head-top-title {

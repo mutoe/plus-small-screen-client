@@ -28,12 +28,12 @@
         </div>
       </div>
 
-      <div
-        class="m-entry"
-        @click="selectWithdrawType">
+      <div class="m-entry" @click="selectWithdrawType">
         <span class="m-text-box m-flex-grow1">选择提现方式</span>
         <div class="m-box m-aln-end paid-type">{{ withdrawTypeText }}</div>
-        <v-icon type="base-arrow-r"/>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-arrow-right" />
+        </svg>
       </div>
 
       <div class="m-box-model m-lim-width m-main">
@@ -49,16 +49,12 @@
         </div>
       </div>
 
-      <div
-        class="plr20 m-lim-width"
-        style="margin-top: 0.6rem">
+      <div class="plr20 m-lim-width" style="margin-top: 0.6rem">
         <button
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
           @click="handleOk">
-          <v-icon
-            v-if="loading"
-            type="base-loading"/>
+          <circle-loading v-if="loading" />
           <span v-else>确定</span>
         </button>
       </div>

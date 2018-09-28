@@ -17,10 +17,12 @@
     </main>
   </div>
 </template>
+
 <script>
 import UserItem from "@/components/UserItem.vue";
+
 export default {
-  name: "Likes",
+  name: "ArticleLikes",
   components: {
     UserItem
   },

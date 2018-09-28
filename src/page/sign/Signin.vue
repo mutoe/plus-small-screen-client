@@ -24,7 +24,7 @@
             v-show="account.length > 0"
             class="m-style-svg m-svg-def"
             @click="account = ''">
-            <use xlink:href="#base-clean"/>
+            <use xlink:href="#icon-clean"/>
           </svg>
         </div>
         <div class="m-form-row m-main">
@@ -47,7 +47,7 @@
               @keyup.enter="signinByAccount">
           </div>
           <svg class="m-style-svg m-svg-def" @click="eye = !eye">
-            <use :xlink:href="eye ? '#eye-open' : '#eye-close'"/>
+            <use :xlink:href="eye ? '#icon-eye-open' : '#icon-eye-close'"/>
           </svg>
         </div>
         <div class="m-box m-aln-center m-text-box m-form-err-box">
@@ -58,9 +58,7 @@
             :disabled="disabled"
             class="m-long-btn m-signin-btn"
             @click="signinByAccount">
-            <svg v-if="loading" class="m-style-svg m-svg-def">
-              <use xlink:href="#base-loading"/>
-            </svg>
+            <circle-loading v-if="loading" />
             <span v-else>登录</span>
           </button>
         </div>
@@ -80,7 +78,7 @@
           <!-- <div class="m-box m-fd-col m-aln-center m-tr-item">
             <div class="m-tr-item-icon">
               <svg class="m-style-svg m-svg-def">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tr-QQ"></use>
+                <use xlink:href="#icon-login-qq"></use>
               </svg>
             </div>
             <span>QQ</span>
@@ -90,7 +88,7 @@
             @click="signinByWechat">
             <div class="m-tr-item-icon">
               <svg class="m-style-svg m-svg-def">
-                <use xlink:href="#tr-wechat"/>
+                <use xlink:href="#icon-login-wechat"/>
               </svg>
             </div>
             <span>微信</span>

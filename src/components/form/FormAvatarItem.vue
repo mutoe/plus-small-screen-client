@@ -5,7 +5,7 @@
     </div>
     <span class="avatar-label">{{ label }}</span>
     <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
-      <use xlink:href="#base-arrow-r"/>
+      <use xlink:href="#icon-arrow-right"/>
     </svg>
     <input
       ref="imagefile"

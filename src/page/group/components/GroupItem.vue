@@ -27,7 +27,7 @@
           v-if="!(joined.audit ===0)"
           :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}"
           class="m-style-svg m-svg-def">
-          <use :xlink:href="`#${loading ? 'base-loading' : 'foot-plus'}`" />
+          <use :xlink:href="`#icon-${loading ? 'loading' : 'plus'}`" />
         </svg>
         <span>{{ joined.audit === 0 ? "审核中" : "加入" }}</span>
       </button>

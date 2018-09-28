@@ -13,19 +13,17 @@
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }"
       class="m-box m-lim-width m-pos-f m-head-top bg-transp">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def white" @click="goBack">
+          <use xlink:href="#icon-back"/>
         </svg>
-        <svg v-show="updating" class="m-style-svg m-svg-def">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-if="updating" />
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center m-trans-y">
         <span class="m-text-cut">{{ user.name }}</span>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
         <!-- <svg class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#feed-more"></use>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-more"></use>
         </svg> -->
       </div>
     </header>
@@ -85,8 +83,8 @@
         <span>{{ feedsCount }}条动态</span>
         <div v-if="isMine" class="m-box m-aln-center m-urh-filter">
           <span>{{ feedTypes[screen] }}</span>
-          <svg class="m-style-svg m-svg-def">
-            <use xlink:href="#base-filter-list"/>
+          <svg class="m-style-svg m-svg-small">
+            <use xlink:href="#icon-list"/>
           </svg>
           <transition v-if="showFilter">
             <ul class="m-urh-filter-options">
@@ -96,8 +94,8 @@
                 class="m-box m-aln-center m-justify-bet"
                 @click="screen = key">
                 <span>{{ val }}</span>
-                <svg v-if="screen === key" class="m-style-svg m-svg-def">
-                  <use xlink:href="#base-checked"/>
+                <svg v-if="screen === key" class="m-style-svg m-svg-small">
+                  <use xlink:href="#icon-yes"/>
                 </svg>
               </li>
             </ul>
@@ -131,7 +129,7 @@
       class="m-box m-pos-f m-main m-bt1 m-user-home-foot">
       <div class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center" @click="rewardUser">
         <svg class="m-style-svg m-svg-def">
-          <use xlink:href="#profile-integral"/>
+          <use xlink:href="#icon-profile-integral"/>
         </svg>
         <span>打赏</span>
       </div>
@@ -147,7 +145,7 @@
       <!-- `/chats/${user.id}` -->
       <div class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center" @click="startSingleChat">
         <svg class="m-style-svg m-svg-def">
-          <use xlink:href="#message-comments"/>
+          <use xlink:href="#icon-comment"/>
         </svg>
         <span>聊天</span>
       </div>
@@ -320,17 +318,17 @@ export default {
           unFollow: {
             text: "关注",
             status: "unFollow",
-            icon: `#base-unFollow`
+            icon: `#icon-unFollow`
           },
           follow: {
             text: "已关注",
             status: "follow",
-            icon: `#base-follow`
+            icon: `#icon-follow`
           },
           eachFollow: {
             text: "互相关注",
             status: "eachFollow",
-            icon: `#base-eachFollow`
+            icon: `#icon-eachFollow`
           }
         };
         const { follower, following } = this.user;
@@ -565,6 +563,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.white {
+  color: #fff;
+}
 .m-user-home-foot {
   height: 90px;
   top: initial;

@@ -15,7 +15,7 @@
               class="m-tag"
               @click="switchTagStatus(tag, -1)">
               <svg class="m-style-svg m-svg-def">
-                <use xlink:href="#base-clean"/>
+                <use xlink:href="#icon-clean"/>
               </svg>
               <span>{{ tag.name }}</span>
             </li>

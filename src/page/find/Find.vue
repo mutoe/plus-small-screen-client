@@ -4,18 +4,19 @@
     <header class="m-pos-f m-box m-aln-center m-justify-bet m-lim-width m-bb1 m-main m-head-top" style="padding: 0 10px;">
       <div class="m-box m-aln-center m-flex-grow0 m-flex-shrink0">
         <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
+          <use xlink:href="#icon-back"/>
         </svg>
       </div>
       <div class="m-box m-aln-center m-flex-grow1 m-flex-shrink1 m-head-search-box" @click="showSearchUser">
         <svg class="m-style-svg m-svg-def placeholder">
-          <use xlink:href="#base-search"/>
+          <use xlink:href="#icon-search"/>
         </svg>
         <span class="placeholder">搜索</span>
       </div>
       <div class="m-box m-aln-center m-flex-grow0 m-flex-shrink0 m-justify-end m-location" @click="switchLocation">
-        <svg :class="loading?'m-svg-small':'m-svg-def'" class="m-style-svg">
-          <use :xlink:href="loading ? `#base-loading` : `#find-location`"/>
+        <circle-loading v-if="loading"/>
+        <svg v-else class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-find-location"/>
         </svg>
         <span class="m-location-label m-text-cut">{{ location }}</span>
       </div>

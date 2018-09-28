@@ -1,13 +1,13 @@
 <template>
   <div :class="`${prefixCls}`">
 
-    <common-header> 系统通知 </common-header>
+    <common-header>系统通知</common-header>
 
-    <load-more
+    <jo-load-more
       ref="loadmore"
-      :on-refresh="onRefresh"
-      :on-load-more="onLoadMore"
-      :class="`${prefixCls}-loadmore`" >
+      :class="`${prefixCls}-loadmore`"
+      @onRefresh="onRefresh"
+      @onLoadMore="onLoadMore" >
       <section
         v-for="notification in notifications"
         :key="notification.id"
@@ -15,7 +15,7 @@
         <h5 class="m-flex-grow1 m-flex-shrink1">{{ notification.data.content }}</h5>
         <p class="m-flex-grow0 m-flex-shrink0">{{ notification.created_at | time2tips }}</p>
       </section>
-    </load-more>
+    </jo-load-more>
   </div>
 </template>
 
@@ -33,9 +33,8 @@ export default {
       notifications: []
     };
   },
-
-  created() {
-    this.$http.put("/user/notifications/all");
+  mounted() {
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     /**
@@ -47,7 +46,8 @@ export default {
      */
     onRefresh() {
       getNotifications().then(({ data }) => {
-        this.$refs.loadmore.topEnd(!(data.length < 15));
+        this.$http.put("/user/notifications/all");
+        this.$refs.loadmore.afterRefresh(data.length < 15);
         this.notifications = data;
       });
     },
@@ -61,7 +61,7 @@ export default {
     onLoadMore() {
       const { length: offset = 0 } = this.notifications;
       getNotifications(offset).then(({ data }) => {
-        this.$refs.loadmore.bottomEnd(data.length < 15);
+        this.$refs.loadmore.afterLoadMore(data.length < 15);
         this.notifications = _.unionBy([...this.notifications, ...data]);
       });
     }

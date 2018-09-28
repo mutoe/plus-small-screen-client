@@ -185,7 +185,7 @@ export default {}
 ```
 
 ##### right
-显示在导航栏右边，配合 VIcon 通用组件使用效果更加，最大宽度支持 4em
+显示在导航栏右边，最大宽度支持 4em
 
 #### 为什么要使用它
 
@@ -197,7 +197,7 @@ export default {}
 <header class="m-box m-justify-bet m-aln-center m-bb1 m-head-top m-main m-lim-width">
   <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
     <svg class="m-style-svg m-svg-def" @click="goBack">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#base-back"/>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-back"/>
     </svg>
   </div>
   <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">

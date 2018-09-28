@@ -7,9 +7,7 @@
         <a href="javascript:;" @click="beforeGoBack">取消</a>
       </template>
       <template slot="right">
-        <svg v-if="loading" class="m-style-svg m-svg-def">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-if="loading" />
         <a
           v-else
           :class="{ disabled }"

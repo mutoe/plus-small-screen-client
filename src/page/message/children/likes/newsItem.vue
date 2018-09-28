@@ -3,9 +3,7 @@
     <div :class="`${prefixCls}-item-top`">
       <avatar :user="user" />
       <section class="userInfo">
-        <span
-          v-if="!user.id"
-          :class="`${prefixCls}-item-top-link`">未知用户 </span>
+        <span v-if="!user.id" :class="`${prefixCls}-item-top-link`">未知用户</span>
         <router-link
           :class="`${prefixCls}-item-top-link`"
           :to="`/users/${user._id}`">{{ user.name }}</router-link>
@@ -22,13 +20,9 @@
           class="content">
           {{ like.likeable.title }}
         </div>
-        <div
-          v-else
-          :class="`${prefixCls}-item-bottom-img`">
+        <div v-else :class="`${prefixCls}-item-bottom-img`">
           <div class="img">
-            <img
-              :src="getImage"
-              :alt="user.name">
+            <img :src="getImage" :alt="user.name">
           </div>
           <div class="content">
             {{ like.likeable.title }}
@@ -36,15 +30,14 @@
         </div>
       </section>
       <section v-if="like.likeable === null">
-        <div
-          :class="`${prefixCls}-item-bottom-noImg`"
-          class="content">
+        <div :class="`${prefixCls}-item-bottom-noImg`" class="content">
           资讯已被删除
         </div>
       </section>
     </div>
   </section>
 </template>
+
 <script>
 const prefixCls = "msgList";
 export default {

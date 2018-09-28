@@ -9,7 +9,7 @@
             <svg class="m-style-svg m-svg-def">
               <use
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="#base-search"/>
+                xlink:href="#icon-search"/>
             </svg>
             <!-- input[type=search] 使用 form 标签包裹起来，呼出键盘的enter才会有搜索按钮 -->
             <form

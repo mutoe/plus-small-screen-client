@@ -4,17 +4,7 @@
       <div class="m-box-model m-art-card">
         <div ref="head" class="m-box-model m-justify-center m-pos-f m-head-top m-main m-lim-width pd0">
           <slot name="head">
-
-            <common-header>
-              资讯详情
-              <svg
-                v-if="!isWechat"
-                slot="right"
-                class="m-style-svg m-svg-def">
-                <use xlink:href="#base-share"/>
-              </svg>
-            </common-header>
-
+            <common-header>资讯详情</common-header>
           </slot>
         </div>
 
@@ -34,25 +24,25 @@
           <slot name="foot">
             <a class="m-box-model m-aln-center" @click.prevent="handelLike">
               <svg class="m-style-svg m-svg-def">
-                <use :xlink:href="liked ? '#feed-like' :'#feed-unlike'"/>
+                <use :xlink:href="liked ? '#icon-like' :'#icon-unlike'"/>
               </svg>
               <span>喜欢</span>
             </a>
             <a class="m-box-model m-aln-center" @click.prevent="handelComment">
               <svg class="m-style-svg m-svg-def">
-                <use xlink:href="#feed-comment"/>
+                <use xlink:href="#icon-comment"/>
               </svg>
               <span>评论</span>
             </a>
             <a class="m-box-model m-aln-center" @click.prevent="handelShare">
               <svg class="m-style-svg m-svg-def">
-                <use xlink:href="#base-share"/>
+                <use xlink:href="#icon-share"/>
               </svg>
               <span>分享</span>
             </a>
             <a class="m-box-model m-aln-center" @click.prevent="handelMore">
               <svg class="m-style-svg m-svg-def">
-                <use xlink:href="#feed-more"/>
+                <use xlink:href="#icon-more"/>
               </svg>
               <span>更多</span>
             </a>

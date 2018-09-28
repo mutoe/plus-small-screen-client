@@ -33,9 +33,7 @@
           :disabled="disabled || loading"
           class="m-long-btn m-signin-btn"
           @click="handleOk">
-          <v-icon
-            v-if="loading"
-            type="base-loading"/>
+          <circle-loading v-if="loading"/>
           <span v-else>确定</span>
         </button>
       </div>
@@ -43,9 +41,9 @@
 
     <footer>
       <p @click="popupRule">
-        <v-icon
-          style="vertical-align: bottom;"
-          type="wallet-alert-circle"/>
+        <svg class="m-style-svg m-svg-small">
+          <use xlink:href="#icon-wallet-warning" />
+        </svg>
         积分提取规则
       </p>
     </footer>

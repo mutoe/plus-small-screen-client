@@ -11,11 +11,11 @@ let messageInstance;
 let name = 1;
 
 const iconTypes = {
-  info: "msg-info",
-  success: "msg-success",
-  warning: "msg-warning",
-  error: "msg-error",
-  loading: "msg-loading"
+  info: "info",
+  success: "success",
+  warning: "warning",
+  error: "error",
+  loading: "loading"
 };
 
 function getMessageInstance() {

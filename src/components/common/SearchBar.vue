@@ -2,7 +2,7 @@
   <header class="c-search-bar">
 
     <form class="input-wrap" onsubmit="return false">
-      <svg class="m-icon-svg m-svg-def"><use xlink:href="#base-search"/></svg>
+      <svg class="m-icon-svg m-svg-small"><use xlink:href="#icon-search"/></svg>
       <input
         :value="value"
         :placeholder="placeholder"

@@ -15,20 +15,21 @@
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }"
       class="m-box m-lim-width m-pos-f m-head-top bg-transp">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
+        <svg class="m-style-svg m-svg-def mr10" @click="goBack">
+          <use xlink:href="#icon-back"/>
         </svg>
-        <svg v-show="updating" class="m-style-svg m-svg-def">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-show="updating" color="light"/>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-center"/>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
         <svg class="m-style-svg m-svg-def" @click="onSearchClick">
-          <use xlink:href="#base-search"/>
+          <use xlink:href="#icon-search"/>
         </svg>
-        <svg class="m-style-svg m-svg-def" @click="onMoreClick">
-          <use xlink:href="#feed-more"/>
+        <svg
+          class="m-style-svg m-svg-def"
+          style="color: #fff;"
+          @click="onMoreClick">
+          <use xlink:href="#icon-more"/>
         </svg>
       </div>
     </header>
@@ -70,7 +71,7 @@
               class="m-text-cut"
               @click="beforeJoined">
               <svg :style="loading ? {} : {width: '0.2rem', height:'0.2rem'}" class="m-style-svg m-svg-def">
-                <use :xlink:href="`#${loading?'base-loading':'foot-plus'}`" />
+                <use :xlink:href="`#icon-${loading ? 'loading' : 'plus'}`" />
               </svg>
               <span>加入</span>
             </button>
@@ -88,8 +89,8 @@
         <span>帖子数量<em>{{ groupPostsCount }}</em></span>
         <div class="m-box m-aln-center p-group-detail-filter">
           <span>{{ feedTypes[screen] }}</span>
-          <svg class="m-style-svg m-svg-def">
-            <use xlink:href="#base-filter-list"/>
+          <svg class="m-style-svg m-svg-small">
+            <use xlink:href="#icon-list"/>
           </svg>
           <transition v-if="showFilter">
             <ul class="p-group-detail-filter-options">
@@ -99,8 +100,8 @@
                 class="m-box m-aln-center m-justify-bet"
                 @click="screen = key">
                 <span>{{ val }}</span>
-                <svg v-if="screen === key" class="m-style-svg m-svg-def">
-                  <use xlink:href="#base-checked"/>
+                <svg v-if="screen === key" class="m-style-svg m-svg-small">
+                  <use xlink:href="#icon-yes"/>
                 </svg>
               </li>
             </ul>
@@ -137,30 +138,30 @@
       <ul class="list">
         <li @click="$router.push({ name: 'groupMembers' })">
           <span>
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-6"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-group-members"/></svg>
             成员
           </span>
           <span>
             {{ group.users_count }}
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
         <li @click="$router.push({ name: 'groupInfo' })">
           <span>
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-5"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-group-info"/></svg>
             详细信息
           </span>
           <span>
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
         <li v-if="isOwner" @click="$router.push({name: 'groupPermission'})">
           <span>
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#group-4"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-group-access"/></svg>
             发帖权限
           </span>
           <span>
-            <svg class="m-icon-svg m-svg-def" fill="#4a4d5e"><use xlink:href="#base-arrow-r"/></svg>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
       </ul>
@@ -176,8 +177,8 @@
     <div class="slide-mask" @click="showSlide = false"/>
 
     <button class="create-post" @click="onCreatePostClick">
-      <svg class="m-icon-svg m-svg-def">
-        <use xlink:href="#foot-plus" fill="#fff"/>
+      <svg class="m-style-svg m-svg-def white">
+        <use xlink:href="#icon-plus"/>
       </svg>
     </button>
 
@@ -225,11 +226,11 @@ export default {
       loading: true,
       dY: 0,
       startY: 0,
-      dragging: !1,
-      updating: !1,
+      dragging: false,
+      updating: false,
 
       typeFilter: null,
-      showFilter: !1,
+      showFilter: false,
       screen: "latest_post",
 
       feedTypes: {
@@ -382,6 +383,7 @@ export default {
     },
     updateData() {
       this.dY = 0;
+      this.updating = true;
       this.$store
         .dispatch("group/getGroupById", { groupId: this.groupId })
         .then(group => {
@@ -530,6 +532,7 @@ export default {
 
         svg {
           vertical-align: sub;
+          color: #4a4d5e;
         }
       }
     }
@@ -756,5 +759,9 @@ export default {
       color: #fff;
     }
   }
+}
+
+.white {
+  color: #fff;
 }
 </style>

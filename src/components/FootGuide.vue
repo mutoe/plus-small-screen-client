@@ -1,67 +1,59 @@
 <template>
-  <footer id="foot_guide">
+  <footer class="foot-guide">
     <section
       :class="{active: isCurPath('/feed')}"
-      class="guide_item"
+      class="guide-item"
       @click="to('/feeds?type=hot')">
-      <svg class="m-style-svg m-svg-def foot_guide_icon">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#foot-home"/>
+      <svg class="m-style-svg m-svg-def">
+        <use xlink:href="#icon-foot-home"/>
       </svg>
       <span>动态</span>
     </section>
     <section
       :class="{active: isCurPath('/discover')}"
-      class="guide_item"
+      class="guide-item"
       @click="to('/discover')">
-      <svg class="m-style-svg m-svg-def foot_guide_icon">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#foot-discover"/>
+      <svg class="m-style-svg m-svg-def">
+        <use xlink:href="#icon-foot-discover"/>
       </svg>
       <span>发现</span>
     </section>
     <section
-      class="guide_item plus"
+      class="guide-item plus"
       @click="showPostMenu">
-      <svg class="m-style-svg m-svg-def foot_guide_icon plus">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#foot-plus"/>
+      <svg class="m-style-svg m-svg-def plus">
+        <use xlink:href="#icon-plus"/>
       </svg>
     </section>
     <section
       :class="{active: isCurPath('/message')}"
-      class="guide_item"
+      class="guide-item"
       @click="to('/message/info')">
       <v-badge :dot="hasMsg">
-        <svg class="m-style-svg m-svg-def foot_guide_icon">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#foot-message"/>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-foot-message"/>
         </svg>
       </v-badge>
       <span>消息</span>
     </section>
     <section
       :class="{active: isCurPath('profile')}"
-      class="guide_item"
+      class="guide-item"
       @click="to('/profile')">
       <v-badge :dot="profile">
-        <svg class="m-style-svg m-svg-def foot_guide_icon">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#foot-profile"/>
+        <svg class="m-style-svg m-svg-def">
+          <use xlink:href="#icon-foot-profile"/>
         </svg>
       </v-badge>
       <span>我</span>
     </section>
   </footer>
 </template>
+
 <script>
 import { mapState, mapGetters } from "vuex";
 import bus from "@/bus.js";
+
 export default {
   name: "FootGuide",
   data() {
@@ -107,23 +99,9 @@ export default {
   }
 };
 </script>
-<style lang="less">
-.foot_guide_icon {
-  width: 45px;
-  height: 45px;
-  margin-bottom: 5px;
-  &.plus {
-    width: 65px;
-    height: 65px;
-  }
-  + .v-badge-dot {
-    top: 0;
-    box-shadow: 0 0 0 1px #ed3f14; /*no*/
-  }
-}
-</style>
+
 <style lang="less" scoped>
-#foot_guide {
+.foot-guide {
   background-color: #363844;
   position: fixed;
   z-index: 100;
@@ -135,30 +113,49 @@ export default {
   height: 100px;
   display: flex;
   box-shadow: 0 -0.026667rem 0.053333rem rgba(0, 0, 0, 0.1);
-}
 
-.guide_item {
-  flex: 1;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #ccc;
-  .v-badge-dot {
-    top: 0;
+  .m-svg-def {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 5px;
+
+    &.plus {
+      width: 65px;
+      height: 65px;
+    }
+    + .v-badge-dot {
+      top: 0;
+      box-shadow: 0 0 0 1px #ed3f14; /*no*/
+    }
   }
-  &.plus {
-    color: #fff !important;
-    background-color: @primary;
-    margin: 0 15px;
-  }
-  &.active {
-    color: @primary;
-  }
-  span {
-    font-size: 24px;
-    color: inherit;
+
+  .guide-item {
+    flex: 1;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    .v-badge-dot {
+      top: 0;
+    }
+    &.plus {
+      color: #fff !important;
+      background-color: @primary;
+      margin: 0 15px;
+    }
+    &.active {
+      color: @primary;
+
+      > svg {
+        color: @primary;
+      }
+    }
+    span {
+      font-size: 24px;
+      color: inherit;
+    }
   }
 }
 </style>

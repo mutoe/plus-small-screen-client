@@ -4,7 +4,7 @@
     <nav class="m-box m-head-top m-lim-width m-pos-f m-main m-bb1" style="padding: 0 10px;">
       <div class="m-box m-aln-center m-flex-shrink0 ">
         <svg class="m-style-svg m-svg-def" @click="goBack">
-          <use xlink:href="#base-back"/>
+          <use xlink:href="#icon-back"/>
         </svg>
       </div>
       <ul class="m-box m-flex-grow1 m-aln-center m-justify-center m-flex-base0 m-head-nav">

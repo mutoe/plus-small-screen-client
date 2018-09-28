@@ -19,13 +19,13 @@
     <div class="main-button">
       <span @click.stop="handleLikeTarget">
         <svg class="icon">
-          <use :xlink:href="answer.liked ? '#feed-like' : '#feed-unlike'" />
+          <use :xlink:href="answer.liked ? '#icon-like' : '#icon-unlike'" />
         </svg>
         {{ answer.likes_count | formatNum }}
       </span>
       <span>
         <svg class="icon">
-          <use xlink:href="#message-comments" />
+          <use xlink:href="#icon-comment" />
         </svg>
         {{ answer.comments_count | formatNum }}
       </span>

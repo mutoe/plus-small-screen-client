@@ -33,9 +33,7 @@
         :disabled="disabled || sending"
         class="m-flex-grow0 m-flex-shrink0 p-chat-button"
         @click="sendMessage">
-        <svg v-if="sending" class="m-style-svg m-svg-def">
-          <use xlink:href="#base-loading"/>
-        </svg>
+        <circle-loading v-if="sending" />
         <span v-else>发送</span>
       </button>
     </footer>

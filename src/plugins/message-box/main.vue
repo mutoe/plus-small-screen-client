@@ -5,8 +5,8 @@
       :class="[ 'v-message', `v-message-${type}`]"
       role="alert"
       @transitionend="transitionend" >
-      <svg class="m-style-svg m-svg-def">
-        <use :xlink:href="`#message-${type}`"/>
+      <svg class="m-style-svg m-svg-small">
+        <use :xlink:href="`#icon-message-${type}`"/>
       </svg>
       <slot>
         <p v-if="!dangerouslyUseHTMLString" class="v-message-content">{{ message }}</p>

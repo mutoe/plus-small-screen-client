@@ -5,22 +5,17 @@
       class="m-box-model m-pos-f"
       style="background-color: #f4f5f6"
       @touchmove.prevent>
-      <header class="m-box m-aln-center m-head-top m-main m-bb1">
-        <div class="m-flex-grow1">
-          <svg class="m-style-svg m-svg-def" @click="cancel">
-            <use xlink:href="#base-back"/>
-          </svg>
-        </div>
-        <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-head-top-title">
-          <span>打赏</span>
-        </div>
-        <div class="m-box m-aln-center m-justify-end m-flex-grow1 m-text-r">
+
+      <common-header :back="cancel">
+        打赏
+        <template slot="right">
           <button
             :disabled="!(amount > 0)"
             class="m-btn"
             @click.stop.prevent="resetProps">重置</button>
-        </div>
-      </header>
+        </template>
+      </common-header>
+
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width m-main">
           <div class="m-pinned-amount-btns">
@@ -54,9 +49,7 @@
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
             @click="handleOk">
-            <svg v-if="loading" class="m-style-svg m-svg-def">
-              <use xlink:href="#base-loading"/>
-            </svg>
+            <circle-loading v-if="loading"/>
             <span v-else>确定</span>
           </button>
         </div>

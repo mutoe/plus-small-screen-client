@@ -7,7 +7,7 @@
           @click="goBack">
           <use
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#base-back"/>
+            xlink:href="#icon-back"/>
         </svg>
       </div>
       <div class="m-box m-flex-grow1 m-flex-shrink1 m-justify-center"/>

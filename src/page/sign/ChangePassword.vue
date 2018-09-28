@@ -1,15 +1,13 @@
 <template>
-  <div class="p-forgot forgot signup">
+  <div class="p-change-password">
 
     <common-header>
       修改密码
       <template slot="right">
-        <a :disabled="loading || disabled" @click="handleOk">
-          <svg v-if="loading" class="m-style-svg m-svg-def">
-            <use xlink:href="#base-loading"/>
-          </svg>
-          <span v-else>更改</span>
-        </a>
+        <span
+          :class="{disabled: disabled || loading}"
+          class="submit-btn"
+          @click="handleOk">更改</span>
       </template>
     </common-header>
 
@@ -130,16 +128,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.m-justify-end a.disabled,
-.m-justify-end a[disabled] {
-  color: #d3d3d3;
-}
+.p-change-password {
+  .submit-btn {
+    color: @primary;
 
-.p-forgot .m-form-row .m-input {
-  padding: 0 30px 0 0;
-}
-.p-forgot .m-form-row label {
-  flex: 0 0 30 * 6px;
-  width: 30 * 6px;
+    &.disabled {
+      color: @gray;
+    }
+  }
+
+  .m-form-row {
+    .m-input {
+      padding-right: 30px;
+    }
+
+    label {
+      width: 180px;
+    }
+  }
 }
 </style>

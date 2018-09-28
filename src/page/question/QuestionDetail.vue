@@ -46,13 +46,19 @@
               v-if="question.watched"
               class="main-watch-follow active"
               @click="handleUnwatch" >
-              <span>✓</span>已关注
+              <svg class="m-style-svg follow-btn">
+                <use xlink:href="#icon-yes" />
+              </svg>
+              已关注
             </button>
             <button
               v-else
               class="main-watch-follow"
               @click="handleWatch" >
-              <span>+</span>关注
+              <svg class="m-style-svg follow-btn">
+                <use xlink:href="#icon-plus" />
+              </svg>
+              关注
             </button>
           </div>
         </div>
@@ -61,7 +67,7 @@
         <div class="main-button">
           <div class="button">
             <svg class="main-button-icon" fill="#666">
-              <use :xlink:href="`#base-${question.amount ? 'reward' : 'unreward'}`" />
+              <use :xlink:href="`#icon-question-${question.amount ? 'reward' : 'unreward'}`" />
             </svg>
             {{ question.amount ? '已' : '未' }}设置悬赏
           </div>
@@ -77,7 +83,7 @@
             class="button"
             @click="addAnswer">
             <svg class="main-button-icon" fill="#666">
-              <use xlink:href="#base-edit" />
+              <use xlink:href="#icon-question-add" />
             </svg>
             添加回答
           </div>
@@ -90,7 +96,7 @@
           <button @click="showOrderPopup">
             {{ answersTimeOrder ? '时间排序' : '默认排序' }}
             <svg fill="#999" class="icon">
-              <use xlink:href="#base-filter-list" />
+              <use xlink:href="#icon-list" />
             </svg>
           </button>
         </div>
@@ -106,13 +112,13 @@
     <!-- <div class="tabbar">
       <a class="tabbar-item" href="#">
         <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#message-comments" />
+          <use xlink:href="#icon-comment" />
         </svg>
         评论
       </a>
       <a class="tabbar-item" href="#">
         <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#base-share" />
+          <use xlink:href="#icon-share" />
         </svg>
         分享
       </a>
@@ -127,7 +133,7 @@
       </a>
       <a class="tabbar-item" href="#">
         <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#base-more" />
+          <use xlink:href="#icon-more" />
         </svg>
         更多
       </a>
@@ -415,9 +421,20 @@ export default {
           vertical-align: middle;
         }
 
+        .follow-btn {
+          color: @primary;
+          width: 20px;
+          height: 20px;
+          vertical-align: baseline;
+        }
+
         &.active {
           color: #ccc;
           border: solid 2px #ccc;
+
+          .follow-btn {
+            color: #ccc;
+          }
         }
       }
 

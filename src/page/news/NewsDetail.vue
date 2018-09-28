@@ -65,7 +65,7 @@
             </li>
             <li v-if="rewardList.length > 0" class="m-box m-aln-center">
               <svg class="m-style-svg m-svg-def" style="fill:#bfbfbf">
-                <use xlink:href="#base-arrow-r"/>
+                <use xlink:href="#icon-arrow-right"/>
               </svg>
             </li>
           </router-link>

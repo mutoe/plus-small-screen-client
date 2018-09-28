@@ -21,7 +21,9 @@
           :class="`${prefixCls}-select`"
           @click.stop="showChoosePage">
           <div :class="`${prefixCls}-select-label`">{{ chooseTips }}</div>
-          <v-icon type="base-arrow-r" />
+          <svg class="m-style-svg m-svg-def">
+            <use xlink:href="#icon-arrow-right" />
+          </svg>
         </div>
       </template>
       <div :class="`${prefixCls}-title`">
@@ -128,11 +130,6 @@ export default {
     font-size: 30px;
     align-items: center;
     justify-content: space-between;
-    .v-icon {
-      width: 24px;
-      height: 24px;
-      color: #ccc;
-    }
   }
   &-content {
     padding: 0 30px;

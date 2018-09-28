@@ -81,6 +81,6 @@
 
 <script>
 export default {
-  name: "IconLoading"
+  name: "LinearLoading"
 };
 </script>

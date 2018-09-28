@@ -5,10 +5,10 @@
       资讯
       <template slot="right">
         <svg class="m-style-svg m-svg-def" @click="$router.push({path: '/news/search'})">
-          <use xlink:href="#base-search"/>
+          <use xlink:href="#icon-search"/>
         </svg>
         <svg class="m-style-svg m-svg-def" @click="beforeCreatePost">
-          <use xlink:href="#post-news"/>
+          <use xlink:href="#icon-news-draft"/>
         </svg>
       </template>
     </common-header>
