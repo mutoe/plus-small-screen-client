@@ -18,8 +18,8 @@
 
 <script>
 import { hashFile } from "@/util/SendImage.js";
-import axios from "axios";
 import { baseURL } from "@/api/api";
+import * as uploadApi from "@/api/upload.js";
 import { getFileUrl } from "@/util";
 import getFirstFrameOfGif from "@/util/getFirstFrameOfGif.js";
 
@@ -150,15 +150,16 @@ export default {
           mime_type: blob.type || "image/png",
           storage: { channel: "public" }
         };
-        const result = await this.$store.dispatch("uploadStorage", params);
-        axios({
-          method: result.method,
-          url: result.uri,
-          headers: result.headers,
-          data: blob
-        })
-          .then(res => {
-            this.$emit("input", res.data.node);
+        const result = await uploadApi.createUploadTask(params);
+        uploadApi
+          .uploadImage({
+            method: result.method,
+            url: result.uri,
+            headers: result.headers,
+            blob
+          })
+          .then(data => {
+            this.$emit("input", data.node);
           })
           .catch(() => {
             this.$Message.error("文件上传失败，请检查文件系统配置");

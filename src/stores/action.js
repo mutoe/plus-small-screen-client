@@ -67,15 +67,5 @@ export default {
   async uploadFile(state, file) {
     const { data } = await api.postFile(file);
     return data.id;
-  },
-
-  /**
-   * 创建上传任务（新文件接口）
-   * @author mutoe <mutoe@foxmail.com>
-   * @returns
-   */
-  async uploadStorage(state, payload) {
-    const { data } = await api.createStorage(payload);
-    return data;
   }
 };

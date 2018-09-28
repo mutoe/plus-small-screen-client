@@ -157,7 +157,7 @@
 
 <script>
 import _ from "lodash";
-import axios from "axios";
+import * as uploadApi from "@/api/upload";
 import { hashFile } from "@/util/SendImage.js";
 import bus from "@/bus.js";
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
@@ -518,15 +518,16 @@ export default {
         mime_type: file.type || "image/png",
         storage: { channel: "public" }
       };
-      const result = await this.$store.dispatch("uploadStorage", params);
-      return axios({
-        method: result.method,
-        url: result.uri,
-        headers: result.headers,
-        data: file
-      })
-        .then(res => {
-          return Promise.resolve(res.data.node);
+      const result = await uploadApi.createUploadTask(params);
+      return uploadApi
+        .uploadImage({
+          method: result.method,
+          url: result.uri,
+          headers: result.headers,
+          blob: file
+        })
+        .then(data => {
+          return Promise.resolve(data.node);
         })
         .catch(() => {
           this.$Message.error("文件上传失败，请检查文件系统配置");
