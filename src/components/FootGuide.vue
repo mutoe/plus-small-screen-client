@@ -110,6 +110,8 @@ export default {
   bottom: 0;
   padding: 0 10px;
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   height: 100px;
   display: flex;
   box-shadow: 0 -0.026667rem 0.053333rem rgba(0, 0, 0, 0.1);
