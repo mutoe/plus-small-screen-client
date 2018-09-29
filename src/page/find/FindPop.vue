@@ -4,9 +4,9 @@
     ref="loadmore"
     @onRefresh="onRefresh"
     @onLoadMore="onLoadMore">
-    <user-item 
-      v-for="user in users" 
-      :user="user" 
+    <user-item
+      v-for="user in users"
+      :user="user"
       :key="user.id"/>
   </jo-load-more>
 </template>
@@ -23,7 +23,9 @@ export default {
       users: []
     };
   },
-  mounted() {},
+  activated() {
+    this.$refs.loadmore.beforeRefresh();
+  },
   methods: {
     onRefresh(callback) {
       findUserByType("populars").then(({ data: users } = {}) => {

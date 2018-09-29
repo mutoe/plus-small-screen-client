@@ -37,7 +37,6 @@ export default {
       return this.POSITION.lng;
     }
   },
-
   activated() {
     this.$refs.loadmore.beforeRefresh();
   },

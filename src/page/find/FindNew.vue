@@ -4,9 +4,9 @@
     ref="loadmore"
     @onRefresh="onRefresh"
     @onLoadMore="onLoadMore">
-    <user-item 
-      v-for="user in users" 
-      :user="user" 
+    <user-item
+      v-for="user in users"
+      :user="user"
       :key="user.id"/>
   </jo-load-more>
 </template>
@@ -22,6 +22,9 @@ export default {
     return {
       users: []
     };
+  },
+  activated() {
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     onRefresh(callback) {
