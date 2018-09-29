@@ -40,7 +40,7 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import { getPostAudits } from "@/api/group.js";
 import groupPostAuditStatus from "../../components/groupPostAuditStatus";
 

@@ -35,7 +35,7 @@
 <script>
 import { mapState } from "vuex";
 import { getPostCommentAudits } from "@/api/group.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import groupPostCommentAuditStatus from "../../components/groupPostCommentAuditStatus";
 import AuditContent from "../../components/auditContent";
 

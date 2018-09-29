@@ -25,7 +25,7 @@
 import HeadTop from "@/components/HeadTop";
 import rankListItem from "../components/rankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 
 const prefixCls = "rankItem";
 const api = "/news/ranks";

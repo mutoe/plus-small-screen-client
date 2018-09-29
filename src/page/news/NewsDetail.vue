@@ -99,7 +99,6 @@
               @click.stop="fetchNewsComments(maxComId)">
               {{ fetchComing ? "加载中..." : "点击加载更多" }}
             </span>
-          <!-- <button v-else class="load-more-btn" @click.stop="fetchNewsComments(maxComId)"></button> -->
           </div>
         </template>
       </div>
@@ -115,7 +114,7 @@ import CommentItem from "@/page/article/ArticleComment.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
 import wechatShare from "@/util/wechatShare.js";
 import md from "@/util/markdown.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import * as api from "@/api/news.js";
 import { noop } from "@/util";
 

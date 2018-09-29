@@ -46,7 +46,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import { getNewsCommentPinneds } from "@/api/news.js";
 import newsCommentAuditStatus from "../../components/newsCommentAuditStatus";
 import AuditContent from "../../components/auditContent";

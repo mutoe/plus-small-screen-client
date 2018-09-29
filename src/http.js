@@ -1,3 +1,11 @@
+/**
+ * DEPRECATE NOTICE
+ * 弃用声明：此文件存在冗余情况 将在下个版本中移除
+ * 发起 http 请求请使用 /src/api/api.js
+ *
+ * @author mutoe <mutoe@foxmail.com>
+ */
+
 import axios from "axios";
 import localEvent from "@/plugins/lstore/lstore.js";
 import router from "./routers/";

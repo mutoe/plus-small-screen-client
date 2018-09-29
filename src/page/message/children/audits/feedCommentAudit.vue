@@ -34,7 +34,7 @@ import _ from "lodash";
 import { mapState } from "vuex";
 import feedCommentAuditStatus from "../../components/feedCommentAuditStatus";
 import { getFeedCommentPinneds } from "@/api/feeds.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import AuditContent from "../../components/auditContent";
 
 const prefixCls = "msgList";

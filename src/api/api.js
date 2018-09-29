@@ -7,7 +7,10 @@ let cancel;
 let pending = {};
 const CancelToken = axios.CancelToken;
 
+// DEPRECATE NOTICE
 export const limit = ~~(lstore.getData("BOOTSTRAPPERS") || {}).limit || 15;
+
+// DEPRECATE NOTICE
 export const baseURL =
   process.env.NODE_ENV === "production"
     ? `${process.env.VUE_APP_API_HOST}/api/${process.env.VUE_APP_API_VERSION}`
@@ -107,6 +110,8 @@ instance.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+// DEPRECATE NOTICE
 export const get = (url, param) => {
   return new Promise((resolve, reject) => {
     instance({
@@ -126,6 +131,8 @@ export const get = (url, param) => {
     );
   });
 };
+
+// DEPRECATE NOTICE
 export const post = (url, param) => {
   return new Promise((resolve, reject) => {
     instance({

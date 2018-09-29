@@ -139,7 +139,7 @@ import FeedDetail from "@/page/feed/FeedDetail.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
 import wechatShare from "@/util/wechatShare.js";
 import { followUserByStatus } from "@/api/user.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import * as api from "@/api/group.js";
 
 export default {

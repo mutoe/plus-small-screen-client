@@ -138,7 +138,7 @@ import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
 import DetailAd from "@/components/advertisement/DetailAd";
 import wechatShare from "@/util/wechatShare.js";
-import { limit } from "@/api/api.js";
+import { limit } from "@/api";
 import { followUserByStatus, getUserInfoById } from "@/api/user.js";
 import * as api from "@/api/feeds.js";
 
