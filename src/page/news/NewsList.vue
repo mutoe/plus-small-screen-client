@@ -47,7 +47,6 @@ import NewsCard from "./components/NewsCard.vue";
 import AdCard from "./components/AdCard.vue";
 import NewsFilter from "./components/NewsFilter.vue";
 import BannerAd from "@/components/advertisement/BannerAd.vue";
-import { noop } from "@/util";
 
 export default {
   name: "NewsList",
@@ -76,12 +75,13 @@ export default {
   },
   mounted() {
     this.$store.dispatch("news/getAdvertise");
+    if (!this.newsList.length) this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     onCateChange({ id = 0 } = {}) {
       this.newsList = [];
       this.currentCate = id;
-      this.onRefresh(noop);
+      this.$refs.loadmore.beforeRefresh();
     },
     async onRefresh(callback) {
       this.$store.commit("news/RESET_ADVERTISE");
