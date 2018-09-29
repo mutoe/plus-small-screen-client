@@ -47,7 +47,8 @@ export default {
   }),
   computed: {
     image() {
-      return this.audit.image;
+      const avatar = this.audit.image || {};
+      return avatar.url || null;
     },
     commentBody() {
       return this.audit.commentBody || "";
