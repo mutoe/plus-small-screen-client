@@ -26,7 +26,7 @@
           <h3 class="main-title">{{ question.subject }}</h3>
 
           <!-- Body -->
-          <div class="markdown-body main-body" v-html="htmlBody"/>
+          <div class="markdown-body" v-html="htmlBody"/>
 
           <!-- watch -->
           <div class="main-watch">
@@ -382,12 +382,6 @@ export default {
       font-weight: normal;
       line-height: 1.4;
       margin: 22px 0 26px;
-    }
-
-    .main-body {
-      font-size: 28px;
-      margin-top: 20px;
-      color: #666;
     }
 
     .main-watch {

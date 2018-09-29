@@ -3,9 +3,9 @@ export { version };
 
 import Vue from "vue";
 
+import "github-markdown-css";
 import "./style/tsplus.less";
 import "./icons/iconfont.js"; // from http://www.iconfont.cn h5 仓库
-import "github-markdown-css";
 import "./util/rem";
 import "./util/prototype"; // 原型拓展
 

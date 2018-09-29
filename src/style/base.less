@@ -231,29 +231,6 @@ body,
   word-wrap: break-word;
   word-break: break-all;
 }
-.m-text-box h3 {
-  font-size: 16px;
-  color: #333;
-  line-height: 1.4;
-}
-
-.m-text-box h3.txt-cut {
-  line-height: normal;
-}
-
-.m-text-box h3 .m-icon {
-  vertical-align: -0.125 * 16px;
-}
-
-.m-text-box h4 {
-  font-size: 0.75 * 16px;
-  color: #636363;
-  line-height: 1.5;
-}
-
-.m-text-box h4:last-child {
-  color: #939393;
-}
 
 .m-text-box > * {
   margin: 0 0 0.375 * 16px 0;
@@ -473,6 +450,17 @@ input[type="search"]::-webkit-search-cancel-button {
 .toast-enter,
 .toast-leave-active {
   opacity: 0;
+}
+
+// markdown
+.markdown-body {
+  line-height: normal;
+  font-size: medium;
+  color: #333;
+
+  h1, h2 {
+    border-bottom: none;
+  }
 }
 
 /* z-index */

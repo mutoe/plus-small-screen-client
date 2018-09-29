@@ -26,7 +26,7 @@
     <jo-load-more ref="loadmore" @onRefresh="fetchFeed">
       <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
         <div class="m-art-body">
-          <h2 v-if="title">{{ title }}</h2>
+          <h2 v-if="title" class="post-title">{{ title }}</h2>
           <video
             v-if="!!video"
             :poster="cover_file"
@@ -46,7 +46,7 @@
               :src="props.src"
               @click="onFileClick(img)">
           </async-file>
-          <p class="m-text-box" v-html="formatBody(feedContent)" />
+          <p class="m-text-box markdown-body" v-html="formatBody(feedContent)" />
         </div>
         <div class="m-box m-aln-center m-justify-bet m-art-foot">
           <div class="m-flex-grow1 m-flex-shrink1 m-art-like-list">
@@ -627,3 +627,9 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.post-title {
+  font-size: 32px;
+}
+</style>
