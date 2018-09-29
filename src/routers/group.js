@@ -98,7 +98,7 @@ export default [
       },
       {
         name: "groupPostDetail",
-        path: "posts/:postID(\\d+)",
+        path: "posts/:postId(\\d+)",
         component: GroupPostDetail,
         meta: { title: "帖子详情" }
       },

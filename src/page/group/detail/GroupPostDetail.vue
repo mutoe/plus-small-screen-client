@@ -23,7 +23,7 @@
     </common-header>
 
     <!-- 内容 -->
-    <load-more ref="loadmore" :on-refresh="onRefresh">
+    <jo-load-more ref="loadmore" @onRefresh="fetchFeed">
       <main class="m-flex-shrink1 m-flex-grow1 m-art m-main">
         <div class="m-art-body">
           <h2 v-if="title">{{ title }}</h2>
@@ -127,7 +127,7 @@
           </span>
         </div>
       </div>
-    </load-more>
+    </jo-load-more>
   </article-card>
 </template>
 
@@ -141,7 +141,6 @@ import wechatShare from "@/util/wechatShare.js";
 import { followUserByStatus } from "@/api/user.js";
 import { limit } from "@/api/api.js";
 import * as api from "@/api/group.js";
-import { noop } from "@/util";
 
 export default {
   name: "GroupPostDetail",
@@ -155,17 +154,14 @@ export default {
     }
   }),
   computed: {
-    feedID() {
-      return this.$route.params.postID;
-    },
     video_file() {
       return false;
     },
     cover_file() {
       return false;
     },
-    postID() {
-      return this.$route.params.postID;
+    postId() {
+      return this.$route.params.postId;
     },
     groupId() {
       return this.$route.params.groupId;
@@ -270,17 +266,13 @@ export default {
     }
   },
   created() {
-    this.fetchFeed(() => {
-      this.$refs.loadmore.topEnd();
-    });
+    this.fetchFeed();
   },
   activated() {
-    if (this.postID) {
-      if (this.postID !== this.oldID) {
+    if (this.postId) {
+      if (this.postId !== this.oldID) {
         this.components = [];
-        this.fetchFeed(() => {
-          this.$refs.loadmore.topEnd();
-        });
+        this.fetchFeed();
       } else {
         setTimeout(() => {
           this.loading = false;
@@ -309,7 +301,7 @@ export default {
         .use(plusImagePlugin, `${this.$http.defaults.baseURL}/files/`)
         .render(body);
     },
-    fetchFeed(callback = noop) {
+    fetchFeed() {
       if (this.fetching) return;
       this.fetching = true;
 
@@ -323,12 +315,12 @@ export default {
       this.$store
         .dispatch("group/getPostDetail", {
           groupId: this.groupId,
-          postId: this.feedID
+          postId: this.postId
         })
         .then(data => {
           this.feed = { ...data };
           this.user = this.feed.user;
-          this.oldID = this.feedID;
+          this.oldID = this.postId;
           this.fetching = false;
           this.fetchFeedComments();
           this.fetchRewards();
@@ -347,16 +339,15 @@ export default {
                   : ""
             });
 
-          callback();
+          this.$refs.loadmore.afterRefresh();
         })
         .catch(() => {
           this.goBack();
-          callback();
         });
     },
     fetchRewards() {
       this.$http
-        .get(`/plus-group/group-posts/${this.postID}/rewards`, {
+        .get(`/plus-group/group-posts/${this.postId}/rewards`, {
           params: { limit: 10 }
         })
         .then(({ data = [] }) => {
@@ -367,7 +358,7 @@ export default {
       if (this.fetchComing) return;
       this.fetchComing = true;
       api
-        .getPostComments(this.postID, { after })
+        .getPostComments(this.postId, { after })
         .then(({ data: { pinneds = [], comments = [] } }) => {
           if (!after) {
             this.pinnedCom = pinneds;
@@ -396,7 +387,7 @@ export default {
     fetchLikes() {
       this.$http
         .get(
-          `/plus-group/group-posts/${this.postID}/likes`,
+          `/plus-group/group-posts/${this.postId}/likes`,
           {
             params: { limit: 8 }
           },
@@ -411,7 +402,7 @@ export default {
     },
     likeFeed() {
       api
-        .likeGroupPost(this.postID, this.liked)
+        .likeGroupPost(this.postId, this.liked)
         .then(() => {
           !this.liked
             ? ((this.liked = true),
@@ -443,7 +434,7 @@ export default {
         actions.push({
           text: "取消收藏",
           method: () => {
-            api.uncollectPost(this.feedID).then(() => {
+            api.uncollectPost(this.postId).then(() => {
               this.$Message.success("取消收藏");
               this.has_collect = false;
             });
@@ -453,7 +444,7 @@ export default {
         actions.push({
           text: "收藏",
           method: () => {
-            api.collectionPost(this.feedID).then(() => {
+            api.collectionPost(this.postId).then(() => {
               this.$Message.success("已加入我的收藏");
               this.has_collect = true;
             });
@@ -508,28 +499,33 @@ export default {
             bus.$emit("applyTop", {
               type: "post",
               api: api.applyTopPost,
-              payload: this.postID
+              payload: this.postId
             });
           }
         });
-      if (this.isMine) {
+      if (this.isMine || this.isGroupManager) {
         actions.push({
           text: "删除帖子",
           method: () => {
             setTimeout(() => {
-              const actionSheet = [
+              const actions = [
                 {
                   text: "删除",
                   style: { color: "#f4504d" },
                   method: () => {
-                    api.deletePost(this.groupId, this.postID).then(() => {
-                      this.$Message.success("删除帖子成功");
-                      this.goBack();
-                    });
+                    this.$store
+                      .dispatch("group/deletePost", {
+                        groupId: this.groupId,
+                        postId: this.postId
+                      })
+                      .then(() => {
+                        this.$Message.success("删除帖子成功");
+                        this.goBack();
+                      });
                   }
                 }
               ];
-              bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
+              bus.$emit("actionSheet", actions, "取消", "确认删除?");
             }, 200);
           }
         });
@@ -563,7 +559,7 @@ export default {
                 isOwner,
                 type: "postComment",
                 api: api.applyTopPostComment,
-                payload: { postId: Number(this.postID), commentId },
+                payload: { postId: Number(this.postId), commentId },
                 callback: this.fetchFeedComments
               });
             }
@@ -586,7 +582,7 @@ export default {
         params.body = body;
         replyUser && (params["reply_user"] = replyUser);
         this.$http
-          .post(`/plus-group/group-posts/${this.postID}/comments`, params, {
+          .post(`/plus-group/group-posts/${this.postId}/comments`, params, {
             validateStatus: s => s === 201
           })
           .then(({ data: { comment } = { comment: {} } }) => {
@@ -611,16 +607,18 @@ export default {
       bus.$emit("reward", {
         type: "groupPost",
         api: api.rewardPost,
-        payload: this.postID,
+        payload: this.postId,
         callback
       });
     },
     deleteComment(commentId) {
-      api.deletePostComment(this.postID, commentId).then(() => {
-        this.fetchFeedComments();
-        this.commentCount -= 1;
-        this.$Message.success("删除评论成功");
-      });
+      this.$store
+        .dispatch("group/deletePostComment", { postId: this.postId, commentId })
+        .then(() => {
+          this.fetchFeedComments();
+          this.commentCount -= 1;
+          this.$Message.success("删除评论成功");
+        });
     },
     getAvatar(avatar) {
       avatar = avatar || {};

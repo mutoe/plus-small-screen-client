@@ -193,19 +193,22 @@ export default {
           }
         });
       }
-      if (this.isMine) {
-        // 是否是自己文章
+      if (this.isMine || this.isGroupManager) {
+        // 是是自己文章或是圈子管理员
         actions.push({
           text: "删除帖子",
           method: () => {
             setTimeout(() => {
-              const actionSheet = [
+              const actions = [
                 {
                   text: "删除",
                   style: { color: "#f4504d" },
                   method: () => {
-                    api
-                      .deletePost(this.feed.group.id, this.feed.id)
+                    this.$store
+                      .dispatch("group/deletePost", {
+                        groupId: this.feed.group.id,
+                        postId: this.feed.id
+                      })
                       .then(() => {
                         this.$Message.success("删除帖子成功");
                         this.$nextTick(() => {
@@ -216,11 +219,12 @@ export default {
                   }
                 }
               ];
-              bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
+              bus.$emit("actionSheet", actions, "取消", "确认删除?");
             }, 200);
           }
         });
-      } else {
+      }
+      if (!this.isMine) {
         actions.push({
           text: "举报",
           method: () => {
@@ -256,11 +260,18 @@ export default {
       }
     },
     deleteComment(commentId) {
-      api.deletePostComment(this.feedID, commentId).then(() => {
-        this.feed.comments = this.feed.comments.filter(c => c.id !== commentId);
-        this.commentCount -= 1;
-        this.$Message.success("删除评论成功");
-      });
+      this.$store
+        .dispatch("group/deletePostComment", {
+          postId: this.feedID,
+          commentId
+        })
+        .then(() => {
+          this.feed.comments = this.feed.comments.filter(
+            c => c.id !== commentId
+          );
+          this.commentCount -= 1;
+          this.$Message.success("删除评论成功");
+        });
     }
   }
 };

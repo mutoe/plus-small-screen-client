@@ -185,5 +185,27 @@ export default {
     const { postId, groupId } = payload;
     const { data } = await api.getGroupPost(groupId, postId);
     return data;
+  },
+
+  /**
+   * 删除帖子
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async deletePost(store, payload) {
+    const { groupId, postId } = payload;
+    const { data } = await api.deletePost(groupId, postId);
+    return data;
+  },
+
+  /**
+   * 删除帖子评论
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async deletePostComment(store, payload) {
+    const { postId, commentId } = payload;
+    const { data } = await api.deletePostComment(postId, commentId);
+    return data;
   }
 };

@@ -25,10 +25,7 @@
         <svg class="m-style-svg m-svg-def" @click="onSearchClick">
           <use xlink:href="#icon-search"/>
         </svg>
-        <svg
-          class="m-style-svg m-svg-def"
-          style="color: #fff;"
-          @click="onMoreClick">
+        <svg class="m-style-svg m-svg-def" @click="onMoreClick">
           <use xlink:href="#icon-more"/>
         </svg>
       </div>

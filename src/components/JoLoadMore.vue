@@ -193,7 +193,7 @@ export default {
         this.afterRefresh(noMore);
       });
     },
-    afterRefresh(noMore) {
+    afterRefresh(noMore = true) {
       this.dY = 0;
       this.noMore = noMore;
       this.refreshing = false;
@@ -214,7 +214,7 @@ export default {
         this.afterLoadMore(noMore);
       });
     },
-    afterLoadMore(noMore) {
+    afterLoadMore(noMore = true) {
       this.noMore = noMore;
       this.loading = false;
       this.$emit("afterLoadMore");

@@ -95,7 +95,7 @@ export default {
         this.$Message.success(data.message);
         this.$router.replace({
           name: "groupPostDetail",
-          params: { groupId: data.post.group_id, postID: data.post.id }
+          params: { groupId: data.post.group_id, postId: data.post.id }
         });
       }
     },
