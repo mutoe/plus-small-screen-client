@@ -1,26 +1,26 @@
 <template>
   <transition>
-    <div class="m-wrapper m-wbox">
+    <div class="c-article-card">
       <div class="m-box-model m-art-card">
-        <div ref="head" class="m-box-model m-justify-center m-pos-f m-head-top m-main m-lim-width pd0">
+        <header ref="head" class="m-box-model m-pos-f m-head-top">
           <slot name="head">
             <common-header>资讯详情</common-header>
           </slot>
-        </div>
+        </header>
 
         <div v-if="loading" class="m-spinner pos-f">
           <div/>
           <div/>
         </div>
 
-        <main class="m-lim-width m-box-model m-art-card-main mt90">
+        <main class="m-box-model">
           <slot/>
         </main>
 
         <footer
           v-if="canOprate"
           ref="foot"
-          class="m-pos-f m-box m-aln-center m-justify-aro m-bt1 m-art-card-foot">
+          class="m-pos-f">
           <slot name="foot">
             <a class="m-box-model m-aln-center" @click.prevent="handelLike">
               <svg class="m-style-svg m-svg-def">
@@ -148,3 +148,45 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.c-article-card {
+  position: relative;
+  height: 100%;
+
+  .m-art-card {
+    min-height: 100%;
+
+    > header {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+
+    > main {
+      margin-top: 90px;
+      margin-bottom: 90 + 12px;
+    }
+
+    > footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      top: initial;
+      height: 95px;
+      font-size: 24px;
+      background-color: #fff;
+      border-top: 1px solid @border-color;
+
+      a {
+        color: #b3b3b3;
+      }
+
+      span {
+        margin-top: 4px;
+      }
+    }
+  }
+}
+</style>
