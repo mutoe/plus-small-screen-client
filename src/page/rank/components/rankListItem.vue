@@ -1,20 +1,15 @@
 <template>
   <div :class="`${prefixCls}-list-item`">
-    <span
-      :class="{ top: index < 3 }"
-      class="rank">{{ index + 1 }}</span>
-    <div
-      :class="`${prefixCls}-info`"
-      @click="to(`/users/${user.id}`)">
-      <avatar
-        :class="`${prefixCls}-user-avatar`"
-        :user="user"/>
+    <span :class="{ top: index < 3 }" class="rank">{{ index + 1 }}</span>
+    <div :class="`${prefixCls}-info`" @click="to(`/users/${user.id}`)">
+      <avatar :class="`${prefixCls}-user-avatar`" :user="user"/>
       <div :class="`${prefixCls}-title`">
         <h6>{{ user.name }}</h6>
         <!-- 用于显示各排行榜数据的插槽 -->
         <slot/>
       </div>
     </div>
+
     <template v-if="!isMine(user)">
       <svg
         class="m-style-svg m-svg-big"

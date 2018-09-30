@@ -1,17 +1,18 @@
 <template>
   <div>
-    <rank-users-component 
-      v-for="rank in ranks" 
-      :title="rank.title" 
-      :api="rank.api" 
-      :name="rank.name" 
-      :key="rank.name" 
+    <rank-users-component
+      v-for="rank in ranks"
+      :title="rank.title"
+      :api="rank.api"
+      :name="rank.name"
+      :key="rank.name"
       :list-url="rank.listUrl" />
   </div>
 </template>
 
 <script>
 import RankUsersComponent from "../components/rankUsersComponent";
+
 const ranks = [
   {
     title: "今日资讯排行榜",
@@ -32,6 +33,7 @@ const ranks = [
     name: "rankNewsMonth"
   }
 ];
+
 export default {
   name: "RankNews",
   components: {

@@ -1,12 +1,8 @@
 <template>
-  <div
-    v-if="show"
-    :class="prefixCls">
+  <div v-if="show" :class="prefixCls">
     <div :class="`${prefixCls}-label`">
       <h6>{{ title }}</h6>
-      <div
-        :class="`${prefixCls}-more`"
-        @click="to(listUrl)">
+      <div :class="`${prefixCls}-more`" @click="to(listUrl)">
         <span>全部</span>
         <svg class="m-style-svg m-svg-def">
           <use xlink:href="#icon-arrow-right" />
@@ -19,11 +15,8 @@
         :key="user.id"
         :class="`${prefixCls}-user m-aln-st`"
         @click="to(`/users/${user.id}`)">
-        <avatar
-          :class="`${prefixCls}-user-avatar`"
-          :user="user" />
-        <p
-          class="m-flex-grow1 m-flex-shrink1 m-text-cut">{{ user.name }}</p>
+        <avatar :class="`${prefixCls}-user-avatar`" :user="user" />
+        <p class="m-flex-grow1 m-flex-shrink1 m-text-cut">{{ user.name }}</p>
       </div>
     </div>
   </div>
