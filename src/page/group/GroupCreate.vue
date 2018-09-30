@@ -121,7 +121,9 @@ export default {
       needPaid: false,
       category: {}, // 分类
       tags: [], // 标签
-      location: "",
+      location: {
+        label: "设置圈子的地理位置"
+      },
       avatar: null, // 头像, Blob 或 File 对象
 
       privateMode: false, // 是否私有圈子

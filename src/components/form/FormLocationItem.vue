@@ -2,7 +2,7 @@
   <section class="c-form-item c-form-location-item">
     <label>{{ label }}</label>
     <div class="input-wrap" @click="switchPosition">
-      <span :class="{placeholder: !value.label}">{{ value.label || "设置圈子的地理位置" }}</span>
+      <span :class="{placeholder: !value.label}">{{ value.label || "位置" }}</span>
       <svg v-if="!readonly" class="m-style-svg m-svg-def m-entry-append">
         <use xlink:href="#icon-arrow-right"/>
       </svg>
