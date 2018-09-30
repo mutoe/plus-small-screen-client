@@ -34,6 +34,8 @@ const GroupTransfer = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupTransfer.vue");
 const GroupPermission = () =>
   import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupPermission.vue");
+const GroupBlackList = () =>
+  import(/* webpackChunkName: 'group' */ "@/page/group/detail/GroupBlackList.vue");
 
 export default [
   {
@@ -119,6 +121,12 @@ export default [
         path: "permission",
         component: GroupPermission,
         meta: { title: "权限管理", sidebar: true }
+      },
+      {
+        name: "groupBlackList",
+        path: "blacklist",
+        component: GroupBlackList,
+        meta: { title: "黑名单", sidebar: true }
       }
     ]
   },

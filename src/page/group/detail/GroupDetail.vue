@@ -139,7 +139,7 @@
             成员
           </span>
           <span>
-            {{ group.users_count }}
+            {{ group.users_count - group.blacklist_count }}
             <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
@@ -158,6 +158,16 @@
             发帖权限
           </span>
           <span>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
+          </span>
+        </li>
+        <li @click="$router.push({name: 'groupBlackList'})">
+          <span>
+            <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-group-blacklist"/></svg>
+            黑名单
+          </span>
+          <span>
+            {{ group.blacklist_count }}
             <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
