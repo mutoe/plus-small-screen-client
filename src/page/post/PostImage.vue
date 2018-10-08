@@ -30,6 +30,7 @@
     </main>
     <footer class="m-box-model m-flex-shrink1 m-aln-center" style="z-index: 10">
       <v-switch
+        v-if="paycontrol"
         v-model="pinned"
         class="m-box m-bt1 m-bb1 m-lim-width m-pinned-row"
         type="checkbox">
@@ -89,6 +90,9 @@ export default {
             "你还有没有发布的内容,是否放弃发布?"
           )
         : this.goBack();
+    },
+    paycontrol() {
+      return this.$store.state.CONFIG.feed.paycontrol;
     },
     areaFocus() {
       this.$refs.contentText.areaFocus();
