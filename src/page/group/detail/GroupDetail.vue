@@ -161,7 +161,7 @@
             <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-arrow-right"/></svg>
           </span>
         </li>
-        <li @click="$router.push({name: 'groupBlackList'})">
+        <li v-if="isGroupManager" @click="$router.push({name: 'groupBlackList'})">
           <span>
             <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-group-blacklist"/></svg>
             黑名单
@@ -316,6 +316,10 @@ export default {
     },
     isOwner() {
       return this.groupOwner.id === this.currentUser.id;
+    },
+    isGroupManager() {
+      const { role = "" } = this.group.joined || {};
+      return ["founder", "administrator"].includes(role);
     }
   },
   watch: {

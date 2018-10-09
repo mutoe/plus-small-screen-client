@@ -5,7 +5,7 @@
     <template v-if="keyword.length">
       <ul>
         <li v-for="m in searchList" :key="m.id">
-          <group-user-item :member="m" />
+          <group-user-item :member="m" @more="onMoreClick(m)" />
         </li>
       </ul>
     </template>
@@ -13,14 +13,14 @@
       <h3>圈管理({{ administrator.length }})</h3>
       <ul>
         <li v-for="m in administrator" :key="m.id">
-          <group-user-item :member="m" />
+          <group-user-item :member="m" @more="onMoreClick(m)" />
         </li>
       </ul>
 
       <h3>成员({{ member.length }})</h3>
       <ul>
         <li v-for="m in member" :key="m.id">
-          <group-user-item :member="m" />
+          <group-user-item :member="m" @more="onMoreClick(m)" />
         </li>
       </ul>
     </template>
@@ -30,6 +30,7 @@
 
 <script>
 import _ from "lodash";
+import bus from "@/bus";
 import SearchBar from "@/components/common/SearchBar.vue";
 import GroupUserItem from "../components/GroupUserItem.vue";
 
@@ -93,7 +94,34 @@ export default {
         name: keyword
       });
       this.searchList = result;
-    }, 600)
+    }, 600),
+    onMoreClick(member) {
+      const actions = [];
+      if (member.role === "member")
+        actions.push({
+          text: "加入黑名单",
+          method: () => {
+            const actions = [
+              {
+                text: "加入黑名单",
+                method: async () => {
+                  await this.$store.dispatch("group/addToBlackList", {
+                    groupId: this.groupId,
+                    memberId: member.id
+                  });
+                  this.member = this.member.filter(m => m.id !== member.id);
+                  this.$Message.success("操作成功");
+                  this.fetchMembers();
+                }
+              }
+            ];
+            setTimeout(() => {
+              bus.$emit("actionSheet", actions, "取消", "确认加入黑名单？");
+            }, 200);
+          }
+        });
+      if (actions.length) bus.$emit("actionSheet", actions);
+    }
   }
 };
 </script>

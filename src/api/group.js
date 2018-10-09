@@ -515,3 +515,29 @@ export function unpinnedPost(postId) {
   const url = `/plus-group/pinned/posts/${postId}/cancel`;
   return api.patch(url, {}, { validateStatus: s => s === 201 });
 }
+
+/**
+ * 将一个成员加入黑名单
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {number} memberId
+ * @returns
+ */
+export function addToBlackList(groupId, memberId) {
+  const url = `/plus-group/groups/${groupId}/blacklist/${memberId}`;
+  return api.put(url, {}, { validateStatus: s => s === 201 });
+}
+
+/**
+ * 将一个成员移出黑名单
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} groupId
+ * @param {number} memberId
+ * @returns
+ */
+export function moveoutBlackList(groupId, memberId) {
+  const url = `/plus-group/groups/${groupId}/blacklist/${memberId}`;
+  return api.delete(url, { validateStatus: s => s === 204 });
+}

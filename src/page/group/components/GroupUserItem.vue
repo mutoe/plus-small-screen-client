@@ -1,9 +1,14 @@
 <template>
   <div class="c-group-user-item" @click="onUserClick">
-    <avatar :user="user" class="avatar"/>
-    <span class="name m-text-cut">{{ user.name }}</span>
-    <span v-if="member.role === 'founder'" class="founder">圈主</span>
-    <span v-if="member.role === 'administrator'" class="admin">管理员</span>
+    <div class="info">
+      <avatar :user="user" class="avatar"/>
+      <span class="name m-text-cut">{{ user.name }}</span>
+      <span v-if="member.role === 'founder'" class="founder">圈主</span>
+      <span v-if="member.role === 'administrator'" class="admin">管理员</span>
+    </div>
+    <div class="more" @click.stop="handleMore">
+      <svg class="m-style-svg m-svg-small"><use xlink:href="#icon-more"/></svg>
+    </div>
   </div>
 </template>
 
@@ -24,6 +29,9 @@ export default {
         name: "userDetail",
         params: { userId: this.user.id }
       });
+    },
+    handleMore() {
+      this.$emit("more");
     }
   }
 };
@@ -33,7 +41,7 @@ export default {
 .c-group-user-item {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 134px;
   border-bottom: 1px solid @border-color;
   padding: 0 30px;

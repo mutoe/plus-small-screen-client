@@ -14,7 +14,7 @@
       <h3>黑名单({{ blackList.length }})</h3>
       <ul>
         <li v-for="m in blackList" :key="m.id">
-          <group-user-item :member="m" />
+          <group-user-item :member="m" @more="onMoreClick(m.id)" />
         </li>
       </ul>
     </template>
@@ -24,6 +24,7 @@
 
 <script>
 import _ from "lodash";
+import bus from "@/bus";
 import SearchBar from "@/components/common/SearchBar.vue";
 import GroupUserItem from "../components/GroupUserItem.vue";
 
@@ -76,7 +77,23 @@ export default {
         type: "blacklist"
       });
       this.searchList = result;
-    }, 450)
+    }, 450),
+    onMoreClick(memberId) {
+      const actions = [];
+      actions.push({
+        text: "移出黑名单",
+        method: async () => {
+          await this.$store.dispatch("group/moveoutBlackList", {
+            groupId: this.groupId,
+            memberId
+          });
+          this.blackList = this.blackList.filter(m => m.id !== memberId);
+          this.$Message.success("操作成功");
+          this.fetchMembers();
+        }
+      });
+      bus.$emit("actionSheet", actions);
+    }
   }
 };
 </script>

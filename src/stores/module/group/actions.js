@@ -207,5 +207,27 @@ export default {
     const { postId, commentId } = payload;
     const { data } = await api.deletePostComment(postId, commentId);
     return data;
+  },
+
+  /**
+   * 将某个成员加入黑名单
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async addToBlackList(store, payload) {
+    const { groupId, memberId } = payload;
+    await api.addToBlackList(groupId, memberId);
+    return true;
+  },
+
+  /**
+   * 将某个成员移出黑名单
+   * @author mutoe <mutoe@foxmail.com>
+   * @returns
+   */
+  async moveoutBlackList(store, payload) {
+    const { groupId, memberId } = payload;
+    await api.moveoutBlackList(groupId, memberId);
+    return true;
   }
 };
