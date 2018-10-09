@@ -21,9 +21,6 @@ import markdownIt from "markdown-it";
 
 export default {
   name: "RegisterProtocol",
-  data() {
-    return {};
-  },
   computed: {
     content() {
       let content = this.$store.state.CONFIG.registerSettings.content;
@@ -36,12 +33,12 @@ export default {
 
 <style lang="less" scoped>
 .protocol {
-  padding: 0.2rem;
-
-  .content > * {
-    margin-bottom: 0.4rem;
+  .content {
+    padding: 20px;
+    > * {
+      margin-bottom: 0.4rem;
+    }
   }
-
   h1 {
     font-size: 0.62rem;
     font-weight: bold;
