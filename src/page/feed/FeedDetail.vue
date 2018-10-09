@@ -151,7 +151,6 @@ export default {
   },
   data() {
     return {
-      oldID: 0,
       feed: {},
       loading: true,
       fetching: false,
@@ -281,16 +280,10 @@ export default {
   },
   activated() {
     if (this.feedID) {
-      if (this.feedID !== this.oldID) {
-        this.comments = [];
-        this.feed = {};
-        this.rewardList = [];
-        this.fetchFeed();
-      } else {
-        setTimeout(() => {
-          this.loading = false;
-        }, 600);
-      }
+      this.comments = [];
+      this.feed = {};
+      this.rewardList = [];
+      this.fetchFeed();
     }
   },
   deactivated() {
@@ -325,12 +318,6 @@ export default {
           )
         : "";
     },
-    shareSuccess() {
-      this.$Message.success("分享成功");
-    },
-    shareCancel() {
-      this.$Message.success("取消分享");
-    },
     fetchFeed(callback) {
       if (this.fetching) return;
       this.fetching = true;
@@ -344,7 +331,6 @@ export default {
         .get(`/feeds/${this.feedID}`)
         .then(({ data = {} }) => {
           this.feed = data;
-          this.oldID = this.feedID;
           this.fetching = false;
           this.fetchUserInfo();
           this.fetchFeedComments();
