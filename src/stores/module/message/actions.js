@@ -1,4 +1,4 @@
-import http from "@/http";
+import http from "@/api/api";
 import lstore from "@/plugins/lstore/lstore.js";
 import getMessageUnameTxt from "@/util/getMessageUnameTxt";
 export default {
@@ -109,14 +109,16 @@ export default {
    * @param    {[type]}            options.commit [description]
    */
   GET_MY_COMMENTED_ALL({ commit }) {
-    http("/user/comments", {
-      validateStatus: s => s === 200
-    }).then(({ data }) => {
-      commit("SAVE_MY_COMMENTED", {
-        type: "all",
-        data
+    http
+      .get("/user/comments", {
+        validateStatus: s => s === 200
+      })
+      .then(({ data }) => {
+        commit("SAVE_MY_COMMENTED", {
+          type: "all",
+          data
+        });
       });
-    });
   },
 
   /**
@@ -128,13 +130,15 @@ export default {
    * @param    {[type]}            options.commit [description]
    */
   GET_MY_LIKED_ALL({ commit }) {
-    http("/user/likes", {
-      validateStatus: s => s === 200
-    }).then(({ data }) => {
-      commit("SAVE_MY_LIKED", {
-        type: "new",
-        data
+    http
+      .get("/user/likes", {
+        validateStatus: s => s === 200
+      })
+      .then(({ data }) => {
+        commit("SAVE_MY_LIKED", {
+          type: "new",
+          data
+        });
       });
-    });
   }
 };

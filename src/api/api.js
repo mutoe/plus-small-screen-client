@@ -1,20 +1,11 @@
 import axios from "axios";
+import { baseURL } from "./index";
 import router from "@/routers";
 import Message from "@/plugins/message-box";
 import lstore from "@/plugins/lstore/lstore.js";
 
 let cancel;
 let pending = {};
-const CancelToken = axios.CancelToken;
-
-// DEPRECATE NOTICE
-export const limit = ~~(lstore.getData("BOOTSTRAPPERS") || {}).limit || 15;
-
-// DEPRECATE NOTICE
-export const baseURL =
-  process.env.NODE_ENV === "production"
-    ? `${process.env.VUE_APP_API_HOST}/api/${process.env.VUE_APP_API_VERSION}`
-    : "/api/v2";
 
 const instance = axios.create({
   baseURL,
@@ -46,10 +37,16 @@ instance.interceptors.request.use(
 
 //响应拦截器即异常处理
 instance.interceptors.response.use(
-  response => {
-    return response;
-  },
+  res => res,
   err => {
+    const requireAuth = () => {
+      setTimeout(() => {
+        router.push({
+          path: "/signin",
+          query: { redirect: router.currentRoute.fullPath }
+        });
+      }, 500);
+    };
     if (!axios.isCancel(err)) {
       if (err && err.response) {
         switch (err.response.status) {
@@ -57,12 +54,11 @@ instance.interceptors.response.use(
             err.tips = "错误请求";
             break;
           case 401:
-            err.tips = lstore.hasData("H5_CUR_USER") ? "请重新登录" : "请登录";
+            err.tips = lstore.hasData("H5_CUR_USER")
+              ? "登陆失效，请重新登录"
+              : "请登录";
             lstore.clearData();
-            router.push({
-              path: "/signin",
-              query: { redirect: router.currentRoute.fullPath }
-            });
+            requireAuth();
             break;
           case 403:
             err.tips = "拒绝访问";
@@ -110,47 +106,5 @@ instance.interceptors.response.use(
     return Promise.reject(err);
   }
 );
-
-// DEPRECATE NOTICE
-export const get = (url, param) => {
-  return new Promise((resolve, reject) => {
-    instance({
-      method: "get",
-      url,
-      params: param,
-      cancelToken: new CancelToken(c => {
-        cancel = c;
-      })
-    }).then(
-      res => {
-        resolve(res);
-      },
-      err => {
-        reject(err);
-      }
-    );
-  });
-};
-
-// DEPRECATE NOTICE
-export const post = (url, param) => {
-  return new Promise((resolve, reject) => {
-    instance({
-      method: "post",
-      url,
-      data: param,
-      cancelToken: new CancelToken(c => {
-        cancel = c;
-      })
-    }).then(
-      res => {
-        resolve(res);
-      },
-      err => {
-        reject(err);
-      }
-    );
-  });
-};
 
 export default instance;

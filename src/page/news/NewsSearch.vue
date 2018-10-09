@@ -24,7 +24,7 @@ import _ from "lodash";
 import SearchBar from "@/components/common/SearchBar.vue";
 import NewsCard from "./components/NewsCard.vue";
 import { searchNewsByKey } from "@/api/news.js";
-import { limit } from "@/api/api";
+import { limit } from "@/api";
 
 export default {
   name: "NewsSearch",

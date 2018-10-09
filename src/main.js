@@ -18,7 +18,7 @@ import imgCropper from "@/plugins/imgCropper";
 // import Toast from "@/plugins/toast/index.js";
 import lstore from "@/plugins/lstore/index.js";
 
-import Ajax from "./http";
+import Ajax from "./api/api.js";
 import mixin from "./mixin.js";
 import * as filters from "./filters.js";
 import components from "./components.js";

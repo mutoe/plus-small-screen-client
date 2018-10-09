@@ -1,6 +1,6 @@
 import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
-import axios from "../http";
+import axios from "../api/api.js";
 
 /**
  * Create a markdown it instance.

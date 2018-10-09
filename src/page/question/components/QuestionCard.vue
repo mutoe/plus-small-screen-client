@@ -41,7 +41,7 @@
 
 <script>
 import QuestionListAnswerCard from "../QuestionListAnswerCard.vue";
-import { baseURL } from "@/api/api";
+import { baseURL } from "@/api";
 import { syntaxTextAndImage } from "@/util/markdown";
 
 export default {

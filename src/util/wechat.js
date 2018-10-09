@@ -1,4 +1,4 @@
-import http from "@/http.js";
+import http from "@/api/api.js";
 export const signinByWechat = () => {
   const redirectUrl = window.location.origin + process.env.BASE_URL + "wechat/";
   http

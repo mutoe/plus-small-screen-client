@@ -1,4 +1,4 @@
-import http from "../http";
+import http from "../api/api.js";
 
 export default redirect => {
   // 登录后跳转的url

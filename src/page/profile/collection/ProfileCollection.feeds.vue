@@ -20,7 +20,7 @@
 
 <script>
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
-import { limit } from "@/api/api";
+import { limit } from "@/api";
 import * as api from "@/api/feeds";
 
 export default {

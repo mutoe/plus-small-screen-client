@@ -20,7 +20,7 @@
 
 <script>
 import * as api from "@/api/news";
-import { limit } from "@/api/api";
+import { limit } from "@/api";
 import NewsCard from "@/page/news/components/NewsCard.vue";
 
 export default {

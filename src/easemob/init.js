@@ -1,5 +1,5 @@
 import store from "@/plugins/lstore/lstore.js";
-import http from "@/http.js";
+import api from "@/api/api.js";
 import webim from "easemob-websdk";
 import dataBase from "@/util/database.js";
 import config from "./webim.config.js";
@@ -126,7 +126,7 @@ export const getLocalId = (type, id) => {
  * @return   {[type]}            [description]
  */
 export const getEasemobPassword = async () => {
-  const { data: { im_pwd_hash = "" } = {} } = await http.get(
+  const { data: { im_pwd_hash = "" } = {} } = await api.get(
     "easemob/password",
     {
       validateStatus: s => s === 201

@@ -1,5 +1,5 @@
 import MD5 from "js-md5";
-import http from "@/http.js";
+import http from "@/api/api.js";
 
 export function hashFile(file) {
   return new Promise(resolve => {

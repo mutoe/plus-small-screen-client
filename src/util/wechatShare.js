@@ -1,5 +1,5 @@
 import wx from "weixin-js-sdk";
-import { post } from "@/api/api.js";
+import api from "@/api/api.js";
 import Message from "@/plugins/message-box";
 
 /**
@@ -16,7 +16,7 @@ const __JsApiList = [
 
 export default (url, options) => {
   if (!url) throw new Error("微信分享: 参数URL不能为空");
-  post(`socialite/wxconfig`, { url }).then(
+  api.post(`socialite/wxconfig`, { url }).then(
     ({ data: { timestamp, signature, appid, noncestr } }) => {
       const wxconfig = {
         debug: false,

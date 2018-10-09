@@ -48,7 +48,7 @@ import TopicCard from "./components/TopicCard.vue";
 import QuestionCard from "./components/QuestionCard.vue";
 import { queryList as queryQuestions } from "@/api/question/questions";
 import { query as queryTopics } from "@/api/question/topics";
-import { limit } from "@/api/api";
+import { limit } from "@/api";
 import { noop } from "@/util";
 
 export default {

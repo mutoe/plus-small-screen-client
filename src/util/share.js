@@ -1,4 +1,4 @@
-import http from "@/http.js";
+import http from "@/api/api.js";
 // import wx from "weixin-js-sdk";
 
 const getOauth = url => {
