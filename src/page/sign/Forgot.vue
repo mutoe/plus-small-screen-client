@@ -204,7 +204,7 @@ export default {
         this.$Message.error({ password: "密码长度必须大于6位" });
         return;
       }
-      if (!(password.length < 16)) {
+      if (password.length > 16) {
         this.$Message.error({ password: "密码长度不得超过16位" });
         return;
       }
