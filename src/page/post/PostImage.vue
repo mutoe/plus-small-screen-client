@@ -30,7 +30,7 @@
       <image-list :edit="pinned" style="padding: 0 .3rem .3rem"/>
     </main>
 
-    <footer class="m-box-model m-flex-shrink1 m-aln-center" style="z-index: 10">
+    <footer>
       <v-switch
         v-if="paycontrol"
         v-model="pinned"
@@ -137,8 +137,8 @@ export default {
             if (id && id > 0) {
               this.$Message.success(message);
             }
-            this.$router.go(-1);
             this.loading = false;
+            this.goBack();
           })
           .catch(() => {
             this.$Message.error("发送失败，请稍后再试");
@@ -155,8 +155,18 @@ export default {
   height: 100%;
   background-color: #fff;
 
-  .textarea-input {
-    padding-left: 20px;
+  main {
+    .textarea-input {
+      padding-left: 20px;
+    }
+  }
+
+  footer {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
   }
 }
 </style>

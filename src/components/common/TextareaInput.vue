@@ -1,5 +1,5 @@
 <template>
-  <div :class="{autoHeight: !rows}" class="textarea-wrap">
+  <div :class="{'auto-height': !rows}" class="textarea-wrap">
     <div v-if="!rows" class="textarea-shadow">{{ value }}</div> <!-- 用于撑起文本框自适应高度 -->
     <textarea
       ref="textarea"
