@@ -41,7 +41,10 @@
 
     <p v-show="loading" class="load-more-ph m-text-c mt10">正在搜索...</p>
     <template v-if="noResult &&!loading && keyword && !list.length" >
-      <div v-if="type === 'posts'" class="m-no-find"/>
+      <div v-if="type === 'posts'" class="no-groups">
+        <p> 未找到相关帖子～</p>
+        <button @click="$router.push({name: 'groupCreatePost'})">去发帖</button>
+      </div>
       <div v-else class="no-groups">
         <p> 未找到相关圈子, 创建属于自己的圈子吧</p>
         <button @click="$router.push({name: 'groupCreate'})">创建圈子</button>
