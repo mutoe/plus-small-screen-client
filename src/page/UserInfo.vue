@@ -294,7 +294,7 @@ export default {
   margin-right: 35px;
 }
 .p-info .m-send-btn {
-  color: @text-color1;
+  color: @primary;
 }
 .p-info .m-entry-append {
   margin-right: 20px;
