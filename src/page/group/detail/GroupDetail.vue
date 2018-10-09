@@ -250,13 +250,15 @@ export default {
 
       posts: [],
       pinneds: [],
-      group: {},
       showSlide: false
     };
   },
   computed: {
     groupId() {
       return this.$route.params.groupId;
+    },
+    group() {
+      return this.$store.state.group.current;
     },
     currentUser() {
       return this.$store.state.CURRENTUSER;
@@ -326,24 +328,17 @@ export default {
     }
   },
   mounted() {
-    this.updateData();
     this.typeFilter = this.$refs.typeFilter;
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
   },
   activated() {
-    if (this.preGID !== this.groupId) {
+    if (this.groupId !== this.group.id) {
       this.loading = true;
-      this.feeds = [];
+      this.pinneds = [];
+      this.posts = [];
       this.updateData();
-    } else {
-      setTimeout(() => {
-        this.loading = false;
-      }, 300);
     }
-
     window.addEventListener("scroll", this.onScroll);
-
-    this.preGID = this.groupId;
   },
   deactivated() {
     this.showFilter = false;
@@ -359,7 +354,7 @@ export default {
       this.loading = true;
       this.$store
         .dispatch("group/joinGroup", {
-          groupId: this.group.id,
+          groupId: this.groupId,
           needPaid: this.needPaid
         })
         .then(data => {
@@ -388,20 +383,14 @@ export default {
         }
       );
     },
-    updateData() {
+    async updateData() {
       this.dY = 0;
       this.updating = true;
-      this.$store
-        .dispatch("group/getGroupById", { groupId: this.groupId })
-        .then(group => {
-          this.group = group;
-          this.updating = this.loading = false;
-          this.getFeeds();
-        })
-        .catch(err => {
-          this.$Message.error(err.message);
-          this.goBack();
-        });
+      this.getFeeds();
+      await this.$store.dispatch("group/getGroupById", {
+        groupId: this.groupId
+      });
+      this.updating = this.loading = false;
     },
     onScroll: _.debounce(function() {
       this.scrollTop = Math.max(
