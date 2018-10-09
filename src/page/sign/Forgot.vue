@@ -1,25 +1,14 @@
 <template>
   <div class="p-forgot forgot signup">
-    <header class="m-pos-f m-box m-justify-bet m-aln-center m-main m-bb1 m-head-top">
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="goBack">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#icon-back"/>
-        </svg>
-      </div>
-      <div class="m-box-model m-flex-grow1 m-aln-center m-flex-base0 m-head-top-title">
-        <span>找回密码</span>
-      </div>
-      <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <a
-          v-show="countdown === 0"
-          @click.prevent="changeType">{{ _$type.label2 }}找回</a>
-      </div>
-    </header>
-    <main style="padding-top: 0.9rem">
+
+    <common-header>
+      找回密码
+      <template slot="right">
+        <a v-show="countdown === 0" @click.prevent="changeType">{{ _$type.label2 }}找回</a>
+      </template>
+    </common-header>
+
+    <main>
       <div
         v-if="verifiable_type === &quot;sms&quot;"
         class="m-form-row m-main">
@@ -40,9 +29,7 @@
           @click="getCode"
         >{{ codeText }}</span>
       </div>
-      <div
-        v-if="verifiable_type === &quot;mail&quot;"
-        class="m-form-row m-main">
+      <div v-if="verifiable_type === &quot;mail&quot;" class="m-form-row m-main">
         <label for="mail">邮箱</label>
         <div class="m-input">
           <input
@@ -55,8 +42,7 @@
         <span
           :class="{ disabled: email.length < 11 || countdown > 0 }"
           class="signup-form--row-append c_59b6d7"
-          @click="getCode"
-        >{{ codeText }}</span>
+          @click="getCode" >{{ codeText }}</span>
       </div>
       <div class="m-form-row m-main">
         <label for="code">验证码</label>
@@ -67,16 +53,13 @@
             type="number"
             pattern="[0-9]*"
             oninput="value=value.slice(0, 6)"
-            placeholder="输入4-6位验证码"
-          >
+            placeholder="输入4-6位验证码" >
         </div>
         <svg
           v-show="verifiable_code.length > 0"
           class="m-style-svg m-svg-def"
           @click="verifiable_code = ''">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#icon-clean"/>
+          <use xlink:href="#icon-clean"/>
         </svg>
       </div>
 
@@ -96,24 +79,17 @@
             v-model="password"
             type="password"
             maxlength="16"
-            placeholder="输入6位以上登录密码"
-          >
+            placeholder="输入6位以上登录密码" >
         </div>
-        <svg
-          class="m-style-svg m-svg-def"
-          @click="eye=!eye">
-          <use
-            :xlink:href="`#eye-${eye?&quot;open&quot;:&quot;close&quot;}`"
-            xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <svg class="m-style-svg m-svg-def" @click="eye=!eye">
+          <use :xlink:href="`#eye-${eye ? 'open' : 'close' }`"/>
         </svg>
       </div>
       <div class="m-box m-aln-center m-text-box m-form-err-box">
         <span>{{ error | plusMessageFirst }}</span>
       </div>
 
-      <div
-        class="m-form-row"
-        style="border: 0">
+      <div class="m-form-row" style="border: 0">
         <button
           :disabled="loading||disabled"
           class="m-long-btn m-signin-btn"
@@ -125,6 +101,7 @@
     </main>
   </div>
 </template>
+
 <script>
 const SMS = "sms"; // 手机
 const EMAIL = "mail"; // 邮箱
@@ -315,7 +292,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .signup-form--row-append.disabled,
 .signup-form--row-append[disabled] {
   color: #d3d3d3;
