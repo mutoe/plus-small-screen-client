@@ -1,7 +1,7 @@
 <template>
   <div class="p-post-text m-box-model">
 
-    <common-header>
+    <common-header :pinned="true">
       发布动态
       <template slot="left">
         <a href="javascript:;" @click="beforeGoBack">取消</a>
@@ -16,14 +16,19 @@
       </template>
     </common-header>
 
-    <main class="m-flex-grow1 m-flex-shrink1 m-reles-con" @click.self="areaFocus">
-      <content-text
-        ref="contentText"
-        :rows="8"
-        :maxlength="255"
-        class="m-reles-txt-wrap" />
+    <main>
+      <div style="height: 100%;">
+        <textarea-input
+          v-model="contentText"
+          :maxlength="255"
+          :warnlength="200"
+          :rows="11"
+          class="textarea-input" />
+      </div>
+
     </main>
-    <footer class="m-box-model m-flex-shrink0 m-flex-grow1 m-aln-center m-main" style="z-index: 10;">
+
+    <footer>
       <v-switch
         v-if="paycontrol"
         v-model="pinned"
@@ -32,7 +37,7 @@
         <slot>是否收费</slot>
       </v-switch>
       <div
-        :style="{ visibility: pinned ? 'visible' : 'hidden' }"
+        v-show="pinned"
         style="margin-top: -1px"
         class="m-box-model m-lim-width m-main" >
         <div class="m-pinned-amount-btns">
@@ -69,12 +74,12 @@
 <script>
 import bus from "@/bus.js";
 import { mapGetters } from "vuex";
-import ContentText from "./components/ContentText.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
   name: "PostText",
   components: {
-    ContentText
+    TextareaInput
   },
   data() {
     return {
@@ -117,37 +122,25 @@ export default {
     }
   },
   mounted() {
-    const app = document.querySelector("#app");
-    this.appBackgroundColor = app.style.backgroundColor;
-    app.style.backgroundColor = "#fff";
+    this.contentText = "";
   },
-  destroyed() {
-    document.querySelector(
-      "#app"
-    ).style.backgroundColor = this.appBackgroundColor;
-  },
-
   methods: {
     beforeGoBack() {
-      this.contentText.length > 0
-        ? bus.$emit(
+      this.contentText.length === 0
+        ? this.goBack()
+        : bus.$emit(
             "actionSheet",
             [
               {
                 text: "确定",
                 method: () => {
                   this.goBack();
-                  this.setContentText("");
                 }
               }
             ],
             "取消",
             "你还有没有发布的内容,是否放弃发布?"
-          )
-        : this.goBack();
-    },
-    areaFocus() {
-      this.$refs.contentText.areaFocus();
+          );
     },
     chooseDefaultAmount(amount) {
       this.customAmount = null;
@@ -161,13 +154,6 @@ export default {
             ? this.$Message.error(`正文内容不足${this.limit}字, 无法设置收费`)
             : this.postText()
         : ((this.amount = 0), this.postText());
-    },
-    setContentText(txt) {
-      this.$refs.contentText.setContentText(txt);
-    },
-    successCallback() {
-      this.$refs.contentText.clean();
-      this.$router.push("/feeds?type=new");
     },
     postText() {
       if (this.loading) return;
@@ -188,8 +174,8 @@ export default {
         )
         .then(({ data }) => {
           this.$Message.success(data);
-          this.successCallback();
           this.loading = false;
+          this.$router.push("/feeds?type=new");
         })
         .catch(() => {
           this.$Message.error("发送失败，请稍后重试");
@@ -199,3 +185,27 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.p-post-text {
+  background-color: #fff;
+  height: 100%;
+
+  main {
+    flex: auto;
+    padding-top: 90px;
+
+    .textarea-input {
+      padding-left: 20px;
+    }
+  }
+
+  footer {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+}
+</style>

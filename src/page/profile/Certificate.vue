@@ -162,7 +162,6 @@
  * 认证表单页面
  */
 
-import ContentText from "@/page/post/components/ContentText.vue";
 import ImagePoster from "@/components/ImagePoster.vue";
 import * as api from "@/api/user.js";
 import { noop } from "@/util";
@@ -187,7 +186,6 @@ const formInfo = {
 export default {
   name: "Certificate",
   components: {
-    ContentText,
     ImagePoster
   },
   data() {

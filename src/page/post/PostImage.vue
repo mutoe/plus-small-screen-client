@@ -1,5 +1,5 @@
 <template>
-  <div class="m-pos-f m-box-model m-main">
+  <div class="p-post-pic">
 
     <common-header>
       发布动态
@@ -19,15 +19,17 @@
       </template>
     </common-header>
 
-    <main class="m-reles-con m-lim-width m-box-model m-flex-shrink1" @click.self="areaFocus">
-      <content-text
-        ref="contentText"
-        :rows="8"
+    <main>
+      <textarea-input
+        v-model="contentText"
+        :rows="11"
         :maxlength="255"
-        :placeholder="`输入要说的话，图文结合更精彩哦`"
-        class="m-reles-txt-wrap" />
+        :warnlength="200"
+        placeholder="输入要说的话，图文结合更精彩哦"
+        class="textarea-input" />
       <image-list :edit="pinned" style="padding: 0 .3rem .3rem"/>
     </main>
+
     <footer class="m-box-model m-flex-shrink1 m-aln-center" style="z-index: 10">
       <v-switch
         v-if="paycontrol"
@@ -44,26 +46,26 @@
 import bus from "@/bus.js";
 import { mapGetters } from "vuex";
 import ImageList from "./components/ImageList.vue";
-import ContentText from "./components/ContentText.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
   name: "PostImage",
   components: {
     ImageList,
-    ContentText
+    TextareaInput
   },
   data() {
     return {
       pinned: false,
 
       curpos: 0,
-      loading: !1,
+      loading: false,
       contentText: "",
       scrollHeight: 0
     };
   },
   computed: {
-    ...mapGetters(["compose", "composePhoto"]),
+    ...mapGetters(["composePhoto"]),
     disabled() {
       const imageAllCompleted = !this.composePhoto.some(
         img => Object.keys(img).length === 0
@@ -71,7 +73,6 @@ export default {
       return !(imageAllCompleted && this.composePhoto.length > 0);
     }
   },
-  mounted() {},
   methods: {
     beforeGoBack() {
       this.contentText.length > 0
@@ -82,7 +83,6 @@ export default {
                 text: "确定",
                 method: () => {
                   this.goBack();
-                  this.setContentText("");
                 }
               }
             ],
@@ -93,15 +93,6 @@ export default {
     },
     paycontrol() {
       return this.$store.state.CONFIG.feed.paycontrol;
-    },
-    areaFocus() {
-      this.$refs.contentText.areaFocus();
-    },
-    setContentText(txt) {
-      this.$refs.contentText.setContentText(txt);
-    },
-    successCallback() {
-      this.$refs.contentText.clean();
     },
     sendmessage() {
       if (!this.disabled) {
@@ -132,7 +123,7 @@ export default {
           .post(
             "feeds",
             {
-              feed_content: this.compose,
+              feed_content: this.contentText,
               images: this.composePhoto,
               feed_from: 2,
               feed_mark:
@@ -148,7 +139,6 @@ export default {
             }
             this.$router.go(-1);
             this.loading = false;
-            this.successCallback();
           })
           .catch(() => {
             this.$Message.error("发送失败，请稍后再试");
@@ -159,3 +149,14 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.p-post-pic {
+  height: 100%;
+  background-color: #fff;
+
+  .textarea-input {
+    padding-left: 20px;
+  }
+}
+</style>

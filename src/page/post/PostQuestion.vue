@@ -124,12 +124,11 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import bus from "@/bus.js";
-import TextareaInput from "@/components/form/TextareaInput.vue";
-import ContentText from "./components/ContentText.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
   name: "PostQuestion",
-  components: { ContentText, TextareaInput },
+  components: { TextareaInput },
   data() {
     return {
       step: 1,

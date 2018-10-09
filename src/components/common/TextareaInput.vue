@@ -1,13 +1,13 @@
 <template>
-  <div class="textarea-wrap">
-    <div class="textarea-shadow">{{ value }}</div> <!-- 用于撑起文本框自适应高度 -->
+  <div :class="{autoHeight: !rows}" class="textarea-wrap">
+    <div v-if="!rows" class="textarea-shadow">{{ value }}</div> <!-- 用于撑起文本框自适应高度 -->
     <textarea
       ref="textarea"
       :value="value"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :readonly="readonly"
-      rows="1"
+      :rows="rows ? rows : 1"
       @input="$emit('input', $event.target.value)" />
     <span v-show="maxlength && value.length > warnlength" class="word-length">{{ value.length }} / {{ maxlength }}</span>
   </div>
@@ -21,7 +21,8 @@ export default {
     readonly: { type: Boolean, default: false },
     maxlength: { type: [Number, String], default: null },
     warnlength: { type: [Number, String], default: null },
-    placeholder: { type: String, default: "" }
+    placeholder: { type: String, default: "" },
+    rows: { type: [Number, String], default: 0 }
   }
 };
 </script>
@@ -70,6 +71,20 @@ export default {
     margin-top: -18px;
     padding-bottom: 18px;
     text-align: right;
+  }
+
+  &:not(.auto-height) {
+    display: flex;
+    flex-direction: column;
+
+    textarea {
+      position: relative;
+      overflow: auto;
+    }
+
+    .word-length {
+      margin-top: 0;
+    }
   }
 }
 </style>

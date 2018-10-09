@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import TextareaInput from "./TextareaInput.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
   name: "FormInputItem",
