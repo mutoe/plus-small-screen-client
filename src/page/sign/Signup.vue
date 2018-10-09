@@ -208,7 +208,11 @@ export default {
         i => i !== ""
       );
 
-      return !(res && (phone.length === 11 || email.length > 4));
+      if (!res) return true;
+
+      return this.verifiable_type === "sms"
+        ? phone.length !== 11
+        : email.length <= 4;
     },
     _$type: {
       get() {
