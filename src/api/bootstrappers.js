@@ -1,6 +1,7 @@
-import api from "./api.js";
+import api from "./api";
 import lstore from "@/plugins/lstore";
 import location from "@/util/location.js";
+
 /**
  * 获取热门城市列表
  * @return {Promise}

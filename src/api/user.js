@@ -1,5 +1,5 @@
+import api from "./api";
 import store from "@/stores";
-import api from "./api.js";
 import $Message from "@/plugins/message-box";
 import lstore from "@/plugins/lstore/lstore.js";
 

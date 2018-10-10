@@ -1,4 +1,4 @@
-import api from "./api.js";
+import api from "./api";
 
 /**
  * 获取积分配置信息

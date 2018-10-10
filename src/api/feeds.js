@@ -1,4 +1,5 @@
-import api, { limit } from "./api.js";
+import api from "./api";
+import { limit } from "./index";
 
 /**
  * 定义动态对象

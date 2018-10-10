@@ -1,10 +1,13 @@
-import api, { get, limit } from "./api.js";
+import api from "./api";
+import { limit } from "./index";
 
 // 获取系统通知
 export function getNotifications(offset = 0) {
-  return get(`/user/notifications`, {
-    offset,
-    limit
+  return api.get(`/user/notifications`, {
+    params: {
+      offset,
+      limit
+    }
   });
 }
 
