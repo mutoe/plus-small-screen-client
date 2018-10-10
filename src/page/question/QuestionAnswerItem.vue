@@ -11,7 +11,7 @@
           <span v-if="!anonymity" @click.stop="viewUser">{{ user.name }}</span>
           <span v-else-if="!isMine">匿名用户</span>
           <span v-else>{{ user.name }} <span class="gray">(匿名)</span></span>
-          <span class="time">{{ answer.created_at | time2tips }}</span>
+          <span class="time">{{ answer.created_at | addTimeOffset | time2tips }}</span>
         </h3>
         <div class="main-body">{{ body }}</div>
       </div>

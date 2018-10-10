@@ -11,7 +11,7 @@
           <h4 class="m-flex-grow1 m-flex-shrink1">{{ user.name }}</h4>
           <div class="m-box m-aln-center">
             <span v-if="pinned" class="m-art-comment-icon-top">置顶</span>
-            <span>{{ time | time2tips }}</span>
+            <span>{{ feed.created_at | addTimeOffset | time2tips }}</span>
           </div>
         </header>
         <article class="m-card-body" @click="handleView('')">

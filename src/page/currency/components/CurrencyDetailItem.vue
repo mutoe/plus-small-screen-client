@@ -4,7 +4,7 @@
     class="c-currency-detail-item">
     <div class="info">
       <div class="title" >{{ detail[type] }}</div>
-      <div class="time">{{ detail.updated_at | time2tips }}</div>
+      <div class="time">{{ detail.updated_at | addTimeOffset | time2tips }}</div>
     </div>
     <div class="amount">
       {{ detail.type > 0 ? '+' : '-' }}{{ detail.amount }}

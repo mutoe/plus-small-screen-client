@@ -16,7 +16,7 @@
               <router-link
                 :class="`${prefixCls}-item-top-link`"
                 :to="`/users/${audit.user_id}`">{{ audit.user.name }}</router-link>
-              <p>{{ audit.created_at | time2tips }}</p>
+              <p>{{ audit.created_at | addTimeOffset | time2tips }}</p>
             </section>
             <group-post-audit-status :audit="audit" />
           </div>

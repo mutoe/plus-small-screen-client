@@ -1,9 +1,12 @@
+import { timeOffset } from "@/filters";
+
 export default {
   data() {
     return {
       scrollable: true,
       windowScrollTop: 0,
-      isCurrentView: false
+      isCurrentView: false,
+      timeOffset
     };
   },
   watch: {

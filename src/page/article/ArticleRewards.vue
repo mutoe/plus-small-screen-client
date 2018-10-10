@@ -18,7 +18,7 @@
 
           <h2 class="m-box m-flex-grow1 m-flex-shrink1 m-text-cut"><b>{{ user.name }}</b>打赏了{{ typeMap[type] }}</h2>
 
-          <time :datetime="created_at" class="m-flex-grow0 m-flex-shrink0">{{ created_at | time2tips }}</time>
+          <time :datetime="created_at" class="m-flex-grow0 m-flex-shrink0">{{ created_at | addTimeOffset | time2tips }}</time>
         </section>
       </jo-load-more>
     </main>
