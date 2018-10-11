@@ -2,7 +2,7 @@
   <div class="p-profile-certificate">
 
     <common-header :back="back">
-      {{ step === 1 ? '基本信息' : '上传资料' }}
+      {{ title }}
       <span
         v-show="step === 2"
         slot="right"
@@ -17,9 +17,7 @@
       class="m-box-model m-flex-grow1 m-flex-shrink1 main"
       style="padding-top: 0.9rem;">
       <template v-if="step === 1">
-        <div
-          key="step1"
-          class="step1">
+        <div key="step1" class="step1">
           <template v-if="type ==='org'">
             <!-- 机构名称 -->
             <div class="m-form-row m-main">
@@ -36,9 +34,7 @@
                 v-show="orgFields.org_name.length > 0"
                 class="m-style-svg m-svg-def"
                 @click="orgFields.org_name = ''">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#icon-clean"/>
+                <use xlink:href="#icon-clean"/>
               </svg>
             </div>
             <!-- 机构地址 -->
@@ -56,9 +52,7 @@
                 v-show="orgFields.org_address.length > 0"
                 class="m-style-svg m-svg-def"
                 @click="orgFields.org_address = ''">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#icon-clean"/>
+                <use xlink:href="#icon-clean"/>
               </svg>
             </div>
           </template>
@@ -115,9 +109,7 @@
           <div class="m-box m-aln-center m-text-box m-form-err-box">
             <!-- <span>{{ error | plusMessageFirst }}</span> -->
           </div>
-          <div
-            class="m-form-row"
-            style="border: 0">
+          <div class="m-form-row" style="border: 0">
             <button
               :disabled="loading||disabled"
               class="m-long-btn m-signin-btn"
@@ -212,6 +204,11 @@ export default {
     };
   },
   computed: {
+    title() {
+      if (this.status === 2)
+        return this.type === "user" ? "个人认证" : "企业认证";
+      return this.step === 1 ? "基本信息" : "上传资料";
+    },
     /**
      * 认证类型. 必须是 (user|org)
      * @returns {string}
