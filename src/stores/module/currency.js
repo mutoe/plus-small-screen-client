@@ -20,7 +20,8 @@ const state = {
 
 const getters = {
   rechargeItems: state => {
-    return state.recharge.items.map(item => item / 100);
+    const { items = [] } = state.recharge;
+    return items.map(item => item / 100);
   }
 };
 

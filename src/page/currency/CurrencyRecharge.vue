@@ -15,7 +15,7 @@
 
     <main class="m-box-model m-aln-center m-justify-center">
       <div class="m-box-model m-lim-width m-main">
-        <div class="m-pinned-amount-btns">
+        <div v-if="items.length" class="m-pinned-amount-btns m-bb1">
           <p class="m-pinned-amount-label">选择充值金额</p>
           <div class="buttons">
             <button
@@ -28,7 +28,7 @@
             </button>
           </div>
         </div>
-        <div class="m-box m-aln-center m-justify-bet m-bb1 m-bt1 m-pinned-row plr20 m-pinned-amount-customize">
+        <div class="m-box m-aln-center m-justify-bet m-pinned-row plr20 m-pinned-amount-customize">
           <span>自定义金额</span>
           <div class="m-box m-aln-center">
             <input

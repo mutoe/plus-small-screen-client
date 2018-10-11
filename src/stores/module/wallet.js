@@ -18,7 +18,8 @@ const getters = {
     return state.cashes.filter(wallet => wallet.id === id).pop() || {};
   },
   rechargeItems: state => {
-    return state.items.map(item => item / 100);
+    const { items = [] } = state;
+    return items.map(item => item / 100);
   }
 };
 
