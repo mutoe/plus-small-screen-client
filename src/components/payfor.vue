@@ -24,20 +24,25 @@
         <div class="m-payfor-foot">
           <button
             class="m-payfor-btn primary"
-            @click="handelOk">{{ confirmText || "购买" }}</button>
+            @click="showPasswordConfirm">{{ confirmText || "购买" }}</button>
           <button
             class="m-payfor-btn"
             @click="handelCancel">{{ cancelText || "返回" }}</button>
         </div>
+
+        <password-confirm ref="password" @submit="handleOk" />
+
       </div>
     </transition>
   </div>
 </template>
 <script>
 import { noop } from "@/util";
+import PasswordConfirm from "@/components/common/PasswordConfirm.vue";
 
 export default {
   name: "PayFor",
+  components: { PasswordConfirm },
   data() {
     return {
       node: 0,
@@ -98,8 +103,11 @@ export default {
     onOk() {},
     onCancel() {},
     onSuccess() {},
-    handelOk() {
-      this.onOk();
+    showPasswordConfirm() {
+      this.$refs.password.show();
+    },
+    handleOk(password) {
+      this.onOk(password);
       this.node
         ? this.$http
             .post(`/currency/purchases/${this.node}`)

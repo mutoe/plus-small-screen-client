@@ -131,9 +131,9 @@ export default {
    * @returns
    */
   async joinGroup(store, payload) {
-    const { groupId, needPaid = false } = payload;
+    const { groupId, needPaid = false, password } = payload;
     const { data } = needPaid
-      ? await api.joinGroupWithPaid(groupId)
+      ? await api.joinGroupWithPaid(groupId, password)
       : await api.joinGroup(groupId);
     return data;
   },

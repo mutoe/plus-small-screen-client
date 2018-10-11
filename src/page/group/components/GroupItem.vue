@@ -98,9 +98,10 @@ export default {
             confirmText: "支付并加入",
             amount: this.money,
             content: `你只需支付${this.money}积分来加入圈子`,
-            onOk: async () => {
+            onOk: async password => {
               this.loading = false;
-              if (this.money <= this.CURRENTUSER.currency.sum) this.joinGroup();
+              if (this.money <= this.CURRENTUSER.currency.sum)
+                this.joinGroup(password);
               else this.$router.push({ name: "currencyRecharge" });
             },
             onCancel: () => {
@@ -108,11 +109,12 @@ export default {
             }
           });
     },
-    joinGroup() {
+    joinGroup(password) {
       this.$store
         .dispatch("group/joinGroup", {
           groupId: this.group.id,
-          needPaid: this.needPaid
+          needPaid: this.needPaid,
+          password
         })
         .then(data => {
           this.loading = false;

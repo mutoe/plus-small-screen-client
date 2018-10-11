@@ -110,9 +110,9 @@ export function joinGroup(groupId) {
  * @param {number} groupId
  * @returns
  */
-export function joinGroupWithPaid(groupId) {
+export function joinGroupWithPaid(groupId, password) {
   const url = `/plus-group/currency-groups/${groupId}`;
-  return api.put(url, {}, { validateStatus: s => s === 201 });
+  return api.put(url, { password }, { validateStatus: s => s === 201 });
 }
 
 /**
