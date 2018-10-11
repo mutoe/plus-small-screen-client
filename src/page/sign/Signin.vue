@@ -70,6 +70,9 @@
             <a>忘记密码</a>
           </router-link>
         </div>
+        <div class="dynamic-signin">
+          <router-link to="/signin/dynamic">使用手机号一键登陆</router-link>
+        </div>
       </main>
 
       <!-- TODO: 其他三方登录方式 -->
@@ -168,6 +171,14 @@ export default {
     a {
       color: @text-color3;
     }
+  }
+
+  .dynamic-signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-top: 80px;
   }
 
   .m-trhsignin {

@@ -2,6 +2,7 @@ import Forgot from "@/page/sign/Forgot.vue";
 import ChangePassword from "@/page/sign/ChangePassword.vue";
 import Signup from "@/page/sign/Signup.vue";
 import Signin from "@/page/sign/Signin.vue";
+import SigninDynamic from "@/page/sign/SigninDynamic.vue";
 import RegisterProtocol from "@/page/sign/RegisterProtocol.vue";
 
 export default [
@@ -10,6 +11,14 @@ export default [
     component: Signin,
     meta: {
       title: "登录",
+      forGuest: true
+    }
+  },
+  {
+    path: "/signin/dynamic",
+    component: SigninDynamic,
+    meta: {
+      title: "一键登录",
       forGuest: true
     }
   },
