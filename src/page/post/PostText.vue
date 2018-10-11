@@ -73,7 +73,6 @@
 
 <script>
 import bus from "@/bus.js";
-import { mapGetters } from "vuex";
 import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
@@ -96,7 +95,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["compose"]),
     currency_name() {
       return (
         (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
@@ -107,7 +105,7 @@ export default {
       return this.$store.state.CONFIG.feed.paycontrol;
     },
     disabled() {
-      return !(this.compose.length > 0);
+      return !this.contentText.length;
     },
     items() {
       return this.$store.state.CONFIG.feed.items || [];
@@ -150,7 +148,7 @@ export default {
       this.pinned
         ? this.amount === 0
           ? this.$Message.error("请设置收费金额")
-          : this.compose.length <= this.limit
+          : this.contentText.length <= this.limit
             ? this.$Message.error(`正文内容不足${this.limit}字, 无法设置收费`)
             : this.postText()
         : ((this.amount = 0), this.postText());
@@ -162,7 +160,7 @@ export default {
         .post(
           "feeds",
           {
-            feed_content: this.compose,
+            feed_content: this.contentText,
             feed_from: 2,
             feed_mark:
               new Date().valueOf() + "" + this.$store.state.CURRENTUSER.id,
