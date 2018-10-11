@@ -46,10 +46,15 @@ export default {
   computed: {
     disabled() {
       return this.password.length < 6;
+    },
+    needValidate() {
+      const config = this.$store.state.CONFIG;
+      return config["pay-validate-user-password"] || false;
     }
   },
   methods: {
     show() {
+      if (!this.needValidate) return this.$emit("submit");
       this.visible = true;
       this.$nextTick(() => {
         this.$refs.content.focus();
