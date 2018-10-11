@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import { mapState } from "vuex";
 import PopupDialog from "@/components/PopupDialog.vue";
 
@@ -102,7 +101,7 @@ export default {
     },
     selectWithdrawType() {
       const actions = [];
-      bus.$emit("actionSheet", actions, "取消", "当前未支持任何提现方式");
+      this.$bus.$emit("actionSheet", actions, "取消", "当前未支持任何提现方式");
     },
     popupRule() {
       this.$refs.dialog.show();

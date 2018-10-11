@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import { mapState } from "vuex";
 
 const supportType = {
@@ -130,7 +129,7 @@ export default {
           });
       }
 
-      bus.$emit(
+      this.$bus.$emit(
         "actionSheet",
         actions,
         "取消",

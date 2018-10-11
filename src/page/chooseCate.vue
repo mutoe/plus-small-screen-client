@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
-
 export default {
   name: "ChooseCate",
   data() {
@@ -31,14 +29,14 @@ export default {
   },
   created() {
     this.fetchCates();
-    bus.$on("choose-cate", callback => {
+    this.$bus.$on("choose-cate", callback => {
       typeof callback === "function" && (this.callback = callback);
       this.show = true;
       this.scrollable = false;
     });
   },
   beforeDestroy() {
-    bus.$off("choose-cate");
+    this.$bus.$off("choose-cate");
   },
   methods: {
     callback() {},

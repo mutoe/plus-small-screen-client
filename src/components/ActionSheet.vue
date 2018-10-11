@@ -42,7 +42,6 @@
  * @property {Object} style - 按钮的样式
  */
 
-import bus from "@/bus.js";
 export default {
   name: "ActionSheet",
   data() {
@@ -64,11 +63,14 @@ export default {
      * @param {string} [tips] 提示文字
      * @param {string} [title] 提示标题 默认为"提示"
      */
-    bus.$on("actionSheet", (btnLists, cancelTxt, tips = null, title = "") => {
-      this.tips = tips;
-      title && (this.title = title);
-      this.call(btnLists, cancelTxt);
-    });
+    this.$bus.$on(
+      "actionSheet",
+      (btnLists, cancelTxt, tips = null, title = "") => {
+        this.tips = tips;
+        title && (this.title = title);
+        this.call(btnLists, cancelTxt);
+      }
+    );
   },
   methods: {
     call(btnLists, cancelTxt) {

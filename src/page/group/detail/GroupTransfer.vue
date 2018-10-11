@@ -15,7 +15,6 @@
 
 <script>
 import _ from "lodash";
-import bus from "@/bus";
 import SearchBar from "@/components/common/SearchBar.vue";
 import GroupUserItem from "../components/GroupUserItem.vue";
 
@@ -76,7 +75,7 @@ export default {
       const groupName = this.group.name;
       const username = member.user.name;
       const info = `确定将圈子"${groupName}"转让给"${username}", 使其成为新的圈主?`;
-      bus.$emit("actionSheet", actions, "取消", info);
+      this.$bus.$emit("actionSheet", actions, "取消", info);
     },
     transferGroup(userId) {
       this.$store

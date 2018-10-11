@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { noop } from "@/util";
 
 export default {
@@ -126,7 +125,7 @@ export default {
      * @param {boolean} [options.isOwner = false] 是否是文章的所有者
      * @param {requestCallback} [options.callback = noop] 申请置顶成功后执行的回调方法
      */
-    bus.$on("applyTop", options => {
+    this.$bus.$on("applyTop", options => {
       const { type, api, payload, isOwner = false, callback = noop } = options;
       this.applyType = type;
       this.applyApi = api;

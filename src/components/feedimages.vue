@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 export default {
   name: "MPics",
   props: {
@@ -27,12 +26,12 @@ export default {
     pics: { type: Array, default: () => [] }
   },
   created() {
-    bus.$on("updateFile", ({ fid, index }) => {
+    this.$bus.$on("updateFile", ({ fid, index }) => {
       if (fid === this.id) {
         this.pics[index].paid = true;
         this.$children[index].fetch();
         setTimeout(() => {
-          bus.$emit("updatePhoto", this.$children[index].src);
+          this.$bus.$emit("updatePhoto", this.$children[index].src);
         }, 1500);
       }
     });
@@ -48,7 +47,7 @@ export default {
           index
         };
       });
-      bus.$emit("mvGallery", { fid: this.id, index, images });
+      this.$bus.$emit("mvGallery", { fid: this.id, index, images });
     },
     isLongImg(img) {
       const [w, h] = img.size.split("x");

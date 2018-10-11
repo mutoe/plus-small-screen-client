@@ -30,7 +30,6 @@
 
 <script>
 import _ from "lodash";
-import bus from "@/bus";
 import SearchBar from "@/components/common/SearchBar.vue";
 import GroupUserItem from "../components/GroupUserItem.vue";
 
@@ -116,11 +115,16 @@ export default {
               }
             ];
             setTimeout(() => {
-              bus.$emit("actionSheet", actions, "取消", "确认加入黑名单？");
+              this.$bus.$emit(
+                "actionSheet",
+                actions,
+                "取消",
+                "确认加入黑名单？"
+              );
             }, 200);
           }
         });
-      if (actions.length) bus.$emit("actionSheet", actions);
+      if (actions.length) this.$bus.$emit("actionSheet", actions);
     }
   }
 };

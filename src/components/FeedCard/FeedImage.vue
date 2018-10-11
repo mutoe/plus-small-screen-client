@@ -20,7 +20,6 @@
   </div>
 </template>
 <script>
-import bus from "@/bus.js";
 export default {
   name: "FeedImage",
   props: {
@@ -50,9 +49,9 @@ export default {
       // const { paid_node, paid, type } = this.pics[index];
       // paid_node > 0 && type === "read" && paid
       //   ? this.payForImg(currItem)
-      //   : bus.$emit("mvGallery", { component, index, images });
+      //   : this.$bus.$emit("mvGallery", { component, index, images });
 
-      bus.$emit("mvGallery", { component, index, images });
+      this.$bus.$emit("mvGallery", { component, index, images });
     },
     isLongImg(img) {
       const [w, h] = img.size.split("x");

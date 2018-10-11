@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { version } from "@/main";
 
 export default {
@@ -57,7 +56,7 @@ export default {
           }
         }
       ];
-      bus.$emit("actionSheet", actions, "取消", "确认退出?");
+      this.$bus.$emit("actionSheet", actions, "取消", "确认退出?");
     },
     aboutUs() {
       const { aboutUs = {} } = this.$store.state.CONFIG.site;

@@ -162,7 +162,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import _ from "lodash";
 import { mapState } from "vuex";
 import { resetUserCount } from "@/api/message.js";
@@ -237,7 +236,7 @@ export default {
           { text: "个人认证", method: () => this.certificate("user") },
           { text: "企业认证", method: () => this.certificate("org") }
         ];
-        bus.$emit("actionSheet", actions, "取消");
+        this.$bus.$emit("actionSheet", actions, "取消");
       } else if (this.verified.status === 2) {
         // 被驳回则补充填写表单
         this.$router.push({ path: "/profile/certificate" });

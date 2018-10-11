@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
@@ -126,7 +125,7 @@ export default {
     beforeGoBack() {
       this.contentText.length === 0
         ? this.goBack()
-        : bus.$emit(
+        : this.$bus.$emit(
             "actionSheet",
             [
               {

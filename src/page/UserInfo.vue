@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 
 /**
@@ -209,7 +208,12 @@ export default {
       const onRemove = tagId => {
         this.$http.delete(`/user/tags/${tagId}`);
       };
-      bus.$emit("choose-tags", { chooseTags, nextStep, onSelect, onRemove });
+      this.$bus.$emit("choose-tags", {
+        chooseTags,
+        nextStep,
+        onSelect,
+        onRemove
+      });
     },
     switchPosition(val) {
       this.showPosition = !this.showPosition;
@@ -236,7 +240,7 @@ export default {
           }
         }
       ];
-      bus.$emit("actionSheet", options, "取消");
+      this.$bus.$emit("actionSheet", options, "取消");
     }
   }
 };

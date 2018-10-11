@@ -1,45 +1,45 @@
 <template>
   <div @touchmove.prevent>
     <transition name="toast">
-      <div 
-        v-if="show" 
-        class="m-pop-box" 
+      <div
+        v-if="show"
+        class="m-pop-box"
         @click="cancel"/>
     </transition>
     <transition name="pop">
-      <div 
-        v-if="show" 
-        class="m-box-model m-justify-end m-comment-input" 
+      <div
+        v-if="show"
+        class="m-box-model m-justify-end m-comment-input"
         @touch.prevent>
         <div class="m-box m-aln-end m-comment-input-wrap">
           <span class="m-box-model m-flex-grow1 m-flex-shrink1 m-justify-end m-wz-def">
-            <textarea 
+            <textarea
               ref="textarea"
               v-model="contentText"
               :placeholder="placeholder"
               :style="{ height: `${scrollHeight}px` }"
-              maxlength="255" 
+              maxlength="255"
               @focus="onFocus"
               @blur="moveCurPos"
               @keydown.enter.prevent="sendText"
               @input="moveCurPos"/>
-            <textarea 
+            <textarea
               ref="shadow"
               v-model="shadowText"
-              rows="1" 
+              rows="1"
               maxlength="255"
               style="position: absolute; z-index: -9999; visibility: hidden;"/>
           </span>
-          <div 
-            class="m-box-model m-box-justify-end" 
+          <div
+            class="m-box-model m-box-justify-end"
             style="width: 1rem; margin: 0 0 0 15px;">
-            <span 
-              v-if="contentText.length >= 210" 
-              class="m-wz-def" 
+            <span
+              v-if="contentText.length >= 210"
+              class="m-wz-def"
               style="font-size: 10px; margin-bottom: 10px">{{ contentText.length }}/255</span>
-            <button 
-              :disabled="!contentText.length" 
-              class="m-comment-submit" 
+            <button
+              :disabled="!contentText.length"
+              class="m-comment-submit"
               @click="sendText">发送</button>
           </div>
         </div>
@@ -48,7 +48,6 @@
   </div>
 </template>
 <script>
-import bus from "@/bus";
 export default {
   name: "CommentInput",
   data() {
@@ -101,11 +100,11 @@ export default {
     }
   },
   created() {
-    bus.$on("commentInput:close", status => {
+    this.$bus.$on("commentInput:close", status => {
       status && this.clean();
       this.cancel();
     });
-    bus.$on("commentInput", ({ placeholder, onOk }) => {
+    this.$bus.$on("commentInput", ({ placeholder, onOk }) => {
       typeof placeholder === "string" && (this.placeholder = placeholder);
       typeof onOk === "function" && (this.onOk = onOk);
       this.show = true;

@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
-
 export default {
   name: "FormTagsItem",
   props: {
@@ -39,7 +37,12 @@ export default {
       const onRemove = tagId => {
         this.$emit("delete", tagId);
       };
-      bus.$emit("choose-tags", { chooseTags, nextStep, onSelect, onRemove });
+      this.$bus.$emit("choose-tags", {
+        chooseTags,
+        nextStep,
+        onSelect,
+        onRemove
+      });
     }
   }
 };

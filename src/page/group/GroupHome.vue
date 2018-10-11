@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import { mapState } from "vuex";
 import GroupItem from "./components/GroupItem.vue";
 import DetailAd from "@/components/advertisement/DetailAd.vue";
@@ -155,7 +154,7 @@ export default {
           method: () => this.$router.push({ name: "ProfileCertificate" })
         }
       ];
-      bus.$emit(
+      this.$bus.$emit(
         "actionSheet",
         actions,
         "取消",

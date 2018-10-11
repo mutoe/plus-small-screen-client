@@ -157,7 +157,6 @@
 import _ from "lodash";
 import * as uploadApi from "@/api/upload";
 import { hashFile } from "@/util/SendImage.js";
-import bus from "@/bus.js";
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
 import HeadRoom from "headroom.js";
 import wechatShare from "@/util/wechatShare.js";
@@ -419,7 +418,7 @@ export default {
       });
     },
     rewardUser() {
-      bus.$emit("reward", {
+      this.$bus.$emit("reward", {
         type: "user",
         api: api.rewardUser,
         payload: this.user.id,

@@ -194,7 +194,6 @@
 
 <script>
 import _ from "lodash";
-import bus from "@/bus.js";
 import GroupFeedCard from "@/components/FeedCard/GroupFeedCard.vue";
 
 import { getGroudFeedsByType } from "@/api/group.js";
@@ -433,13 +432,18 @@ export default {
     },
     onCreatePostClick() {
       if (!this.joined)
-        return bus.$emit("actionSheet", [], "知道了", "需要先加入才可发帖");
+        return this.$bus.$emit(
+          "actionSheet",
+          [],
+          "知道了",
+          "需要先加入才可发帖"
+        );
       if (!this.permissions.includes(this.role)) {
         const roleText = this.permissions.includes("administrator")
           ? "圈主和管理员"
           : "圈主";
         const text = `"${this.group.name}"仅${roleText}拥有发帖权限`;
-        return bus.$emit("actionSheet", [], "知道了", text);
+        return this.$bus.$emit("actionSheet", [], "知道了", text);
       }
 
       this.$router.push({
@@ -457,7 +461,7 @@ export default {
           style: { color: "red" }
         }
       ];
-      bus.$emit("actionSheet", actions, "取消", "确定要退出圈子吗?");
+      this.$bus.$emit("actionSheet", actions, "取消", "确定要退出圈子吗?");
     },
     async exitGroup() {
       await this.$store.dispatch("group/exitGroup", { groupId: this.groupId });

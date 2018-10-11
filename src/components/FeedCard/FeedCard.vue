@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 import FeedImage from "./FeedImage.vue";
 import FeedVideo from "./FeedVideo.vue";
@@ -231,7 +230,7 @@ export default {
       const { paid_node } = this.feed;
       paid_node && !paid_node.paid
         ? this.$lstore.hasData("H5_ACCESS_TOKEN")
-          ? bus.$emit("payfor", {
+          ? this.$bus.$emit("payfor", {
               onCancel: () => {},
               onSuccess: data => {
                 this.$Message.success(data);
@@ -273,7 +272,7 @@ export default {
         });
     },
     handleComment({ placeholder, reply_user }) {
-      bus.$emit("commentInput", {
+      this.$bus.$emit("commentInput", {
         placeholder,
         onOk: text => {
           this.sendComment({ body: text, reply_user });
@@ -308,7 +307,7 @@ export default {
         actions.push({
           text: "申请动态置顶",
           method: () => {
-            bus.$emit("applyTop", {
+            this.$bus.$emit("applyTop", {
               type: "feed",
               api: api.applyTopFeed,
               payload: this.feedID
@@ -334,7 +333,7 @@ export default {
                   }
                 }
               ];
-              bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
+              this.$bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
             }, 200);
           }
         });
@@ -347,7 +346,7 @@ export default {
         });
       }
 
-      bus.$emit("actionSheet", actions, "取消");
+      this.$bus.$emit("actionSheet", actions, "取消");
     },
     commentAction({ isMine = false, placeholder, reply_user, comment }) {
       if (isMine) {
@@ -356,7 +355,7 @@ export default {
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 isOwner,
                 type: "feedComment",
                 api: api.applyTopFeedComment,
@@ -366,7 +365,7 @@ export default {
           },
           { text: "删除评论", method: () => this.deleteComment(comment.id) }
         ];
-        bus.$emit("actionSheet", actionSheet);
+        this.$bus.$emit("actionSheet", actionSheet);
       } else {
         this.handleComment({
           placeholder,
@@ -389,10 +388,10 @@ export default {
           this.comments.unshift(comment);
           if (this.comments.length > 5) this.comments.pop();
           this.$Message.success("评论成功");
-          bus.$emit("commentInput:close", true);
+          this.$bus.$emit("commentInput:close", true);
         })
         .catch(() => {
-          bus.$emit("commentInput:close", true);
+          this.$bus.$emit("commentInput:close", true);
         });
     },
     deleteComment(commentId) {

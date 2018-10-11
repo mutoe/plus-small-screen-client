@@ -132,7 +132,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
@@ -409,7 +408,7 @@ export default {
         this.feed.reward_number += 1;
         this.feed.reward_amount += amount;
       };
-      bus.$emit("reward", {
+      this.$bus.$emit("reward", {
         type: "feed",
         api: api.rewardFeed,
         payload: this.feedID,
@@ -454,7 +453,7 @@ export default {
         });
     },
     commentFeed() {
-      bus.$emit("commentInput", {
+      this.$bus.$emit("commentInput", {
         onOk: text => {
           this.sendComment({ body: text });
         }
@@ -498,7 +497,7 @@ export default {
             {
               text: "申请动态置顶",
               method: () => {
-                bus.$emit("applyTop", {
+                this.$bus.$emit("applyTop", {
                   type: "feed",
                   api: api.applyTopFeed,
                   payload: this.feedID
@@ -521,7 +520,12 @@ export default {
                       }
                     }
                   ];
-                  bus.$emit("actionSheet", actionSheet, "取消", "确认删除?");
+                  this.$bus.$emit(
+                    "actionSheet",
+                    actionSheet,
+                    "取消",
+                    "确认删除?"
+                  );
                 }, 200);
               }
             }
@@ -534,7 +538,7 @@ export default {
               }
             }
           ];
-      bus.$emit("actionSheet", [...defaultActions, ...actions], "取消");
+      this.$bus.$emit("actionSheet", [...defaultActions, ...actions], "取消");
     },
     replyComment(uid, uname, commentId) {
       // 是否是自己的评论
@@ -545,7 +549,7 @@ export default {
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 isOwner,
                 type: "feedComment",
                 api: api.applyTopFeedComment,
@@ -556,9 +560,9 @@ export default {
           },
           { text: "删除评论", method: () => this.deleteComment(commentId) }
         ];
-        bus.$emit("actionSheet", actionSheet, "取消");
+        this.$bus.$emit("actionSheet", actionSheet, "取消");
       } else {
-        bus.$emit("commentInput", {
+        this.$bus.$emit("commentInput", {
           placeholder: `回复： ${uname}`,
           onOk: text => {
             this.sendComment({ reply_user: uid, body: text });
@@ -579,11 +583,11 @@ export default {
             this.$Message.success("评论成功");
             this.comments.unshift(comment);
             this.commentCount += 1;
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           })
           .catch(() => {
             this.$Message.error("评论失败");
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           });
       } else {
         this.$Message.error("评论内容不能为空");
@@ -617,7 +621,7 @@ export default {
       if (!paid_node || paid_node.paid) return;
 
       if (this.$lstore.hasData("H5_ACCESS_TOKEN")) {
-        bus.$emit("payfor", {
+        this.$bus.$emit("payfor", {
           nodeType: "内容",
           node: paid_node.paid_node,
           amount: paid_node.amount,

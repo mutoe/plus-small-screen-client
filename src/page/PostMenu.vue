@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 
 export default {
@@ -114,7 +113,7 @@ export default {
     }
   },
   created() {
-    bus.$on("post-menu", () => {
+    this.$bus.$on("post-menu", () => {
       this.show = true;
       this.scrollable = false;
     });
@@ -143,7 +142,7 @@ export default {
     },
     showCheckIn() {
       this.login
-        ? bus.$emit("check-in")
+        ? this.$bus.$emit("check-in")
         : (this.$Message.error("请登录"), this.$router.push(`/signin`));
       this.$nextTick(this.cancel);
     },

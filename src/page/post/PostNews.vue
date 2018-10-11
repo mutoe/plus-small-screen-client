@@ -169,7 +169,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 import chooseCate from "@/page/chooseCate.vue";
 import sendImage from "@/util/SendImage.js";
@@ -263,7 +262,7 @@ export default {
     moveCurPos() {},
     deleteHandler() {},
     switchCate() {
-      bus.$emit("choose-cate", cate => {
+      this.$bus.$emit("choose-cate", cate => {
         this.category = cate;
       });
     },
@@ -276,7 +275,7 @@ export default {
        *                   nextStep     {Function}     点击下一步的回调, 注入已选择的 tags
        *                   chooseTags   {Object}       初始选择值, 只需传 [tag.id], eg: [1, 2, 3,...]
        */
-      bus.$emit("choose-tags", {
+      this.$bus.$emit("choose-tags", {
         nextStep: tags => {
           this.tags = tags;
         },
@@ -355,7 +354,7 @@ export default {
         tags: this.tags.map(t => t.id).join(",")
       };
       this.newsPay
-        ? bus.$emit("payfor", {
+        ? this.$bus.$emit("payfor", {
             title: "投稿支付",
             amount: this.newCurrency,
             content: `本次投稿你需要支付${this.newCurrency}${
@@ -387,7 +386,7 @@ export default {
         (this.step += 1));
     },
     cancel() {
-      bus.$emit(
+      this.$bus.$emit(
         "actionSheet",
         [{ text: "确定", method: this.goBack }],
         "取消",

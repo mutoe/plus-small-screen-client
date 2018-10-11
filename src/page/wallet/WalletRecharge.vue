@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import { mapGetters, mapState } from "vuex";
 
 const supportTypes = [
@@ -112,7 +111,7 @@ export default {
           });
         }
       });
-      bus.$emit(
+      this.$bus.$emit(
         "actionSheet",
         actions,
         "取消",

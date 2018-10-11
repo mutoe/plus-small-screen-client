@@ -132,7 +132,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
 import FeedDetail from "@/page/feed/FeedDetail.vue";
@@ -457,7 +456,7 @@ export default {
           actions.push({
             text: "置顶帖子",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 type: "post-manager",
                 api: api.pinnedPost,
                 payload: this.feed.id,
@@ -488,7 +487,12 @@ export default {
                 }
               ];
               setTimeout(() => {
-                bus.$emit("actionSheet", actions, "取消", "确认撤销置顶?");
+                this.$bus.$emit(
+                  "actionSheet",
+                  actions,
+                  "取消",
+                  "确认撤销置顶?"
+                );
               }, 200);
             }
           });
@@ -496,7 +500,7 @@ export default {
         actions.push({
           text: "申请帖子置顶",
           method: () => {
-            bus.$emit("applyTop", {
+            this.$bus.$emit("applyTop", {
               type: "post",
               api: api.applyTopPost,
               payload: this.postId
@@ -525,13 +529,13 @@ export default {
                   }
                 }
               ];
-              bus.$emit("actionSheet", actions, "取消", "确认删除?");
+              this.$bus.$emit("actionSheet", actions, "取消", "确认删除?");
             }, 200);
           }
         });
       }
 
-      bus.$emit("actionSheet", actions, "取消");
+      this.$bus.$emit("actionSheet", actions, "取消");
     },
     // TODO: refactor 'followUserByStatus' api to vuex.action
     followUserByStatus(status) {
@@ -555,7 +559,7 @@ export default {
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 isOwner,
                 type: "postComment",
                 api: api.applyTopPostComment,
@@ -566,9 +570,9 @@ export default {
           },
           { text: "删除评论", method: () => this.deleteComment(commentId) }
         ];
-        bus.$emit("actionSheet", actionSheet, "取消");
+        this.$bus.$emit("actionSheet", actionSheet, "取消");
       } else {
-        bus.$emit("commentInput", {
+        this.$bus.$emit("commentInput", {
           placeholder: `回复： ${uname}`,
           onOk: text => {
             this.sendComment({ reply_user: uid, body: text });
@@ -588,11 +592,11 @@ export default {
           .then(({ data: { comment } = { comment: {} } }) => {
             this.$Message.success("评论成功");
             this.comments.unshift(comment);
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           })
           .catch(() => {
             this.$Message.error("评论失败");
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           });
       } else {
         this.$Message.error("评论内容不能为空");
@@ -604,7 +608,7 @@ export default {
         this.feed.reward_number += 1;
         this.feed.reward_amount += amount;
       };
-      bus.$emit("reward", {
+      this.$bus.$emit("reward", {
         type: "groupPost",
         api: api.rewardPost,
         payload: this.postId,

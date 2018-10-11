@@ -24,7 +24,6 @@
 
 <script>
 import _ from "lodash";
-import bus from "@/bus";
 import SearchBar from "@/components/common/SearchBar.vue";
 import GroupUserItem from "../components/GroupUserItem.vue";
 
@@ -92,7 +91,7 @@ export default {
           this.fetchMembers();
         }
       });
-      bus.$emit("actionSheet", actions);
+      this.$bus.$emit("actionSheet", actions);
     }
   }
 };

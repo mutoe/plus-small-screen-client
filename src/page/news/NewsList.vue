@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import _ from "lodash";
 import { mapState } from "vuex";
 import NewsCard from "./components/NewsCard.vue";
@@ -151,7 +150,7 @@ export default {
               })
           }
         ];
-        bus.$emit(
+        this.$bus.$emit(
           "actionSheet",
           actions,
           "取消",

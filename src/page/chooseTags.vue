@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { noop } from "@/util";
 
 /**
@@ -82,7 +81,7 @@ function onChooseTags({ chooseTags = [], nextStep, onSelect, onRemove }) {
 
   if (this.isFirst && this.$route.name !== "groupCreate") {
     this.$nextTick(() => {
-      bus.$emit("info-tips", {
+      this.$bus.$emit("info-tips", {
         content:
           "标签为全局标签，选择合适的标签，系统可推荐你感兴趣的内容，方便找到相同身份或爱好的人，很重要哦！",
         onCancel: () => {
@@ -113,7 +112,7 @@ export default {
     this.fetchTags();
 
     // 注册钩子
-    bus.$on("choose-tags", onChooseTags.bind(this));
+    this.$bus.$on("choose-tags", onChooseTags.bind(this));
   },
   methods: {
     nextFuc() {

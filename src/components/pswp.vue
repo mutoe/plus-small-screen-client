@@ -59,7 +59,7 @@ import "./style/pswp/pswp.min.less";
 
 import PhotoSwipe from "photoswipe";
 import PhotoSwipeUI from "photoswipe/dist/photoswipe-ui-default.js";
-import bus from "@/bus.js";
+
 export default {
   name: "Pswp",
   data() {
@@ -69,7 +69,7 @@ export default {
     };
   },
   created() {
-    bus.$on("mvGallery", ({ component, index, images }) => {
+    this.$bus.$on("mvGallery", ({ component, index, images }) => {
       if (!component) return;
       this.component = component;
       this.openPhotoSwipe(index, images);
@@ -78,7 +78,7 @@ export default {
   methods: {
     payForImg(currItem) {
       const { paid_node, amount, index } = currItem;
-      bus.$emit("payfor", {
+      this.$bus.$emit("payfor", {
         onSuccess: data => {
           this.$Message.success(data);
           this.component.feed.images[index].paid = true;
@@ -134,7 +134,7 @@ export default {
       };
       this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeUI, images, options);
       this.photoswipe.listen("close", () => {
-        bus.$off("updatePhoto");
+        this.$bus.$off("updatePhoto");
       });
       this.photoswipe.listen("beforeChange", () => {
         this.checkImage();

@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import AuditContent from "./auditContent.vue";
 
 export default {
@@ -110,7 +109,7 @@ export default {
         { text: "同意", method: this.accept },
         { text: "驳回", method: this.reject }
       ];
-      bus.$emit("actionSheet", actions);
+      this.$bus.$emit("actionSheet", actions);
     }
   }
 };

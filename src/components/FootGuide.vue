@@ -52,7 +52,6 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import bus from "@/bus.js";
 
 export default {
   name: "FootGuide",
@@ -94,7 +93,7 @@ export default {
       return this.$route.fullPath.indexOf(path) > -1;
     },
     showPostMenu() {
-      bus.$emit("post-menu");
+      this.$bus.$emit("post-menu");
     }
   }
 };

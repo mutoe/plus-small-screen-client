@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { noop } from "@/util";
 
 export default {
@@ -99,7 +98,7 @@ export default {
      * @param {string|Object} options.payload api 的第一个参数，取决于 api
      * @param {requestCallback} [options.callback] 打赏成功后的回调方法, 接受一个参数 amount 打赏金额
      */
-    bus.$on("reward", options => {
+    this.$bus.$on("reward", options => {
       const { type, api, payload, callback = noop } = options;
       this.type = type;
       this.api = api;

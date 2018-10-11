@@ -1,5 +1,4 @@
 <script>
-import bus from "@/bus.js";
 import FeedCard from "./FeedCard.vue";
 import * as api from "@/api/group.js";
 
@@ -109,7 +108,7 @@ export default {
         this.comments.unshift(comment);
         if (this.comments.length > 5) this.comments.pop();
         this.$Message.success("评论成功");
-        bus.$emit("commentInput:close", true);
+        this.$bus.$emit("commentInput:close", true);
       });
     },
     handleCollection() {
@@ -146,7 +145,7 @@ export default {
           actions.push({
             text: "置顶帖子",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 type: "post-manager",
                 api: api.pinnedPost,
                 payload: this.feed.id,
@@ -177,7 +176,12 @@ export default {
                 }
               ];
               setTimeout(() => {
-                bus.$emit("actionSheet", actions, "取消", "确认撤销置顶?");
+                this.$bus.$emit(
+                  "actionSheet",
+                  actions,
+                  "取消",
+                  "确认撤销置顶?"
+                );
               }, 200);
             }
           });
@@ -185,7 +189,7 @@ export default {
         actions.push({
           text: "申请帖子置顶",
           method: () => {
-            bus.$emit("applyTop", {
+            this.$bus.$emit("applyTop", {
               type: "post",
               api: api.applyTopPost,
               payload: this.feed.id
@@ -219,7 +223,7 @@ export default {
                   }
                 }
               ];
-              bus.$emit("actionSheet", actions, "取消", "确认删除?");
+              this.$bus.$emit("actionSheet", actions, "取消", "确认删除?");
             }, 200);
           }
         });
@@ -233,16 +237,16 @@ export default {
         });
       }
 
-      bus.$emit("actionSheet", actions, "取消");
+      this.$bus.$emit("actionSheet", actions, "取消");
     },
     commentAction({ isMine = false, placeholder, reply_user, comment }) {
       if (isMine) {
         const isOwner = this.feed.user.id === this.CURRENTUSER.id;
-        bus.$emit("actionSheet", [
+        this.$bus.$emit("actionSheet", [
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              bus.$emit("applyTop", {
+              this.$bus.$emit("applyTop", {
                 isOwner,
                 type: "postComment",
                 api: api.applyTopPostComment,

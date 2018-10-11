@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 export default {
   name: "CheckIn",
   data() {
@@ -82,7 +81,7 @@ export default {
     }
   },
   created() {
-    bus.$on("check-in", () => {
+    this.$bus.$on("check-in", () => {
       this.updateDate();
       this.show = true;
       this.scrollTop = document.scrollingElement.scrollTop;

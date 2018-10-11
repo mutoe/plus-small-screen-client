@@ -123,7 +123,6 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
-import bus from "@/bus.js";
 import TextareaInput from "@/components/common/TextareaInput.vue";
 
 export default {
@@ -315,7 +314,7 @@ export default {
     },
     cancel() {
       this.question.title || this.question.body
-        ? bus.$emit(
+        ? this.$bus.$emit(
             "actionSheet",
             [
               {

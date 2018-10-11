@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapGetters } from "vuex";
 import ImageList from "./components/ImageList.vue";
 import TextareaInput from "@/components/common/TextareaInput.vue";
@@ -76,7 +75,7 @@ export default {
   methods: {
     beforeGoBack() {
       this.contentText.length > 0
-        ? bus.$emit(
+        ? this.$bus.$emit(
             "actionSheet",
             [
               {
@@ -105,7 +104,7 @@ export default {
         }
         if (this.pinned) {
           if (!this.composePhoto.some(item => item.amount > 0)) {
-            bus.$emit(
+            this.$bus.$emit(
               "actionSheet",
               [
                 {

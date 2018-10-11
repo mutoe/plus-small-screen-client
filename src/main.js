@@ -24,6 +24,7 @@ import components from "./components.js";
 import store from "./stores/";
 import router from "./routers/";
 import App from "./app";
+import bus from "./bus";
 import "./registerServiceWorker";
 
 import * as WebIM from "@/vendor/easemob";
@@ -40,6 +41,7 @@ Vue.prototype.$http = Ajax;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$MessageBundle = filters.plusMessageFirst;
+Vue.prototype.$bus = bus;
 
 Vue.use(AsyncImage);
 Vue.use(imgCropper);

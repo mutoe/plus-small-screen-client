@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-import bus from "@/bus.js";
 import { noop } from "@/util";
 
 export default {
@@ -62,7 +61,7 @@ export default {
   },
   created: function() {
     window.addEventListener("popstate", this.cancel, false);
-    bus.$on("payfor", options => {
+    this.$bus.$on("payfor", options => {
       const {
         title,
         cancelText,

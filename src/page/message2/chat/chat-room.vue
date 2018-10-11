@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
-
 import $Message from "@/plugins/message-box";
 import WebIM, { sendTextMessage } from "@/vendor/easemob";
 
@@ -110,7 +108,7 @@ export default {
       const room = this.$store.getters.getRoomById(this.roomId)[0];
       if (room) {
         this.room = room;
-        bus.$on("UpdateRoomMessages", () => {
+        this.$bus.$on("UpdateRoomMessages", () => {
           room.messages().then(msgs => {
             this.messages = msgs;
           });

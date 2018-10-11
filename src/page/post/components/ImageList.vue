@@ -101,7 +101,6 @@
   </div>
 </template>
 <script>
-import bus from "@/bus.js";
 import { mapActions } from "vuex";
 import sendImage from "@/util/SendImage.js";
 import ImagePaidOption from "./ImagePaidOption.vue";
@@ -262,7 +261,7 @@ export default {
           h: el.naturalHeight
         };
       });
-      bus.$emit("mvGallery", {
+      this.$bus.$emit("mvGallery", {
         component: this,
         index,
         images

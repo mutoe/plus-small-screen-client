@@ -58,7 +58,6 @@
 
 #### 调用方法
 ``` js
-import bus from "@/bus";
 /**
  * @typedef {Object} ActionButton
  * @property {string} text - 按钮的文字
@@ -75,7 +74,7 @@ const actions = [
  * @param {string} [cancelTxt] - "取消"
  * @param {string} [tips] - 提示文字
  */
-bus.$emit('actionSheet', actions, '取消', '你确定要这么做吗？');
+this.$bus.$emit('actionSheet', actions, '取消', '你确定要这么做吗？');
 ```
 
 ### 打赏 (reward)
@@ -85,7 +84,6 @@ bus.$emit('actionSheet', actions, '取消', '你确定要这么做吗？');
 #### 调用方法
 以打赏动态为例
 ``` js
-import bus from "@/bus";
 // ...
 const api = axios.post(url, payload, {validateStatus});
 const cb = amount => { console.log(amount); }
@@ -98,7 +96,7 @@ const cb = amount => { console.log(amount); }
  * @param {string|Object} options.payload api 的第一个参数，取决于 api
  * @param {requestCallback} [options.callback = noop] 打赏成功后的回调方法, 接受一个参数 amount 打赏金额
  */
-bus.$emit("reward", {
+this.$bus.$emit("reward", {
   type: "feed",
   api,
   payload: { feedID },
@@ -110,7 +108,6 @@ bus.$emit("reward", {
 
 #### 调用方法
 ``` js
-import bus from "@/bus";
 // ...
 const api = axios.post(url, payload, {validateStatus});
 const cb = () => { console.log("success"); }
@@ -124,7 +121,7 @@ const cb = () => { console.log("success"); }
  * @param {boolean} [options.isOwner = false] 是否是文章的所有者, 文章的所有者申请置顶时文案略有不同
  * @param {requestCallback} [options.callback = noop] 申请置顶成功后执行的回调方法
  */
-bus.$emit("applyTop", {
+this.$bus.$emit("applyTop", {
   type: "",
   api,
   payload: { feedID },

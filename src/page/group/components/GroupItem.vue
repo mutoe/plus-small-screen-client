@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 
 export default {
@@ -94,7 +93,7 @@ export default {
       this.loading = true;
       !this.needPaid
         ? this.joinGroup()
-        : bus.$emit("payfor", {
+        : this.$bus.$emit("payfor", {
             title: "申请加入圈子",
             confirmText: "支付并加入",
             amount: this.money,

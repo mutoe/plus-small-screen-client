@@ -142,7 +142,6 @@
 </template>
 
 <script>
-import bus from "@/bus";
 import { render } from "@/util/markdown";
 import * as api from "@/api/question/questions";
 import { listByDefault, listByTime } from "@/api/question/answer";
@@ -312,7 +311,7 @@ export default {
           }
         }
       ];
-      bus.$emit("actionSheet", actions, "取消");
+      this.$bus.$emit("actionSheet", actions, "取消");
     }
   }
 };

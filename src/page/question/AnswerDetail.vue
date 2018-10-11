@@ -119,7 +119,6 @@
 
 <script>
 import _ from "lodash";
-import bus from "@/bus.js";
 import { mapState } from "vuex";
 import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
@@ -260,7 +259,7 @@ export default {
       else this.$Message.success("请使用浏览器的分享功能😳");
     },
     commentAnswer() {
-      bus.$emit("commentInput", {
+      this.$bus.$emit("commentInput", {
         onOk: text => {
           this.sendComment({ body: text });
         }
@@ -272,7 +271,7 @@ export default {
         this.reward.count += 1;
         this.reward.amount += amount;
       };
-      bus.$emit("reward", {
+      this.$bus.$emit("reward", {
         type: "answer",
         api: api.rewardAnswer,
         payload: this.answerId,
@@ -329,7 +328,7 @@ export default {
     },
     replyComment(uid, uname, commentId) {
       uid === this.CURRENTUSER.id
-        ? bus.$emit(
+        ? this.$bus.$emit(
             "actionSheet",
             [
               {
@@ -341,7 +340,7 @@ export default {
             ],
             "取消"
           )
-        : bus.$emit("commentInput", {
+        : this.$bus.$emit("commentInput", {
             placeholder: `回复： ${uname}`,
             onOk: text => {
               this.sendComment({ reply_user: uid, body: text });
@@ -363,11 +362,11 @@ export default {
             this.$Message.success("评论成功");
             this.comments.unshift(comment);
             this.commentCount += 1;
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           })
           .catch(() => {
             this.$Message.error("评论失败");
-            bus.$emit("commentInput:close", true);
+            this.$bus.$emit("commentInput:close", true);
           });
       } else {
         this.$Message.error("评论内容不能为空");
@@ -378,7 +377,7 @@ export default {
         this.$Message.success("删除评论成功");
         _.remove(this.comments, c => c.id === commentId);
         this.commentCount -= 1;
-        bus.$emit("commentInput:close", true);
+        this.$bus.$emit("commentInput:close", true);
       });
     },
     followUser(status) {

@@ -27,7 +27,6 @@
     </transition>
 </div></template>
 <script>
-import bus from "@/bus.js";
 import { noop } from "@/util";
 
 export default {
@@ -41,7 +40,7 @@ export default {
     };
   },
   created() {
-    bus.$on(
+    this.$bus.$on(
       "info-tips",
       ({
         title = this.title,
