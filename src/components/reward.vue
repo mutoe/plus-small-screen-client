@@ -48,21 +48,26 @@
           <button
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
-            @click="handleOk">
+            @click="showPasswordConfirm">
             <circle-loading v-if="loading"/>
             <span v-else>确定</span>
           </button>
         </div>
       </main>
+
+      <password-confirm ref="password" @submit="reward" />
+
     </div>
   </transition>
 </template>
 
 <script>
 import { noop } from "@/util";
+import PasswordConfirm from "@/components/common/PasswordConfirm.vue";
 
 export default {
   name: "Reward",
+  components: { PasswordConfirm },
   data() {
     return {
       show: false,
@@ -108,26 +113,27 @@ export default {
     });
   },
   methods: {
-    reward() {
+    showPasswordConfirm() {
+      this.$refs.password.show();
+    },
+    reward(password) {
       if (this.loding || !this.type) return;
       this.loading = true;
-      const params = {
-        amount: ~~this.amount
+      const data = {
+        amount: ~~this.amount,
+        password
       };
-      this.api(this.payload, params)
+      this.api(this.payload, data)
         .then(() => {
           this.loading = false;
           this.$Message.success("打赏成功");
-          this.callback(params.amount);
+          this.callback(data.amount);
           this.$nextTick(this.cancel);
         })
         .catch(({ response: { data: message } }) => {
           message && this.$Message.error(message);
           this.loading = false;
         });
-    },
-    handleOk() {
-      this.reward();
     },
     chooseDefaultAmount(amount) {
       this.customAmount && (this.customAmount = null);
