@@ -104,7 +104,8 @@ export default {
     onCancel() {},
     onSuccess() {},
     showPasswordConfirm() {
-      this.$refs.password.show();
+      if (this.node) this.$refs.password.show();
+      else this.handleOk();
     },
     handleOk(password) {
       this.onOk(password);

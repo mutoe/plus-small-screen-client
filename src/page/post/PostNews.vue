@@ -161,6 +161,9 @@
           </div>
           <p>不上传封面则默认为文章内第一张图</p>
           <button class="m-long-btn m-signin-btn" @click="handleOk">{{ newsPay ? '支付并发布资讯' : '发布资讯' }}</button>
+
+          <password-confirm ref="password" @submit="handlePostNews" />
+
         </div>
       </template>
     </transition-group>
@@ -171,13 +174,15 @@
 <script>
 import { mapState } from "vuex";
 import chooseCate from "@/page/chooseCate.vue";
+import PasswordConfirm from "@/components/common/PasswordConfirm.vue";
 import sendImage from "@/util/SendImage.js";
-import { postNews } from "@/api/news.js";
+import * as api from "@/api/news.js";
 
 export default {
   name: "PostNews",
   components: {
-    chooseCate
+    chooseCate,
+    PasswordConfirm
   },
   data() {
     return {
@@ -328,16 +333,31 @@ export default {
     posterError() {
       this.$Message.error("封面图上传失败, 请重试");
     },
-    handlePostNews(param) {
+    handlePostNews(password) {
+      const { title, content } = this.news;
+      const param = {
+        title,
+        content,
+        tags: this.tags.map(t => t.id).join(","),
+        password
+      };
       this.news.form && (param.form = this.news.form);
       this.poster.id > 0 && (param.image = this.poster.id);
       this.news.author && (param.author = this.news.author);
       this.news.subject && (param.subject = this.news.subject);
 
-      postNews(this.category.id, param).then(({ data }) => {
-        this.$Message.success(data);
-        this.goBack();
-      });
+      api
+        .postNews(this.category.id, param)
+        .then(({ data }) => {
+          this.$Message.success(data);
+          this.goBack();
+        })
+        .catch(err => {
+          this.$Message.error(err.response.data);
+        });
+    },
+    showPasswordConfirm() {
+      this.$refs.password.show();
     },
     handleOk() {
       const { title, content } = this.news;
@@ -348,11 +368,7 @@ export default {
       if (this.tags.length === 0) {
         return this.$Message.error("请选择标签"), (this.step = 2);
       }
-      const param = {
-        title,
-        content,
-        tags: this.tags.map(t => t.id).join(",")
-      };
+
       this.newsPay
         ? this.$bus.$emit("payfor", {
             title: "投稿支付",
@@ -363,10 +379,10 @@ export default {
             confirmText: "确认投稿",
             cancelText: "暂不考虑",
             onOk: () => {
-              this.handlePostNews(param);
+              this.showPasswordConfirm();
             }
           })
-        : this.handlePostNews(param);
+        : this.handlePostNews();
     },
     preStep() {
       this.step > 1 &&
