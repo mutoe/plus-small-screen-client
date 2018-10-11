@@ -10,12 +10,10 @@ import "./util/rem";
 import "./util/prototype"; // 原型拓展
 
 import Modal from "./plugins/modal/";
-// import imgLazy from "./plugins/imgLazy";
 import Message from "./plugins/message/";
 import AsyncImage from "./components/FeedCard/v-async-image.js";
 
 import imgCropper from "@/plugins/imgCropper";
-// import Toast from "@/plugins/toast/index.js";
 import lstore from "@/plugins/lstore/index.js";
 
 import Ajax from "./api/api.js";
@@ -43,10 +41,8 @@ Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$MessageBundle = filters.plusMessageFirst;
 
-// Vue.use(imgLazy);
 Vue.use(AsyncImage);
 Vue.use(imgCropper);
-// Vue.use(Toast);
 Vue.use(lstore);
 
 for (const k in filters) {
