@@ -64,21 +64,26 @@
           <button
             :disabled="disabled || loading"
             class="m-long-btn m-signin-btn"
-            @click="handleOk">
+            @click="showPasswordConfirm">
             <circle-loading v-if="loading"/>
             <span v-else>{{ isOwner ? '确认置顶' : '申请置顶' }}</span>
           </button>
         </div>
       </main>
+
+      <password-confirm ref="password" @submit="applyTop"/>
+
     </div>
   </transition>
 </template>
 
 <script>
 import { noop } from "@/util";
+import PasswordConfirm from "@/components/common/PasswordConfirm.vue";
 
 export default {
   name: "ApplyTop",
+  components: { PasswordConfirm },
   data() {
     return {
       day: 0,
@@ -136,7 +141,10 @@ export default {
     });
   },
   methods: {
-    applyTop() {
+    showPasswordConfirm() {
+      this.$refs.password.show();
+    },
+    applyTop(password) {
       if (this.currency < this.amount) {
         this.$router.push({ name: "currencyRecharge" });
         return this.cancel();
@@ -145,7 +153,8 @@ export default {
       this.loading = true;
       const params = {
         amount: ~~this.amount,
-        day: this.day
+        day: this.day,
+        password
       };
 
       this.applyApi(this.applyPayload, params)
@@ -159,9 +168,6 @@ export default {
           this.loading = false;
           this.$Message.error(err.response.data);
         });
-    },
-    handleOk() {
-      this.applyTop();
     },
     chooseDefaultDay(day) {
       this.day = day;
