@@ -25,13 +25,11 @@
 
 ## 安装
 
-下载途径有多种，你可以采用你喜欢的方式进行下载：
+[Plus (ThinkSNS+) SPA 安装指南](https://slimkit.github.io/plus/guide/installation/install-spa.html)
 
-- Composer: `composer create-project slimkit/plus-small-screen-client`
-- Git clone: `git clone https://github.com/slimkit/plus-small-screen-client`
-- Archive Download: 点击仓库页面的 `Download` 按钮即可下载
+## 配置
 
-下载完成后，进入项目目录，你会看到 `.env.example` 文件，复制一份为 `.env` 文件，配置说明：
+`.env` 文件配置说明：
 
 ```yaml
 BASE_URL=/                                             # 我们假设你部署在一个域名下，所以默认 `/`, 例如你部署在子目录下，请设置子目录，必须以 `/` 结尾！
