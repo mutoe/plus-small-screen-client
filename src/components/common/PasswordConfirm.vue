@@ -27,7 +27,7 @@
               type="submit"
               @click="submit" >确认</button>
           </form>
-          <router-link :class="{disabled}" to="/forget">忘记密码?</router-link>
+          <a :class="{disabled}" @click="onForgotClick">忘记密码?</a>
         </main>
       </div>
     </transition>
@@ -69,6 +69,10 @@ export default {
       this.$emit("submit", this.password);
       this.visible = false;
       this.password = "";
+    },
+    onForgotClick() {
+      this.$router.push({ path: "/forgot" });
+      this.cancel();
     }
   }
 };

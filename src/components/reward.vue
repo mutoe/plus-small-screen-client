@@ -91,6 +91,9 @@ export default {
   watch: {
     customAmount(val) {
       this.amount = ~~val;
+    },
+    $route(to, from) {
+      if (to !== from) this.cancel();
     }
   },
   created() {

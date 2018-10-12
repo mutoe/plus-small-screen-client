@@ -119,6 +119,11 @@ export default {
       return currency.sum || 0;
     }
   },
+  watch: {
+    $route(to, from) {
+      if (to !== from) this.cancel();
+    }
+  },
   created() {
     /**
      * 弹出申请置顶窗口 (hooks -> applyTop)
