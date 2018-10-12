@@ -76,7 +76,6 @@ export default {
   margin-top: 10px;
   padding: 20px;
   background-color: #fff;
-  width: 100vw;
   height: calc(~"(100vw + 40px) / @{radio}");
 
   > .item {
