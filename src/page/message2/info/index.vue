@@ -136,6 +136,7 @@ export default {
     border-radius: 50px;
     background: red;
     color: #fff;
+    font: initial;
   }
 }
 </style>
