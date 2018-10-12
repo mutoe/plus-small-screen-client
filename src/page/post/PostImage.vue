@@ -70,6 +70,9 @@ export default {
         img => Object.keys(img).length === 0
       );
       return !(imageAllCompleted && this.composePhoto.length > 0);
+    },
+    paycontrol() {
+      return this.$store.state.CONFIG.feed.paycontrol;
     }
   },
   methods: {
@@ -89,9 +92,6 @@ export default {
             "你还有没有发布的内容,是否放弃发布?"
           )
         : this.goBack();
-    },
-    paycontrol() {
-      return this.$store.state.CONFIG.feed.paycontrol;
     },
     sendmessage() {
       if (!this.disabled) {
