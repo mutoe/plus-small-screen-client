@@ -1,3 +1,40 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.1...v4.0.2) (2018-10-12)
+
+
+### Features
+
+* **group:** ([#506](https://github.com/slimkit/plus-small-screen-client/issues/506)) 现在圈子管理员可以删除圈子的帖子了 ([297be76](https://github.com/slimkit/plus-small-screen-client/commit/297be76))
+* **group:** ([#525](https://github.com/slimkit/plus-small-screen-client/issues/525)) 圈子管理员可以将成员加入或移出黑名单了 ([9c3f736](https://github.com/slimkit/plus-small-screen-client/commit/9c3f736))
+* **group:** ([#525](https://github.com/slimkit/plus-small-screen-client/issues/525)) 圈子黑名单列表以及入口 ([6823a68](https://github.com/slimkit/plus-small-screen-client/commit/6823a68))
+
+
+### Bug Fixes
+
+* ([#527](https://github.com/slimkit/plus-small-screen-client/issues/527)) 后台关闭付费动态选项后发表图片动态仍显示付费开关的问题 ([087fc80](https://github.com/slimkit/plus-small-screen-client/commit/087fc80))
+* 修复上传文件第三方请求携带脏参数的问题 😫 ([2073b85](https://github.com/slimkit/plus-small-screen-client/commit/2073b85))
+* 修正 api limit 包引用地址 ([ff798d6](https://github.com/slimkit/plus-small-screen-client/commit/ff798d6))
+* 非标准祖鲁时间修正 ([8682ecf](https://github.com/slimkit/plus-small-screen-client/commit/8682ecf))
+* **certificate:** 身份证号码正则覆盖不全的问题 ([d473144](https://github.com/slimkit/plus-small-screen-client/commit/d473144))
+* **certification:** ([#550](https://github.com/slimkit/plus-small-screen-client/issues/550)) 认证被驳回后显示的title应该为相应的认证类型 ([c6c3003](https://github.com/slimkit/plus-small-screen-client/commit/c6c3003))
+* **component:** 修复自适应文本框高度问题 ([658be4d](https://github.com/slimkit/plus-small-screen-client/commit/658be4d))
+* **feed:** ([#528](https://github.com/slimkit/plus-small-screen-client/issues/528)) 取消动态详情页缓存 ([d0419c7](https://github.com/slimkit/plus-small-screen-client/commit/d0419c7))
+* **find:** 当附近没有用户时服务器返回错误的问题 ([45cf5fd](https://github.com/slimkit/plus-small-screen-client/commit/45cf5fd))
+* **group:** ([#526](https://github.com/slimkit/plus-small-screen-client/issues/526)) 圈外搜索时如果没有帖子则引导去发帖 ([29043b3](https://github.com/slimkit/plus-small-screen-client/commit/29043b3))
+* **message:** 头像资源修正 x4 ([8d1d55c](https://github.com/slimkit/plus-small-screen-client/commit/8d1d55c))
+* **news:** 资讯列表切换时增加加载动画 ([7145c1e](https://github.com/slimkit/plus-small-screen-client/commit/7145c1e))
+* **password:** ([#531](https://github.com/slimkit/plus-small-screen-client/issues/531)) 修改密码时如果密码长度为16位无法修改成功的问题 ([7befebe](https://github.com/slimkit/plus-small-screen-client/commit/7befebe))
+* **post:** 修复发布文字动态不能的问题 ([7960ea5](https://github.com/slimkit/plus-small-screen-client/commit/7960ea5))
+* **register:** ([#532](https://github.com/slimkit/plus-small-screen-client/issues/532)) 修复注册时如果输入了手机号然后切换到邮箱注册，未输入邮箱也能点击注册的问题 ([370ee61](https://github.com/slimkit/plus-small-screen-client/commit/370ee61))
+* **setting:** 修复 about 页面根据不同的信息响应不同的行为 ([f7363aa](https://github.com/slimkit/plus-small-screen-client/commit/f7363aa))
+
+
+### BREAKING CHANGES
+
+* 移除冗余的api封装，只保留一个 ([2503560](https://github.com/slimkit/plus-small-screen-client/commit/2503560))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.0...v4.0.1) (2018-09-27)
 
