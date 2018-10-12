@@ -4,7 +4,7 @@
       <h6>{{ title }}</h6>
       <div :class="`${prefixCls}-more`" @click="to(listUrl)">
         <span>全部</span>
-        <svg class="m-style-svg m-svg-def">
+        <svg class="m-style-svg m-svg-small">
           <use xlink:href="#icon-arrow-right" />
         </svg>
       </div>
@@ -88,7 +88,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @rank-list-prefixCls: rank-list-item;
 
 .@{rank-list-prefixCls} {
@@ -98,17 +98,18 @@ export default {
   }
   &-label {
     &:nth-child(2) {
-      height: 194px;
+      height: 164px;
       margin-left: -30px;
       justify-content: flex-start;
+      padding-bottom: 10px;
     }
     font-size: 26px;
     padding: 0 30px;
     height: 70px;
-    line-height: 68px;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
+
     h6 {
       font-size: 30px;
       color: #333;
@@ -120,9 +121,10 @@ export default {
     width: calc(~"20% - " 30px);
     margin-left: 30px;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     flex-direction: column;
     text-align: center;
+
     &-avatar {
       width: 100px;
       height: 100px;
@@ -145,6 +147,12 @@ export default {
       color: #999;
       font-size: 24px;
     }
+  }
+
+  .m-svg-small {
+    color: @gray;
+    width: 30px;
+    height: 30px;
   }
 }
 </style>
