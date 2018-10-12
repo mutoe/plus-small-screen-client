@@ -102,7 +102,7 @@ export default {
         phone: this.account
       };
       this.$http
-        .post("verifycodes/register", param, {
+        .post("verifycodes", param, {
           validateStatus: s => s === 202
         })
         .then(() => {
