@@ -205,9 +205,11 @@ export default {
   },
   computed: {
     title() {
-      if (this.status === 2)
-        return this.type === "user" ? "个人认证" : "企业认证";
-      return this.step === 1 ? "基本信息" : "上传资料";
+      return this.step === 1
+        ? this.type === "user"
+          ? "个人认证"
+          : "企业认证"
+        : "上传资料";
     },
     /**
      * 认证类型. 必须是 (user|org)
