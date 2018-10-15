@@ -69,7 +69,8 @@
             <svg class="main-button-icon" fill="#666">
               <use :xlink:href="`#icon-question-${question.amount ? 'reward' : 'unreward'}`" />
             </svg>
-            {{ question.amount ? '已' : '未' }}设置悬赏
+            <template v-if="invitations.length">已邀请悬赏</template>
+            <template v-else>{{ question.amount ? '已' : '未' }}设置悬赏</template>
           </div>
 
           <div
@@ -208,6 +209,9 @@ export default {
       }
 
       return listByDefault;
+    },
+    invitations() {
+      return this.question.invitations || [];
     }
   },
   watch: {
