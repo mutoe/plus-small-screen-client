@@ -42,21 +42,24 @@
         <p class="m-text-box markdown-body" v-html="formatBody(content)"/>
       </div>
       <div class="m-box m-aln-center m-justify-bet m-art-foot">
-        <div class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list">
-          <template v-if="likeCount > 0">
-            <ul class="m-box m-flex-grow0 m-flex-shrink0 mr10">
-              <li
-                v-for="({user = {}, id}, index) in likes.slice(0, 5)"
-                :key="id"
-                :style="{ zIndex: 5-index }"
-                :class="`m-avatar-box-${user.sex}`"
-                class="m-avatar-box tiny">
-                <img :src="getAvatar(user.avatar)">
-              </li>
-            </ul>
-            <span>{{ likeCount | formatNum }} 人点赞</span>
-          </template>
-        </div>
+        <router-link
+          v-if="likeCount > 0"
+          class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list"
+          tag="div"
+          to="likers"
+          append>
+          <ul class="m-box m-flex-grow0 m-flex-shrink0 mr10">
+            <li
+              v-for="({user = {}, id}, index) in likes.slice(0, 5)"
+              :key="id"
+              :style="{ zIndex: 5-index }"
+              :class="`m-avatar-box-${user.sex}`"
+              class="m-avatar-box tiny">
+              <img :src="getAvatar(user.avatar)">
+            </li>
+          </ul>
+          <span>{{ likeCount | formatNum }} 人点赞</span>
+        </router-link>
         <div class="m-box-model m-aln-end m-art-info">
           <span>发布于{{ time | time2tips }}</span>
           <span>{{ viewsCount | formatNum }}浏览</span>
