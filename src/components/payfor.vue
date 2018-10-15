@@ -53,7 +53,8 @@ export default {
       title: "",
       cancelText: "",
       confirmText: "",
-      content: ""
+      content: "",
+      checkPassword: false
     };
   },
   computed: {
@@ -81,7 +82,8 @@ export default {
         node,
         onSuccess,
         nodeType = "",
-        content = ""
+        content = "",
+        checkPassword = false
       } = options;
 
       this.content = content;
@@ -92,6 +94,7 @@ export default {
       cancelText && (this.cancelText = cancelText);
       confirmText && (this.confirmText = confirmText);
       (amount || +amount === 0) && (this.amount = amount);
+      this.checkPassword = checkPassword;
 
       typeof onOk === "function" && (this.onOk = onOk);
       typeof onCancel === "function" && (this.onCancel = onCancel);
@@ -113,7 +116,7 @@ export default {
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }
-      if (this.node) this.$refs.password.show();
+      if (this.node || this.checkPassword) this.$refs.password.show();
       else this.handleOk();
     },
     handleOk(password) {

@@ -98,6 +98,7 @@ export default {
             confirmText: "支付并加入",
             amount: this.money,
             content: `你只需支付${this.money}积分来加入圈子`,
+            checkPassword: true,
             onOk: async password => {
               this.loading = false;
               if (this.money <= this.CURRENTUSER.currency.sum)
@@ -121,8 +122,9 @@ export default {
           this.$Message.success(data);
           this.group.joined = this.needPaid ? {} : { audit: 1 };
         })
-        .catch(() => {
+        .catch(err => {
           this.loading = false;
+          this.$Message.error(err.response.data);
         });
     },
     beforeViewDetail() {
