@@ -49,6 +49,7 @@ export default [
     meta: { title: "申请认证" }
   },
   {
+    name: "ProfileCertification",
     path: "/profile/certification",
     component: ProfileCertification,
     meta: { title: "认证信息" }

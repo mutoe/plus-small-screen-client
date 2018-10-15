@@ -65,7 +65,9 @@ export default {
   computed: {
     ...mapState({
       advertiseList: state => state.news.advertise.list,
-      advertiseIndex: state => state.news.advertise.index
+      advertiseIndex: state => state.news.advertise.index,
+      newsVerified: state => state.CONFIG["news:contribute"].verified,
+      userVerify: state => state.USER_VERIFY || {}
     }),
     after() {
       const len = this.newsList.length;
@@ -75,6 +77,7 @@ export default {
   mounted() {
     this.$store.dispatch("news/getAdvertise");
     if (!this.newsList.length) this.$refs.loadmore.beforeRefresh();
+    if (this.newsVerified) this.$store.dispatch("FETCH_USER_VERIFY");
   },
   methods: {
     onCateChange({ id = 0 } = {}) {
@@ -131,7 +134,9 @@ export default {
         !this.$store.state.CONFIG["news:contribute"].verified ||
         !_.isEmpty(this.$store.state.CURRENTUSER.verified);
       if (noNeedVerify) return this.$router.push({ path: "/post/release" });
-      else {
+      else if (this.userVerify.status === 0) {
+        this.$Message.error("您的认证正在等待审核，通过审核后可发布帖子");
+      } else {
         const actions = [
           {
             text: "个人认证",
