@@ -98,11 +98,12 @@
           <div class="m-box m-aln-center m-lim-width m-post-news-row m-main">
             <span class="m-post-news-row-label">摘要</span>
             <div class="m-box m-flex-grow1 m-flex-shrink1 m-aln-center m-justify-end">
-              <input
-                v-model.trim="news.subject"
-                type="text"
-                dir="rtl"
-                placeholder="请输入摘要信息">
+              <textarea-input
+                v-model="news.subject"
+                class="textarea-input"
+                maxlength="200"
+                warnlength="150"
+                placeholder="请输入摘要信息，最多200字" />
             </div>
           </div>
         </div>
@@ -175,6 +176,7 @@
 import { mapState } from "vuex";
 import chooseCate from "@/page/chooseCate.vue";
 import PasswordConfirm from "@/components/common/PasswordConfirm.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 import sendImage from "@/util/SendImage.js";
 import * as api from "@/api/news.js";
 
@@ -182,7 +184,8 @@ export default {
   name: "PostNews",
   components: {
     chooseCate,
-    PasswordConfirm
+    PasswordConfirm,
+    TextareaInput
   },
   data() {
     return {
@@ -422,9 +425,10 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .p-post-news {
   min-height: 100vh;
+
   .m-poster-box {
     position: relative;
     background: #f4f5f5;
@@ -517,6 +521,19 @@ export default {
 
   .placeholder {
     color: #ccc;
+  }
+}
+</style>
+
+<style lang="less">
+.p-post-news {
+  .textarea-input {
+    padding-right: 0;
+
+    textarea {
+      text-align: right;
+      width: 100%;
+    }
   }
 }
 </style>
