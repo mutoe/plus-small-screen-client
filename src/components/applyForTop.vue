@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <template v-if="applyType !== 'post-manager'">
+          <template v-if="!isManager">
             <div class="m-box m-aln-center m-justify-bet m-bb1 m-pinned-row plr20 m-pinned-amount-customize m-main" style="margin-top: .2rem">
               <span>置顶金额</span>
               <div class="m-box m-aln-center">
@@ -66,7 +66,7 @@
             class="m-long-btn m-signin-btn"
             @click="showPasswordConfirm">
             <circle-loading v-if="loading"/>
-            <span v-else>{{ isOwner ? '确认置顶' : '申请置顶' }}</span>
+            <span v-else>{{ isOwner || isManager ? '确认置顶' : '申请置顶' }}</span>
           </button>
         </div>
       </main>
@@ -117,6 +117,9 @@ export default {
     currency() {
       const currency = this.$store.state.CURRENTUSER.currency || {};
       return currency.sum || 0;
+    },
+    isManager() {
+      return this.applyType === "post-manager";
     }
   },
   watch: {
@@ -152,7 +155,8 @@ export default {
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }
-      this.$refs.password.show();
+      if (this.isManager) this.applyTop();
+      else this.$refs.password.show();
     },
     applyTop(password) {
       if (this.loading || !this.applyType) return;
