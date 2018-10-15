@@ -1,8 +1,8 @@
 <template>
-  <transition name="fade">
+  <transition name="pop">
     <div v-if="show" class="m-box-model m-pos-f p-choose-category m-main">
 
-      <common-header>选择栏目</common-header>
+      <common-header :back="cancel">选择栏目</common-header>
 
       <main>
         <ul class="m-cates">

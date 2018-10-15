@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="pop">
     <div v-if="show" class="m-box-model m-pos-f p-choose-tags m-main">
 
       <common-header :back="nextFuc">选择标签</common-header>
