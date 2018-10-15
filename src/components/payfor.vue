@@ -62,6 +62,10 @@ export default {
         (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
           .name || "积分"
       );
+    },
+    currentCurrency() {
+      const user = this.$store.state.CURRENTUSER;
+      return user.currency.sum || 0;
     }
   },
   created: function() {
@@ -104,6 +108,11 @@ export default {
     onCancel() {},
     onSuccess() {},
     showPasswordConfirm() {
+      if (this.currentCurrency < this.amount) {
+        this.$Message.error("积分不足，请充值");
+        this.cancel();
+        return this.$router.push({ name: "currencyRecharge" });
+      }
       if (this.node) this.$refs.password.show();
       else this.handleOk();
     },
@@ -116,7 +125,8 @@ export default {
               this.onSuccess(data);
               this.cancel();
             })
-            .catch(() => {
+            .catch(({ response }) => {
+              this.$Message.error(response.data);
               this.cancel();
             })
         : this.cancel();

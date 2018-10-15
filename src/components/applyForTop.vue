@@ -147,13 +147,14 @@ export default {
   },
   methods: {
     showPasswordConfirm() {
+      if (this.currency < this.amount) {
+        this.$Message.error("积分不足，请充值");
+        this.cancel();
+        return this.$router.push({ name: "currencyRecharge" });
+      }
       this.$refs.password.show();
     },
     applyTop(password) {
-      if (this.currency < this.amount) {
-        this.$router.push({ name: "currencyRecharge" });
-        return this.cancel();
-      }
       if (this.loading || !this.applyType) return;
       this.loading = true;
       const params = {

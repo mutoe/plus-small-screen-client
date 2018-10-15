@@ -219,6 +219,10 @@ export default {
           .name || "积分"
       );
     },
+    currentCurrency() {
+      const user = this.$store.state.CURRENTUSER;
+      return user.currency.sum || 0;
+    },
     canPostNews() {
       return !this.newsVerified || (this.newsVerified && this.verified);
     },
@@ -357,6 +361,11 @@ export default {
         });
     },
     showPasswordConfirm() {
+      if (this.currentCurrency < this.amount) {
+        this.$Message.error("积分不足，请充值");
+        this.cancel();
+        return this.$router.push({ name: "currencyRecharge" });
+      }
       this.$refs.password.show();
     },
     handleOk() {

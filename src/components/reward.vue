@@ -86,6 +86,10 @@ export default {
     },
     disabled() {
       return !this.amount > 0;
+    },
+    currentCurrency() {
+      const user = this.$store.state.CURRENTUSER;
+      return user.currency.sum || 0;
     }
   },
   watch: {
@@ -117,6 +121,11 @@ export default {
   },
   methods: {
     showPasswordConfirm() {
+      if (this.currentCurrency < this.amount) {
+        this.$Message.error("积分不足，请充值");
+        this.cancel();
+        return this.$router.push({ name: "currencyRecharge" });
+      }
       this.$refs.password.show();
     },
     reward(password) {
