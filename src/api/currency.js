@@ -1,4 +1,5 @@
 import api from "./api";
+import Message from "@/plugins/message";
 
 /**
  * 获取积分配置信息
@@ -56,7 +57,11 @@ export function postCurrencyRecharge(data) {
  * @returns
  */
 export function postCurrencyWithdraw(data) {
-  return api.post("/currency/cash", data, {
-    validateStatus: s => s === 201
-  });
+  return api
+    .post("/currency/cash", data, {
+      validateStatus: s => s === 201
+    })
+    .catch(({ response }) => {
+      Message.error(response.data);
+    });
 }

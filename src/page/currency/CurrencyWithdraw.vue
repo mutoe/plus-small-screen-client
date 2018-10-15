@@ -72,7 +72,8 @@ export default {
   },
   computed: {
     ...mapState({
-      currency: "currency"
+      currency: "currency",
+      user: "CURRENTUSER"
     }),
     cash() {
       return this.currency.cash;
@@ -83,6 +84,9 @@ export default {
     },
     disabled() {
       return this.amount < this.cash.min || this.amount > this.cash.max;
+    },
+    currentCurrency() {
+      return this.user.currency.sum || 0;
     }
   },
   mounted() {
@@ -90,6 +94,11 @@ export default {
   },
   methods: {
     async handleOk() {
+      // 积分不足时前往充值
+      if (this.amount > this.currentCurrency) {
+        this.$Message.error("积分不足，请充值");
+        return this.$router.push({ name: "currencyRecharge" });
+      }
       const { message } = await this.$store.dispatch(
         "currency/requestWithdraw",
         this.amount
