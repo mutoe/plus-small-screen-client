@@ -38,7 +38,7 @@
         <div class="m-box m-lim-width question-title">
           <textarea-input
             v-model="question.title"
-            :maxlength="50"
+            :maxlength="51"
             :warnlength="30"
             placeholder="请输入问题并以问号结尾"/>
         </div>
