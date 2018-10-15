@@ -99,11 +99,10 @@
           <div class="m-form-row m-main auto-height">
             <label for="desc">{{ formInfo[type].desc.label }}</label>
             <div class="m-input">
-              <textarea
+              <textarea-input
                 id="desc"
                 v-model="fields.desc"
-                :placeholder="formInfo[type].desc.placeholder"
-                rows="3"/>
+                :placeholder="formInfo[type].desc.placeholder"/>
             </div>
           </div>
           <div class="m-box m-aln-center m-text-box m-form-err-box">
@@ -155,6 +154,7 @@
  */
 
 import ImagePoster from "@/components/ImagePoster.vue";
+import TextareaInput from "@/components/common/TextareaInput.vue";
 import * as api from "@/api/user.js";
 import { noop } from "@/util";
 
@@ -178,7 +178,8 @@ const formInfo = {
 export default {
   name: "Certificate",
   components: {
-    ImagePoster
+    ImagePoster,
+    TextareaInput
   },
   data() {
     return {
@@ -387,8 +388,7 @@ export default {
         }
       }
 
-      .m-input input,
-      .m-input textarea {
+      .m-input input {
         text-align: right;
       }
 
@@ -414,6 +414,18 @@ export default {
     .poster-tips {
       color: #666;
       font-size: 80%;
+    }
+  }
+}
+</style>
+
+<style lang="less">
+.p-profile-certificate {
+  .textarea-wrap {
+    padding-right: 0;
+    textarea {
+      text-align: right;
+      width: 100%;
     }
   }
 }
