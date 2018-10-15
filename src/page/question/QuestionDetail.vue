@@ -4,10 +4,10 @@
     <common-header>问题详情</common-header>
 
     <div class="container">
-      <load-more
-        ref="questionLoadContainer"
-        :on-refresh="handleRefreshAnswers"
-        :on-load-more="handleLoadMoreAnswers" >
+      <jo-load-more
+        ref="loadmore"
+        @onRefresh="handleRefreshAnswers"
+        @onLoadMore="handleLoadMoreAnswers" >
         <!-- Main -->
         <div class="main">
 
@@ -107,7 +107,7 @@
           v-for="answer in answers"
           :key="answer.id"
           :answer="answer" />
-      </load-more>
+      </jo-load-more>
     </div>
 
     <!-- <div class="tabbar">
@@ -200,9 +200,6 @@ export default {
 
       return render(body);
     },
-    loadContainer() {
-      return this.$refs.questionLoadContainer;
-    },
     answerRequestMethod() {
       if (this.answersTimeOrder) {
         return listByTime;
@@ -218,12 +215,12 @@ export default {
     answersTimeOrder(newRoute, oldRoute) {
       if (newRoute.path === oldRoute.path) {
         this.answers = [];
-        this.loadContainer.beforeRefresh();
+        this.$refs.loadmore.beforeRefresh();
       }
     }
   },
   mounted() {
-    this.loadContainer.beforeRefresh();
+    this.$refs.loadmore.beforeRefresh();
   },
   methods: {
     fetch(cb = noop) {
@@ -234,21 +231,18 @@ export default {
           cb();
         })
         .catch(({ response: { data } = {} }) => {
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterRefresh();
           this.$Message.error(data);
         });
     },
     refreshAnswer() {
       this.answerRequestMethod(this.$route.params.id)
         .then(({ data }) => {
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(data.length < 15);
+          this.$refs.loadmore.afterRefresh(data.length < 15);
           this.answers = data;
         })
         .catch(({ response: { data } = {} }) => {
-          this.loadContainer.topEnd(false);
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterRefresh();
           this.$Message.error(data);
         });
     },
@@ -281,11 +275,11 @@ export default {
       if (!this.answers.length) return;
       this.answerRequestMethod(this.$route.params.id, this.answers.length)
         .then(({ data }) => {
-          this.loadContainer.bottomEnd(data.length < 15);
+          this.$refs.loadmore.afterLoadMore(data.length < 15);
           this.answers = [...this.answers, ...data];
         })
         .catch(({ response: { data } = {} }) => {
-          this.loadContainer.bottomEnd(true);
+          this.$refs.loadmore.afterLoadMore(true);
           this.$Message.error(data);
         });
     },
