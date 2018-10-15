@@ -38,7 +38,8 @@
       <question-card
         v-for="question in questions"
         :key="question.id"
-        :question="question" />
+        :question="question"
+        :no-excellent="type === 'excellent'" />
       <div v-if="questions.length && !loadmore" class="main-loadmore">
         <button class="main-loadmore_button" @click="fetchQuestionsMore">加载更多</button>
       </div>

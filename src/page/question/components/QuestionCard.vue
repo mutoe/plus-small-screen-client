@@ -6,7 +6,7 @@
       tag="h3"
       class="title">
       {{ question.subject }}
-      <span v-show="question.excellent" class="shang-i">精</span>
+      <span v-show="question.excellent && !noExcellent" class="shang-i">精</span>
     </router-link>
 
     <!-- The question first image. -->
@@ -50,7 +50,8 @@ export default {
     QuestionListAnswerCard
   },
   props: {
-    question: { type: Object, required: true }
+    question: { type: Object, required: true },
+    noExcellent: { type: Boolean, default: false }
   },
   computed: {
     /**
@@ -134,25 +135,25 @@ export default {
     .dot {
       margin: 0 10px 0 0;
     }
+  }
 
-    .shang {
-      // margin-left: 10px;
+  .shang {
+    // margin-left: 10px;
+    color: #fca308;
+
+    &-i,
+    span {
       color: #fca308;
-
-      &-i,
-      span {
-        color: #fca308;
-        width: 20px;
-        height: 21px;
-        font-size: 22px;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: 0px;
-        letter-spacing: 0px;
-        border: solid 1px #fca308;
-        padding: 0 4px;
-        border-radius: 6px;
-      }
+      width: 20px;
+      height: 21px;
+      font-size: 22px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 0px;
+      letter-spacing: 0px;
+      border: solid 1px #fca308;
+      padding: 0 4px;
+      border-radius: 6px;
     }
   }
 }
