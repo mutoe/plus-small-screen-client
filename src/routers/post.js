@@ -33,6 +33,7 @@ export default [
     }
   },
   {
+    name: "postQuestion",
     path: "/post/question",
     component: postQuestion,
     meta: {

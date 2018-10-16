@@ -35,20 +35,29 @@
       <div v-if="loading" class="main-loading">
         <icon-loading class="main-loading_icon" />
       </div>
+
       <question-card
         v-for="question in questions"
         :key="question.id"
         :question="question"
         :no-excellent="type === 'excellent'" />
+
       <div v-if="questions.length && !loadmore" class="main-loadmore">
         <button class="main-loadmore_button" @click="fetchQuestionsMore">加载更多</button>
       </div>
+
       <div v-else-if="loadmore" class="main-loadmore">
         <button class="main-loadmore_button active">
           <icon-loading class="main-loading_icon" />
         </button>
       </div>
     </main>
+
+    <button class="create-question" @click="$router.push({ name:'postQuestion' })">
+      <svg class="m-style-svg m-svg-small">
+        <use xlink:href="#icon-plus"/>
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -64,33 +73,14 @@ export default {
     QuestionCard,
     IconLoading: LinearLoading
   },
-
-  data: () => ({
-    /**
-     * Questions.
-     * @type {Array}
-     */
-    questions: [],
-
-    /**
-     * Questions loading status.
-     * @type {Boolean}
-     */
-    loading: false,
-
-    /**
-     * Load more question.
-     * @type {Boolean}
-     */
-    loadmore: false
-  }),
+  data() {
+    return {
+      questions: [],
+      loading: false,
+      loadmore: false
+    };
+  },
   computed: {
-    /**
-     * The route query type value.
-     *
-     * @return {string}
-     * @author Seven Du <shiweidu@outlook.com>
-     */
     type() {
       const { type = "hot" } = this.$route.query;
       return type;
@@ -174,19 +164,16 @@ export default {
     position: fixed;
     top: 90px;
     display: flex;
-    width: 100%;
-    height: 90px;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
+    max-width: 768px;
+    height: 90px;
     background: #fff;
     color: #999;
     font-size: 30px;
     border-bottom: solid 1px #dedede;
     z-index: 10;
-
-    @media screen and (min-width: 769px) {
-      width: 768px;
-    }
 
     > a {
       color: #999;
@@ -230,6 +217,26 @@ export default {
           border: none;
         }
       }
+    }
+  }
+
+  .create-question {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    height: 60px;
+    width: 60px;
+    padding: 0;
+    border-radius: 100%;
+    background-color: @primary;
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 12px 0px rgba(89, 182, 215, 0.43);
+    z-index: 1;
+
+    > svg {
+      display: block;
+      margin: auto;
+      color: #fff;
     }
   }
 }
