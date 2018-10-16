@@ -48,7 +48,7 @@ export default {
     top: 0;
     display: block;
     font-size: 30px;
-    padding: 28px 0;
+    padding-bottom: 28px;
     width: calc(~"100% - 20px");
     height: 100%;
     overflow: hidden;
@@ -68,8 +68,6 @@ export default {
   .word-length {
     display: block;
     font-size: 22px;
-    margin-top: -18px;
-    padding-bottom: 18px;
     text-align: right;
   }
 

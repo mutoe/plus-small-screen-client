@@ -46,7 +46,7 @@
                   v-model.trim="orgFields.org_address"
                   :placeholder="formInfo[type].orgAddress.placeholder"
                   type="text"
-                  maxlength="8">
+                  maxlength="20">
               </div>
               <svg
                 v-show="orgFields.org_address.length > 0"
@@ -102,6 +102,8 @@
               <textarea-input
                 id="desc"
                 v-model="fields.desc"
+                :maxlength="200"
+                :warnlength="150"
                 :placeholder="formInfo[type].desc.placeholder"/>
             </div>
           </div>
