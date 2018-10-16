@@ -15,9 +15,9 @@ const actions = {
   },
 
   async searchQuestion(state, payload) {
-    const { keyword = "" } = payload;
+    const { keyword = "", type } = payload;
     if (!keyword) return Promise.resolve([]);
-    const { data } = await questionApi.queryList({ subject: keyword });
+    const { data } = await questionApi.queryList({ subject: keyword, type });
     return data || [];
   },
 

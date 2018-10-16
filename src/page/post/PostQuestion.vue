@@ -216,7 +216,8 @@ export default {
      */
     serachQuestionByKey: _.debounce(async function() {
       const data = await this.$store.dispatch("question/searchQuestion", {
-        keyword: this.question.title
+        keyword: this.question.title,
+        type: "all"
       });
       this.questions = data;
     }, 450),
