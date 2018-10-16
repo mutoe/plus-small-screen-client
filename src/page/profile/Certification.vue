@@ -1,7 +1,7 @@
 <template>
   <div class="p-profile-certification">
 
-    <common-header>{{ type === 'user' ? '个人' : '企业' }}认证</common-header>
+    <common-header :pinned="true">{{ type === 'user' ? '个人' : '企业' }}认证</common-header>
 
     <main class="m-box-model main">
       <div
@@ -132,17 +132,28 @@ export default {
       text-align: center;
     }
 
+    .info-main {
+      background-color: #fff;
+    }
+
     .row {
+      display: flex;
       font-size: 30px;
       line-height: 36px;
-      margin: 78px 30px;
+      margin: 40px;
 
       .label {
-        display: inline-block;
+        flex: none;
+        display: block;
         width: 5em;
         margin-right: 1em;
         color: #999;
-        vertical-align: top;
+      }
+
+      .value {
+        flex: auto;
+        word-wrap: break-word;
+        word-break: break-all;
       }
 
       img {
