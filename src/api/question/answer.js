@@ -55,6 +55,30 @@ export function unlike(answerId) {
 }
 
 /**
+ * 收藏回答
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} answerId
+ * @returns
+ */
+export function collect(answerId) {
+  const url = `/user/question-answer/collections/${answerId}`;
+  return api.post(url, {}, { validateStatus: s => s === 201 });
+}
+
+/**
+ * 取消收藏回答
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} answerId
+ * @returns
+ */
+export function unCollect(answerId) {
+  const url = `/user/question-answer/collections/${answerId}`;
+  return api.delete(url, { validateStatus: s => s === 204 });
+}
+
+/**
  * 获取回答
  * @author mutoe <mutoe@foxmail.com>
  * @export

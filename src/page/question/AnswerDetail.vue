@@ -182,6 +182,14 @@ export default {
     likes() {
       return this.answer.likes || [];
     },
+    collected: {
+      get() {
+        return this.answer.collected;
+      },
+      set(val) {
+        this.answer.collected = val;
+      }
+    },
     likeCount: {
       get() {
         return this.answer.likes_count || 0;
@@ -286,7 +294,30 @@ export default {
         callback
       });
     },
-    moreAction() {},
+    moreAction() {
+      const actions = [];
+      if (!this.collected)
+        actions.push({
+          text: "收藏",
+          method: () => {
+            api.collect(this.answerId).then(() => {
+              this.collected = true;
+              this.$Message.success("收藏成功");
+            });
+          }
+        });
+      else
+        actions.push({
+          text: "取消收藏",
+          method: () => {
+            api.unCollect(this.answerId).then(() => {
+              this.collected = false;
+              this.$Message.success("取消收藏");
+            });
+          }
+        });
+      this.$bus.$emit("actionSheet", actions);
+    },
     fetchRewards() {
       api.getRewards(this.answerId, { limit: 10 }).then(({ data }) => {
         this.rewardList = data;
