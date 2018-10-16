@@ -41,7 +41,7 @@
               placeholder="输入自定义金额"
               oninput="value=value.slice(0, 8)"
               class="m-text-r m-flex-grow1 m-flex-shrink1">
-            <span class="m-flex-grow0 m-flex-shrink0">{{ currency_name }}</span>
+            <span class="m-flex-grow0 m-flex-shrink0">{{ currencyUnit }}</span>
           </div>
         </div>
         <div class="m-image-paid-option-row m-bt1">
@@ -67,12 +67,6 @@ export default {
     };
   },
   computed: {
-    currency_name() {
-      return (
-        (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
-          .name || "积分"
-      );
-    },
     items() {
       return this.$store.state.CONFIG.feed.items || [];
     }

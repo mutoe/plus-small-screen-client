@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="p-currency-detail">
 
-    <common-header class="header">积分明细</common-header>
+    <common-header class="header">{{ currencyUnit }}明细</common-header>
 
     <load-more
       ref="loadmore"

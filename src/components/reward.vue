@@ -19,7 +19,7 @@
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width m-main">
           <div class="m-pinned-amount-btns">
-            <p class="m-pinned-amount-label">选择打赏积分</p>
+            <p class="m-pinned-amount-label">选择打赏{{ currencyUnit }}</p>
             <div class="m-box m-aln-center ">
               <button
                 v-for="item in items"
@@ -35,12 +35,12 @@
             <div class="m-box m-aln-center">
               <input
                 v-model="customAmount"
+                :placeholder="`输入${currencyUnit}`"
                 type="number"
                 class="m-text-r"
                 pattern="[0-9]*"
-                placeholder="输入积分"
                 oninput="value=value.slice(0,8)">
-              <span>积分</span>
+              <span>{{ currencyUnit }}</span>
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default {
   methods: {
     showPasswordConfirm() {
       if (this.currentCurrency < this.amount) {
-        this.$Message.error("积分不足，请充值");
+        this.$Message.error(`${this.currencyUnit}不足，请充值`);
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }

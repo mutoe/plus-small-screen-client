@@ -76,7 +76,7 @@
         </div>
         <div class="m-box-model m-box-center m-box-center-a m-art-reward">
           <button class="m-art-rew-btn" @click="rewardFeed">打 赏</button>
-          <p class="m-art-rew-label"><a href="javascript:;">{{ reward.count | formatNum }}</a>人打赏，共<a href="javascript:;">{{ ~~reward.amount }}</a>积分</p>
+          <p class="m-art-rew-label"><a href="javascript:;">{{ reward.count | formatNum }}</a>人打赏，共<a href="javascript:;">{{ ~~reward.amount }}</a>{{ currencyUnit }}</p>
           <router-link
             tag="ul"
             to="rewarders"

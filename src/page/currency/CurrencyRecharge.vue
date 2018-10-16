@@ -2,7 +2,7 @@
   <div class="p-currency-recharge">
 
     <common-header class="header">
-      充值积分
+      充值{{ currencyUnit }}
       <router-link slot="right" to="/currency/detail" >
         充值记录
       </router-link>
@@ -10,7 +10,7 @@
 
     <section class="m-currency-panel">
       <h3>充值比率</h3>
-      <p>1.0元=100.0积分</p>
+      <p>1.0元=100.0{{ currencyUnit }}</p>
     </section>
 
     <main class="m-box-model m-aln-center m-justify-center">

@@ -9,6 +9,11 @@ export default {
       timeOffset
     };
   },
+  computed: {
+    currencyUnit() {
+      return this.$store.state.currency.unit;
+    }
+  },
   watch: {
     scrollable(val) {
       const el = document.scrollingElement;

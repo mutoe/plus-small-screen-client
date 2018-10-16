@@ -2,7 +2,7 @@
   <div class="p-currency-withdraw">
 
     <common-header class="header">
-      积分提取
+      {{ currencyUnit }}提取
       <router-link
         slot="right"
         :to="{path: '/currency/detail', query: { action: 'cash' } }">
@@ -11,17 +11,17 @@
     </common-header>
 
     <section class="m-currency-panel">
-      <h3>积分兑换余额</h3>
-      <p>100积分=1.00元</p>
+      <h3>{{ currencyUnit }}兑换余额</h3>
+      <p>100{{ currencyUnit }}=1.00元</p>
     </section>
 
     <main>
-      <p>输入需提取的积分</p>
-      <p>提取积分须提交官方审核，审核反馈请关注系统消息！</p>
+      <p>输入需提取的{{ currencyUnit }}</p>
+      <p>提取{{ currencyUnit }}须提交官方审核，审核反馈请关注系统消息！</p>
       <div class="input-wrap">
         <input
           v-model="amount"
-          :placeholder="`请至少提取${cash.min}积分`"
+          :placeholder="`请至少提取${cash.min}${currencyUnit}`"
           type="number"
           oninput="value = value.slice(0,8)">
       </div>
@@ -44,7 +44,7 @@
         <svg class="m-style-svg m-svg-small">
           <use xlink:href="#icon-wallet-warning" />
         </svg>
-        积分提取规则
+        {{ currencyUnit }}提取规则
       </p>
     </footer>
 
@@ -96,7 +96,7 @@ export default {
     async handleOk() {
       // 积分不足时前往充值
       if (this.amount > this.currentCurrency) {
-        this.$Message.error("积分不足，请充值");
+        this.$Message.error(`${this.currencyUnit}不足，请充值`);
         return this.$router.push({ name: "currencyRecharge" });
       }
       const { message } = await this.$store.dispatch(

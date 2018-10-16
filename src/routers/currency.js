@@ -17,7 +17,7 @@ export default [
     path: "/currency",
     component: Currency,
     meta: {
-      title: "积分",
+      title: "", // 积分名称为动态名称，在组件内替换
       requiresAuth: true
     }
   },

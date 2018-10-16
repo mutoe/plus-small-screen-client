@@ -8,12 +8,13 @@ export default {
    * 获取启动信息
    * @author mutoe <mutoe@foxmail.com>
    */
-  async BOOTSTRAPPERS({ commit }) {
+  async BOOTSTRAPPERS({ commit, dispatch }) {
     const promises = [bootApi.getBootstrappers(), bootApi.getAdvertiseType()];
     Promise.all(promises).then(res => {
       const [{ data: bootstrappers = {} }, { data: advertiseType = {} }] = res;
       commit("BOOTSTRAPPERS", bootstrappers);
       commit("ADVERTISEMENT", advertiseType);
+      dispatch("currency/updateCurrencyUnit");
     });
   },
 

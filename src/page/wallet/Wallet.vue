@@ -58,7 +58,7 @@
         <svg class="m-style-svg m-svg-def m-entry-prepend">
           <use xlink:href="#icon-currency-recharge" />
         </svg>
-        <span class="m-text-box m-flex-grow1">积分充值</span>
+        <span class="m-text-box m-flex-grow1">{{ currencyUnit }}充值</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
           <use xlink:href="#icon-arrow-right" />
         </svg>
@@ -120,7 +120,9 @@ export default {
     const amount = this.$route.query.total_amount;
     if (amount) {
       this.$store.dispatch("fetchUserInfo");
-      this.$Message.success(`共消耗${amount}元, 获得 ${amount * 100} 积分!`);
+      this.$Message.success(
+        `共消耗${amount}元, 获得 ${amount * 100} ${this.currencyUnit}!`
+      );
     }
   },
   methods: {

@@ -112,7 +112,7 @@
             <svg class="m-style-svg m-svg-def m-entry-prepend">
               <use xlink:href="#icon-profile-integral"/>
             </svg>
-            <span class="m-text-box m-flex-grow1">{{ currency_name }}</span>
+            <span class="m-text-box m-flex-grow1">{{ currencyUnit }}</span>
             <span class="m-entry-extra">{{ sum }}</span>
             <svg class="m-style-svg m-svg-def m-entry-append">
               <use xlink:href="#icon-arrow-right"/>
@@ -177,14 +177,9 @@ export default {
     ...mapState({
       new_followers: state => state.MESSAGE.NEW_UNREAD_COUNT.following || 0,
       new_mutual: state => state.MESSAGE.NEW_UNREAD_COUNT.mutual || 0,
-      CONFIG: state =>
-        state.CONFIG || { site: { currency_name: { name: "积分" } } },
       user: state => state.CURRENTUSER,
       verified: state => state.USER_VERIFY
     }),
-    currency_name() {
-      return this.CONFIG.site.currency_name.name;
-    },
     extra() {
       return this.user.extra || {};
     },

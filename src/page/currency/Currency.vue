@@ -2,7 +2,7 @@
   <div class="p-currency">
 
     <common-header class="header">
-      我的积分
+      我的{{ currencyUnit }}
       <router-link slot="left" to="/profile">
         <svg class="m-style-svg m-svg-def">
           <use xlink:href="#icon-back" />
@@ -16,7 +16,7 @@
     </common-header>
 
     <section class="m-currency-panel">
-      <h3>当前积分</h3>
+      <h3>当前{{ currencyUnit }}</h3>
       <p>{{ user.currency.sum || 0 }}</p>
     </section>
 
@@ -28,7 +28,7 @@
         <svg class="m-style-svg m-svg-def m-entry-prepend">
           <use xlink:href="#icon-currency-recharge" />
         </svg>
-        <span class="m-text-box m-flex-grow1">充值积分</span>
+        <span class="m-text-box m-flex-grow1">充值{{ currencyUnit }}</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
           <use xlink:href="#icon-arrow-right" />
         </svg>
@@ -40,7 +40,7 @@
         <svg class="m-style-svg m-svg-def m-entry-prepend">
           <use xlink:href="#icon-profile-wallet" />
         </svg>
-        <span class="m-text-box m-flex-grow1">提取积分</span>
+        <span class="m-text-box m-flex-grow1">提取{{ currencyUnit }}</span>
         <svg class="m-style-svg m-svg-def m-entry-append">
           <use xlink:href="#icon-arrow-right" />
         </svg>
@@ -54,13 +54,13 @@
         <svg class="m-style-svg m-svg-small">
           <use xlink:href="#icon-wallet-warning" />
         </svg>
-        积分规则
+        {{ currencyUnit }}规则
       </p>
     </footer>
 
     <popup-dialog
       ref="dialog"
-      title="积分规则">
+      :title="`${currencyUnit}规则`">
       <p v-html="rule"/>
     </popup-dialog>
 
@@ -76,7 +76,9 @@ export default {
   name: "Currency",
   components: { PopupDialog, DetailAd },
   data() {
-    return {};
+    return {
+      fromPageTitle: ""
+    };
   },
   computed: {
     ...mapState({
@@ -87,6 +89,10 @@ export default {
       return this.currency.rule.replace(/\n/g, "<br>");
     }
   },
+  created() {
+    this.fromPageTitle = document.title;
+    document.title = this.currencyUnit;
+  },
   mounted() {
     if (!this.currency.recharge.length)
       this.$store.dispatch("currency/getCurrencyInfo");
@@ -94,8 +100,13 @@ export default {
     const amount = this.$route.query.total_amount;
     if (amount) {
       this.$store.dispatch("fetchUserInfo");
-      this.$Message.success(`共消耗${amount}元, 获得 ${amount * 100} 积分!`);
+      this.$Message.success(
+        `共消耗${amount}元, 获得 ${amount * 100} ${this.currencyUnit}!`
+      );
     }
+  },
+  destroyed() {
+    document.title = this.fromPageTitle;
   },
   methods: {
     showRule() {

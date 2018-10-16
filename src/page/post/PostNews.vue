@@ -216,12 +216,6 @@ export default {
       newsVerified: state => state.CONFIG["news:contribute"].verified,
       verified: state => state.CURRENTUSER.verified
     }),
-    currency_name() {
-      return (
-        (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
-          .name || "积分"
-      );
-    },
     currentCurrency() {
       const user = this.$store.state.CURRENTUSER;
       return user.currency.sum || 0;
@@ -365,7 +359,7 @@ export default {
     },
     showPasswordConfirm() {
       if (this.currentCurrency < this.amount) {
-        this.$Message.error("积分不足，请充值");
+        this.$Message.error(`${this.currencyUnit}不足，请充值`);
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }
@@ -386,7 +380,7 @@ export default {
             title: "投稿支付",
             amount: this.newCurrency,
             content: `本次投稿你需要支付${this.newCurrency}${
-              this.currency_name
+              this.currencyUnit
             },是否继续投稿？`,
             confirmText: "确认投稿",
             cancelText: "暂不考虑",

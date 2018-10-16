@@ -19,7 +19,7 @@
           <!-- amount.toFixed(2) -->
           <h3 class="m-payfor-amount">{{ amount }}</h3>
           <!-- 你只需要支付*积分就可查看此内容/图片/视频 -->
-          <p>{{ content || `你只需要支付${ amount }${ currency_name }就可查看此${ nodeType }` }}</p>
+          <p>{{ content || `你只需要支付${amount}${currencyUnit}就可查看此${ nodeType }` }}</p>
         </div>
         <div class="m-payfor-foot">
           <button
@@ -58,12 +58,6 @@ export default {
     };
   },
   computed: {
-    currency_name() {
-      return (
-        (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
-          .name || "积分"
-      );
-    },
     currentCurrency() {
       const user = this.$store.state.CURRENTUSER;
       return user.currency.sum || 0;
@@ -112,7 +106,7 @@ export default {
     onSuccess() {},
     showPasswordConfirm() {
       if (this.currentCurrency < this.amount) {
-        this.$Message.error("积分不足，请充值");
+        this.$Message.error(`${this.currencyUnit}不足，请充值`);
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }

@@ -34,7 +34,7 @@
                   placeholder="输入金额"
                   oninput="value=value.slice(0,8)"
                   class="m-flex-grow1 m-flex-shrink1 m-text-r">
-                <span>{{ currency_name }}</span>
+                <span>{{ currencyUnit }}</span>
               </div>
             </div>
 
@@ -50,11 +50,11 @@
                   readonly="true"
                   placeholder="总金额"
                   style="background-color: transparent">
-                <span>{{ currency_name }}</span>
+                <span>{{ currencyUnit }}</span>
               </div>
             </div>
             <p class="placeholder m-flex-grow1 m-flex-shrink1">
-              可用积分{{ currencySum }}
+              可用{{ currencyUnit }}{{ currencySum }}
             </p>
           </template>
 
@@ -99,12 +99,6 @@ export default {
     };
   },
   computed: {
-    currency_name() {
-      return (
-        (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
-          .name || "积分"
-      );
-    },
     amount() {
       return this.day * this.customAmount;
     },
@@ -151,7 +145,7 @@ export default {
   methods: {
     showPasswordConfirm() {
       if (this.currency < this.amount) {
-        this.$Message.error("积分不足，请充值");
+        this.$Message.error(`${this.currencyUnit}不足，请充值`);
         this.cancel();
         return this.$router.push({ name: "currencyRecharge" });
       }

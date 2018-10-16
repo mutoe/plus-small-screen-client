@@ -68,7 +68,7 @@
               type="text"
               placeholder="设置收费入圈金额"
               maxlength="8">
-            <span>积分</span>
+            <span>{{ currencyUnit }}</span>
           </label>
         </section>
 

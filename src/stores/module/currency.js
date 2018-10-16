@@ -15,7 +15,8 @@ const state = {
     rule: "",
     min: 100,
     max: 10000000
-  }
+  },
+  unit: "积分"
 };
 
 const getters = {
@@ -26,16 +27,32 @@ const getters = {
 };
 
 const TYPES = {
-  UPDATE_CURRENCY: "UPDATE_CURRENCY"
+  UPDATE_CURRENCY: "UPDATE_CURRENCY",
+  UPDATE_CURRENCY_UNIT: "UPDATE_CURRENCY_UNIT"
 };
 
 const mutations = {
   [TYPES.UPDATE_CURRENCY](state, payload) {
     Object.assign(state, payload);
+  },
+
+  [TYPES.UPDATE_CURRENCY_UNIT](state, payload) {
+    const { unit } = payload;
+    unit && (state.unit = unit);
   }
 };
 
 const actions = {
+  /**
+   * 更新积分单位
+   * @author mutoe <mutoe@foxmail.com>
+   * @param {*} { commit, rootState }
+   */
+  updateCurrencyUnit({ commit, rootState }) {
+    const { currency_name: currency } = rootState.CONFIG.site;
+    commit(TYPES.UPDATE_CURRENCY_UNIT, { unit: currency.name });
+  },
+
   /**
    * 获取基础配置信息
    * @author mutoe <mutoe@foxmail.com>

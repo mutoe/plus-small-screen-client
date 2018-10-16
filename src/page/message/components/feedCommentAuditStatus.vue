@@ -2,13 +2,13 @@
   <div :class="`${prefixCls}-status`">
     <section v-if="audit.comment != null">
       <section v-if="audit.expires_at != null" class="gray">
-        <span class="amount-show">{{ audit.amount }}积分 / {{ audit.day }}天</span>已审核
+        <span class="amount-show">{{ audit.amount }}{{ currencyUnit }} / {{ audit.day }}天</span>已审核
       </section>
       <section
         v-else
         class="green"
         @click="showOperations(audit)">
-        <span class="audit-show">{{ audit.amount }}积分 / {{ audit.day }}天</span>
+        <span class="audit-show">{{ audit.amount }}{{ currencyUnit }} / {{ audit.day }}天</span>
         <span class="audit-operation">审核</span>
       </section>
     </section>

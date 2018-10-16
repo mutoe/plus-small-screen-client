@@ -62,7 +62,7 @@
               class="m-text-r"
               placeholder="输入金额"
               oninput="value=value.slice(0, 8)" >
-            <span>{{ currency_name }}</span>
+            <span>{{ currencyUnit }}</span>
           </div>
         </div>
         <p class="m-pinned-amount-label plr20">注：超过{{ limit }}字部分内容收费</p>
@@ -94,12 +94,6 @@ export default {
     };
   },
   computed: {
-    currency_name() {
-      return (
-        (((this.$store.state.CONFIG || {}).site || {}).currency_name || {})
-          .name || "积分"
-      );
-    },
     paycontrol() {
       return this.$store.state.CONFIG.feed.paycontrol;
     },
