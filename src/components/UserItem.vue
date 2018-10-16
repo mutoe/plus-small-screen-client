@@ -1,19 +1,19 @@
 <template>
-  <div class="m-box m-aln-center m-main user-item" @click="toUserHome">
+  <div class="c-user-item" @click="toUserHome">
     <avatar :user="user" />
-    <section class="m-box-model m-flex-grow1 m-flex-shrink1 m-flex-base0 m-text-cut user-item-body">
+    <section class="user-item-body m-text-cut">
       <h2 class="m-text-box m-text-cut">{{ user.name }}</h2>
       <p class="m-text-box m-text-cut">{{ user.bio || "这家伙很懒，什么也没留下" }}</p>
     </section>
-    <svg
+    <button
       v-if="!isMine"
-      class="m-style-svg m-svg-def"
+      :class="{active: isFollow === 'unFollow'}"
+      class="follow-btn"
       @click.stop="followUser">
-      <use :xlink:href="`#icon-${isFollow}`"/>
-    </svg>
+      {{ followText }}
+    </button>
   </div>
 </template>
-
 <script>
 import { followUserByStatus } from "@/api/user.js";
 
@@ -50,6 +50,10 @@ export default {
         this.follower = val;
       }
     },
+    followText() {
+      if (this.isFollow == "eachFollow") return "相互关注";
+      return this.isFollow === "follow" ? "已关注" : "+ 关注";
+    },
     isMine() {
       return this.$store.state.CURRENTUSER.id === this.user.id;
     }
@@ -77,14 +81,23 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.user-item {
+.c-user-item {
+  display: flex;
+  align-items: center;
   padding: 30px 20px;
+  background-color: #fff;
+
   & + & {
-    border-top: 1px solid #ededed; /*no*/
+    border-top: 1px solid #ededed;
   }
+
   .user-item-body {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
     margin-left: 30px;
     margin-right: 30px;
+
     h2 {
       margin: 9px 0;
       font-size: 32px;
@@ -95,9 +108,23 @@ export default {
       color: @text-color3;
     }
   }
-  .m-svg-def {
-    width: 42px;
-    height: 42px;
+
+  .follow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 5em;
+    height: 1.8em;
+    background: #fff;
+    color: @primary;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+
+    &.active {
+      color: #fff;
+      background-color: @primary;
+    }
   }
 }
 </style>
