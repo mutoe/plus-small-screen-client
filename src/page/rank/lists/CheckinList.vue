@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
 
-    <common-header>全站粉丝排行榜</common-header>
+    <common-header>社区签到排行榜</common-header>
 
     <load-more
       ref="loadmore"
@@ -14,7 +14,7 @@
           :key="user.id"
           :user="user"
           :index="index">
-          <p>粉丝：{{ user.extra.followers_count || 0 }}</p>
+          <p>累计签到：{{ user.extra.checkin_count || 0 }}</p>
         </rank-list-item>
       </div>
     </load-more>
@@ -23,24 +23,24 @@
 
 <script>
 import HeadTop from "@/components/HeadTop";
-import rankListItem from "../components/rankListItem.vue";
+import RankListItem from "../components/RankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
 import { limit } from "@/api";
 
-const api = "/ranks/followers";
+const api = "/checkin-ranks";
 const prefixCls = "rankItem";
 
 export default {
-  name: "FansList",
+  name: "CheckinList",
   components: {
     HeadTop,
-    rankListItem
+    RankListItem
   },
   data() {
     return {
       prefixCls,
       loading: false,
-      vuex: "rankFollowers" // vuex主键
+      vuex: "rankCheckin"
     };
   },
 

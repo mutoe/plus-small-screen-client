@@ -1,13 +1,15 @@
 <template>
   <div>
-    <rank-users-component 
-      v-for="rank in ranks" 
-      v-bind="rank" 
+    <rank-users-component
+      v-for="rank in ranks"
+      v-bind="rank"
       :key="rank.api" />
   </div>
 </template>
+
 <script>
-import RankUsersComponent from "../components/rankUsersComponent";
+import RankUsersComponent from "../components/RankUsersComponent";
+
 const ranks = [
   {
     title: "今日动态排行榜",

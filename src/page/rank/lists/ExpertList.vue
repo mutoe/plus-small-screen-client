@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
 
-    <common-header>{{ title }}资讯排行榜</common-header>
+    <common-header>问答达人排行榜</common-header>
 
     <load-more
       ref="loadmore"
@@ -13,9 +13,7 @@
           :prefix-cls="prefixCls"
           :key="user.id"
           :user="user"
-          :index="index">
-          <p>阅读量：{{ user.extra.count || 0 }}</p>
-        </rank-list-item>
+          :index="index"/>
       </div>
     </load-more>
   </div>
@@ -23,43 +21,24 @@
 
 <script>
 import HeadTop from "@/components/HeadTop";
-import rankListItem from "../components/rankListItem.vue";
+import RankListItem from "../components/RankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
 import { limit } from "@/api";
 
+const api = "/question-ranks/experts";
 const prefixCls = "rankItem";
-const api = "/news/ranks";
-const config = {
-  week: {
-    vuex: "rankNewsWeek",
-    title: "本周",
-    query: "week"
-  },
-  today: {
-    vuex: "rankNewsToday",
-    title: "今日",
-    query: "day"
-  },
-  month: {
-    vuex: "rankNewsMonth",
-    title: "本月",
-    query: "month"
-  }
-};
 
 export default {
-  name: "NewsList",
+  name: "ExpertList",
   components: {
     HeadTop,
-    rankListItem
+    RankListItem
   },
   data() {
     return {
       prefixCls,
       loading: false,
-      title: "", // 标题
-      vuex: "", // vuex主键
-      query: "" // api查询query
+      vuex: "rankQuestionExperts"
     };
   },
 
@@ -69,19 +48,9 @@ export default {
     }
   },
 
-  created() {
-    let time = this.$route.params.time || "today";
-    this.title = config[time].title;
-    this.vuex = config[time].vuex;
-    this.query = config[time].query;
-    if (this.users.length === 0) {
-      this.onRefresh();
-    }
-  },
-
   methods: {
     cancel() {
-      this.to("/rank/news");
+      this.to("/rank/users");
     },
     to(path) {
       path = typeof path === "string" ? { path } : path;
@@ -90,14 +59,13 @@ export default {
       }
     },
     onRefresh() {
-      getRankUsers(api, { type: this.query }).then(data => {
+      getRankUsers(api).then(data => {
         this.$store.commit("SAVE_RANK_DATA", { name: this.vuex, data });
         this.$refs.loadmore.topEnd(false);
       });
     },
     onLoadMore() {
       getRankUsers(api, {
-        type: this.query,
         offset: this.users.length || 0
       }).then((data = []) => {
         this.$store.commit("SAVE_RANK_DATA", {

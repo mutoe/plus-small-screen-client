@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import RankUsersComponent from "../components/rankUsersComponent";
+import RankUsersComponent from "../components/RankUsersComponent";
 
 const ranks = [
   {

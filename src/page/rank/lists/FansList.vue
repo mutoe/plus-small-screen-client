@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
 
-    <common-header>财富达人排行榜</common-header>
+    <common-header>全站粉丝排行榜</common-header>
 
     <load-more
       ref="loadmore"
@@ -13,7 +13,9 @@
           :prefix-cls="prefixCls"
           :key="user.id"
           :user="user"
-          :index="index"/>
+          :index="index">
+          <p>粉丝：{{ user.extra.followers_count || 0 }}</p>
+        </rank-list-item>
       </div>
     </load-more>
   </div>
@@ -21,30 +23,30 @@
 
 <script>
 import HeadTop from "@/components/HeadTop";
-import rankListItem from "../components/rankListItem.vue";
+import RankListItem from "../components/RankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
 import { limit } from "@/api";
 
-const api = "/ranks/balance";
+const api = "/ranks/followers";
 const prefixCls = "rankItem";
 
 export default {
-  name: "BalanceList",
+  name: "FansList",
   components: {
     HeadTop,
-    rankListItem
+    RankListItem
   },
   data() {
     return {
       prefixCls,
       loading: false,
-      vuex: "rankBalance"
+      vuex: "rankFollowers" // vuex主键
     };
   },
 
   computed: {
     users() {
-      return this.$store.getters.getUsersByType("rankBalance");
+      return this.$store.getters.getUsersByType(this.vuex);
     }
   },
 

@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
 
-    <common-header>收入达人排行榜</common-header>
+    <common-header>财富达人排行榜</common-header>
 
     <load-more
       ref="loadmore"
@@ -21,30 +21,30 @@
 
 <script>
 import HeadTop from "@/components/HeadTop";
-import rankListItem from "../components/rankListItem.vue";
+import RankListItem from "../components/RankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
 import { limit } from "@/api";
 
-const api = "/ranks/income";
+const api = "/ranks/balance";
 const prefixCls = "rankItem";
 
 export default {
-  name: "IncomeList",
+  name: "BalanceList",
   components: {
     HeadTop,
-    rankListItem
+    RankListItem
   },
   data() {
     return {
       prefixCls,
       loading: false,
-      vuex: "rankIncome"
+      vuex: "rankBalance"
     };
   },
 
   computed: {
     users() {
-      return this.$store.getters.getUsersByType(this.vuex);
+      return this.$store.getters.getUsersByType("rankBalance");
     }
   },
 

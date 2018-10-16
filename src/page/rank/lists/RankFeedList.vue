@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
 
-    <common-header>{{ title }}解答排行榜</common-header>
+    <common-header>{{ title }}动态排行榜</common-header>
 
     <load-more
       ref="loadmore"
@@ -14,7 +14,7 @@
           :key="user.id"
           :user="user"
           :index="index">
-          <p>回答量：{{ user.extra.count || 0 }}</p>
+          <p>点赞量：{{ user.extra.count || 0 }}</p>
         </rank-list-item>
       </div>
     </load-more>
@@ -23,35 +23,35 @@
 
 <script>
 import HeadTop from "@/components/HeadTop";
-import rankListItem from "../components/rankListItem.vue";
+import RankListItem from "../components/RankListItem.vue";
 import { getRankUsers } from "@/api/ranks.js";
 import { limit } from "@/api";
 
 const prefixCls = "rankItem";
-const api = "/question-ranks/answers";
+const api = "/feeds/ranks";
 const config = {
   week: {
-    vuex: "rankQuestionsWeek",
+    vuex: "rankFeedsWeek",
     title: "本周",
     query: "week"
   },
   today: {
-    vuex: "rankQuestionsToday",
+    vuex: "rankFeedsToday",
     title: "今日",
     query: "day"
   },
   month: {
-    vuex: "rankQuestionsMonth",
+    vuex: "rankFeedsMonth",
     title: "本月",
     query: "month"
   }
 };
 
 export default {
-  name: "QuestionsList",
+  name: "FeedsList",
   components: {
     HeadTop,
-    rankListItem
+    RankListItem
   },
   data() {
     return {
@@ -68,7 +68,6 @@ export default {
       return this.$store.getters.getUsersByType(this.vuex);
     }
   },
-
   created() {
     let time = this.$route.params.time || "today";
     this.title = config[time].title;
@@ -81,7 +80,7 @@ export default {
 
   methods: {
     cancel() {
-      this.to("/rank/questions");
+      this.to("/rank/feeds");
     },
     to(path) {
       path = typeof path === "string" ? { path } : path;

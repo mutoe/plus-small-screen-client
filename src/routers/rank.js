@@ -1,62 +1,64 @@
 /* 排行榜 */
-const rank = () => import(/* webpackChunkName: 'rank' */ "../page/rank/rank");
-const rankUsers = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/children/rankUsers");
-const rankQuestions = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/children/rankQuestions");
-const rankFeeds = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/children/rankFeeds");
-const rankNews = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/children/rankNews");
-const rankFollowers = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/fansList");
-const rankBalances = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/balanceList");
-const rankIncome = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/incomeList");
-const rankQuestionExports = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/exportList");
-const rankQuestionLikes = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/questionLikesList");
-const rankCheckinLikes = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/checkinList");
-const rankQuestionList = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/rankQuestionList");
-const rankFeedList = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/rankFeedList");
-const rankNewsList = () =>
-  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/rankNewsList");
+const RankIndex = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/RankIndex.vue");
+const RankUsers = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/children/RankUsers.vue");
+const RankQuestions = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/children/RankQuestions.vue");
+const RankFeeds = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/children/RankFeeds.vue");
+const RankNews = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/children/RankNews.vue");
+const RankFollowers = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/FansList.vue");
+const RankBalances = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/BalanceList.vue");
+const RankIncome = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/IncomeList.vue");
+const RankQuestionExperts = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/ExpertList.vue");
+const RankQuestionLikes = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/QuestionLikesList.vue");
+const RankCheckinLikes = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/CheckinList.vue");
+const RankQuestionList = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/RankQuestionList.vue");
+const RankFeedList = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/RankFeedList.vue");
+const RankNewsList = () =>
+  import(/* webpackChunkName: 'rank' */ "../page/rank/lists/RankNewsList.vue");
+
 export default [
   {
     path: "/rank",
-    component: rank,
+    component: RankIndex,
     meta: { title: "排行" },
     redirect: "/rank/users",
     children: [
       {
         path: "users",
-        component: rankUsers,
+        component: RankUsers,
         meta: {
           keepAlive: true
         }
       },
       {
         path: "questions",
-        component: rankQuestions,
+        component: RankQuestions,
         meta: {
           keepAlive: true
         }
       },
       {
         path: "feeds",
-        component: rankFeeds,
+        component: RankFeeds,
         meta: {
           keepAlive: true
         }
       },
       {
         path: "news",
-        component: rankNews,
+        component: RankNews,
         meta: {
           keepAlive: true
         }
@@ -65,7 +67,7 @@ export default [
   } /* 排行 */,
   {
     path: "/rank/users/followers",
-    component: rankFollowers,
+    component: RankFollowers,
     meta: {
       title: "全站粉丝排行榜",
       keepAlive: true
@@ -73,7 +75,7 @@ export default [
   },
   {
     path: "/rank/users/balance",
-    component: rankBalances,
+    component: RankBalances,
     meta: {
       title: "财富达人排行榜",
       keepAlive: true
@@ -81,7 +83,7 @@ export default [
   },
   {
     path: "/rank/users/income",
-    component: rankIncome,
+    component: RankIncome,
     meta: {
       title: "收入达人排行榜",
       keepAlive: true
@@ -89,7 +91,7 @@ export default [
   },
   {
     path: "/rank/users/question-experts",
-    component: rankQuestionExports,
+    component: RankQuestionExperts,
     meta: {
       title: "社区专家排行榜",
       keepAlive: true
@@ -97,7 +99,7 @@ export default [
   },
   {
     path: "/rank/users/question-likes",
-    component: rankQuestionLikes,
+    component: RankQuestionLikes,
     meta: {
       title: "问答达人排行榜",
       keepAlive: true
@@ -105,7 +107,7 @@ export default [
   },
   {
     path: "/rank/users/checkin",
-    component: rankCheckinLikes,
+    component: RankCheckinLikes,
     meta: {
       title: "社区签到排行榜",
       keepAlive: true
@@ -113,7 +115,7 @@ export default [
   },
   {
     path: "/rank/q/:time",
-    component: rankQuestionList,
+    component: RankQuestionList,
     meta: {
       // keepAlive: true,
       title: "问答排行榜"
@@ -121,7 +123,7 @@ export default [
   },
   {
     path: "/rank/f/:time",
-    component: rankFeedList,
+    component: RankFeedList,
     meta: {
       // keepAlive: true,
       title: "动态排行榜"
@@ -129,7 +131,7 @@ export default [
   },
   {
     path: "/rank/n/:time",
-    component: rankNewsList,
+    component: RankNewsList,
     meta: {
       // keepAlive: true,
       title: "资讯排行榜"
