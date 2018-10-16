@@ -33,41 +33,25 @@ export function listByTime(question, offset = 0, limit = 15) {
 }
 
 /**
- * Like a answer.
- *
- * @param {number} answer
- * @return {Promise}
+ * 点赞回答
  * @author Seven Du <shiweidu@outlook.com>
+ * @param {number} answerId
+ * @returns
  */
-export function like(answer) {
-  return api.post(
-    `/question-answers/${answer}/likes`,
-    {},
-    {
-      validateStatus: status => status === 201
-    }
-  );
+export function like(answerId) {
+  const url = `/question-answers/${answerId}/likes`;
+  return api.post(url, {}, { validateStatus: s => s === 201 });
 }
 
 /**
- * Unlike a answer.
- *
- * @param {number} answer
- * @return {Promise}
+ * 取消点赞
  * @author Seven Du <shiweidu@outlook.com>
+ * @param {number} answerId
+ * @returns
  */
-export function unlike(answer) {
-  return api.delete(`/question-answers/${answer}/likes`, {
-    validateStatus: status => status === 204
-  });
-}
-
-/**
- * Switch like status
- * @author jsonleex <jsonlseex@163.com>
- */
-export function likeAnswersByStatus(answer, status) {
-  return status ? unlike(answer) : like(answer);
+export function unlike(answerId) {
+  const url = `/question-answers/${answerId}/likes`;
+  return api.delete(url, { validateStatus: s => s === 204 });
 }
 
 /**

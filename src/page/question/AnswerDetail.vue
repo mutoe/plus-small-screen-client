@@ -230,32 +230,37 @@ export default {
     likeAnswer() {
       if (this.fetching) return;
       this.fetching = true;
-      api
-        .likeAnswersByStatus(this.answerId, this.liked)
-        .then(() => {
-          !this.liked
-            ? ((this.liked = true),
-              (this.likeCount += 1),
-              this.answer.likes.length < 5 &&
-                (this.answer.likes = [
-                  ...this.answer.likes,
-                  {
-                    user: this.CURRENTUSER,
-                    id: +new Date(),
-                    user_id: this.CURRENTUSER.id
-                  }
-                ]))
-            : ((this.liked = false),
-              (this.likeCount -= 1),
-              (this.answer.likes = this.answer.likes.filter(like => {
-                return like.user_id !== this.CURRENTUSER.id;
-              })));
-
-          this.fetching = false;
-        })
-        .catch(() => {
-          this.fetching = false;
-        });
+      if (this.liked) {
+        api
+          .unlike(this.answerId)
+          .then(() => {
+            this.liked = false;
+            this.likeCount -= 1;
+            this.answer.likes = this.answer.likes.filter(like => {
+              return like.user_id !== this.CURRENTUSER.id;
+            });
+          })
+          .finally(() => {
+            this.fetching = false;
+          });
+      } else {
+        api
+          .like(this.answerId)
+          .then(() => {
+            this.liked = true;
+            this.likeCount += 1;
+            if (this.answer.likes.length < 5) {
+              this.answer.likes.push({
+                user: this.CURRENTUSER,
+                id: +new Date(),
+                user_id: this.CURRENTUSER.id
+              });
+            }
+          })
+          .finally(() => {
+            this.fetching = false;
+          });
+      }
     },
     shareAnswer() {
       if (this.isWechat) this.$Message.success("请点击右上角微信分享😳");
