@@ -239,7 +239,8 @@ export default {
         this.$bus.$emit("actionSheet", actions, "取消");
       } else if (this.verified.status === 2) {
         // 被驳回则补充填写表单
-        this.$router.push({ path: "/profile/certificate" });
+        const type = this.verified.certification_name || "user";
+        this.certificate(type);
       } else {
         this.$router.push({ path: "/profile/certification" });
       }
