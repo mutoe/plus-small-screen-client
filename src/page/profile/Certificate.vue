@@ -1,7 +1,7 @@
 <template>
   <div class="p-profile-certificate">
 
-    <common-header :back="back">
+    <common-header :pinned="true" :back="back">
       {{ title }}
       <span
         v-show="step === 2"
@@ -14,8 +14,7 @@
       :enter-active-class="animated.enter"
       :leave-active-class="animated.leave"
       tag="main"
-      class="m-box-model m-flex-grow1 m-flex-shrink1 main"
-      style="padding-top: 0.9rem;">
+      class="m-box-model m-flex-grow1 m-flex-shrink1 main">
       <template v-if="step === 1">
         <div key="step1" class="step1">
           <template v-if="type ==='org'">
@@ -372,11 +371,10 @@ export default {
 
   main {
     [class*="step"] {
-      position: fixed;
+      position: absolute;
       top: 0.9rem;
       width: 100%;
       background-color: #fff;
-      height: 100vh;
     }
 
     .m-form-row {
@@ -425,9 +423,11 @@ export default {
 .p-profile-certificate {
   .textarea-wrap {
     padding-right: 0;
-    textarea {
+
+    .c-textarea-input {
       text-align: right;
       width: 100%;
+      font-size: 28px;
     }
   }
 }

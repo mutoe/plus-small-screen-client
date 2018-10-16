@@ -92,3 +92,9 @@ export default {
   }
 }
 </style>
+
+<style lang="less">
+.c-common-header.pinned + * {
+  padding-top: 90px;
+}
+</style>
