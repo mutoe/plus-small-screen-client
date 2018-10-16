@@ -207,6 +207,9 @@ export default {
     },
     isMine() {
       return this.user.id === this.CURRENTUSER.id;
+    },
+    isWechat() {
+      return this.$store.state.BROWSER.isWechat;
     }
   },
   created() {
@@ -253,9 +256,6 @@ export default {
         .catch(() => {
           this.fetching = false;
         });
-    },
-    isWechat() {
-      return this.$store.state.BROWSER.isWechat;
     },
     shareAnswer() {
       if (this.isWechat) this.$Message.success("请点击右上角微信分享😳");
