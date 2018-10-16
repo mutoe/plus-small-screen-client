@@ -13,11 +13,12 @@
       </template>
     </common-header>
 
-    <news-filter @change="onCateChange"/>
+    <news-filter v-if="isLogin" @change="onCateChange"/>
 
     <jo-load-more
       ref="loadmore"
-      class="body"
+      :class="{guest: !isLogin}"
+      class="loadmore"
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
 
@@ -72,6 +73,10 @@ export default {
     after() {
       const len = this.newsList.length;
       return len > 0 ? this.newsList[len - 1].id : 0;
+    },
+    isLogin() {
+      const user = this.$store.state.CURRENTUSER;
+      return Object.keys(user).length;
     }
   },
   mounted() {
@@ -173,8 +178,12 @@ export default {
     position: fixed;
   }
 
-  .body {
+  .loadmore {
     padding-top: 90+80px;
+
+    &.guest {
+      padding-top: 90px;
+    }
   }
 }
 </style>
