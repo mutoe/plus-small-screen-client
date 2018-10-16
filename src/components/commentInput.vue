@@ -15,7 +15,7 @@
           <span class="m-box-model m-flex-grow1 m-flex-shrink1 m-justify-end m-wz-def">
             <textarea
               ref="textarea"
-              v-model="contentText"
+              v-model.trim="contentText"
               :placeholder="placeholder"
               :style="{ height: `${scrollHeight}px` }"
               maxlength="255"
