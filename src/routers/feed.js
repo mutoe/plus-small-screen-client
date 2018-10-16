@@ -29,7 +29,11 @@ export default [
   {
     path: "/feeds/:feedID(\\d+)",
     component: FeedDetail,
-    meta: { title: "动态详情", keepAlive: true }
+    meta: {
+      title: "动态详情",
+      keepAlive: true,
+      requiresAuth: true
+    }
   },
 
   /**

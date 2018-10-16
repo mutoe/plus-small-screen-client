@@ -44,7 +44,7 @@ export default [
     component: Find,
     meta: {
       title: "找人",
-      requiresAuth: true
+      requiresAuth: false
     },
     children: [
       {
@@ -108,7 +108,8 @@ export default [
     component: UserHome,
     meta: {
       title: "个人主页",
-      keepAlive: true
+      keepAlive: true,
+      requiresAuth: true
     }
   },
   {

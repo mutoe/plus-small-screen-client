@@ -23,7 +23,8 @@ export default [
     component: NewsDetail,
     meta: {
       title: "资讯详情",
-      keepAlive: true
+      keepAlive: true,
+      requiresAuth: true
     }
   },
   {
