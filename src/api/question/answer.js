@@ -91,6 +91,21 @@ export function getAnswer(answerId) {
 }
 
 /**
+ * 获取回答评论
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} answerId
+ * @param {Object} params
+ * @param {number} [params.limit=20]
+ * @param {number} [params.after=0]
+ * @returns
+ */
+export function getAnswerComments(answerId, params) {
+  const url = `/question-answers/${answerId}/comments`;
+  return api.get(url, { params, validateStatus: s => s === 200 });
+}
+
+/**
  * 添加回答
  * @author mutoe <mutoe@foxmail.com>
  * @export

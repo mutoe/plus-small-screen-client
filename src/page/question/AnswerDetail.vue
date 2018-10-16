@@ -127,6 +127,7 @@ import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
+import { limit } from "@/api";
 import * as api from "@/api/question/answer";
 import * as userApi from "@/api/user";
 
@@ -337,32 +338,22 @@ export default {
       });
     },
     fetchAnswerComments(after = 0) {
-      // /question-answers/:answer/comments
       if (this.fetchComing) return;
       this.fetchComing = true;
-      this.$http
-        .get(`/question-answers/${this.answerId}/comments`, {
-          params: {
-            limit: 15,
-            after
-          }
-        })
+      api
+        .getAnswerComments(this.answerId, { limit, after })
         .then(({ data: comments = [] }) => {
           if (comments && comments.length) {
-            (this.comments = after
-              ? [...this.comments, ...comments]
-              : comments),
-              (this.maxComId = comments[comments.length - 1].id);
+            this.comments = after ? [...this.comments, ...comments] : comments;
+            this.maxComId = comments[comments.length - 1].id;
           }
           this.noMoreCom = comments.length < 15;
+        })
+        .finally(() => {
           this.$nextTick(() => {
             this.fetchComing = false;
             this.loading = false;
           });
-        })
-        .catch(() => {
-          this.loading = false;
-          this.fetchComing = false;
         });
     },
     replyComment(uid, uname, commentId) {
