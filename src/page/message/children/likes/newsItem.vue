@@ -8,7 +8,7 @@
           :class="`${prefixCls}-item-top-link`"
           :to="`/users/${user._id}`">{{ user.name }}</router-link>
         <span>赞了你的资讯</span>
-        <p>{{ like.created_at | addTimeOffset | time2tips }}</p>
+        <p>{{ like.created_at | time2tips }}</p>
       </section>
     </div>
     <div :class="`${prefixCls}-item-bottom`">

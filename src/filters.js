@@ -90,24 +90,16 @@ export const time2txt = str => {
  * @returns {number} timezone offset
  */
 export const timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
-
-/**
- * 将非标准祖鲁时间转化为标准祖鲁时间的时间戳
- * @param {Date|string|number} date 非标准祖鲁时间，需要进行转化 类似（"2018-10-10 06:14:24"）
- */
 export const addTimeOffset = date => {
-  if (typeof date === "string") date = date.replace(/-/g, "/"); // for safari
-  return +new Date(date) - timeOffset;
+  date = new Date(date).getTime() - timeOffset;
+  return new Date(date).toLocaleString("chinese", { hour12: false });
 };
 
-/**
- * 根据目标时间计算与当前时间的时间差
- * @param {Date|number|string} date 祖鲁时间
- */
 export const time2tips = date => {
   if (typeof date === "string") date = date.replace(/-/g, "/"); // for safari
-  const time = +new Date(date);
-  const offset = (+new Date() - time) / 1000;
+  const time = new Date(date);
+  // 服务器返回的时间是祖鲁时间，需要进行本地化
+  const offset = (new Date().getTime() - time + timeOffset) / 1000;
   if (offset < 60) return "1分钟内";
   if (offset < 3600) return `${~~(offset / 60)}分钟前`;
   if (offset < 3600 * 24) return `${~~(offset / 3600)}小时前`;
@@ -121,7 +113,7 @@ export const time2tips = date => {
   if (offset < 3600 * 24 * 2) return `昨天 ${timeStr}`;
   if (offset < 3600 * 24 * 9) return `${~~(offset / 3600 / 24)}天前 ${timeStr}`;
   // 根据 time 获取到 "2018-06-16T23:12:32.000Z" 然后正则转化为 6-19 16:57
-  return new Date(time)
+  return new Date(time - timeOffset)
     .toISOString()
     .replace(/^\d+-(\d+)-(\d+)T(\d+:\d+):\d+\.\d{3}Z$/, "$1-$2 $3");
 };

@@ -34,7 +34,7 @@
       <span v-show="question.amount" class="shang">
         <span>赏</span> {{ question.amount }}
       </span>
-      <span class="button-time">{{ +new Date(question.created_at) + timeOffset | time2tips }}</span>
+      <span class="button-time">{{ question.updated_at | time2tips }}</span>
     </router-link>
   </div>
 </template>

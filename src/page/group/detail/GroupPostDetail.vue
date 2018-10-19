@@ -70,7 +70,7 @@
             </router-link>
           </div>
           <div class="m-box-model m-aln-end m-art-info">
-            <span v-if="time">发布于{{ time | addTimeOffset | time2tips }}</span>
+            <span v-if="time">发布于{{ time | time2tips }}</span>
             <span>{{ feed.views_count || 0 | formatNum }}浏览</span>
           </div>
         </div>

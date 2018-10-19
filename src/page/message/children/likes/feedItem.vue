@@ -8,7 +8,7 @@
           :class="`${prefixCls}-item-top-link`"
           :to="`/users/${user.id}`">{{ user.name }}</router-link>
         <span> 赞了你的动态</span>
-        <p>{{ like.created_at | addTimeOffset | time2tips }}</p>
+        <p>{{ like.created_at | time2tips }}</p>
       </section>
       <svg class="m-style-svg m-svg-def m-flex-grow0 m-shrink0">
         <use xlink:href="#icon-like"/>

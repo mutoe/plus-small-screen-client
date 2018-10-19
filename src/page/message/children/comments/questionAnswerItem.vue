@@ -11,7 +11,7 @@
           v-if="comment.reply_user"
           :class="`${prefixCls}-item-top-link`"
           :to="`/users/${comment.reply_user}`">{{ comment.reply.name }} </router-link>:
-        <p>{{ comment.created_at | addTimeOffset| time2tips }}</p>
+        <p>{{ comment.created_at | time2tips }}</p>
       </section>
     </div>
     <div :class="`${prefixCls}-item-bottom`">

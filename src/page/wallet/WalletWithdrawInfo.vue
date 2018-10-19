@@ -19,7 +19,7 @@
       </div>
       <div class="item">
         <label>交易时间</label>
-        <span> {{ time }} </span>
+        <span> {{ detail.created_at | addTimeOffset }} </span>
       </div>
     </main>
   </div>
@@ -56,11 +56,6 @@ export default {
       if (this.detail.status === 0) return "审核中";
       if (this.detail.status === 2) return "审核失败";
       return "交易成功";
-    },
-    time() {
-      let date = this.detail.created_at;
-      date = +new Date(date) - this.timeOffset;
-      return new Date(date).toLocaleString("chinese", { hour12: false });
     }
   },
   mounted() {

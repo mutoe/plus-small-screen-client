@@ -7,7 +7,7 @@
         <router-link
           :to="`/users/${audit.user_id}`"
           class="msgList-item-top-link">{{ audit.user.name }}</router-link>
-        <p>{{ audit.created_at | addTimeOffset | time2tips }}</p>
+        <p>{{ audit.created_at | time2tips }}</p>
       </section>
 
       <div class="msgList-status">
