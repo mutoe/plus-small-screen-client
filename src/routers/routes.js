@@ -13,10 +13,10 @@ import walletRoutes from "./wallet.js";
 import currencyRoutes from "./currency.js";
 
 const router = [
-  /* 基础入口 */
-  { path: "/", redirect: "/signin" },
-  ...baseRoutes,
+  /* 入口重定向 */
+  { path: "/", redirect: "/feeds" },
 
+  ...baseRoutes,
   ...signRoutes,
   ...feedRoutes,
   ...postRoutes,
@@ -29,16 +29,6 @@ const router = [
   ...walletRoutes,
   ...currencyRoutes,
 
-  // {
-  //   path: "/post/fatie",
-  //   name: "postGroupFeed",
-  //   component: postGroupFeed,
-  //   meta: {
-  //     keepAlive: true,
-  //     title: "发布帖子",
-  //     requiresAuth: true
-  //   }
-  // },
   { path: "*", component: NotFound } /* 404 页面 */
 ];
 
