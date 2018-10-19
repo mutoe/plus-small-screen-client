@@ -17,7 +17,7 @@
               id="account"
               v-model="account"
               maxlength="11"
-              type="number"
+              type="tel"
               placeholder="输入11位手机号">
           </div>
           <svg
@@ -38,7 +38,7 @@
               placeholder="输入4-6位验证码"
               @keyup.enter="signinByAccount">
           </div>
-          <span :class="[{ disabledCode }, 'get-code']" @click="getCode">{{ codeText }}</span>
+          <span :class="[{ disabledCode }, 'get-code']" @click="beforeGetCode">{{ codeText }}</span>
         </div>
         <div class="m-box m-aln-center m-text-box m-form-err-box">
           <span>{{ err | plusMessageFirst }}</span>
@@ -47,7 +47,7 @@
           <button
             :disabled="disabled"
             class="m-long-btn m-signin-btn"
-            @click="signinByAccount">
+            @click="isRegister ? signupByCode() : signinByCode()">
             <circle-loading v-if="loading" />
             <span v-else>登录</span>
           </button>
@@ -64,6 +64,7 @@
 
 <script>
 import { signinByAccount } from "@/api/user.js";
+import { generateString } from "@/util";
 
 export default {
   name: "Signin",
@@ -73,7 +74,9 @@ export default {
       account: "",
       code: "",
       loading: false,
-      countdown: 0
+      codeLoading: false,
+      countdown: 0,
+      isRegister: false
     };
   },
   computed: {
@@ -81,7 +84,7 @@ export default {
       return !this.account.length || this.code.length < 4 || this.loading;
     },
     disabledCode() {
-      return this.account.length !== 11 || this.countdown;
+      return this.account.length !== 11 || this.countdown || this.codeLoading;
     },
     codeText() {
       return this.countdown > 0 ? `${this.countdown}s后重发` : "获取验证码";
@@ -96,26 +99,38 @@ export default {
         }
       }, 1000);
     },
-    getCode() {
+    beforeGetCode() {
       if (this.disabledCode) return;
-      let param = {
-        phone: this.account
-      };
+      this.codeLoading = true;
       this.$http
-        .post("verifycodes", param, {
-          validateStatus: s => s === 202
+        .get(`/users/${this.account}`, {
+          validateStatus: s => s === 200 || s === 404
         })
+        .then(({ data: user = {} }) => {
+          if (user.id) this.isRegister = false;
+          else this.isRegister = true;
+          this.getCode();
+        })
+        .catch(err => {
+          this.codeLoading = false;
+          return Promise.reject(err);
+        });
+    },
+    getCode() {
+      let param = { phone: this.account };
+      const url = this.isRegister ? "/verifycodes/register" : "/verifycodes";
+      this.$http
+        .post(url, param, { validateStatus: s => s === 202 })
         .then(() => {
           this.countdown = 60;
           this.countDown();
           this.$Message.success("发送验证码成功");
         })
-        .catch(({ response: { data: { errors = {} } = {} } = {} }) => {
-          this.$Message.error(errors);
+        .finally(() => {
+          this.codeLoading = false;
         });
     },
-    signinByAccount() {
-      this.err = "";
+    signinBycode() {
       this.loading = true;
 
       signinByAccount({
@@ -128,6 +143,33 @@ export default {
             this.$router.push(this.$route.query.redirect || "/feeds?type=hot");
           });
       });
+    },
+    signupByCode() {
+      this.loading = true;
+      const params = {
+        name: "用户" + generateString(6),
+        phone: this.account,
+        verifiable_type: "sms",
+        verifiable_code: this.code
+      };
+      this.$http
+        .post("/users", params)
+        .then(({ data: { token } }) => {
+          if (token) {
+            this.$Message.success("注册成功");
+            this.$lstore.setData("H5_ACCESS_TOKEN", `Bearer ${token}`);
+            this.$store.dispatch("fetchUserInfo");
+            this.$nextTick(() => {
+              this.$router.push("/");
+            });
+          }
+        })
+        .catch(err => {
+          this.$Message.error(err.response.data);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };

@@ -73,8 +73,8 @@ instance.interceptors.response.use(
             err.tips = "请求超时";
             break;
           case 422: {
-            const { data: { message = "错误请求" } = {} } = err.response;
-            err.tips = message;
+            const { data } = err.response;
+            err.tips = data || { message: "错误请求" };
             break;
           }
           case 500:

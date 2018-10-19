@@ -174,3 +174,13 @@ export const getFileUrl = file => {
   }
   return url;
 };
+
+/**
+ * 生成一个随机字符串 [0-9a-z]
+ */
+export const generateString = length => {
+  if (length > 8) throw RangeError("Out of range in generateString.");
+  return Math.random()
+    .toString(36)
+    .substr(2, length);
+};
