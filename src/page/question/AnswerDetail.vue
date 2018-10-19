@@ -43,7 +43,6 @@
       </div>
       <div class="m-box m-aln-center m-justify-bet m-art-foot">
         <router-link
-          v-if="likeCount > 0"
           class="m-flex-grow1 m-flex-shrink1 m-box m-aln-center m-art-like-list"
           tag="div"
           to="likers"
@@ -58,7 +57,7 @@
               <img :src="getAvatar(user.avatar)">
             </li>
           </ul>
-          <span>{{ likeCount | formatNum }} 人点赞</span>
+          <span v-if="likeCount">{{ likeCount | formatNum }} 人点赞</span>
         </router-link>
         <div class="m-box-model m-aln-end m-art-info">
           <span>发布于{{ time | time2tips }}</span>
