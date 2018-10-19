@@ -618,7 +618,7 @@ export default {
       });
     },
     onFileClick(paid_node) {
-      if (!paid_node || paid_node.paid) return;
+      if (!paid_node || paid_node.paid !== false) return;
 
       if (this.$lstore.hasData("H5_ACCESS_TOKEN")) {
         this.$bus.$emit("payfor", {
