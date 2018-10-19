@@ -8,7 +8,7 @@
         <header class="m-box m-aln-center m-justify-bet m-card-usr">
           <h4 class="m-flex-grow1 m-flex-shrink1">{{ ad.data.name }}</h4>
           <div class="m-box m-aln-center">
-            <span>{{ ad.data.time | formatDate('MM-dd') }}</span>
+            <span>{{ time | formatDate('MM-dd') }}</span>
           </div>
         </header>
         <article class="m-card-body">
@@ -35,10 +35,19 @@
 /**
  * 模拟动态卡片广告
  */
+
+import { timeOffset } from "@/filters";
+
 export default {
   name: "FeedCard",
   props: {
     ad: { type: Object, required: true }
+  },
+  computed: {
+    time() {
+      const { time } = this.ad.data || {};
+      return +new Date(time) - timeOffset;
+    }
   }
 };
 </script>

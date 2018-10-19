@@ -87,7 +87,7 @@ import { mapState } from "vuex";
 import FeedImage from "./FeedImage.vue";
 import FeedVideo from "./FeedVideo.vue";
 import CommentItem from "./CommentItem.vue";
-import { time2txt, timeOffset } from "@/filters.js";
+import { time2txt } from "@/filters.js";
 import * as api from "@/api/feeds.js";
 
 export default {
@@ -159,9 +159,7 @@ export default {
       return this.feed.feed_view_count || 0;
     },
     time() {
-      const createdAt = this.feed.created_at.replace(/-/g, "/"); // for safari
-      const time = new Date(createdAt).getTime() - timeOffset;
-      return new Date(time) || "";
+      return this.feed.created_at;
     },
     user() {
       const user = this.feed.user;

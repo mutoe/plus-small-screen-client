@@ -96,26 +96,33 @@ export const addTimeOffset = date => {
 };
 
 export const time2tips = date => {
-  if (typeof date === "string") date = date.replace(/-/g, "/"); // for safari
+  if (typeof date === "string") {
+    date = date.replace(/-/g, "/"); // for safari
+    // match 2018/10/17 01:48:52"
+    if (date.match(/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/)) {
+      // 如果匹配到服务器返回的时间是非标准格式的祖鲁时间，需要进行本地化
+      date = +new Date(date) + timeOffset;
+    }
+  }
   const time = new Date(date);
-  // 服务器返回的时间是祖鲁时间，需要进行本地化
-  const offset = (new Date().getTime() - time + timeOffset) / 1000;
+  const offset = (new Date().getTime() - time) / 1000;
   if (offset < 60) return "1分钟内";
   if (offset < 3600) return `${~~(offset / 60)}分钟前`;
   if (offset < 3600 * 24) return `${~~(offset / 3600)}小时前`;
   // 根据 time 获取到 "16:57"
-  let timeStr;
+  let timeStr, dateStr;
   try {
-    timeStr = new Date(time).toTimeString().match(/^\d{2}:\d{2}/)[0];
+    timeStr = time.toTimeString().match(/^\d{2}:\d{2}/)[0];
+    dateStr = time
+      .toLocaleDateString() // > "2018/10/19"
+      .replace(/^\d{4}\/(\d{2})\/(\d{2})/, "$1-$2"); // > 10-19
   } catch (e) {
     return offset;
   }
   if (offset < 3600 * 24 * 2) return `昨天 ${timeStr}`;
-  if (offset < 3600 * 24 * 9) return `${~~(offset / 3600 / 24)}天前 ${timeStr}`;
-  // 根据 time 获取到 "2018-06-16T23:12:32.000Z" 然后正则转化为 6-19 16:57
-  return new Date(time - timeOffset)
-    .toISOString()
-    .replace(/^\d+-(\d+)-(\d+)T(\d+:\d+):\d+\.\d{3}Z$/, "$1-$2 $3");
+  if (offset < 3600 * 24 * 9) return `${~~(offset / 3600 / 24)}天前`;
+  // 根据 time 06-19
+  return dateStr;
 };
 
 /**
