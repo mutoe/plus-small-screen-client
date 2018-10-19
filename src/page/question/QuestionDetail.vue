@@ -107,38 +107,9 @@
           v-for="answer in answers"
           :key="answer.id"
           :answer="answer" />
+
       </jo-load-more>
     </div>
-
-    <!-- <div class="tabbar">
-      <a class="tabbar-item" href="#">
-        <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#icon-comment" />
-        </svg>
-        评论
-      </a>
-      <a class="tabbar-item" href="#">
-        <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#icon-share" />
-        </svg>
-        分享
-      </a>
-      <a
-        v-show="editer"
-        class="tabbar-item"
-        href="#">
-        <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#edit" />
-        </svg>
-        编辑
-      </a>
-      <a class="tabbar-item" href="#">
-        <svg class="tabbar-icon" fill="#999">
-          <use xlink:href="#icon-more" />
-        </svg>
-        更多
-      </a>
-    </div> -->
   </div>
 </template>
 
@@ -147,7 +118,6 @@ import { render } from "@/util/markdown";
 import * as api from "@/api/question/questions";
 import { listByDefault, listByTime } from "@/api/question/answer";
 import QuestionAnswerItem from "./QuestionAnswerItem";
-import { noop } from "@/util";
 
 export default {
   name: "QuestionDetail",
@@ -191,24 +161,23 @@ export default {
       return false;
     },
     topics() {
-      const { topics = [] } = this.question;
-
-      return topics;
+      return this.question.topics || [];
     },
     htmlBody() {
       const { body = "" } = this.question;
-
       return render(body);
     },
     answerRequestMethod() {
-      if (this.answersTimeOrder) {
-        return listByTime;
-      }
-
-      return listByDefault;
+      return this.answersTimeOrder ? listByTime : listByDefault;
     },
     invitations() {
       return this.question.invitations || [];
+    },
+    adoptionAnswers() {
+      return this.question.adoption_answers || [];
+    },
+    invitationAnswers() {
+      return this.question.invitation_answers || [];
     }
   },
   watch: {
@@ -223,31 +192,44 @@ export default {
     this.$refs.loadmore.beforeRefresh();
   },
   methods: {
-    fetch(cb = noop) {
-      api
-        .show(this.$route.params.id)
-        .then(({ data }) => {
-          this.question = data;
-          cb();
-        })
-        .catch(({ response: { data } = {} }) => {
-          this.$refs.loadmore.afterRefresh();
-          this.$Message.error(data);
-        });
-    },
     refreshAnswer() {
       this.answerRequestMethod(this.$route.params.id)
         .then(({ data }) => {
           this.$refs.loadmore.afterRefresh(data.length < 15);
           this.answers = data;
+          // mixin adoption answers
+          this.answers.unshift(...this.adoptionAnswers);
+          // mixin invitation answers
+          this.answers.unshift(...this.invitationAnswers);
         })
-        .catch(({ response: { data } = {} }) => {
+        .catch(err => {
           this.$refs.loadmore.afterRefresh();
-          this.$Message.error(data);
+          return Promise.reject(err);
         });
     },
     handleRefreshAnswers() {
-      this.fetch(this.refreshAnswer);
+      api
+        .show(this.$route.params.id)
+        .then(({ data }) => {
+          this.question = data;
+          this.refreshAnswer();
+        })
+        .catch(err => {
+          this.$refs.loadmore.afterRefresh();
+          return Promise.reject(err);
+        });
+    },
+    handleLoadMoreAnswers() {
+      if (!this.answers.length) return;
+      this.answerRequestMethod(this.$route.params.id, this.answers.length)
+        .then(({ data }) => {
+          this.$refs.loadmore.afterLoadMore(data.length < 15);
+          this.answers = [...this.answers, ...data];
+        })
+        .catch(({ response: { data } = {} }) => {
+          this.$refs.loadmore.afterLoadMore(true);
+          this.$Message.error(data);
+        });
     },
     handleWatch() {
       api
@@ -268,18 +250,6 @@ export default {
           this.question.watchers_count -= 1;
         })
         .catch(({ response: { data } = {} }) => {
-          this.$Message.error(data);
-        });
-    },
-    handleLoadMoreAnswers() {
-      if (!this.answers.length) return;
-      this.answerRequestMethod(this.$route.params.id, this.answers.length)
-        .then(({ data }) => {
-          this.$refs.loadmore.afterLoadMore(data.length < 15);
-          this.answers = [...this.answers, ...data];
-        })
-        .catch(({ response: { data } = {} }) => {
-          this.$refs.loadmore.afterLoadMore(true);
           this.$Message.error(data);
         });
     },
@@ -436,20 +406,13 @@ export default {
 
         .shang {
           margin-left: 12px;
-          color: #fca308;
+          color: @warning;
 
           > span {
-            color: #fca308;
-            width: 20px;
-            height: 21px;
-            font-size: 22px;
-            font-weight: normal;
-            font-stretch: normal;
-            line-height: 0px;
-            letter-spacing: 0px;
-            border: solid 1px #fca308;
+            border: solid 1px currentColor;
+            border-radius: 8px;
             padding: 0 4px;
-            border-radius: 6px;
+            font-size: 22px;
           }
         }
       }

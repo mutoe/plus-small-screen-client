@@ -2,15 +2,15 @@
   <div class="p-question-answer-item" @click="viewDetail">
     <div class="main">
       <div class="avatar" @click.stop="viewUser">
-        <avatar
-          :anonymity="anonymity"
-          :user="user" />
+        <avatar :anonymity="anonymity" :user="user" />
       </div>
       <div class="info">
         <h3 class="main-header">
-          <span v-if="!anonymity" @click.stop="viewUser">{{ user.name }}</span>
-          <span v-else-if="!isMine">匿名用户</span>
-          <span v-else>{{ user.name }} <span class="gray">(匿名)</span></span>
+          <span :class="{adoption: answer.adoption, invited: answer.invited}" class="name">
+            <template v-if="!anonymity" @click.stop="viewUser">{{ user.name }}</template>
+            <template v-else-if="!isMine">匿名用户</template>
+            <template v-else>{{ user.name }} <span class="gray">(匿名)</span></template>
+          </span>
           <span class="time">{{ answer.created_at | addTimeOffset | time2tips }}</span>
         </h3>
         <div class="main-body">{{ body }}</div>
@@ -149,6 +149,30 @@ export default {
         color: #333;
         margin-top: 0;
         margin-bottom: 29px;
+
+        .name {
+          display: flex;
+          align-items: center;
+          color: #666;
+
+          &::after {
+            border: 1px solid currentColor;
+            border-radius: 8px;
+            font-size: 22px;
+            padding: 0 4px;
+            margin-left: 12px;
+          }
+
+          &.invited::after {
+            content: "邀请回答";
+            color: @primary;
+          }
+
+          &.adoption::after {
+            content: "已采纳";
+            color: @success;
+          }
+        }
 
         .time {
           font-size: 24px;
