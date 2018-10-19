@@ -1,3 +1,57 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.2...v4.1.0) (2018-10-19)
+
+
+### Bug Fixes
+
+* ([#523](https://github.com/slimkit/plus-small-screen-client/issues/523)) 全局 markdown 格式文章样式不正确渲染的问题 ([b4f6fdd](https://github.com/slimkit/plus-small-screen-client/commit/b4f6fdd))
+* ([#555](https://github.com/slimkit/plus-small-screen-client/issues/555)) 全局评论如果输入空格还是能提交的问题 ([1439dfb](https://github.com/slimkit/plus-small-screen-client/commit/1439dfb))
+* ([#559](https://github.com/slimkit/plus-small-screen-client/issues/559)) 又双叒叕调整全局时间显示，与app同步显示 ([4484657](https://github.com/slimkit/plus-small-screen-client/commit/4484657))
+* 修复 file 接口下图片宽高大于 4096 会报错的问题 ([0684f8d](https://github.com/slimkit/plus-small-screen-client/commit/0684f8d))
+* 入口页面修改为动态列表页面 ([0043461](https://github.com/slimkit/plus-small-screen-client/commit/0043461))
+* **certification:** ([#552](https://github.com/slimkit/plus-small-screen-client/issues/552)) 企业认证被驳回后重新认证进入了个人认证的页面的问题 ([b775110](https://github.com/slimkit/plus-small-screen-client/commit/b775110))
+* **certification:** ([#554](https://github.com/slimkit/plus-small-screen-client/issues/554)) 认证页面字数限制不符的问题 ([dbd426b](https://github.com/slimkit/plus-small-screen-client/commit/dbd426b))
+* **currency:** ([#586](https://github.com/slimkit/plus-small-screen-client/issues/586)) 积分提现时若积分不足则前往充值 ([ff44e94](https://github.com/slimkit/plus-small-screen-client/commit/ff44e94))
+* **group:** ([#578](https://github.com/slimkit/plus-small-screen-client/issues/578)) 用户若在审核中，在资讯列表页点击投稿会跳到认证表单页面的问题 ([3c6fdb4](https://github.com/slimkit/plus-small-screen-client/commit/3c6fdb4))
+* **group:** ([#581](https://github.com/slimkit/plus-small-screen-client/issues/581)) 管理员置顶帖子时仍有密码确认框弹出的问题 ([2c62828](https://github.com/slimkit/plus-small-screen-client/commit/2c62828))
+* **news:** ([#573](https://github.com/slimkit/plus-small-screen-client/issues/573)) 投稿时摘要仍可超过200字 ([f69348d](https://github.com/slimkit/plus-small-screen-client/commit/f69348d))
+* **pay:** ([#582](https://github.com/slimkit/plus-small-screen-client/issues/582)) 在圈子列表上加入需要付费的圈子没有弹出密码输入框的问题 ([b08543c](https://github.com/slimkit/plus-small-screen-client/commit/b08543c))
+* **pay:** ([#583](https://github.com/slimkit/plus-small-screen-client/issues/583)) 支付积分前先检查积分余额是否充足 ([53c95aa](https://github.com/slimkit/plus-small-screen-client/commit/53c95aa))
+* **pay:** ([#585](https://github.com/slimkit/plus-small-screen-client/issues/585)) 点击忘记密码没有跳转到找回密码页面的问题 ([88f978d](https://github.com/slimkit/plus-small-screen-client/commit/88f978d))
+* **pay:** ([#591](https://github.com/slimkit/plus-small-screen-client/issues/591)) 购买付费动态输入正确的密码也提示密码错误的问题 ([9c3c0ba](https://github.com/slimkit/plus-small-screen-client/commit/9c3c0ba))
+* **pay:** ([#593](https://github.com/slimkit/plus-small-screen-client/issues/593)) 点击无需付费的动态却显示了付费信息的问题 ([214ba05](https://github.com/slimkit/plus-small-screen-client/commit/214ba05))
+* **post:** ([#527](https://github.com/slimkit/plus-small-screen-client/issues/527), [#543](https://github.com/slimkit/plus-small-screen-client/issues/543)) 关闭发布动态付费开关后发布图片仍然有付费开关的问题 ([9090730](https://github.com/slimkit/plus-small-screen-client/commit/9090730))
+* **question:** ([#562](https://github.com/slimkit/plus-small-screen-client/issues/562)) 搜索问题时排序方法不对的问题 ([89cdb47](https://github.com/slimkit/plus-small-screen-client/commit/89cdb47))
+* **question:** ([#564](https://github.com/slimkit/plus-small-screen-client/issues/564)) 发布问题标题字数限制为51字（包含问号） ([cbec5be](https://github.com/slimkit/plus-small-screen-client/commit/cbec5be))
+* **question:** ([#568](https://github.com/slimkit/plus-small-screen-client/issues/568)) 点击分享提示错误文案的问题 ([80da4f9](https://github.com/slimkit/plus-small-screen-client/commit/80da4f9))
+* **question:** ([#569](https://github.com/slimkit/plus-small-screen-client/issues/569)) 无法进入点赞列表的问题 ([8a4ba1d](https://github.com/slimkit/plus-small-screen-client/commit/8a4ba1d))
+* **question:** ([#571](https://github.com/slimkit/plus-small-screen-client/issues/571)) 问题详情页没有显示邀请回答和已采纳的回答 ([9cc6039](https://github.com/slimkit/plus-small-screen-client/commit/9cc6039))
+* **question:** ([#572](https://github.com/slimkit/plus-small-screen-client/issues/572)) 已邀请悬赏的问题在问题详情页显示错误的问题 ([cba0cbe](https://github.com/slimkit/plus-small-screen-client/commit/cba0cbe))
+* **question:** 当回答没有人点赞时回答时间左移的问题 ([229be62](https://github.com/slimkit/plus-small-screen-client/commit/229be62))
+* **question:** 精品问题在精选标签页下隐藏小图标 ([585840d](https://github.com/slimkit/plus-small-screen-client/commit/585840d))
+* **signin:** ([#529](https://github.com/slimkit/plus-small-screen-client/issues/529)) 注册时验证码弹出错误信息 ([b85f963](https://github.com/slimkit/plus-small-screen-client/commit/b85f963))
+* **signin:** ([#580](https://github.com/slimkit/plus-small-screen-client/issues/580)) 登陆验证码接口修正 ([8c3e430](https://github.com/slimkit/plus-small-screen-client/commit/8c3e430))
+* **user:** ([#558](https://github.com/slimkit/plus-small-screen-client/issues/558)) 游客模式不可在资讯列表选择资讯过滤器 ([1cca415](https://github.com/slimkit/plus-small-screen-client/commit/1cca415))
+* **user:** ([#558](https://github.com/slimkit/plus-small-screen-client/issues/558)) 游客模式可进入找人模块,不可进入他人个人主页、动态详情、资讯详情 ([7973952](https://github.com/slimkit/plus-small-screen-client/commit/7973952))
+* **wallet:** 修复没有设置钱包推荐充值金额时进入充值页面报错的问题 ([b2d4e7b](https://github.com/slimkit/plus-small-screen-client/commit/b2d4e7b))
+
+
+### Features
+
+* **component:** 密码二次确认组件 ([7e6f936](https://github.com/slimkit/plus-small-screen-client/commit/7e6f936)), closes [#540](https://github.com/slimkit/plus-small-screen-client/issues/540)
+* **currency:** ([#590](https://github.com/slimkit/plus-small-screen-client/issues/590)) 积分名称替换为服务器配置的积分名称 ([3550b6d](https://github.com/slimkit/plus-small-screen-client/commit/3550b6d))
+* **group:** ([#540](https://github.com/slimkit/plus-small-screen-client/issues/540)) 加入付费圈子密码确认 ([75d6a35](https://github.com/slimkit/plus-small-screen-client/commit/75d6a35))
+* **news:** ([#540](https://github.com/slimkit/plus-small-screen-client/issues/540)) 资讯投稿付费密码确认 ([3f510b3](https://github.com/slimkit/plus-small-screen-client/commit/3f510b3))
+* **pay:** ([#540](https://github.com/slimkit/plus-small-screen-client/issues/540)) 全局打赏密码确认 ([028bbf7](https://github.com/slimkit/plus-small-screen-client/commit/028bbf7))
+* **pay:** ([#540](https://github.com/slimkit/plus-small-screen-client/issues/540)) 全局申请置顶密码确认 ([16a8f15](https://github.com/slimkit/plus-small-screen-client/commit/16a8f15))
+* **pay:** ([#540](https://github.com/slimkit/plus-small-screen-client/issues/540)) 关闭支付验证开关时不显示密码确认弹框 ([f4d02f8](https://github.com/slimkit/plus-small-screen-client/commit/f4d02f8))
+* **question:** ([#561](https://github.com/slimkit/plus-small-screen-client/issues/561)) 问答列表右下角增加提问入口 ([63a60e0](https://github.com/slimkit/plus-small-screen-client/commit/63a60e0))
+* **question:** ([#568](https://github.com/slimkit/plus-small-screen-client/issues/568)) 收藏回答功能 ([59fc3e3](https://github.com/slimkit/plus-small-screen-client/commit/59fc3e3))
+* **signin:** ([#580](https://github.com/slimkit/plus-small-screen-client/issues/580)) 手机验证码登陆 ([79a47dc](https://github.com/slimkit/plus-small-screen-client/commit/79a47dc))
+* **signin:** 未注册过的用户也可以一键登录了 ([a2cc9ce](https://github.com/slimkit/plus-small-screen-client/commit/a2cc9ce))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.1...v4.0.2) (2018-10-12)
 
