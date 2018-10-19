@@ -49,7 +49,7 @@ export default Vue => {
   };
 
   const isCanShow = item => {
-    const { el, file, q = 40 } = item;
+    const { el, file, q = 40, w, h } = item;
     const isIMG = el.nodeName === "IMG";
     if (checkInView(el)) {
       let image = new Image();
@@ -58,9 +58,10 @@ export default Vue => {
        * 获取图片真实链接
        */
       api
-        .get(`/files/${file}?q=${q}&json=1`, {
+        .get(`/files/${file}`, {
           // 验证 status ; 屏蔽 404 抛错
-          vaildateStatus: s => s === 200 || s === 201 || s === 204 || s === 400
+          vaildateStatus: s => s === 200 || s === 201 || s === 204 || s === 400,
+          params: { json: 1, q: w > 4096 || h > 4096 ? undefined : q }
         })
         .then(({ data: { url } }) => {
           if (url) {
