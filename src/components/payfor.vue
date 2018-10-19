@@ -117,14 +117,13 @@ export default {
       this.onOk(password);
       this.node
         ? this.$http
-            .post(`/currency/purchases/${this.node}`)
+            .post(`/currency/purchases/${this.node}`, { password })
             .then(({ data }) => {
               this.onSuccess(data);
               this.cancel();
             })
             .catch(({ response }) => {
               this.$Message.error(response.data);
-              this.cancel();
             })
         : this.cancel();
     },
