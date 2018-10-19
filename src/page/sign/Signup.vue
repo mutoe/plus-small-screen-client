@@ -112,7 +112,7 @@
           <button
             :disabled="loading||disabled"
             class="m-long-btn m-signin-btn"
-            @click="signIn">
+            @click="signUp">
             <circle-loading v-if="loading" />
             <span v-else>注册</span>
           </button>
@@ -252,13 +252,9 @@ export default {
       if (!this.canGetCode) return;
       const phone = this.phone;
       const email = this.email;
-      let param = {
-        phone,
-        email
-      };
-      this.verifiable_type === SMS ? delete param.email : delete param.phone;
+      let params = this.verifiable_type === SMS ? { phone } : { email };
       this.$http
-        .post("verifycodes/register", param, {
+        .post("verifycodes/register", params, {
           validateStatus: status => status === 202
         })
         .then(() => {
@@ -267,24 +263,11 @@ export default {
           this.$Message.success("发送验证码成功");
           this.error = "";
         })
-        .catch(
-          ({
-            response: { status = null, data: { errors = {} } = {} } = {}
-          }) => {
-            if (status === 500) {
-              this.error = { message: "网络错误,请联系管理员" };
-              return;
-            }
-            if (status === 422) {
-              this.error = errors;
-            }
-            setTimeout(() => {
-              this.error = "";
-            }, 3000);
-          }
-        );
+        .catch(err => {
+          this.$Message.error(err.response.data);
+        });
     },
-    signIn() {
+    signUp() {
       const {
         name,
         phone,
@@ -295,40 +278,28 @@ export default {
       } = this.$data;
 
       // 判断首字符是否为数字
-      if (!isNaN(name[0])) {
-        this.$Message.error({ name: "用户名不能以数字开头" });
-        return;
-      }
+      if (!isNaN(name[0]))
+        return this.$Message.error({ name: "用户名不能以数字开头" });
 
       // 判断特殊字符及空格
-      if (!usernameReg.test(name)) {
-        this.$Message.error({ name: "用户名不能包含特殊符号以及空格" });
-        return;
-      }
+      if (!usernameReg.test(name))
+        return this.$Message.error({ name: "用户名不能包含特殊符号以及空格" });
 
       // 判断字节数
-      if (strLength(name) > 48 || strLength(name) < 4) {
+      if (strLength(name) > 48 || strLength(name) < 4)
         this.$Message.error({ name: "用户名不能少于2个中文或4个英文" });
-        return;
-      }
 
       // 手机号
-      if (verifiableType === SMS && !phoneReg.test(phone)) {
-        this.$Message.error({ phone: "请输入正确的手机号码" });
-        return;
-      }
+      if (verifiableType === SMS && !phoneReg.test(phone))
+        return this.$Message.error({ phone: "请输入正确的手机号码" });
 
       // 邮箱
-      if (verifiableType !== SMS && !emailReg.test(email)) {
-        this.$Message.error({ email: "请输入正确的邮箱号码" });
-        return;
-      }
+      if (verifiableType !== SMS && !emailReg.test(email))
+        return this.$Message.error({ email: "请输入正确的邮箱号码" });
 
       // 密码长度
-      if (password.length < 6) {
-        this.$Message.error({ password: "密码长度必须大于6位" });
-        return;
-      }
+      if (password.length < 6)
+        return this.$Message.error({ password: "密码长度必须大于6位" });
 
       let param = {
         name,
@@ -345,15 +316,13 @@ export default {
         .post("users", param)
         .then(({ data: { token } = {} }) => {
           if (token) {
-            this.loading = false;
             this.$Message.success("注册成功, 请登陆");
             this.$router.push("/signin");
           }
         })
-        .catch(() => {
+        .finally(() => {
           this.loading = false;
           this.disable = true;
-          // this.$Message.error(errors); // 已经弹出过 message 了
         });
     },
     changeType() {
@@ -389,10 +358,16 @@ export default {
     .m-input {
       padding: 0 30px 0 0;
     }
-    .code-text.disabled,
-    .code-text[disabled] {
-      color: #ccc;
+
+    .code-text {
+      color: @primary;
+
+      &.disabled,
+      &[disabled] {
+        color: #ccc;
+      }
     }
+
     &-append {
       flex: 0 0 170px;
       width: 170px;
@@ -404,6 +379,7 @@ export default {
       }
     }
   }
+
   footer {
     position: fixed;
     left: 0;
