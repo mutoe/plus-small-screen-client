@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@radio: 1020 / 180; // 广告宽高比
+@radio: 1020 / 260; // 广告宽高比
 
 .c-detail-ad {
   display: flex;
