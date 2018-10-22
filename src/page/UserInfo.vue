@@ -119,7 +119,9 @@ export default {
   computed: {
     ...mapState(["CURRENTUSER"]),
     disabled() {
-      return !["sex", "bio", "location", "name", this.change].some(
+      if (!this.bio || !this.name) return true;
+      if (this.location.label !== this.CURRENTUSER.location) return false;
+      return !["sex", "bio", "name", this.change].some(
         key =>
           typeof key === "string"
             ? this.$data[key] !== this.CURRENTUSER[key]
@@ -160,17 +162,7 @@ export default {
       if (this.loading) return;
       this.change = false;
       this.loading = true;
-      // PATCH /user
-      if (this.bio.length === 0) {
-        this.$Message.error("简介不能为空");
-        this.loading = false;
-        return false;
-      }
-      if (this.bio.length > 50) {
-        this.$Message.error("简介不能超过50字");
-        this.loading = false;
-        return false;
-      }
+
       const param = {
         name: this.name,
         bio: this.bio,
@@ -221,24 +213,9 @@ export default {
     },
     switchSex() {
       const options = [
-        {
-          text: "男",
-          method: () => {
-            this.sex = 1;
-          }
-        },
-        {
-          text: "女",
-          method: () => {
-            this.sex = 2;
-          }
-        },
-        {
-          text: "保密",
-          method: () => {
-            this.sex = 0;
-          }
-        }
+        { text: "男", method: () => (this.sex = 1) },
+        { text: "女", method: () => (this.sex = 2) },
+        { text: "保密", method: () => (this.sex = 0) }
       ];
       this.$bus.$emit("actionSheet", options, "取消");
     }
