@@ -187,6 +187,7 @@ export default {
     padding-top: 90px;
 
     .textarea-input {
+      padding-top: 20px;
       padding-left: 20px;
     }
   }

@@ -16,7 +16,7 @@
             ref="textarea"
             v-model.trim="contentText"
             :placeholder="placeholder"
-            :style="{ height: `${scrollHeight}px` }"
+            :style="{ height: `${textareaHeight}px` }"
             maxlength="255"
             @focus="onFocus"
             @blur="moveCurPos"
@@ -61,6 +61,9 @@ export default {
     },
     fullContentText() {
       return this.contentText;
+    },
+    textareaHeight() {
+      return this.scrollHeight > 100 ? 100 : this.scrollHeight;
     }
   },
   watch: {
