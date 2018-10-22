@@ -1,5 +1,5 @@
 <template>
-  <div class="m-box-model p-info">
+  <div class="m-box-model p-user-info">
 
     <common-header>
       个人资料
@@ -13,7 +13,7 @@
       </template>
     </common-header>
 
-    <main style="background-color: #fff">
+    <main>
 
       <form>
         <form-avatar-item
@@ -224,62 +224,83 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.p-info input[type="text"] {
-  height: 100%;
-  font-size: 28px;
-  line-height: normal;
-  vertical-align: middle;
+.p-user-info {
+  main {
+    background-color: #fff;
+  }
+
+  input[type="text"] {
+    height: 100%;
+    font-size: 28px;
+    line-height: normal;
+    vertical-align: middle;
+  }
+
+  textarea {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    resize: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+  }
+
+  .m-avatar-box {
+    margin-right: 35px;
+  }
+
+  .m-send-btn {
+    color: @primary;
+
+    &.disabled {
+      color: @gray;
+    }
+  }
+
+  .m-entry-append {
+    margin-right: 20px;
+  }
 }
-.p-info textarea {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  background-color: transparent;
-  outline: 0;
-  border: 0;
-  resize: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-}
+
 .p-info-row {
   position: relative;
   padding: 35px 0 35px 0;
   margin-left: 140px;
   min-height: 100px;
+  .input {
+    font-size: 30px;
+    line-height: 1;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    margin-left: -110px;
+    width: 110px;
+    font-size: 30px;
+    line-height: inherit;
+    color: @text-color3;
+  }
+  .m-wz-def {
+    font-size: 30px;
+    line-height: inherit;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+  .placeholder {
+    color: #ccc;
+  }
 }
-.p-info-row .input {
-  font-size: 30px;
-  line-height: 1;
-}
-.p-info-row label {
-  display: flex;
-  align-items: center;
-  margin-left: -110px;
-  width: 110px;
-  font-size: 30px;
-  line-height: inherit;
-  color: @text-color3;
-}
-.p-info-row .m-wz-def {
-  font-size: 30px;
-  line-height: inherit;
-  font-weight: 400;
-  word-wrap: break-word;
-}
-.p-info-row .placeholder {
-  color: #ccc;
-}
-.p-info .m-avatar-box {
-  margin-right: 35px;
-}
-.p-info .m-send-btn {
-  color: @primary;
-}
-.p-info .m-entry-append {
-  margin-right: 20px;
+</style>
+
+<style lang="less">
+.c-textarea-input {
+  padding-top: 28px;
 }
 </style>
