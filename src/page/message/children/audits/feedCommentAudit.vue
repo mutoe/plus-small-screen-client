@@ -13,14 +13,12 @@
           <div :class="`${prefixCls}-item-top`">
             <avatar :user="audit.user" />
             <section class="userInfo">
-              <router-link
-                :class="`${prefixCls}-item-top-link`"
-                :to="`/users/${audit.user_id}`">
+              <router-link :class="`${prefixCls}-item-top-link`" :to="`/users/${audit.user_id}`">
                 {{ audit.user.name }}
               </router-link>
               <p>{{ audit.created_at | time2tips }}</p>
             </section>
-            <feed-comment-audit-status :audit="audit"/>
+            <audit-status-feed-comment :audit="audit"/>
           </div>
           <audit-content :audit="getAuditContent(audit)"/>
         </div>
@@ -32,17 +30,17 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
-import feedCommentAuditStatus from "../../components/feedCommentAuditStatus";
+import AuditStatusFeedComment from "../../components/AuditStatusFeedComment.vue";
 import { getFeedCommentPinneds } from "@/api/feeds.js";
 import { limit } from "@/api";
-import AuditContent from "../../components/auditContent";
+import AuditContent from "../../components/AuditContent";
 
 const prefixCls = "msgList";
 
 export default {
   name: "FeedCommentAudit",
   components: {
-    feedCommentAuditStatus,
+    AuditStatusFeedComment,
     AuditContent
   },
   data: () => ({

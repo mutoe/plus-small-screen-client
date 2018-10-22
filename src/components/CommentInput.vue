@@ -9,44 +9,38 @@
     <transition name="pop">
       <div
         v-if="show"
-        class="m-box-model m-justify-end m-comment-input"
+        class="c-comment-input"
         @touch.prevent>
-        <div class="m-box m-aln-end m-comment-input-wrap">
-          <span class="m-box-model m-flex-grow1 m-flex-shrink1 m-justify-end m-wz-def">
-            <textarea
-              ref="textarea"
-              v-model.trim="contentText"
-              :placeholder="placeholder"
-              :style="{ height: `${scrollHeight}px` }"
-              maxlength="255"
-              @focus="onFocus"
-              @blur="moveCurPos"
-              @keydown.enter.prevent="sendText"
-              @input="moveCurPos"/>
-            <textarea
-              ref="shadow"
-              v-model="shadowText"
-              rows="1"
-              maxlength="255"
-              style="position: absolute; z-index: -9999; visibility: hidden;"/>
-          </span>
-          <div
-            class="m-box-model m-box-justify-end"
-            style="width: 1rem; margin: 0 0 0 15px;">
-            <span
-              v-if="contentText.length >= 210"
-              class="m-wz-def"
-              style="font-size: 10px; margin-bottom: 10px">{{ contentText.length }}/255</span>
-            <button
-              :disabled="!contentText.length"
-              class="m-comment-submit"
-              @click="sendText">发送</button>
-          </div>
+        <span class="textarea-wrap">
+          <textarea
+            ref="textarea"
+            v-model.trim="contentText"
+            :placeholder="placeholder"
+            :style="{ height: `${scrollHeight}px` }"
+            maxlength="255"
+            @focus="onFocus"
+            @blur="moveCurPos"
+            @keydown.enter.prevent="sendText"
+            @input="moveCurPos"/>
+          <textarea
+            ref="shadow"
+            v-model="shadowText"
+            class="textarea-shadow"
+            rows="1"
+            maxlength="255"/>
+        </span>
+        <div class="submit-wrap">
+          <span v-if="contentText.length >= 210" class="content-length">{{ contentText.length }}/255</span>
+          <button
+            :disabled="!contentText.length"
+            class="submit-btn"
+            @click="sendText">发送</button>
         </div>
       </div>
     </transition>
   </div>
 </template>
+
 <script>
 export default {
   name: "CommentInput",
@@ -155,3 +149,73 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.c-comment-input {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 100px;
+  padding: 20px;
+  background-color: @body-bg;
+  border-top: 1px solid @border-color;
+
+  .textarea-wrap {
+    flex: auto;
+    display: flex;
+    position: relative;
+    font-size: 30px;
+    word-wrap: break-word;
+
+    textarea {
+      line-height: 1.5;
+      background-color: transparent;
+      outline: 0;
+      border: 0;
+      border-bottom: 1px solid @primary; /*no*/
+      font-size: inherit;
+      resize: none;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+    }
+
+    .textarea-shadow {
+      position: absolute;
+      opacity: 0;
+    }
+  }
+
+  .submit-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+
+    .content-length {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #999;
+    }
+
+    .submit-btn {
+      width: 100%;
+      min-width: 90px;
+      height: 50px;
+      border-radius: 5px;
+      background-color: @primary;
+      font-size: 24px;
+      color: #fff;
+
+      &[disabled] {
+        background-color: #cccccc;
+      }
+    }
+  }
+}
+</style>

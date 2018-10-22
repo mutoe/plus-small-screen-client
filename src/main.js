@@ -9,7 +9,6 @@ import "./icons/iconfont.js"; // from http://www.iconfont.cn h5 仓库
 import "./util/rem";
 import "./util/prototype"; // 原型拓展
 
-import Modal from "./plugins/modal/";
 import Message from "./plugins/message/";
 import AsyncImage from "./components/FeedCard/v-async-image.js";
 
@@ -38,7 +37,6 @@ components.forEach(component => {
 Vue.config.productionTip = false;
 
 Vue.prototype.$http = Ajax;
-Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$MessageBundle = filters.plusMessageFirst;
 Vue.prototype.$bus = bus;

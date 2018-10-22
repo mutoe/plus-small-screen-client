@@ -3,15 +3,15 @@ import { mapActions, mapState } from "vuex";
 
 // components
 import PSWP from "./components/pswp";
-import PostMenu from "./page/PostMenu";
+import PostMenu from "./page/PostMenu.vue";
 import Payable from "./components/payfor";
 import ActionSheet from "./components/ActionSheet.vue";
-import CommentInput from "./components/commentInput";
-import CheckIn from "./page/checkin/CheckIn";
+import CommentInput from "./components/CommentInput.vue";
+import CheckIn from "./page/checkin/CheckIn.vue";
 import Reward from "./components/reward";
-import ChooseTags from "./page/chooseTags";
-import InfoTips from "./components/infoTips";
-import ApplyTop from "./components/applyForTop";
+import ChooseTags from "./page/ChooseTags.vue";
+import InfoTips from "./components/InfoTips.vue";
+import ApplyTop from "./components/ApplyForTop.vue";
 
 export default {
   render() {

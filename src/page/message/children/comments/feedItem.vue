@@ -84,7 +84,7 @@ const url = "/feeds/";
 export default {
   name: "FeedsItem",
   props: {
-    comment: { type: Object, default: () => {} }
+    comment: { type: Object, required: true }
   },
   data: () => ({
     prefixCls,
@@ -154,6 +154,7 @@ export default {
         )
         .then(() => {
           this.$Message.success("回复成功");
+          this.$bus.$emit("commentInput:close", true);
         });
     },
     /**
@@ -164,11 +165,10 @@ export default {
      * @return   {[type]}            [description]
      */
     showCommentInput() {
-      this.$Modal.commentInpt({
+      this.$bus.$emit("commentInput", {
         placeholder: `回复: ${this.comment.user.name}`,
         onOk: comment => {
           this.sendComment(comment);
-          this.$Modal.remove();
         }
       });
     }

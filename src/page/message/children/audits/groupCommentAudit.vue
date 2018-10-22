@@ -13,12 +13,12 @@
           <div :class="`${prefixCls}-item-top`">
             <avatar :user="audit.user" />
             <section class="userInfo">
-              <router-link
-                :class="`${prefixCls}-item-top-link`"
-                :to="`/users/${audit.user_id}`">{{ audit.user.name }}</router-link>
+              <router-link :class="`${prefixCls}-item-top-link`" :to="`/users/${audit.user_id}`">
+                {{ audit.user.name }}
+              </router-link>
               <p>{{ audit.created_at | time2tips }}</p>
             </section>
-            <group-post-comment-audit-status :audit="audit" />
+            <audit-status-group-post-comment :audit="audit" />
           </div>
           <!--<div :class="`${prefixCls}-item-bottom`" v-if="audit.news !== null">-->
           <!--<div class="content" @click="goToDetail(audit.news.id)">-->
@@ -36,8 +36,8 @@
 import { mapState } from "vuex";
 import { getPostCommentAudits } from "@/api/group.js";
 import { limit } from "@/api";
-import groupPostCommentAuditStatus from "../../components/groupPostCommentAuditStatus";
-import AuditContent from "../../components/auditContent";
+import AuditStatusGroupPostComment from "../../components/AuditStatusGroupPostComment.vue";
+import AuditContent from "../../components/AuditContent.vue";
 
 const prefixCls = "msgList";
 
@@ -45,7 +45,7 @@ export default {
   name: "PostCommentAudit",
   components: {
     AuditContent,
-    groupPostCommentAuditStatus
+    AuditStatusGroupPostComment
   },
   data: () => ({
     prefixCls

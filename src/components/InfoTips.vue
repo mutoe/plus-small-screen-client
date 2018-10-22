@@ -68,6 +68,7 @@ export default {
   }
 };
 </script>
+
 <style lang="less">
 .m-info-tips-box {
   position: fixed;

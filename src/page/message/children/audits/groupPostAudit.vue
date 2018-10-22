@@ -13,12 +13,12 @@
           <div :class="`${prefixCls}-item-top`">
             <avatar :user="audit.user" />
             <section class="userInfo">
-              <router-link
-                :class="`${prefixCls}-item-top-link`"
-                :to="`/users/${audit.user_id}`">{{ audit.user.name }}</router-link>
+              <router-link :class="`${prefixCls}-item-top-link`" :to="`/users/${audit.user_id}`">
+                {{ audit.user.name }}
+              </router-link>
               <p>{{ audit.created_at | time2tips }}</p>
             </section>
-            <group-post-audit-status :audit="audit" />
+            <audit-status-group-post :audit="audit" />
           </div>
           <div :class="`${prefixCls}-item-bottom`">
             <div
@@ -42,14 +42,14 @@ import _ from "lodash";
 import { mapState } from "vuex";
 import { limit } from "@/api";
 import { getPostAudits } from "@/api/group.js";
-import groupPostAuditStatus from "../../components/groupPostAuditStatus";
+import AuditStatusGroupPost from "../../components/AuditStatusGroupPost.vue";
 
 const prefixCls = "msgList";
 
 export default {
   name: "GroupPostAudit",
   components: {
-    groupPostAuditStatus
+    AuditStatusGroupPost
   },
   data: () => ({
     prefixCls
@@ -66,10 +66,7 @@ export default {
     onRefresh() {
       getPostAudits({}).then(({ data }) => {
         if (data.length > 0) {
-          this.$store.commit("SAVE_GROUP_POST_AUDITS", {
-            type: "new",
-            data
-          });
+          this.$store.commit("SAVE_GROUP_POST_AUDITS", { type: "new", data });
         }
         this.$refs.loadmore.afterRefresh(data.length < limit);
       });
@@ -84,10 +81,7 @@ export default {
       getPostAudits({ after: id }).then(({ data }) => {
         this.$refs.loadmore.afterLoadMore(data.length < limit);
         if (data.length > 0) {
-          this.$store.commit("SAVE_GROUP_POST_AUDITS", {
-            type: "more",
-            data
-          });
+          this.$store.commit("SAVE_GROUP_POST_AUDITS", { type: "more", data });
         }
       });
     }

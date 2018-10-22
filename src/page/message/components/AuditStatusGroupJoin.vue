@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import AuditContent from "./auditContent.vue";
+import AuditContent from "./AuditContent.vue";
 
 export default {
   name: "GroupJoinCard",
@@ -69,38 +69,28 @@ export default {
       this.$http
         .patch(
           `/plus-group/currency-groups/${group}/members/${member}/audit`,
-          {
-            status: 1
-          },
-          {
-            validateStatus: s => s === 201
-          }
+          { status: 1 },
+          { validateStatus: s => s === 201 }
         )
         .then(({ data }) => {
           this.audit.audit_at = 1;
           this.audit.status = 1;
           this.$Message.success(data);
-        })
-        .catch(() => {});
+        });
     },
     reject() {
       const { group_id: group = 0, member_id: member = 0 } = this.audit;
       this.$http
         .patch(
           `/plus-group/currency-groups/${group}/members/${member}/audit`,
-          {
-            status: 2
-          },
-          {
-            validateStatus: s => s === 201
-          }
+          { status: 2 },
+          { validateStatus: s => s === 201 }
         )
         .then(({ data }) => {
           this.audit.audit_at = 1;
           this.audit.status = 2;
           this.$Message.success(data);
-        })
-        .catch(() => {});
+        });
     },
     showOperations(audit) {
       if (audit.status !== 0) return;

@@ -13,14 +13,12 @@
           <div :class="`${prefixCls}-item-top`">
             <avatar :user="audit.user"/>
             <section class="userInfo">
-              <router-link
-                :class="`${prefixCls}-item-top-link`"
-                :to="`/users/${audit.user_id}`">{{
-                audit.user.name }}
+              <router-link :class="`${prefixCls}-item-top-link`" :to="`/users/${audit.user_id}`">
+                {{ audit.user.name }}
               </router-link>
               <p>{{ audit.created_at | time2tips }}</p>
             </section>
-            <news-comment-audit-status :audit="audit"/>
+            <audit-status-news-comment :audit="audit"/>
           </div>
           <!--<div :class="`${prefixCls}-item-bottom`" v-if="audit.news">-->
           <!--&lt;!&ndash; <div class="content" @click="goToDetail(audit.news.id)" v-if="audit.comment"> &ndash;&gt;-->
@@ -48,8 +46,8 @@
 import { mapState } from "vuex";
 import { limit } from "@/api";
 import { getNewsCommentPinneds } from "@/api/news.js";
-import newsCommentAuditStatus from "../../components/newsCommentAuditStatus";
-import AuditContent from "../../components/auditContent";
+import AuditStatusNewsComment from "../../components/AuditStatusNewsComment.vue";
+import AuditContent from "../../components/AuditContent.vue";
 
 const prefixCls = "msgList";
 
@@ -57,7 +55,7 @@ export default {
   name: "NewsCommentAudit",
   components: {
     AuditContent,
-    newsCommentAuditStatus
+    AuditStatusNewsComment
   },
   data: () => ({
     prefixCls

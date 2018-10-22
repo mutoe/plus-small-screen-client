@@ -290,6 +290,8 @@ export default {
 .p-info-row .m-wz-def {
   font-size: 30px;
   line-height: inherit;
+  font-weight: 400;
+  word-wrap: break-word;
 }
 .p-info-row .placeholder {
   color: #ccc;

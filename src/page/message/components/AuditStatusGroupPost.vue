@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${prefixCls}-status`">
+  <div class="msgList-status">
     <section v-if="audit.expires_at">
       <section v-if="audit.status === 1" class="gray">
         <span class="amount-show">{{ audit.amount }}{{ currencyUnit }} / {{ audit.day }}天</span>同意置顶
@@ -23,28 +23,14 @@
  * 提取资讯评论置顶申请的状态控制组件
  */
 
-const prefixCls = "msgList";
+import AuditStatusBase from "./AuditStatusBase.vue";
 
 export default {
   name: "NewsCommentAuditStatus",
-  props: {
-    audit: { type: Object, default: () => {} }
-  },
-  data: () => ({
-    prefixCls
-  }),
+  extends: AuditStatusBase,
   methods: {
-    /**
-     * 同意置顶
-     * @Author   Wayne
-     * @DateTime 2018-02-08
-     * @Email    qiaobin@zhiyicx.com
-     * @return   {[type]}            [description]
-     */
     accept() {
-      const { currentItem = {} } = this;
-      const { target: postId = 0 } = currentItem;
-      this.$Modal.remove();
+      const { target: postId = 0 } = this.audit;
       this.$http
         .patch(`/plus-group/currency-pinned/posts/${postId}/accept`, {
           validateStatus: s => s === 201
@@ -53,20 +39,10 @@ export default {
           this.audit.expires_at = 1;
           this.audit.status = 1;
           this.$Message.success(data);
-        })
-        .catch(() => {});
+        });
     },
-    /**
-     * 拒绝置顶
-     * @Author   Wayne
-     * @DateTime 2018-02-08
-     * @Email    qiaobin@zhiyicx.com
-     * @return   {[type]}            [description]
-     */
     reject() {
-      const { currentItem = {} } = this;
-      const { target: postId = 0 } = currentItem;
-      this.$Modal.remove();
+      const { target: postId = 0 } = this.audit;
       this.$http
         .patch(`/plus-group/currency-pinned/posts/${postId}/reject`, {
           validateStatus: s => s === 201
@@ -75,37 +51,7 @@ export default {
           this.audit.expires_at = 1;
           this.audit.status = 2;
           this.$Message.success(data);
-        })
-        .catch(() => {});
-    },
-    showOperations(audit) {
-      this.currentItem = audit;
-      const vm = this;
-      this.$Modal.info({
-        title: "请选择",
-        render(h) {
-          return h("div", {}, [
-            h(
-              "button",
-              {
-                on: {
-                  click: vm.accept
-                }
-              },
-              "同意置顶"
-            ),
-            h(
-              "button",
-              {
-                on: {
-                  click: vm.reject
-                }
-              },
-              "拒绝置顶"
-            )
-          ]);
-        }
-      });
+        });
     }
   }
 };

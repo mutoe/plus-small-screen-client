@@ -6,7 +6,7 @@
         :class="`${prefixCls}-loadmore`"
         @onRefresh="onRefresh"
         @onLoadMore="onLoadMore" >
-        <group-join-card
+        <audit-status-group-join
           v-for="audit in audits"
           :class="`${prefixCls}-item`"
           :key="`group-join-${audit.id}`"
@@ -19,8 +19,8 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
-import AuditContent from "../../components/auditContent";
-import GroupJoinCard from "../../components/GroupJoinCard.vue";
+import AuditContent from "../../components/AuditContent.vue";
+import AuditStatusGroupJoin from "../../components/AuditStatusGroupJoin.vue";
 
 const prefixCls = "msgList";
 
@@ -28,7 +28,7 @@ export default {
   name: "GroupJoinAudit",
   components: {
     AuditContent,
-    GroupJoinCard
+    AuditStatusGroupJoin
   },
   data: () => ({
     prefixCls
