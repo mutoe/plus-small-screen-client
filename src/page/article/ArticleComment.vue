@@ -65,13 +65,17 @@ export default {
     };
   },
   computed: {
-    isShowAll: {
-      get() {
-        return this.bodyLength < 60 || this.showAll;
-      },
-      set(val) {
-        this.showAll = val;
-      }
+    // 需求变更：不显示更多按钮
+    // isShowAll: {
+    //   get() {
+    //     return this.bodyLength < 60 || this.showAll;
+    //   },
+    //   set(val) {
+    //     this.showAll = val;
+    //   }
+    // },
+    isShowAll() {
+      return true;
     },
     user() {
       const { user } = this.comment;
