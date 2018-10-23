@@ -277,6 +277,11 @@ export default {
       }
     }
   },
+  beforeMount() {
+    if (this.isIosWechat) {
+      this.reload(this.$router);
+    }
+  },
   activated() {
     if (this.feedID) {
       this.comments = [];

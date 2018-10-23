@@ -228,6 +228,12 @@ export default {
       }
     }
   },
+  beforeMount() {
+    if (this.isIosWechat) {
+      this.$Message.info("reload");
+      this.reload(this.$router);
+    }
+  },
   activated() {
     if (this.newsID) {
       if (this.newsID !== this.oldID) {

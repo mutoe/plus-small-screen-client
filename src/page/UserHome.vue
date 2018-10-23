@@ -350,7 +350,11 @@ export default {
       val && this.updateData();
     }
   },
-
+  beforeMount() {
+    if (this.isIosWechat) {
+      this.reload(this.$router);
+    }
+  },
   mounted() {
     this.typeFilter = this.$refs.typeFilter;
     this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;

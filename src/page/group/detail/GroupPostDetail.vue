@@ -267,6 +267,11 @@ export default {
   created() {
     this.fetchFeed();
   },
+  beforeMount() {
+    if (this.isIosWechat) {
+      this.reload(this.$router);
+    }
+  },
   activated() {
     if (this.postId) {
       if (this.postId !== this.oldID) {

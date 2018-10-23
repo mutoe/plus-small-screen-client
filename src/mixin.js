@@ -1,3 +1,5 @@
+import reload from "@/util/wechatShareForIOS.js";
+
 export default {
   data() {
     return {
@@ -9,6 +11,14 @@ export default {
   computed: {
     currencyUnit() {
       return this.$store.state.currency.unit;
+    },
+    isIosWechat() {
+      const ua = navigator.userAgent;
+      const wechatUA = ua.toLowerCase().match(/MicroMessenger/i);
+      const isIos = ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+      const isWechat =
+        wechatUA !== null && wechatUA.toString() === "micromessenger";
+      return isIos && isWechat && this.$route.query.jxytime === undefined;
     }
   },
   watch: {
@@ -27,9 +37,11 @@ export default {
   },
   methods: {
     goBack(num = -1) {
-      window.history.length <= 1
-        ? this.$router.push("/")
+      const fallIndex = this.isIosWechat ? 2 : 1;
+      window.history.length <= fallIndex
+        ? this.$router.replace("/")
         : this.$router.back(num);
-    }
+    },
+    reload: reload
   }
 };
