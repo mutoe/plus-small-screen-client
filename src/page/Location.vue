@@ -38,10 +38,10 @@
         </div>
         <div v-else class="m-box-model">
           <div
-            v-for="city in cities"
-            :key="city"
+            v-for="(city, index) in cities"
+            :key="`search-${city}-${index}`"
             class="m-box m-aln-center m-bb1 m-main city-item"
-            @click="selectedHot(city.slice(city.lastIndexOf(`，`)))">
+            @click="selectedSearchItem(index)">
             <span class="m-text-cut">{{ city }}</span>
           </div>
         </div>
@@ -57,9 +57,7 @@ import * as api from "@/api/bootstrappers.js";
 
 export default {
   name: "Location",
-  components: {
-    SearchBar
-  },
+  components: { SearchBar },
   props: {
     show: {
       type: Boolean,
@@ -79,7 +77,8 @@ export default {
       hotPos: {},
       isFocus: false,
       placeholder: "未定位",
-      cities: []
+      cities: [],
+      originCities: []
     };
   },
   computed: {
@@ -154,11 +153,12 @@ export default {
           })
         : [];
     },
-    searchCityByName: _.throttle(function() {
+    searchCityByName: _.debounce(function() {
       api.searchCityByName(this.keyword).then(({ data = [] }) => {
+        this.originCities = data;
         this.cities = this.formatCities(data);
       });
-    }, 1e3),
+    }, 450),
     getCurrentPosition() {
       this.loading = true;
       this.hotPos = null;
@@ -182,6 +182,17 @@ export default {
       this.loading = true;
       api.getGeo(city.replace(/[\s\uFEFF\xA0]+/g, "")).then(data => {
         this.loading = false;
+        this.currentPos = data;
+        this.$nextTick(this.goBack);
+      });
+    },
+    selectedSearchItem(index) {
+      if (this.loading) return;
+      this.loading = true;
+      const city = this.cities[index].split("，").pop();
+      api.getGeo(city.replace(/[\s\uFEFF\xA0]+/g, "")).then(data => {
+        this.loading = false;
+        data.label = this.originCities[index].tree.name;
         this.currentPos = data;
         this.$nextTick(this.goBack);
       });
