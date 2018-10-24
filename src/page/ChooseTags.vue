@@ -13,7 +13,7 @@
               v-if="tag.id"
               :key="`tags-selected-${tag.id}`"
               class="m-tag"
-              @click="switchTagStatus(tag, -1)">
+              @click="removeTag(tag)">
               <svg class="m-style-svg m-svg-def">
                 <use xlink:href="#icon-clean"/>
               </svg>
@@ -34,7 +34,7 @@
                 :key="tag.id"
                 :class="{ selected: tag.selected }"
                 class="m-tag"
-                @click="switchTagStatus(tag, Gindex, Tindex)">
+                @click="addTag(tag, Gindex, Tindex)">
                 <span>{{ tag.name }}</span>
               </li>
             </transition-group>
@@ -50,9 +50,9 @@ import { noop } from "@/util";
 
 /**
  * 打开选择标签页面 (钩子 -> "choose-tags")
- * @author jsonleex <jsonlseex@163.com>
+ * @author mutoe <mutoe@foxmail.com>
  * @param {Object} options
- * @param {Number[]} options.chooseTags 初始选择值, 只需传 [tag.id], eg: [1, 2, 3,...]
+ * @param {number[]} options.chooseTags 初始选择值, 只需传 [tag.id], eg: [1, 2, 3,...]
  * @param {Function} options.nextStep 点击下一步的回调, 注入已选择的 tags
  * @param {Function} options.onSelect 选择某个标签时执行的回调函数
  * @param {Function} options.onRemove 取消选择某个标签时执行的回调函数
@@ -128,36 +128,28 @@ export default {
         this.tags = data;
       });
     },
-    switchTagStatus(tag, Gindex, Tindex) {
-      const chooseTags = this.chooseTags;
-      const isSelected = tag.selected;
-      const status = {};
-      const obj =
-        Gindex > -1
-          ? this.tags[Gindex]["tags"][Tindex]
-          : this.tags[tag.Gindex]["tags"][tag.Tindex];
+    addTag(tag, Gindex, Tindex) {
+      const obj = this.tags[Gindex].tags[Tindex];
+      if (obj.selected) return;
 
-      if (isSelected) {
-        chooseTags.splice(this.chooseTags.indexOf(tag), 1);
-        status.selected = false;
-        Object.assign(obj, status);
-        this.onRemove(tag.id);
-      } else {
-        status.selected = true;
-        status.Gindex = Gindex;
-        status.Tindex = Tindex;
-        if (chooseTags.length >= 5) {
-          this.$Message.error("标签最多可选5个");
-        } else {
-          Object.assign(obj, status);
-          chooseTags.push(obj);
-          this.onSelect(tag.id);
-        }
-      }
+      if (this.chooseTags.length >= 5)
+        return this.$Message.error("标签最多可选5个");
 
-      this.$set(this.tags, obj);
-      this.chooseTags = chooseTags;
+      const status = { selected: true, Gindex, Tindex };
+      Object.assign(obj, status);
+      this.chooseTags.push(obj);
+
+      // emit hooks
+      this.onSelect(tag.id);
     },
+    removeTag(tag) {
+      this.chooseTags.splice(this.chooseTags.indexOf(tag), 1);
+      this.tags[tag.Gindex]["tags"][tag.Tindex].selected = false;
+
+      // emit hooks
+      this.onRemove(tag.id);
+    },
+
     cancel() {
       this.chooseTags.forEach(tag => {
         delete tag.Gindex;
