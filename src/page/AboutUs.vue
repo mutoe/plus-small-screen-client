@@ -4,12 +4,14 @@
     <common-header>关于我们</common-header>
 
     <main>
-      <div class="content" v-html="body"/>
+      <div class="content markdown-body" v-html="body"/>
     </main>
   </div>
 </template>
 
 <script>
+import md from "@/util/markdown";
+
 export default {
   name: "AboutUs",
   computed: {
@@ -18,7 +20,8 @@ export default {
       return aboutUs;
     },
     body() {
-      return this.aboutUs.content || "";
+      const content = this.aboutUs.content || "";
+      return md(content);
     }
   }
 };
@@ -27,6 +30,7 @@ export default {
 <style lang='less' scoped>
 .about-us {
   .content {
+    padding: 20px;
     min-height: 100vh;
     background: #fff;
   }

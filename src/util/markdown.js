@@ -1,6 +1,6 @@
 import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
-import axios from "../api/api.js";
+import { baseURL } from "@/api";
 
 /**
  * Create a markdown it instance.
@@ -9,7 +9,7 @@ import axios from "../api/api.js";
  */
 export const markdown = markdownIt({
   html: true
-}).use(plusImagePlugin, `${axios.defaults.baseURL}/files/`);
+}).use(plusImagePlugin, `${baseURL}/files/`);
 
 /**
  * Markdown render.
