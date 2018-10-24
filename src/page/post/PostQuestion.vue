@@ -203,12 +203,12 @@ export default {
   },
   methods: {
     selectedTopic(topic) {
-      const index = this.selectedTops.indexOf(topic);
-      index > -1
-        ? this.selectedTops.splice(index, 1)
-        : this.selectedTops.length > 4
-          ? this.$Message.error("添加专题不可以超过5个")
-          : this.selectedTops.push(topic);
+      if (this.selectedTops.includes(topic))
+        return this.$Message.error("专题不能重复");
+      if (this.selectedTops.length > 4)
+        return this.$Message.error("添加专题不可以超过5个");
+
+      this.selectedTops.push(topic);
     },
     /**
      * 搜索问题
