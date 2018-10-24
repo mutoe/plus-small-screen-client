@@ -41,7 +41,7 @@
                 class="m-box-model m-aln-center"
                 @click="cancel">
                 <router-link
-                  :to="`/users/${user.id}`"
+                  :to="`/users/${user.id}?from=checkin`"
                   :class="[`m-avatar-box-tiny`, `m-avatar-box-${user.sex}`]"
                   class="m-flex-shrink0 m-flex-grow0 m-avatar-box">
                   <img

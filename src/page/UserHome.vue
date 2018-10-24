@@ -13,7 +13,7 @@
       :class="{ 'show-title': scrollTop > 1 / 2 * bannerHeight }"
       class="m-box m-lim-width m-pos-f m-head-top bg-transp">
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0">
-        <svg class="m-style-svg m-svg-def white" @click="goBack">
+        <svg class="m-style-svg m-svg-def white" @click="beforeBack">
           <use xlink:href="#icon-back"/>
         </svg>
         <circle-loading v-if="updating" />
@@ -411,6 +411,10 @@ export default {
     window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
+    beforeBack() {
+      if (this.$route.query.from === "checkin") this.$bus.$emit("check-in");
+      this.goBack();
+    },
     /**
      * 发起单聊
      */
