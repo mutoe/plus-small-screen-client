@@ -118,7 +118,8 @@
           :comment="comment"
           @click="replyComment"/>
         <div class="m-box m-aln-center m-justify-center load-more-box">
-          <span v-if="noMoreCom" class="load-more-ph">---没有更多---</span>
+          <div v-if="!pinnedCom.length && !comments.length" class="m-no-find"/>
+          <span v-else-if="noMoreCom" class="load-more-ph">---没有更多---</span>
           <span
             v-else
             class="load-more-btn"
@@ -672,5 +673,19 @@ export default {
   font-size: 0.32rem;
   margin-left: 0.1rem;
   text-align: center;
+}
+
+.load-more-box {
+  height: auto;
+
+  .load-more-ph {
+    height: 100px;
+    line-height: 100px;
+  }
+
+  .m-no-find {
+    height: 600px;
+    width: 100%;
+  }
 }
 </style>
