@@ -4,11 +4,11 @@ import { mapActions, mapState } from "vuex";
 // components
 import PSWP from "./components/pswp";
 import PostMenu from "./page/PostMenu.vue";
-import Payable from "./components/payfor";
+import PayFor from "./components/PayFor.vue";
 import ActionSheet from "./components/ActionSheet.vue";
 import CommentInput from "./components/CommentInput.vue";
 import CheckIn from "./page/checkin/CheckIn.vue";
-import Reward from "./components/reward";
+import Reward from "./components/Reward.vue";
 import ChooseTags from "./page/ChooseTags.vue";
 import ApplyTop from "./components/ApplyForTop.vue";
 
@@ -21,7 +21,7 @@ export default {
         <div>
           <PSWP />
           <PostMenu />
-          <Payable />
+          <PayFor />
           <ActionSheet />
           <CommentInput />
           <CheckIn />
