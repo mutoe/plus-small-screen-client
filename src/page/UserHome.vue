@@ -426,12 +426,7 @@ export default {
       });
     },
     rewardUser() {
-      this.$bus.$emit("reward", {
-        type: "user",
-        api: api.rewardUser,
-        payload: this.user.id,
-        callback: () => {}
-      });
+      this.popupBuyTS();
     },
     followUserByStatus(status) {
       if (!status || this.fetchFollow) return;
