@@ -349,12 +349,7 @@ export default {
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              this.$bus.$emit("applyTop", {
-                isOwner,
-                type: "feedComment",
-                api: api.applyTopFeedComment,
-                payload: { feedId: this.feedID, commentId: comment.id }
-              });
+              this.popupBuyTS();
             }
           },
           { text: "删除评论", method: () => this.deleteComment(comment.id) }
