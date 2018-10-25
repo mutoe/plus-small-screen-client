@@ -1,6 +1,6 @@
 <template>
-  <common-header class="c-switch-bar">
-    <div class="tab">
+  <common-header :pinned="true" class="c-switch-bar">
+    <div class="tab" @click.capture.stop.prevent="popupBuyTS">
       <!-- Queation type link. -->
       <router-link
         :replace="true"
@@ -22,13 +22,13 @@
       </router-link>
     </div>
 
-    <template slot="right">
-      <router-link to="/question/search" >
+    <div slot="right" @click.capture.stop.prevent="popupBuyTS">
+      <router-link to="/question/search">
         <svg class="m-style-svg m-svg-def search-btn">
           <use xlink:href="#icon-search" />
         </svg>
       </router-link>
-    </template>
+    </div>
   </common-header>
 </template>
 

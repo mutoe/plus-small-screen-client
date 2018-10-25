@@ -4,7 +4,6 @@ import post from "./post";
 import easemob from "./easemob";
 import wallet from "./wallet";
 import currency from "./currency";
-import question from "./question";
 import news from "./news";
 import group from "./group";
 import feed from "./feed";
@@ -17,7 +16,6 @@ export default {
   easemob,
   wallet,
   currency,
-  question,
   news,
   group,
   feed,

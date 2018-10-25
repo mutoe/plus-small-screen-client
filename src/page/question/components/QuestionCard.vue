@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import QuestionListAnswerCard from "../QuestionListAnswerCard.vue";
+import QuestionListAnswerCard from "./QuestionListAnswerCard.vue";
 import { baseURL } from "@/api";
 import { syntaxTextAndImage } from "@/util/markdown";
 
