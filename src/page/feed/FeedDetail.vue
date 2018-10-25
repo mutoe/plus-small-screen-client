@@ -488,11 +488,7 @@ export default {
             {
               text: "申请动态置顶",
               method: () => {
-                this.$bus.$emit("applyTop", {
-                  type: "feed",
-                  api: api.applyTopFeed,
-                  payload: this.feedID
-                });
+                this.popupBuyTS();
               }
             },
             {
