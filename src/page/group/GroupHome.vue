@@ -3,17 +3,17 @@
 
     <common-header>
       圈子
-      <template slot="right">
+      <div slot="right" @click.capture.stop.prevent="popupBuyTS">
         <svg class="m-style-svg m-svg-def" @click="onSearchClick">
           <use xlink:href="#icon-search"/>
         </svg>
         <svg class="m-style-svg m-svg-def" @click="beforeCreateGroup">
           <use xlink:href="#icon-group-create"/>
         </svg>
-      </template>
+      </div>
     </common-header>
 
-    <main>
+    <main @click.capture.stop.prevent="popupBuyTS">
 
       <div class="group-label" @click="$router.push({ name: 'groups', query: { type: 'recommend' } })">
         <h2><strong>{{ groupTotalNumber }}</strong>个兴趣小组，等待你的加入！</h2>
