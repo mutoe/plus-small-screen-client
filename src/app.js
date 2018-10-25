@@ -11,6 +11,7 @@ import CheckIn from "./page/checkin/CheckIn.vue";
 import Reward from "./components/Reward.vue";
 import ChooseTags from "./page/ChooseTags.vue";
 import ApplyTop from "./components/ApplyForTop.vue";
+import PopupDialog from "./components/PopupDialog.vue";
 
 export default {
   render() {
@@ -28,6 +29,7 @@ export default {
           <Reward />
           <ChooseTags />
           <ApplyTop />
+          <PopupDialog />
         </div>
       </div>
     );

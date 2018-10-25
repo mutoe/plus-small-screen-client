@@ -1,43 +1,45 @@
 <template>
-  <div
-    :class="{show: isShow}"
-    class="c-popup-dialog">
-    <div class="panel">
-      <header v-if="title">
-        {{ title }}
-      </header>
-      <main>
-        <slot/>
-      </main>
-      <footer @click="onConfirm">
-        {{ confirmText }}
-      </footer>
+  <transition name="toast">
+
+    <div v-if="show" class="c-popup-dialog">
+      <div class="panel">
+        <header v-if="title" v-text="title"/>
+        <main v-html="content"/>
+        <footer @click="onConfirm" v-text="confirmText"/>
+      </div>
     </div>
-  </div>
+
+  </transition>
 </template>
 
 <script>
+import { noop } from "@/util";
+
 export default {
   name: "PopupDialog",
-  props: {
-    title: { type: String, default: "" },
-    confirmText: { type: String, default: "知道了" }
-  },
   data() {
     return {
-      isShow: false
+      show: false,
+
+      title: "",
+      content: "",
+      confirmText: "知道了",
+      onClose: noop
     };
   },
+  created() {
+    this.$bus.$on("popupDialog", (content, options = {}) => {
+      if (typeof content === "object") options = content;
+      else options.content = content;
+      Object.assign(this.$data, options);
+
+      this.show = true;
+    });
+  },
   methods: {
-    show() {
-      this.isShow = true;
-    },
-    hide() {
-      this.isShow = false;
-    },
     onConfirm() {
-      this.$emit("confirm");
-      this.hide();
+      this.show = false;
+      this.onClose();
     }
   }
 };
@@ -48,21 +50,13 @@ export default {
   display: flex;
   align-items: center;
   position: fixed;
-  top: -80px;
+  top: -100px;
   height: calc(~"100% + 200px");
   left: -100px;
   right: -100px;
   padding: 100px;
   background-color: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  z-index: -1;
-  transition: 0.3s;
-
-  &.show {
-    z-index: 100;
-    opacity: 1;
-    top: -100px;
-  }
+  z-index: 100;
 
   .panel {
     display: flex;
