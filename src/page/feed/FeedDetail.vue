@@ -404,17 +404,7 @@ export default {
       return avatar.url || null;
     },
     rewardFeed() {
-      const callback = amount => {
-        this.fetchRewards();
-        this.feed.reward_number += 1;
-        this.feed.reward_amount += amount;
-      };
-      this.$bus.$emit("reward", {
-        type: "feed",
-        api: api.rewardFeed,
-        payload: this.feedID,
-        callback
-      });
+      this.popupBuyTS();
     },
     likeFeed() {
       const method = this.liked ? "delete" : "post";
