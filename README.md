@@ -8,6 +8,8 @@
 
 使用现代 Web 技术 [Vue.js](https://github.com/vuejs/vue) 编写的 [Plus(ThinkSNS+)](https://github.com/slimkit/plus) 浏览器单页客户端。
 
+
+[![GitHub release](https://img.shields.io/github/release/slimkit/plus-small-screen-client.svg?style=flat-square)](https://github.com/slimkit/plus-small-screen-client/releases)
 [![Build Status](https://img.shields.io/travis/com/slimkit/plus-small-screen-client/master.svg?style=flat-square)](https://travis-ci.com/slimkit/plus-small-screen-client)
 [![QQ Group](https://img.shields.io/badge/QQ%20Group-651240785-red.svg?longCache=true&style=flat-square)](//shang.qq.com/wpa/qunwpa?idkey=01b61bdf8a7efc2a40ab4caab2d14793f340e5fe5d09aa0c2c17f3115a579678)
 
