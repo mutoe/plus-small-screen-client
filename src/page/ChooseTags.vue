@@ -41,12 +41,21 @@
           </section>
         </div>
       </main>
+
+      <popup-dialog
+        ref="dialog"
+        title="温馨提示"
+        @confirm="onReadTips" >
+        <p>标签为全局标签，选择合适的标签，系统可推荐你感兴趣的内容，方便找到相同身份或爱好的人，很重要哦！</p>
+      </popup-dialog>
+
     </div>
   </transition>
 </template>
 
 <script>
 import { noop } from "@/util";
+import PopupDialog from "@/components/PopupDialog.vue";
 
 /**
  * 打开选择标签页面 (钩子 -> "choose-tags")
@@ -58,7 +67,6 @@ import { noop } from "@/util";
  * @param {Function} options.onRemove 取消选择某个标签时执行的回调函数
  */
 function onChooseTags({ chooseTags = [], nextStep, onSelect, onRemove }) {
-  this.isFirst = !this.$lstore.hasData("H5_CHOOSE_TAGS_FIRST");
   this.nextStep = nextStep || noop;
   this.onSelect = onSelect || noop;
   this.onRemove = onRemove || noop;
@@ -79,21 +87,17 @@ function onChooseTags({ chooseTags = [], nextStep, onSelect, onRemove }) {
   this.show = true;
   this.scrollable = false;
 
+  //首次进入标签选择页面时弹框提示
   if (this.isFirst && this.$route.name !== "groupCreate") {
     this.$nextTick(() => {
-      this.$bus.$emit("info-tips", {
-        content:
-          "标签为全局标签，选择合适的标签，系统可推荐你感兴趣的内容，方便找到相同身份或爱好的人，很重要哦！",
-        onCancel: () => {
-          this.$lstore.setData("H5_CHOOSE_TAGS_FIRST", false);
-        }
-      });
+      this.$refs.dialog.show();
     });
   }
 }
 
 export default {
   name: "ChooseTags",
+  components: { PopupDialog },
   data() {
     return {
       show: false,
@@ -114,9 +118,11 @@ export default {
     // 注册钩子
     this.$bus.$on("choose-tags", onChooseTags.bind(this));
   },
+  mounted() {
+    this.isFirst = !this.$lstore.hasData("H5_CHOOSE_TAGS_FIRST");
+  },
   methods: {
     nextFuc() {
-      // if (this.disabled) return;
       this.nextStep(this.chooseTags);
       this.$nextTick(this.cancel);
     },
@@ -160,11 +166,15 @@ export default {
       this.show = false;
       this.chooseTags = [];
       this.scrollable = true;
+    },
+
+    onReadTips() {
+      this.$lstore.setData("H5_CHOOSE_TAGS_FIRST", false);
     }
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .p-choose-tags {
   main {
     overflow-y: auto;

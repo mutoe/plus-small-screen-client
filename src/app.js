@@ -10,7 +10,6 @@ import CommentInput from "./components/CommentInput.vue";
 import CheckIn from "./page/checkin/CheckIn.vue";
 import Reward from "./components/reward";
 import ChooseTags from "./page/ChooseTags.vue";
-import InfoTips from "./components/InfoTips.vue";
 import ApplyTop from "./components/ApplyForTop.vue";
 
 export default {
@@ -28,7 +27,6 @@ export default {
           <CheckIn />
           <Reward />
           <ChooseTags />
-          <InfoTips />
           <ApplyTop />
         </div>
       </div>
