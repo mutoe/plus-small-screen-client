@@ -98,9 +98,6 @@
         </div>
       </main>
 
-      <!-- 详情页广告位 -->
-      <detail-ad type="feed"/>
-
       <!-- 评论列表 -->
       <div id="comment_list" class="m-box-model m-art-comments">
         <ul class="m-box m-aln-center m-art-comments-tabs">
@@ -136,7 +133,6 @@
 import { mapState } from "vuex";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
-import DetailAd from "@/components/advertisement/DetailAd";
 import wechatShare from "@/util/wechatShare.js";
 import { limit } from "@/api";
 import { followUserByStatus, getUserInfoById } from "@/api/user.js";
@@ -146,8 +142,7 @@ export default {
   name: "FeedDetail",
   components: {
     ArticleCard,
-    CommentItem,
-    DetailAd
+    CommentItem
   },
   data() {
     return {
@@ -409,17 +404,7 @@ export default {
       return avatar.url || null;
     },
     rewardFeed() {
-      const callback = amount => {
-        this.fetchRewards();
-        this.feed.reward_number += 1;
-        this.feed.reward_amount += amount;
-      };
-      this.$bus.$emit("reward", {
-        type: "feed",
-        api: api.rewardFeed,
-        payload: this.feedID,
-        callback
-      });
+      this.popupBuyTS();
     },
     likeFeed() {
       const method = this.liked ? "delete" : "post";
@@ -503,11 +488,7 @@ export default {
             {
               text: "申请动态置顶",
               method: () => {
-                this.$bus.$emit("applyTop", {
-                  type: "feed",
-                  api: api.applyTopFeed,
-                  payload: this.feedID
-                });
+                this.popupBuyTS();
               }
             },
             {
@@ -555,13 +536,7 @@ export default {
           {
             text: isOwner ? "评论置顶" : "申请评论置顶",
             method: () => {
-              this.$bus.$emit("applyTop", {
-                isOwner,
-                type: "feedComment",
-                api: api.applyTopFeedComment,
-                payload: { feedId: this.feedID, commentId },
-                callback: this.fetchFeedComments
-              });
+              this.popupBuyTS();
             }
           },
           { text: "删除评论", method: () => this.deleteComment(commentId) }

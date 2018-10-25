@@ -72,9 +72,6 @@
         </div>
       </div>
 
-      <!-- 资讯详情页广告位 -->
-      <detail-ad type="news"/>
-
       <div class="m-box-model m-art-comments">
         <ul class="m-box m-aln-center m-art-comments-tabs">
           <li>{{ commentCount | formatNum }}条评论</li>
@@ -110,7 +107,6 @@
 import { mapState } from "vuex";
 import ArticleCard from "@/page/article/ArticleCard.vue";
 import CommentItem from "@/page/article/ArticleComment.vue";
-import DetailAd from "@/components/advertisement/DetailAd.vue";
 import wechatShare from "@/util/wechatShare.js";
 import md from "@/util/markdown.js";
 import { limit } from "@/api";
@@ -121,8 +117,7 @@ export default {
   name: "NewsDetail",
   components: {
     ArticleCard,
-    CommentItem,
-    DetailAd
+    CommentItem
   },
   data() {
     return {

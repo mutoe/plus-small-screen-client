@@ -4,8 +4,6 @@ const postImage = () =>
   import(/* webpackChunkName: 'post' */ "@/page/post/PostImage.vue");
 const postText = () =>
   import(/* webpackChunkName: 'post' */ "@/page/post/PostText.vue");
-const postQuestion = () =>
-  import(/* webpackChunkName: 'post' */ "@/page/post/PostQuestion.vue");
 
 export default [
   {
@@ -29,15 +27,6 @@ export default [
     component: postImage,
     meta: {
       title: "发布图片",
-      requiresAuth: true
-    }
-  },
-  {
-    name: "postQuestion",
-    path: "/post/question",
-    component: postQuestion,
-    meta: {
-      title: "发布问题",
       requiresAuth: true
     }
   }

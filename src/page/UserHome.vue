@@ -79,27 +79,13 @@
       <div
         v-clickoutside="hidenFilter"
         class="m-box m-aln-center m-justify-bet m-urh-filter-box"
-        @click="showFilter = !showFilter">
+        @click="popupBuyTS">
         <span>{{ feedsCount }}条动态</span>
         <div v-if="isMine" class="m-box m-aln-center m-urh-filter">
           <span>{{ feedTypes[screen] }}</span>
           <svg class="m-style-svg m-svg-small">
             <use xlink:href="#icon-list"/>
           </svg>
-          <transition v-if="showFilter">
-            <ul class="m-urh-filter-options">
-              <li
-                v-for="(val, key) of feedTypes"
-                :key="key"
-                class="m-box m-aln-center m-justify-bet"
-                @click="screen = key">
-                <span>{{ val }}</span>
-                <svg v-if="screen === key" class="m-style-svg m-svg-small">
-                  <use xlink:href="#icon-yes"/>
-                </svg>
-              </li>
-            </ul>
-          </transition>
         </div>
       </div>
       <ul class="m-urh-feeds">
@@ -426,12 +412,7 @@ export default {
       });
     },
     rewardUser() {
-      this.$bus.$emit("reward", {
-        type: "user",
-        api: api.rewardUser,
-        payload: this.user.id,
-        callback: () => {}
-      });
+      this.popupBuyTS();
     },
     followUserByStatus(status) {
       if (!status || this.fetchFollow) return;

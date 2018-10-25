@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import { like, unlike } from "@/api/question/answer";
-
 export default {
   name: "QuestionAnswerItem",
   props: {
@@ -62,30 +60,8 @@ export default {
     }
   },
   methods: {
-    handleLike() {
-      like(this.answer.id)
-        .then(() => {
-          this.likeTargetHanding = false;
-          this.answer.liked = true;
-          this.answer.likes_count += 1;
-        })
-        .catch(({ response: { data } = {} }) => {
-          this.likeTargetHanding = false;
-          this.$Message.error(data);
-        });
-    },
-    handleUnlike() {
-      unlike(this.answer.id)
-        .then(() => {
-          this.likeTargetHanding = false;
-          this.answer.liked = false;
-          this.answer.likes_count -= 1;
-        })
-        .catch(({ response: { data } = {} }) => {
-          this.likeTargetHanding = false;
-          this.$Message.error(data);
-        });
-    },
+    handleLike() {},
+    handleUnlike() {},
     handleLikeTarget() {
       if (this.likeTargetHanding) {
         this.$Message.warning("正在执行，请勿重复点击!");
