@@ -98,9 +98,6 @@
         </div>
       </main>
 
-      <!-- 详情页广告位 -->
-      <detail-ad type="group:post"/>
-
       <!-- 评论列表 -->
       <div id="comment_list" class="m-box-model m-art-comments">
         <ul class="m-box m-aln-center m-art-comments-tabs">
@@ -135,7 +132,6 @@
 import markdownIt from "markdown-it";
 import plusImagePlugin from "markdown-it-plus-image";
 import FeedDetail from "@/page/feed/FeedDetail.vue";
-import DetailAd from "@/components/advertisement/DetailAd.vue";
 import wechatShare from "@/util/wechatShare.js";
 import { followUserByStatus } from "@/api/user.js";
 import { limit } from "@/api";
@@ -143,9 +139,6 @@ import * as api from "@/api/group.js";
 
 export default {
   name: "GroupPostDetail",
-  components: {
-    DetailAd
-  },
   mixins: [FeedDetail],
   data: () => ({
     feed: {

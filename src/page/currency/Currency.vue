@@ -47,8 +47,6 @@
       </router-link>
     </ul>
 
-    <detail-ad type="currency"/>
-
     <footer>
       <p @click="showRule">
         <svg class="m-style-svg m-svg-small">
@@ -70,11 +68,10 @@
 <script>
 import { mapState } from "vuex";
 import PopupDialog from "@/components/PopupDialog.vue";
-import DetailAd from "@/components/advertisement/DetailAd.vue";
 
 export default {
   name: "Currency",
-  components: { PopupDialog, DetailAd },
+  components: { PopupDialog },
   data() {
     return {
       fromPageTitle: ""

@@ -36,11 +36,6 @@
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore" >
 
-      <!-- 热门动态顶部 banner 广告位 -->
-      <banner-ad
-        v-if="feedType === 'hot'"
-        type="feed:hot"/>
-
       <ul class="p-feed-list">
         <li
           v-for="(feed, index) in pinned"
@@ -73,15 +68,13 @@
  */
 
 import FeedCard from "@/components/FeedCard/FeedCard.vue";
-import FeedAdCard from "./components/FeedAdCard.vue";
-import BannerAd from "@/components/advertisement/BannerAd.vue";
 import { noop } from "@/util";
 
 const feedTypesMap = ["new", "hot", "follow"];
 
 export default {
   name: "FeedList",
-  components: { FeedCard, BannerAd, FeedAdCard },
+  components: { FeedCard },
   data() {
     return {};
   },
@@ -110,7 +103,6 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("feed/getAdvertise");
     this.onRefresh(noop);
   },
   methods: {
