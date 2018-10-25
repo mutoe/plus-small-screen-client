@@ -1,3 +1,23 @@
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/slimkit/plus-small-screen-client/compare/v4.1.0...v4.1.1) (2018-10-25)
+
+
+### Bug Fixes
+
+* ([#545](https://github.com/slimkit/plus-small-screen-client/issues/545)) 从每日签到进入个人主页后再返回，签到弹框消失的问题 ([a635af6](https://github.com/slimkit/plus-small-screen-client/commit/a635af6))
+* ([#560](https://github.com/slimkit/plus-small-screen-client/issues/560)) 修复 github-markdown-css 的默认字体样式在生产环境下覆盖了自定义样式的问题 ([db6f063](https://github.com/slimkit/plus-small-screen-client/commit/db6f063))
+* **comment:** ([#556](https://github.com/slimkit/plus-small-screen-client/issues/556)) 评论列表当评论很长时不显示更多按钮 ([ef2eeef](https://github.com/slimkit/plus-small-screen-client/commit/ef2eeef))
+* **comment:** ([#557](https://github.com/slimkit/plus-small-screen-client/issues/557)) 全局评论超过4行时只显示4行 ([07cc242](https://github.com/slimkit/plus-small-screen-client/commit/07cc242))
+* **feed:** ([#537](https://github.com/slimkit/plus-small-screen-client/issues/537)) 动态详情没有评论时显示图片占位符 ([536797a](https://github.com/slimkit/plus-small-screen-client/commit/536797a))
+* **find:** ([#576](https://github.com/slimkit/plus-small-screen-client/issues/576)) 推荐列表没有获取与用户相关标签的推荐 ([bf4827d](https://github.com/slimkit/plus-small-screen-client/commit/bf4827d))
+* **find:** ([#577](https://github.com/slimkit/plus-small-screen-client/issues/577)) 定位搜索市级区域时显示到市级区域 ([29ed9cb](https://github.com/slimkit/plus-small-screen-client/commit/29ed9cb))
+* **question:** ([#565](https://github.com/slimkit/plus-small-screen-client/issues/565)) 提问时不能选择重复的话题 ([8fcd742](https://github.com/slimkit/plus-small-screen-client/commit/8fcd742))
+* **share:** ([#579](https://github.com/slimkit/plus-small-screen-client/issues/579)) 在iOS的内置微信浏览器中分享出去的url地址不正确的问题 ([dd40151](https://github.com/slimkit/plus-small-screen-client/commit/dd40151))
+* **tag:** ([#534](https://github.com/slimkit/plus-small-screen-client/issues/534)) 选择标签时追加已存在标签则不取消选择 ([2e17187](https://github.com/slimkit/plus-small-screen-client/commit/2e17187))
+* **user:** ([#548](https://github.com/slimkit/plus-small-screen-client/issues/548)) 如果个人信息未变更，则完成按钮不可点 ([98f3113](https://github.com/slimkit/plus-small-screen-client/commit/98f3113))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/slimkit/plus-small-screen-client/compare/v4.0.2...v4.1.0) (2018-10-19)
 
