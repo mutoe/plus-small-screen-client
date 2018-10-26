@@ -98,6 +98,7 @@ export default {
           // 如果用户未绑定账号
           if (status !== 201) {
             this.getWechatUserInfo(accessToken, openId);
+            this.loading = false;
           } else {
             // 保存用户信息 并跳转
             const { token, user } = data;
@@ -112,9 +113,6 @@ export default {
               this.$store.commit("SAVE_CURRENTUSER", user);
             });
           }
-        })
-        .finally(() => {
-          this.loading = false;
         });
     },
 
