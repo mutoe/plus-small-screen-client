@@ -1,16 +1,30 @@
 <template>
   <div class="p-wechat-signin">
-
-    <common-header :back="$router.push('/')">绑定账号</common-header>
-
+    <header class="m-box m-aln-center m-head-top m-pos-f m-main m-bb1">
+      <router-link
+        tag="div"
+        to="/"
+        class="m-box m-aln-center m-flex-grow1 m-flex-base0">
+        <svg class="m-style-svg m-svg-def">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#icon-back"/>
+        </svg>
+      </router-link>
+      <div class="m-box m-aln-center m-justify-center m-flex-grow1 m-flex-base0 m-head-top-title">
+        <span>绑定账号</span>
+      </div>
+      <div class="m-box m-aln-center m-justify-end m-flex-grow1 m-flex-base0"/>
+    </header>
     <!-- loading -->
-    <div v-if="loading" class="m-spinner pos-f">
+    <div
+      v-if="loading"
+      class="m-spinner pos-f">
       <div/>
       <div/>
     </div>
 
     <div v-else>
-
       <transition name="toast">
         <div class="m-pop-box"/>
       </transition>
@@ -28,7 +42,6 @@
           </router-link>
         </div>
       </transition>
-
     </div>
   </div>
 </template>
@@ -78,7 +91,9 @@ export default {
       if (!accessToken || !openId) {
         const { data: { access_token, openid } = {} } = await this.$http.get(
           `socialite/getAccess/${code}`,
-          { validateStatus: status => status === 200 }
+          {
+            validateStatus: status => status === 200
+          }
         );
 
         openId = openid;
@@ -91,30 +106,29 @@ export default {
       this.$http
         .post(
           "socialite/wechat",
-          { access_token: accessToken },
-          { validateStatus: s => [201, 404].includes(s) }
-        )
-        .then(({ data, status }) => {
-          // 如果用户未绑定账号
-          if (status !== 201) {
-            this.getWechatUserInfo(accessToken, openId);
-          } else {
-            // 保存用户信息 并跳转
-            const { token, user } = data;
-            this.$router.push(this.$route.query.redirect || "/feeds?type=hot");
-            this.$nextTick(() => {
-              this.$lstore.removeData("H5_WECHAT_MP_OPENID");
-              this.$lstore.removeData("H5_WECHAT_MP_ASTOKEN");
-              this.$store.commit("SAVE_USER", user);
-              this.$store.dispatch("GET_UNREAD_COUNT");
-              this.$store.dispatch("GET_NEW_UNREAD_COUNT");
-              this.$lstore.setData("H5_ACCESS_TOKEN", `Bearer ${token || ""}`);
-              this.$store.commit("SAVE_CURRENTUSER", user);
-            });
+          {
+            access_token: accessToken
+          },
+          {
+            validateStatus: s => s === 201
           }
+        )
+        .then(({ data: { token = "", user = {} } = {} }) => {
+          // 保存用户信息 并跳转
+          this.$router.push(this.$route.query.redirect || "/feeds?type=hot");
+          this.$nextTick(() => {
+            this.$lstore.removeData("H5_WECHAT_MP_OPENID");
+            this.$lstore.removeData("H5_WECHAT_MP_ASTOKEN");
+            this.$store.commit("SAVE_USER", user);
+            this.$store.dispatch("GET_UNREAD_COUNT");
+            this.$store.dispatch("GET_NEW_UNREAD_COUNT");
+            this.$lstore.setData("H5_ACCESS_TOKEN", `Bearer ${token}`);
+            this.$store.commit("SAVE_CURRENTUSER", user);
+          });
         })
-        .finally(() => {
+        .catch(() => {
           this.loading = false;
+          this.getWechatUserInfo(accessToken, openId);
         });
     },
 
@@ -122,8 +136,13 @@ export default {
       this.$http
         .post(
           "socialite/getWechatUser",
-          { openid, access_token },
-          { validateStatus: s => s === 200 }
+          {
+            openid,
+            access_token
+          },
+          {
+            validateStatus: s => s === 200
+          }
         )
         .then(({ data: { nickname = "" } = {} }) => {
           this.WechatUname = nickname;
