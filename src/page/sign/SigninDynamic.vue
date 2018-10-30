@@ -81,7 +81,12 @@ export default {
   },
   computed: {
     disabled() {
-      return !this.account.length || this.code.length < 4 || this.loading;
+      return (
+        this.account.length !== 11 ||
+        this.code.length < 4 ||
+        this.code.length > 6 ||
+        this.loading
+      );
     },
     disabledCode() {
       return this.account.length !== 11 || this.countdown || this.codeLoading;
@@ -130,7 +135,7 @@ export default {
           this.codeLoading = false;
         });
     },
-    signinBycode() {
+    signinByCode() {
       this.loading = true;
 
       signinByAccount({
