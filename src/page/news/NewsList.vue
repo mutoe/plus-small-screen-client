@@ -22,7 +22,7 @@
       @onRefresh="onRefresh"
       @onLoadMore="onLoadMore">
 
-      <template v-for="card in list" >
+      <template v-for="card in newsList" >
         <news-card
           v-if="card.author"
           :key="`news${card.id}`"
@@ -83,7 +83,6 @@ export default {
           : { cate_id: this.currentCate };
       const data = await this.$store.dispatch("news/getNewsList", params);
       this.newsList = data;
-      this.list = data;
       this.$refs.loadmore.afterRefresh(data.length < 10);
     },
     async onLoadMore() {
@@ -95,7 +94,7 @@ export default {
       const data = await this.$store.dispatch("news/getNewsList", params);
       this.$refs.loadmore.afterLoadMore(data.length < 10);
 
-      this.list = [...this.list, ...data];
+      this.newsList = [...this.newsList, ...data];
     },
     /**
      * 投稿前进行认证确认
