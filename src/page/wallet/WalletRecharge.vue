@@ -129,7 +129,7 @@ export default {
       // 获取第三方支付地址,跳转过去
       const url = await this.$store.dispatch("wallet/requestRecharge", {
         amount,
-        redirect: `${location.origin}/wallet`, // 支付成功后回调地址
+        redirect: `${window.location.origin}${process.env.BASE_URL}/wallet`, // 支付成功后回调地址
         type
       });
       location.href = url;
