@@ -194,7 +194,7 @@ export default {
       this.loading = true;
       const url = await this.$store.dispatch("currency/requestRecharge", {
         amount,
-        redirect: `${location.origin}/currency`, // 支付成功后回调地址
+        redirect: `${window.location.origin}${process.env.BASE_URL}/currency`, // 支付成功后回调地址
         type
       });
       this.loading = false;
