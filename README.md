@@ -78,6 +78,6 @@ VUE_APP_LBS_GAODE_KEY=                                 # 高德地图 GAODE KEY
 
 ## License
 
-这个项目代码遵循 Apache 2.0 许可证发布，请参阅完整的 [许可证文本](https://github.com/slimkit/plus-small-screen-client/blob/master/LICENSE)
+Plus 代码采用企业定制许可证发布，请参阅完整的[许可证文本](https://github.com/slimkit/plus/blob/master/LICENSE)
 
 Copyright © 2018 Chengdu [ZhiYiChuangXiang](http://zhiyicx.com) Technology Co., Ltd. All rights reserved.
