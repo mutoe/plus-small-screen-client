@@ -25,12 +25,12 @@ export async function getHotCities() {
  */
 export async function getCurrentPosition() {
   let data = await location.getCurrentPosition();
-  let { city } = data.addressComponent || {};
+  let { city, province, formatted_address } = data.addressComponent || {};
 
   return {
     lng: data.position.getLng(),
     lat: data.position.getLat(),
-    label: city || "定位失败"
+    label: city || province || formatted_address || "定位失败"
   };
 }
 
