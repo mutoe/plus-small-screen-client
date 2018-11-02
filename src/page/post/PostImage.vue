@@ -139,8 +139,10 @@ export default {
             this.loading = false;
             this.goBack();
           })
-          .catch(() => {
-            this.$Message.error("发送失败，请稍后再试");
+          .catch(err => {
+            this.$Message.error(err.response.data);
+          })
+          .finally(() => {
             this.loading = false;
           });
       }
