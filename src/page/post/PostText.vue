@@ -165,11 +165,12 @@ export default {
         )
         .then(({ data }) => {
           this.$Message.success(data);
-          this.loading = false;
           this.$router.push("/feeds?type=new");
         })
-        .catch(() => {
-          this.$Message.error("发送失败，请稍后重试");
+        .catch(err => {
+          this.$Message.error(err.response.data);
+        })
+        .finally(() => {
           this.loading = false;
         });
     }
