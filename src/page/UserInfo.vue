@@ -121,7 +121,7 @@ export default {
     disabled() {
       if (!this.bio || !this.name) return true;
       if (this.location.label !== this.CURRENTUSER.location) return false;
-      return !["sex", "bio", "name", this.change].some(
+      return !["sex", "bio", "name", "avatar", this.change].some(
         key =>
           typeof key === "string"
             ? this.$data[key] !== this.CURRENTUSER[key]
