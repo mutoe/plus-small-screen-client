@@ -24,7 +24,8 @@
             @input="moveCurPos"/>
           <textarea
             ref="shadow"
-            v-model="shadowText"
+            :value="shadowText"
+            :disabled="true"
             class="textarea-shadow"
             rows="1"
             maxlength="255"/>
@@ -192,6 +193,7 @@ export default {
     .textarea-shadow {
       position: absolute;
       opacity: 0;
+      z-index: -1;
     }
   }
 
