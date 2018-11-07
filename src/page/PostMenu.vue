@@ -55,7 +55,7 @@
             <div
               key="ico_question"
               class="m-box-model m-aln-center m-post-menu-item"
-              @click="to('/post/question')">
+              @click="popupBuyTS()">
               <svg class="m-style-svg m-svg-def menu-svg">
                 <use xlink:href="#icon-release-question"/>
               </svg>
