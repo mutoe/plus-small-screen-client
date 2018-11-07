@@ -268,17 +268,19 @@ export default {
     },
     nextStep() {
       if (this.disabled) return;
-      this.step < 4 &&
-        ((this.animated = {
+      if (this.step < 4) {
+        this.animated = {
           enterClass: "animated slideInRight",
           leaveClass: "animated slideOutLeft"
-        }),
-        this.step === 1
-          ? this.question.title.endsWith("?") ||
-            this.question.title.endsWith("？")
-            ? (this.step = 2)
-            : this.$Message.error(`输入问题请以"?"结束`)
-          : (this.step += 1));
+        };
+        var endsWithQuesionMark =
+          this.question.title.endsWith("?") ||
+          this.question.title.endsWith("？");
+        if (this.step === 1 && endsWithQuesionMark) {
+          this.question.title += "?";
+        }
+        this.step += 1;
+      }
     },
     beforePost() {
       const { body, title } = this.question;
