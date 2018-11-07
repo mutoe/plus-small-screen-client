@@ -335,17 +335,7 @@ export default {
       });
     },
     rewardNews() {
-      const callback = amount => {
-        this.fetchRewards();
-        this.reward.count += 1;
-        this.reward.amount += amount;
-      };
-      this.$bus.$emit("reward", {
-        type: "news",
-        api: api.rewardNews,
-        payload: this.newsID,
-        callback
-      });
+      this.popupBuyTS();
     },
     likeNews() {
       // DELETE /news/{news}/likes
