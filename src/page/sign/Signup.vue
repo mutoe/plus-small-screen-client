@@ -260,7 +260,6 @@ export default {
         .then(() => {
           this.countdown = 60;
           this.countDown();
-          this.$Message.success("发送验证码成功");
           this.error = "";
         })
         .catch(err => {
