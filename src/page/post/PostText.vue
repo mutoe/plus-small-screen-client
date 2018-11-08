@@ -165,7 +165,7 @@ export default {
         )
         .then(({ data }) => {
           this.$Message.success(data);
-          this.$router.push("/feeds?type=new");
+          this.$router.replace(`/feeds/${data.id}`);
         })
         .catch(err => {
           this.$Message.error(err.response.data);
