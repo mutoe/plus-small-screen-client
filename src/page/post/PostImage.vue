@@ -132,12 +132,8 @@ export default {
               validateStatus: s => s === 201
             }
           )
-          .then(({ data: { id, message = ["发布成功"] } }) => {
-            if (id && id > 0) {
-              this.$Message.success(message);
-            }
-            this.loading = false;
-            this.goBack();
+          .then(() => {
+            this.$router.replace("/feeds?type=new&refresh=1");
           })
           .catch(err => {
             this.$Message.error(err.response.data);

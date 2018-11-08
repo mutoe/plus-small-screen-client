@@ -113,18 +113,23 @@ export default {
     this.$store.dispatch("feed/getAdvertise");
     this.onRefresh(noop);
   },
+  activated() {
+    if (this.$route.query.refresh) {
+      this.onRefresh();
+    }
+  },
   methods: {
-    async onRefresh(callback) {
+    async onRefresh() {
       const type = this.feedType.replace(/^\S/, s => s.toUpperCase());
       const action = `feed/get${type}Feeds`;
       const data = await this.$store.dispatch(action, { refresh: true });
-      callback(data.length < 15);
+      this.$refs.loadmore.afterRefresh(data.length < 15);
     },
-    async onLoadMore(callback) {
+    async onLoadMore() {
       const type = this.feedType.replace(/^\S/, s => s.toUpperCase());
       const action = `feed/get${type}Feeds`;
       const data = await this.$store.dispatch(action, { after: this.after });
-      callback(data.length < 15);
+      this.$refs.loadmore.afterLoadMore(data.length < 15);
     }
   }
 };
