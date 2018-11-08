@@ -120,6 +120,7 @@ export default {
     color: @primary;
     border: 1px solid currentColor;
     border-radius: 8px;
+    white-space: nowrap;
 
     &.active {
       color: #fff;
