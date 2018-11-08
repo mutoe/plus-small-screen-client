@@ -133,8 +133,11 @@ export default {
             }
           )
           .then(({ data: { id, message = ["发布成功"] } }) => {
-            this.$Message.success(message);
-            this.$router.replace(`/feeds/${id}`);
+            if (id && id > 0) {
+              this.$Message.success(message);
+            }
+            this.loading = false;
+            this.goBack();
           })
           .catch(err => {
             this.$Message.error(err.response.data);
