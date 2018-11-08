@@ -128,13 +128,10 @@ export default {
               new Date().valueOf() + "" + this.$store.state.CURRENTUSER.id,
             amount: this.amount
           },
-          {
-            validateStatus: s => s === 201
-          }
+          { validateStatus: s => s === 201 }
         )
-        .then(({ data }) => {
-          this.$Message.success(data);
-          this.$router.push("/feeds?type=new");
+        .then(() => {
+          this.$router.replace("/feeds?type=new&refresh=1");
         })
         .catch(err => {
           this.$Message.error(err.response.data);
