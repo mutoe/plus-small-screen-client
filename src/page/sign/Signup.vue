@@ -6,7 +6,10 @@
 
       <common-header>
         {{ _$type.label }}注册
-        <a slot="right" @click.prevent="changeType">{{ _$type.label2 }}</a>
+        <a
+          v-if="allowType === 'all'"
+          slot="right"
+          @click.prevent="changeType">{{ _$type.label2 }}</a>
       </common-header>
 
       <main>
@@ -181,6 +184,19 @@ export default {
   },
   computed: {
     ...mapState(["CONFIG"]),
+    allowType() {
+      // mobile-only | mail-only | all
+      return this.CONFIG.registerSettings.method;
+    },
+    currentType: {
+      get() {
+        if (this.allowType === "all") return this.verifiable_type || SMS;
+        return this.allowType === "mail-only" ? EMAIL : SMS;
+      },
+      set(val) {
+        this.verifiable_type = val;
+      }
+    },
     showProtocol() {
       const registerSettings = this.CONFIG.registerSettings || {};
       return registerSettings.showTerms || false;
@@ -218,7 +234,7 @@ export default {
       get() {
         let label = "";
         let label2 = "";
-        switch (this.verifiable_type) {
+        switch (this.currentType) {
           case SMS:
             label = "手机";
             label2 = "邮箱";
@@ -229,13 +245,13 @@ export default {
             break;
         }
         return {
-          value: this.verifiable_type,
+          value: this.currentType,
           label,
           label2
         };
       },
       set(val) {
-        this.verifiable_type = val;
+        this.currentType = val;
       }
     }
   },
@@ -325,7 +341,7 @@ export default {
         });
     },
     changeType() {
-      switch (this.verifiable_type) {
+      switch (this.currentType) {
         case SMS:
           this._$type = EMAIL;
           break;
