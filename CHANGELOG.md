@@ -1,3 +1,29 @@
+<a name="4.1.2"></a>
+## [4.1.2](https://github.com/slimkit/plus-small-screen-client/compare/v4.1.1...v4.1.2) (2018-11-09)
+
+
+### Bug Fixes
+
+* ([#598](https://github.com/slimkit/plus-small-screen-client/issues/598)) 发送验证码时不弹出顶部弹框 ([57ccb77](https://github.com/slimkit/plus-small-screen-client/commit/57ccb77))
+* 修复时间解析不正确的问题 ([7839d6a](https://github.com/slimkit/plus-small-screen-client/commit/7839d6a))
+* 兼容 safari 不支持解析标准的祖鲁时间格式 ([95cbad2](https://github.com/slimkit/plus-small-screen-client/commit/95cbad2))
+* **auth:** 退出登录后不提示请登录 ([1fca3a4](https://github.com/slimkit/plus-small-screen-client/commit/1fca3a4))
+* **comment:** 解决在iOS下评论输入框异常的问题 ([f92ebec](https://github.com/slimkit/plus-small-screen-client/commit/f92ebec))
+* **location:** 修复直辖市不能正常显示定位的问题 ([c606e8e](https://github.com/slimkit/plus-small-screen-client/commit/c606e8e))
+* **post:** ([#607](https://github.com/slimkit/plus-small-screen-client/issues/607)) 发布动态后跳转到最新动态列表并刷新 ([f846a74](https://github.com/slimkit/plus-small-screen-client/commit/f846a74))
+* **post:** ([#607](https://github.com/slimkit/plus-small-screen-client/issues/607)) 发布动态成功后跳转到动态详情页 ([094705b](https://github.com/slimkit/plus-small-screen-client/commit/094705b))
+* **post:** 修复发布动态时没有权限的报错信息 ([1ebe50b](https://github.com/slimkit/plus-small-screen-client/commit/1ebe50b))
+* **question:** ([#598](https://github.com/slimkit/plus-small-screen-client/issues/598)) 自动补全问题末尾的问号 ([23b6d15](https://github.com/slimkit/plus-small-screen-client/commit/23b6d15))
+* **question:** 问题时间显示为创建时间而非更新时间 ([29930e2](https://github.com/slimkit/plus-small-screen-client/commit/29930e2))
+* **signin:** ([#605](https://github.com/slimkit/plus-small-screen-client/issues/605)) 后台配置只有手机注册时前端不生效的问题 ([001144b](https://github.com/slimkit/plus-small-screen-client/commit/001144b))
+* **signin:** 修复微信登陆不能的问题 ([3c5f696](https://github.com/slimkit/plus-small-screen-client/commit/3c5f696))
+* **signin:** 修复微信登陆不能的问题 ([58733ad](https://github.com/slimkit/plus-small-screen-client/commit/58733ad))
+* **signin:** 验证码登录点击报错的问题 ([81267fb](https://github.com/slimkit/plus-small-screen-client/commit/81267fb))
+* **user:** 修改个人资料只更换头像时提交按钮依然不可用 ([55cc62c](https://github.com/slimkit/plus-small-screen-client/commit/55cc62c))
+* **wallet:** 修复充值成功后回掉地址跳到错误页面的问题 ([e21e1d1](https://github.com/slimkit/plus-small-screen-client/commit/e21e1d1))
+
+
+
 <a name="4.1.1"></a>
 ## [4.1.1](https://github.com/slimkit/plus-small-screen-client/compare/v4.1.0...v4.1.1) (2018-10-25)
 
