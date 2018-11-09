@@ -29,7 +29,11 @@ export default {
   // 注销登录
   SIGN_OUT({ commit }) {
     try {
-      Api.post(`/auth/logout`);
+      Api.post(
+        `/auth/logout`,
+        {},
+        { validateStatus: s => (s >= 200 && s < 300) || s === 401 }
+      );
       commit("SIGN_OUT");
     } catch (e) {
       // no condition here
