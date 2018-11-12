@@ -542,3 +542,17 @@ export function moveoutBlackList(groupId, memberId) {
   const url = `/plus-group/groups/${groupId}/blacklist/${memberId}`;
   return api.delete(url, { validateStatus: s => s === 204 });
 }
+
+/**
+ * 举报帖子
+ *
+ * @author mutoe <mutoe@foxmail.com>
+ * @export
+ * @param {number} postId
+ * @param {string} reason 举报理由
+ * @returns
+ */
+export function reportPost(postId, reason) {
+  const url = `/plus-group/reports/posts/${postId}`;
+  return api.post(url, { content: reason }, { validateStatus: s => s === 201 });
+}

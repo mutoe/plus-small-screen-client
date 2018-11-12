@@ -539,6 +539,19 @@ export default {
           }
         });
       }
+      if (!this.isMine) {
+        actions.push({
+          text: "举报",
+          method: () => {
+            this.$bus.$emit("report", {
+              type: "post",
+              payload: this.feed.id,
+              username: this.user.name,
+              reference: this.title
+            });
+          }
+        });
+      }
 
       this.$bus.$emit("actionSheet", actions, "取消");
     },
