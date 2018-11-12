@@ -9,7 +9,7 @@
 
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width m-main">
-          <p class="m-pinned-amount-label">举报 {{ username }} {{ typeText ? `的${typeText}` : '' }}</p>
+          <p class="m-pinned-amount-label">举报 <span class="primary">{{ username }}</span> {{ typeText ? `的${typeText}` : '' }}</p>
           <div class="reference">
             {{ reference }}
           </div>
@@ -167,10 +167,15 @@ export default {
     padding: 20px;
     background-color: #fff;
 
+    .primary {
+      color: @primary;
+    }
+
     .reference {
       margin-bottom: 20px;
       padding: 20px;
       background-color: #f4f5f6;
+      font-size: 26px;
     }
 
     .reason {
