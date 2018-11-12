@@ -339,7 +339,12 @@ export default {
         actions.push({
           text: "举报",
           method: () => {
-            this.$Message.info("举报功能开发中，敬请期待");
+            this.$bus.$emit("report", {
+              type: "feed",
+              payload: this.feedID,
+              username: this.user.name,
+              reference: this.body
+            });
           }
         });
       }
