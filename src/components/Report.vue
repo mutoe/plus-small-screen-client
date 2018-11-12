@@ -48,7 +48,7 @@ export default {
   components: { TextareaInput },
   data() {
     return {
-      show: true,
+      show: false,
       loading: false,
       reason: "",
       type: "",
