@@ -39,13 +39,15 @@ import { noop } from "@/util";
 import { reportFeed } from "@/api/feeds";
 import { reportNews } from "@/api/news";
 import { reportPost, reportPostComment } from "@/api/group";
+import { reportComment } from "@/api";
 import TextareaInput from "@/components/common/TextareaInput";
 
 const apiMap = {
   feed: reportFeed,
   news: reportNews,
   post: reportPost,
-  postComment: reportPostComment
+  postComment: reportPostComment,
+  comment: reportComment
 };
 
 export default {
@@ -76,6 +78,7 @@ export default {
           return "资讯";
         case "group":
           return "帖子";
+        case "comment":
         case "postComment":
           return "评论";
         default:
