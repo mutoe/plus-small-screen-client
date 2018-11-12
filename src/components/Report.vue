@@ -9,7 +9,7 @@
 
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width m-main">
-          <p class="m-pinned-amount-label">举报 {{ username }} 的动态</p>
+          <p class="m-pinned-amount-label">举报 {{ username }} 的{{ typeText }}</p>
           <div class="reference">
             {{ reference }}
           </div>
@@ -37,10 +37,12 @@
 <script>
 import { noop } from "@/util";
 import { reportFeed } from "@/api/feeds";
+import { reportNews } from "@/api/news";
 import TextareaInput from "@/components/common/TextareaInput";
 
 const apiMap = {
-  feed: reportFeed
+  feed: reportFeed,
+  news: reportNews
 };
 
 export default {
@@ -62,6 +64,16 @@ export default {
   computed: {
     disabled() {
       return !this.reason;
+    },
+    typeText() {
+      switch (this.type) {
+        case "feed":
+          return "动态";
+        case "news":
+          return "资讯";
+        default:
+          return "";
+      }
     }
   },
   watch: {

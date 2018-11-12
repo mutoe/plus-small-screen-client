@@ -430,7 +430,12 @@ export default {
             {
               text: "举报",
               method: () => {
-                this.$Message.info("举报功能开发中，敬请期待");
+                this.$bus.$emit("report", {
+                  type: "news",
+                  payload: this.newsID,
+                  username: this.news.user.name,
+                  reference: this.news.title
+                });
               }
             }
           ];

@@ -207,7 +207,7 @@ export function deleteFeedComment(feedId, commentId) {
  * @export
  * @param {number} feedId
  * @param {Object} data
- * @param {string} data.reason 举报理由
+ * @param {string} reason 举报理由
  * @returns
  */
 export function reportFeed(feedId, reason) {
