@@ -22,9 +22,9 @@
         <span class="m-text-cut">{{ user.name }}</span>
       </div>
       <div class="m-box m-flex-grow1 m-aln-center m-flex-base0 m-justify-end">
-        <!-- <svg class="m-style-svg m-svg-def">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-more"></use>
-        </svg> -->
+        <svg class="m-style-svg m-svg-def" @click="onMoreClick">
+          <use xlink:href="#icon-more"/>
+        </svg>
       </div>
     </header>
     <div v-if="loading" class="m-pos-f m-spinner">
@@ -461,7 +461,6 @@ export default {
         this.tags = data;
       });
     },
-
     fetchUserFeed(loadmore) {
       if (this.fetchFeeding) return;
       this.fetchFeeding = true;
@@ -564,6 +563,21 @@ export default {
     stopDrag() {
       this.dragging = false;
       this.dY > 300 && this.scrollTop <= 0 ? this.updateData() : (this.dY = 0);
+    },
+    onMoreClick() {
+      const actions = [];
+      actions.push({
+        text: "举报",
+        method: () => {
+          this.$bus.$emit("report", {
+            type: "user",
+            payload: this.userID,
+            username: this.user.name,
+            reference: this.user.bio
+          });
+        }
+      });
+      this.$bus.$emit("actionSheet", actions);
     }
   }
 };

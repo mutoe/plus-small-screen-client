@@ -9,7 +9,7 @@
 
       <main class="m-box-model m-aln-center m-justify-center">
         <div class="m-box-model m-lim-width m-main">
-          <p class="m-pinned-amount-label">举报 {{ username }} 的{{ typeText }}</p>
+          <p class="m-pinned-amount-label">举报 {{ username }} {{ typeText ? `的${typeText}` : '' }}</p>
           <div class="reference">
             {{ reference }}
           </div>
@@ -39,6 +39,7 @@ import { noop } from "@/util";
 import { reportFeed } from "@/api/feeds";
 import { reportNews } from "@/api/news";
 import { reportPost, reportPostComment } from "@/api/group";
+import { reportUser } from "@/api/user";
 import { reportComment } from "@/api";
 import TextareaInput from "@/components/common/TextareaInput";
 
@@ -47,7 +48,8 @@ const apiMap = {
   news: reportNews,
   post: reportPost,
   postComment: reportPostComment,
-  comment: reportComment
+  comment: reportComment,
+  user: reportUser
 };
 
 export default {
