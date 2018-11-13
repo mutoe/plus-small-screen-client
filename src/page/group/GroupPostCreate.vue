@@ -128,10 +128,6 @@ export default {
   height: 100%;
   background-color: #fff;
 
-  .primary {
-    color: @primary;
-  }
-
   .disabled {
     color: #ccc;
   }

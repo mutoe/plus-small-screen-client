@@ -134,7 +134,7 @@
         <span>打赏</span>
       </div>
       <div
-        :class="{ c_59b6d7: relation.status !== 'unFollow' }"
+        :class="{ primary: relation.status !== 'unFollow' }"
         class="m-flex-grow0 m-flex-shrink0 m-box m-aln-center m-justify-center"
         @click="followUserByStatus(relation.status)">
         <svg class="m-style-svg m-svg-def">

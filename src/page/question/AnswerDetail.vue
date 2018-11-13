@@ -20,7 +20,7 @@
           <h2 v-else class="m-text-cut">匿名用户</h2>
           <p v-if="isMine || !answer.anonymity" class="m-text-cut">{{ user.bio || "这家伙很懒,什么也没留下" }}</p>
         </div>
-        <template v-if="!isMine && !answer.anonymity" :class="{ c_59b6d7: user.follower }" >
+        <template v-if="!isMine && !answer.anonymity" :class="{ primary: user.follower }" >
           <span
             v-if="!user.follower"
             class="actived"

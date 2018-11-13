@@ -167,10 +167,6 @@ export default {
     padding: 20px;
     background-color: #fff;
 
-    .primary {
-      color: @primary;
-    }
-
     .reference {
       margin-bottom: 20px;
       padding: 20px;

@@ -15,7 +15,7 @@
       <template
         v-if="!isMine"
         slot="right"
-        :class="{ c_59b6d7: relation.status !== 'unFollow' }" >
+        :class="{ primary: relation.status !== 'unFollow' }" >
         <svg class="m-style-svg m-svg-def" @click="followUserByStatus(relation.status)">
           <use :xlink:href="relation.icon"/>
         </svg>
